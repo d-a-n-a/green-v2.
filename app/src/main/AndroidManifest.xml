@@ -23,7 +23,9 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCEa4xCNXzzumzQI074uiBhIYaq4tsOPjM" /> <!-- aici trebuie sa iau cheie noua, aia de la greenapp nu a mers; asta e de la proiect dam -->
         <activity android:name=".eco.org.greenapp.activities.SignIn"></activity>
-        <activity android:name=".eco.org.greenapp.activities.CreateAccount" />
+        <activity android:name=".eco.org.greenapp.activities.CreateAccount" >
+
+        </activity>
         <activity
             android:name=".eco.org.greenapp.activities.AddProduct"
             android:label="@string/adding" />
@@ -31,23 +33,26 @@
         <activity android:name=".eco.org.greenapp.activities.AdForProduct" />
         <activity android:name=".eco.org.greenapp.activities.AddDemandProduct" />
         <activity android:name=".eco.org.greenapp.activities.Feedback" />
-        <activity android:name=".eco.org.greenapp.activities.MyProfile" />
+        <activity android:name=".eco.org.greenapp.activities.MyProfile" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".eco.org.greenapp.activities.ProfileSettings"
             android:label="@string/settings">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="eco.org.greenapp.AppMenu" />
+
         </activity>
         <activity
             android:name=".AppMenu"
             android:label="@string/title_activity_app_menu"
             android:theme="@style/AppTheme.NoActionBar" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".eco.org.greenapp.activities.Home">
             <meta-data

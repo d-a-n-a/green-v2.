@@ -11,10 +11,20 @@ public class User {
     private String locatie;
     private String dataInregistrarii;
     private String biografie;
+    private String email;
+
     //fotografie!
     //dar trebui e sa ii iau si tranzactiile si anunturile!! -  pe astea le fac din shared preferences mai bine cu emailul!
 
     public User(){}
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public String getNume() {
         return nume;
