@@ -1,0 +1,119 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="eco.org.greenapp.FragmentGeneralUserInfo">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="false">
+
+        <TextView
+            android:id="@+id/biographyUser"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/border_edit_text"
+            android:elegantTextHeight="false"
+            android:fontFamily="@font/lora_regular"
+            android:freezesText="false"
+            android:paddingBottom="10dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="10dp"
+            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                     incididunt ut labore et dolore magna aliqua."
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/graphicArea"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/signUpDateLayout"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="35dp"
+            android:elevation="2dp"
+            android:src="@drawable/ic_launcher_background" />
+
+        <LinearLayout
+            android:id="@+id/signUpDateLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/userKmDistance"
+            android:layout_marginTop="20dp"
+            android:weightSum="2">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_weight="0.87"
+                android:fontFamily="@font/lora_regular"
+                android:text="@string/signUpDate"
+                android:textAlignment="viewEnd" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_weight="0.1"
+                android:text=" || "
+                android:textAlignment="center"
+                android:textColor="@color/colorGreenSheen"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/userSignUpDate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="0.93"
+                android:fontFamily="@font/lora_regular"
+                android:gravity="center_vertical"
+                android:text="12/12/2017"
+                tools:layout_editor_absoluteX="62dp"
+                tools:layout_editor_absoluteY="169dp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/biographyUser"
+            android:layout_below="@+id/biographyUser"
+            android:layout_marginTop="12dp"
+            android:layout_weight="1"
+            android:text="@string/userDistance"
+            android:visibility="invisible" />
+
+        <TextView
+            android:id="@+id/userKmDistance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignWithParentIfMissing="false"
+            android:layout_below="@+id/textView14"
+            android:layout_centerHorizontal="true"
+            android:layout_centerInParent="false"
+            android:layout_marginTop="9dp"
+            android:layout_weight="1"
+            android:background="@drawable/border_green_edit_text"
+            android:drawableLeft="@android:drawable/ic_menu_compass"
+            android:gravity="center_vertical"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:text=" x km"
+            android:textColor="@color/colorGreenSheen" />
+
+    </RelativeLayout>
+
+</FrameLayout>

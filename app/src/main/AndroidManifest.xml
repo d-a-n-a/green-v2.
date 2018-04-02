@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="eco.org.greenapp">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCEa4xCNXzzumzQI074uiBhIYaq4tsOPjM" /> <!-- aici trebuie sa iau cheie noua, aia de la greenapp nu a mers; asta e de la proiect dam -->
+        <activity android:name=".eco.org.greenapp.activities.SignIn"></activity>
+        <activity android:name=".eco.org.greenapp.activities.CreateAccount" />
+        <activity
+            android:name=".eco.org.greenapp.activities.AddProduct"
+            android:label="@string/adding" />
+        <activity android:name=".eco.org.greenapp.activities.UserInfo" />
+        <activity android:name=".eco.org.greenapp.activities.AdForProduct" />
+        <activity android:name=".eco.org.greenapp.activities.AddDemandProduct" />
+        <activity android:name=".eco.org.greenapp.activities.Feedback" />
+        <activity android:name=".eco.org.greenapp.activities.MyProfile" />
+        <activity
+            android:name=".eco.org.greenapp.activities.ProfileSettings"
+            android:label="@string/settings">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="eco.org.greenapp.AppMenu" />
+        </activity>
+        <activity
+            android:name=".AppMenu"
+            android:label="@string/title_activity_app_menu"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".eco.org.greenapp.activities.Home">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="eco.org.greenapp.eco.org.greenapp.activities.ProfileSettings" />
+        </activity>
+        <activity android:name=".eco.org.greenapp.profile_activities.ChangeAboutMe">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="eco.org.greenapp.eco.org.greenapp.activities.ProfileSettings" />
+        </activity>
+        <activity android:name=".eco.org.greenapp.profile_activities.ChangeLastName">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="eco.org.greenapp.eco.org.greenapp.activities.ProfileSettings" />
+        </activity>
+        <activity android:name=".eco.org.greenapp.profile_activities.ChangeFirstName">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="eco.org.greenapp.eco.org.greenapp.activities.ProfileSettings" />
+        </activity>
+        <activity android:name=".eco.org.greenapp.profile_activities.ChangeLocation">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="eco.org.greenapp.eco.org.greenapp.activities.ProfileSettings" />
+        </activity>
+        <activity android:name=".eco.org.greenapp.profile_activities.ChangePhoneNumber">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="eco.org.greenapp.eco.org.greenapp.activities.ProfileSettings" />
+        </activity>
+        <activity android:name=".eco.org.greenapp.profile_activities.ChangeEmail">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="eco.org.greenapp.eco.org.greenapp.activities.ProfileSettings" />
+        </activity>
+        <activity android:name=".eco.org.greenapp.profile_activities.ChangeUsername">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="eco.org.greenapp.eco.org.greenapp.activities.ProfileSettings" />
+        </activity>
+        <activity android:name=".eco.org.greenapp.profile_activities.ChangePassword">
+
+        </activity>
+        <activity android:name=".eco.org.greenapp.profile_activities.ChangeProfilePhoto">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="eco.org.greenapp.eco.org.greenapp.activities.ProfileSettings" />
+
+        </activity>
+    </application>
+
+</manifest>

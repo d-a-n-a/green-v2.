@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="eco.org.greenapp.eco.org.greenapp.activities.SignIn"
+    tools:layout_editor_absoluteY="81dp">
+
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="12dp"
+        android:background="@color/backgroundLight"
+        app:layout_constraintBottom_toTopOf="@+id/btnAuthenticate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <Button
+            android:id="@+id/btnCreateAccount"
+            android:layout_width="233dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="41dp"
+            android:background="@drawable/button_log_in"
+            android:elegantTextHeight="true"
+            android:fontFamily="@font/nanum_gothic_regular"
+            android:text="@string/signup"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <EditText
+            android:id="@+id/userFirstName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="40dp"
+            android:layout_marginStart="40dp"
+            android:drawableLeft="@drawable/useravatar"
+            android:drawablePadding="10dp"
+            android:ems="10"
+            android:fontFamily="@font/lora_regular"
+            android:hint="@string/lastName"
+            android:inputType="textPersonName"
+            android:textColorLink="@color/colorAccentMild"
+            app:layout_constraintBottom_toTopOf="@+id/userLastName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <EditText
+            android:id="@+id/userLastName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="40dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="143dp"
+            android:drawableLeft="@drawable/useravatar"
+            android:drawablePadding="10dp"
+            android:ems="10"
+            android:fontFamily="@font/lora_regular"
+            android:hint="@string/firstName"
+            android:inputType="textPersonName"
+            android:textColorLink="@color/colorAccentMild"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/userEmail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="273dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginStart="40dp"
+            android:drawableLeft="@drawable/mail"
+            android:drawablePadding="10dp"
+            android:ems="10"
+            android:fontFamily="@font/lora_regular"
+            android:hint="@string/email"
+            android:inputType="textEmailAddress"
+            android:textColorLink="@color/colorAccentMild"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/createAccountInfo" />
+
+        <EditText
+            android:id="@+id/userPassword"
+            android:layout_width="330dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="40dp"
+            android:layout_marginStart="40dp"
+            android:drawableLeft="@drawable/padlock"
+            android:drawablePadding="10dp"
+            android:ems="10"
+            android:fontFamily="@font/lora_regular"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:textColorLink="@color/colorAccentMild"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/userEmail" />
+
+        <EditText
+            android:id="@+id/userPhone"
+            android:layout_width="330dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginStart="40dp"
+            android:drawableLeft="@drawable/phonecall"
+            android:drawablePadding="10dp"
+            android:ems="10"
+            android:fontFamily="@font/lora_regular"
+            android:hint="@string/phoneno"
+            android:inputType="phone"
+            android:textColorLink="@color/colorAccentMild"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/userPassword" />
+
+        <EditText
+            android:id="@+id/userUsername"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="40dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="48dp"
+            android:drawableLeft="@drawable/useravatar"
+            android:drawablePadding="10dp"
+            android:ems="10"
+            android:fontFamily="@font/lora_regular"
+            android:hint="@string/userUsername"
+            android:inputType="textPersonName"
+            android:textColorLink="@color/colorAccentMild"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/userPhone" />
+
+        <TextView
+            android:id="@+id/createAccountInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="118dp"
+            android:layout_marginTop="34dp"
+            android:fontFamily="@font/nanum_gothic_regular"
+            android:inputType="textMultiLine"
+            android:paddingLeft="40dp"
+            android:paddingRight="40dp"
+            android:text="@string/createAccountInfo"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/userEmail"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <Button
+        android:id="@+id/btnAuthenticate"
+        android:layout_width="229dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="41dp"
+        android:background="@drawable/button_sign_in"
+        android:elegantTextHeight="true"
+        android:fontFamily="@font/nanum_gothic_regular"
+        android:text="@string/signin"
+        android:textColor="@android:color/background_light"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+
+</android.support.constraint.ConstraintLayout>

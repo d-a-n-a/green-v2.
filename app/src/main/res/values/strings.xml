@@ -1,0 +1,129 @@
+<resources>
+    <string name="app_name">GreenApp</string>
+    <string name="signin">Autentificare</string>
+    <string name="signup">Creare cont</string>
+    <string name="firstName">Prenume</string>
+    <string name="lastName">Nume</string>
+    <string name="email">E-mail</string>
+    <string name="password">Parola</string>
+    <string name="phoneno">Telefon</string>
+    <string name="productName">Denumire</string>
+    <string name="productDescription">Descriere produs</string>
+    <string name="adding">Completati toate campurile</string>
+    <string name="day">zi</string>
+    <string name="month">luna</string>
+    <string name="year">an</string>
+    <string-array name="productType">
+        <item>Selectati</item>
+        <item>Alimente</item>
+        <item>Haine</item>
+        <item>Altele</item>
+    </string-array>
+
+    <string name="productCategory">Categorie</string>
+    <string name="addAd">Adauga Anunt</string>
+    <string name="tranzactionArea">Zona aproximativa de predare</string>
+    <string name="productDetails">Detalii</string>
+    <string name="addProductIndication">Descrieti produsul pe care doriti sa il adaugati.</string>
+    <string name="addPhoto">Adauga fotografie</string>
+    <string name="availability">Valabilitate</string>
+    <string name="createAccountInfo">Completeaza urmatoarele campuri obligatorii.</string>
+    <string name="addReview">inregistrare review</string>
+    <string name="addReviewForUser">Adaugare review pentru utilizatorul</string>
+    <string name="reviewTitle">subiect</string>
+    <string name="photo">Fotografie</string>
+    <string name="about">Despre</string>
+    <string name="reviewScore">Punctaj</string>
+    <string name="usernameOrPassword">Username sau e-mail</string>
+    <string name="user">user</string>
+    <string name="adds">anunturi</string>
+    <string name="review">Review</string>
+    <string name="signUpDate">Data inregistrarii</string>
+    <string name="userDistance">Distanta aproximativa pana la user este de x km sau m.</string>
+    <string name="byWho">postat de</string>
+    <string name="title_activity_app_menu">AppMenu</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="help">Help</string>
+    <string name="logout">Deconectare</string>
+    <string name="settings">Setari</string>
+    <string name="notify">Notificari</string>
+    <string name="messages">Mesaje</string>
+    <string name="home">Pagina principala</string>
+    <string name="title_activity_base">BaseActivity</string>
+    <string name="transactionHistory">Istoric</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="profile">Profilul meu</string>
+    <string name="nullInputs">Completati username si parola!</string>
+    <string name="userUsername">Username</string>
+    <string name="btnUpdateAboutMe">Salvare</string>
+    <string name="howToCompleteAboutMe">Desrierea trebuie sa aiba minim 20 caractere si sa fie diferita de cea anterioara(ca sa se justifice update in php).</string>
+    <string name="hintCity">judet</string>
+    <string name="street">locatie aproximativa</string>
+    <string name="spinnerSelection">Tara</string>
+    <string-array name="cityList">
+        <item>Bucuresti</item>
+        <item>Alba</item>
+        <item>Arad</item>
+        <item>Arges</item>
+        <item>Bacau</item>
+        <item>Bihor</item>
+        <item>Bistrita-Nasaud</item>
+        <item>Botosani</item>
+        <item>Braila</item>
+        <item>Brasov</item>
+        <item>Buzau</item>
+        <item>Calarasi</item>
+        <item>Caras-Severin</item>
+        <item>Cluj</item>
+        <item>Constanta</item>
+        <item>Covasna</item>
+        <item>Dambovita</item>
+        <item>Dolj</item>
+        <item>Galati</item>
+        <item>Giurgiu</item>
+        <item>Gorj</item>
+        <item>Harghita</item>
+        <item>Hunedoara</item>
+        <item>Ialomita</item>
+        <item>Iasi</item>
+        <item>Ilfov</item>
+        <item>Maramures</item>
+        <item>Mehedinti</item>
+        <item>Mures</item>
+        <item>Neams</item>
+        <item>Olt</item>
+        <item>Prahova</item>
+        <item>Salaj</item>
+        <item>Satu Mare</item>
+        <item>Sibiu</item>
+        <item>Suceava</item>
+        <item>Teleorman</item>
+        <item>Timis</item>
+        <item>Tulcea</item>
+        <item>Vaslui</item>
+        <item>Valcea</item>
+        <item>Vrancea</item>
+    </string-array>
+
+    <string-array name="months">
+        <item>Ianuarie</item>
+        <item>Feburarie</item>
+        <item>Martie</item>
+        <item>Aprilie</item>
+        <item>Mai</item>
+        <item>Iunie</item>
+        <item>Iulie</item>
+        <item>August</item>
+        <item>Septembrie</item>
+        <item>Octombrie</item>
+        <item>Noiembrie</item>
+        <item>Decembrie</item>
+    </string-array>
+
+</resources>
