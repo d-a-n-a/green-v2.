@@ -1,10 +1,12 @@
 package eco.org.greenapp.eco.org.greenapp.classes;
 
+import java.io.Serializable;
+
 /**
  * Created by danan on 4/1/2018.
  */
 
-public class Advertisement {
+public class Advertisement implements Serializable{
     private int id;
     private String dataPostarii;
     private String tip;
@@ -12,9 +14,55 @@ public class Advertisement {
     private String denumireProdus;
     private String statusAnunt;
 //imaginea!!!!
+    private String valabilitate;
+    private String categorie;
+    private String locatieUser;
+    private String descriereProdus;
+    private String detaliiAnunt;
+
  public Advertisement(){}
     public int getId() {
         return id;
+    }
+
+    public String getValabilitate() {
+        return valabilitate;
+    }
+
+    public void setValabilitate(String valabilitate) {
+        this.valabilitate = valabilitate;
+    }
+
+    public String getCategorie() {
+        return categorie;
+    }
+
+    public void setCategorie(String categorie) {
+        this.categorie = categorie;
+    }
+
+    public String getLocatieUser() {
+        return locatieUser;
+    }
+
+    public void setLocatieUser(String locatieUser) {
+        this.locatieUser = locatieUser;
+    }
+
+    public String getDescriereProdus() {
+        return descriereProdus;
+    }
+
+    public void setDescriereProdus(String descriereProdus) {
+        this.descriereProdus = descriereProdus;
+    }
+
+    public String getDetaliiAnunt() {
+        return detaliiAnunt;
+    }
+
+    public void setDetaliiAnunt(String detaliiAnunt) {
+        this.detaliiAnunt = detaliiAnunt;
     }
 
     public void setId(int id) {

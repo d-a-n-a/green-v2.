@@ -1,10 +1,14 @@
 package eco.org.greenapp.eco.org.greenapp.activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -13,12 +17,29 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.text.ParseException;
+import java.util.Calendar;
+import java.util.Date;
+
 import eco.org.greenapp.R;
+import eco.org.greenapp.eco.org.greenapp.classes.Advertisement;
+import eco.org.greenapp.eco.org.greenapp.constants.GeneralConstants;
 
 public class AdForProduct extends AppCompatActivity implements OnMapReadyCallback {
 
     ImageView userProfilePhoto;
     SupportMapFragment mapFragment;
+    Advertisement ad;
+    Intent intent;
+
+    TextView denumireProdus;
+    TextView descriereProdus;
+    TextView categorie;
+    TextView valabilitate;
+    TextView locatie;
+    TextView detalii;
+    TextView status;
+    TextView zile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,11 +48,53 @@ public class AdForProduct extends AppCompatActivity implements OnMapReadyCallbac
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_ad_for_product);
 
+        denumireProdus = (TextView)findViewById(R.id.productName);
+        descriereProdus = (TextView)findViewById(R.id.productDescription);
+        categorie = (TextView)findViewById(R.id.category);
+        valabilitate  = (TextView)findViewById(R.id.dataValabilitate);
+        locatie = (TextView)findViewById(R.id.productLocation);
+        detalii = (TextView)findViewById(R.id.productDetails);
+        status = (TextView)findViewById(R.id.statusType);
+        zile = (TextView)findViewById(R.id.daysSincePosted);
+
+
+
         mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.locationMap);
         mapFragment.getMapAsync(this);
 
+        intent = getIntent();
+        ad = (Advertisement)intent.getSerializableExtra("selectedAd");
+        denumireProdus.setText(ad.getDenumireProdus());
+        descriereProdus.setText(ad.getDescriereProdus());
+        categorie.setText(ad.getCategorie());
+        valabilitate.setText(ad.getValabilitate());
+        locatie.setText(ad.getLocatieUser());
+        detalii.setText(ad.getDetaliiAnunt());
+        status.setText(ad.getStatusAnunt());
 
+        String dataIntroducerii = ad.getDataPostarii().trim();
+        Log.i("introducere", dataIntroducerii);
+        long days=0;
+        try {
+
+            Date oldDate = GeneralConstants.SDF.parse(dataIntroducerii);
+            Log.i("oldDate", oldDate.toString());
+
+            Date currentDate = new Date();
+            Log.i("curent", currentDate.toString());
+            long diff = currentDate.getTime() - oldDate.getTime();
+            long seconds = diff / 1000;
+            long minutes = seconds / 60;
+            long hours = minutes / 60;
+            days = hours / 24;
+
+Log.i("days", ""+days);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        zile.setText("anunt postat acum "+days + " zile");
     }
 
     @Override

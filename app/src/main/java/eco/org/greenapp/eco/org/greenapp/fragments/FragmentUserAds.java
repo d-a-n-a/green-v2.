@@ -6,9 +6,14 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.PopupMenu;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -16,10 +21,13 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -39,7 +47,7 @@ public class FragmentUserAds extends Fragment {
     private ListView lvAnunturi;
     private List<Advertisement> lista;
     SwipeRefreshLayout swipeContainer;
-
+    UserAdvertisementAdapter adapter;
     public FragmentUserAds() {
         // Required empty public constructor
     }
@@ -61,10 +69,12 @@ public class FragmentUserAds extends Fragment {
         }
 
 
+
         GetUserData gd = new GetUserData();
         gd.execute();
 
-        final UserAdvertisementAdapter adapter=new UserAdvertisementAdapter(getActivity(),R.layout.my_adds_item,lista);
+        adapter =new UserAdvertisementAdapter(getActivity(),R.layout.my_adds_item,lista);
+        adapter.notifyDataSetChanged();
         lvAnunturi=(ListView)view.findViewById(R.id.idLv);
         lvAnunturi.setAdapter(adapter);
 
@@ -81,6 +91,43 @@ public class FragmentUserAds extends Fragment {
 
 
 
+            }
+        });
+
+        lvAnunturi.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+                final PopupMenu popup = new PopupMenu(getContext(), view);
+                popup.getMenuInflater().inflate(R.menu.my_adds_options, popup.getMenu());
+                popup.show();
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+
+                        switch (item.getItemId()) {
+                            case R.id.idEdit:
+
+                                //TODO
+                                break;
+                            case R.id.idDelete:
+                                DeleteAd deleteAd = new DeleteAd();
+                                Toast.makeText(getContext(),""+lista.get(position).getId(), Toast.LENGTH_LONG).show();
+                                deleteAd.execute(lista.get(position).getId());
+
+                                lista.remove(position);
+                                adapter.notifyDataSetChanged();
+                                //delete from database
+
+                                Toast.makeText(getContext(), ""+position, Toast.LENGTH_LONG).show();
+                                break;
+
+                            default:
+                                break;
+                        }
+
+                        return true;
+                    }
+                });
             }
         });
 
@@ -133,6 +180,7 @@ public class FragmentUserAds extends Fragment {
                 for(int i=0; i<vectorAds.length(); i++){
                     JSONObject adItem = vectorAds.getJSONObject(i);
                     Advertisement ad = new Advertisement();
+                    ad.setId(Integer.parseInt(adItem.getString("id")));
                     ad.setUsername(adItem.getString("username"));
                     ad.setStatusAnunt(adItem.getString("tipStatus"));
                     ad.setDenumireProdus(adItem.getString("denumire"));
@@ -146,5 +194,59 @@ public class FragmentUserAds extends Fragment {
         }
     }
 
+    public class DeleteAd extends AsyncTask<Integer, Void, String>{
+
+        int idAnunt;
+        @Override
+        protected String doInBackground(Integer... integers) {
+            idAnunt = integers[0];
+            URL url = null;
+            try {
+                url = new URL("http://10.38.31.11:8080/greenapp/delete_advertisement.php");
+                HttpURLConnection con = (HttpURLConnection) url.openConnection();
+                con.setRequestMethod("POST");
+                con.setDoOutput(true);
+
+                OutputStream outputStream = con.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream,"UTF-8"));
+                String deleteById = URLEncoder.encode("id", "UTF-8") + "=" + URLEncoder.encode(""+idAnunt, "UTF-8");
+                bufferedWriter.write(deleteById);
+
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+
+
+                InputStream inputStream = con.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
+                String dataLine = "";
+                String updateResult = "";
+                while ((dataLine = bufferedReader.readLine()) != null) {
+                    updateResult += dataLine;
+                }
+                bufferedReader.close();
+
+                inputStream.close();
+
+
+                con.disconnect();
+return updateResult;
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String aVoid) {
+            super.onPostExecute(aVoid);
+            if(aVoid.equals(GeneralConstants.SUCCESS))
+                adapter.notifyDataSetChanged();
+        }
+    }
 
 }

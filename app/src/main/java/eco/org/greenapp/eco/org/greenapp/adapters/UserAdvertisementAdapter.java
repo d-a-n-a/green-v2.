@@ -2,10 +2,14 @@ package eco.org.greenapp.eco.org.greenapp.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -29,7 +33,9 @@ public class UserAdvertisementAdapter extends ArrayAdapter<Advertisement> {
         this.idResource = resource;
         this.ads = objects;
     }
-    public View getView(int position, View convertView, ViewGroup parent)
+
+
+    public View getView(final int position, View convertView, ViewGroup parent)
     {
         LayoutInflater li = LayoutInflater.from(getContext());
         View view = li.inflate(this.idResource,parent, false);
@@ -38,6 +44,7 @@ public class UserAdvertisementAdapter extends ArrayAdapter<Advertisement> {
         TextView tip = (TextView)view.findViewById(R.id.adType);
         TextView dataIntroducerii = (TextView)view.findViewById(R.id.dataIntroducerii);
         TextView status = (TextView)view.findViewById(R.id.statusInfo);
+        LinearLayout optiuni = (LinearLayout)view.findViewById(R.id.adOptions);
 
         Advertisement ad = this.ads.get(position);
         titlu.setText(ad.getDenumireProdus());

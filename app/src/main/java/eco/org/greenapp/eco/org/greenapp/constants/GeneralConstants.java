@@ -1,10 +1,13 @@
 package eco.org.greenapp.eco.org.greenapp.constants;
 
+import java.text.SimpleDateFormat;
+
 /**
  * Created by danan on 3/24/2018.
  */
 
 public class GeneralConstants {
+    public static final SimpleDateFormat SDF = new SimpleDateFormat("dd/MM/yyyy");
     public static final String SESSION = "user_session";
     public static final String TOKEN = "token";
     public static final String PASSWORD = "password";
@@ -20,5 +23,6 @@ public class GeneralConstants {
 public static final String INVALID = "Acest email/username nu corespunde niciunui cont.";
     public static final String INSERT_ADD = "insert_add" ;
     public static final String INSERT_DEMAND = "demand" ;
+    public static final String SUCCESS = "success";
 
 }

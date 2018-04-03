@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorGreenSheen"
     tools:context="eco.org.greenapp.FragmentUserReviews">
 
     <!-- TODO: Update blank fragment layout -->
@@ -21,9 +20,15 @@
         app:backgroundTint="@color/colorBackgound"
         app:srcCompat="@drawable/messages" />
 
-    <TextView
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/idSwipeReview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="aici vor aparea reviews de la ceilalti useri. in cazul in care nu are, va aparea un mesaj 'Momentan pentru user nu au fost inregistrate pareti cu privire la tranzactii'" />
+        android:layout_height="match_parent">
 
+        <ListView
+            android:id="@+id/idLvReview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"></ListView>
+    </android.support.v4.widget.SwipeRefreshLayout>
 </FrameLayout>

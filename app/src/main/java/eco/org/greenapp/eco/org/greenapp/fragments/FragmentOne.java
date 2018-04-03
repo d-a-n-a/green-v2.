@@ -1,5 +1,6 @@
 package eco.org.greenapp.eco.org.greenapp.fragments;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -19,6 +21,7 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -26,6 +29,7 @@ import java.util.List;
 
 import eco.org.greenapp.R;
 import eco.org.greenapp.RequestHttp;
+import eco.org.greenapp.eco.org.greenapp.activities.AdForProduct;
 import eco.org.greenapp.eco.org.greenapp.adapters.AdvertisementAdapter;
 import eco.org.greenapp.eco.org.greenapp.classes.Advertisement;
 
@@ -77,6 +81,16 @@ public class FragmentOne extends Fragment {
                 }
             });
 
+
+            lvAnunturi.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Intent intent = new Intent(getActivity().getApplicationContext(), AdForProduct.class);
+                    intent.putExtra("selectedAd", (Serializable)lista.get(position));
+                    startActivity(intent);
+                }
+            });
+
             return view;
         }
 public  class GetData extends AsyncTask<Void,Void,String> {
@@ -113,6 +127,11 @@ public  class GetData extends AsyncTask<Void,Void,String> {
                 ad.setDenumireProdus(adItem.getString("denumire"));
                 ad.setTip(adItem.getString("tipAnunt"));
                 ad.setDataPostarii(adItem.getString("dataIntroducerii"));
+                ad.setCategorie(adItem.getString("categorie"));
+                ad.setLocatieUser(adItem.getString("strada"));
+                ad.setDescriereProdus(adItem.getString("descriereProdus"));
+                ad.setDetaliiAnunt(adItem.getString("detaliiAnunt"));
+                ad.setValabilitate(adItem.getString("valabilitate"));
                 lista.add(ad);
             }
         } catch (JSONException e) {
