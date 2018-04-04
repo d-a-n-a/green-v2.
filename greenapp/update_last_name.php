@@ -116,28 +116,29 @@ else
 			else
 				if($code === "5")
 				{
-					$update_about = $connect->prepare("update users set biografie = ? where email like ?");
+					$update_about = $connect->prepare("update users set biografie = ? where email like ?;");
 					$update_about -> bind_param('ss', $new_value, $email);
 					$update_about -> execute();
-					$update_about ->store_result();
-					if($update_about->num_rows>0)
-					{
-						echo "success";
-					}
-					else
-					{
-						echo "fail";
-					}
+					$update_about ->store_result(); 
 				}
 				else 
 					if($code === "6")
 					{
-						//update fotografie
+						$update_fotografie = $connect->prepare("update users set fotografie = ? where email like ?;");
+						$update_fotografie -> bind_param('ss', $new_value, $email);
+						$update_fotografie -> execute();
+						$update_fotografie ->store_result();
 					}
 					else
 						if($code === "7")
 						{
-							//update parola
+							
+							$hash_pass = md5($new_value);
+							$update_parola = $connect->prepare("update users set parola = ? where email like ?;");
+							$update_parola -> bind_param('ss', $hash_pass, $email);
+							$update_parola -> execute();
+							$update_parola ->store_result();
+					 						
 						}
 						// !!!! switch !!!!
 						

@@ -1,6 +1,8 @@
 package eco.org.greenapp.eco.org.greenapp.fragments;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,9 +12,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupMenu;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -34,6 +38,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import eco.org.greenapp.R;
+import eco.org.greenapp.eco.org.greenapp.activities.AddProduct;
+import eco.org.greenapp.eco.org.greenapp.activities.TransactionDetails;
 import eco.org.greenapp.eco.org.greenapp.adapters.AdvertisementAdapter;
 import eco.org.greenapp.eco.org.greenapp.adapters.UserAdvertisementAdapter;
 import eco.org.greenapp.eco.org.greenapp.classes.Advertisement;
@@ -48,6 +54,9 @@ public class FragmentUserAds extends Fragment {
     private List<Advertisement> lista;
     SwipeRefreshLayout swipeContainer;
     UserAdvertisementAdapter adapter;
+    Dialog dialog;
+    Spinner statusSpinner;
+
     public FragmentUserAds() {
         // Required empty public constructor
     }
@@ -107,20 +116,44 @@ public class FragmentUserAds extends Fragment {
                         switch (item.getItemId()) {
                             case R.id.idEdit:
 
-                                //TODO
+                            {
+
+/*
+                               Intent intent = new Intent(getContext(), AddProduct.class);
+                               intent.putExtra("editAd", lista.get(position));
+                               startActivity(intent);*/
+                            }
                                 break;
                             case R.id.idDelete:
                                 DeleteAd deleteAd = new DeleteAd();
-                                Toast.makeText(getContext(),""+lista.get(position).getId(), Toast.LENGTH_LONG).show();
                                 deleteAd.execute(lista.get(position).getId());
 
                                 lista.remove(position);
                                 adapter.notifyDataSetChanged();
-                                //delete from database
-
-                                Toast.makeText(getContext(), ""+position, Toast.LENGTH_LONG).show();
                                 break;
 
+                            case R.id.idEditStaus:
+                                //deschidere popup din care sa aleaga categoria - sa corespunda cu idurile din
+                                dialog = new Dialog(getContext());
+                                dialog.setContentView(R.layout.select_status);
+                                dialog.show();
+                                statusSpinner = (Spinner)dialog.findViewById(R.id.idNewStatus);
+                                ((Button)dialog.findViewById(R.id.btnSaveNewStatus)).setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        dialog.dismiss();
+                                        String idNewStatus = getResources().getStringArray(R.array.idEditAdStatus)[statusSpinner.getSelectedItemPosition()];
+                                        EditStatusAd editStatusAd  = new EditStatusAd();
+                                        editStatusAd.execute(""+lista.get(position).getId(), idNewStatus);
+                                        if(statusSpinner.getSelectedItem().toString().equals("indisponibil")){
+                                            Intent intent = new Intent(getContext(), TransactionDetails.class);
+                                            intent.putExtra("idAd", lista.get(position).getId());
+                                            startActivity(intent);
+                                        }
+                                    }
+                                });
+
+                                break;
                             default:
                                 break;
                         }
@@ -202,7 +235,8 @@ public class FragmentUserAds extends Fragment {
             idAnunt = integers[0];
             URL url = null;
             try {
-                url = new URL("http://10.38.31.11:8080/greenapp/delete_advertisement.php");
+               // url = new URL("http://10.38.31.11:8080/greenapp/delete_advertisement.php");
+                url = new URL("http://192.168.100.4:8080/greenapp/delete_advertisement.php");
                 HttpURLConnection con = (HttpURLConnection) url.openConnection();
                 con.setRequestMethod("POST");
                 con.setDoOutput(true);
@@ -246,6 +280,68 @@ return updateResult;
             super.onPostExecute(aVoid);
             if(aVoid.equals(GeneralConstants.SUCCESS))
                 adapter.notifyDataSetChanged();
+        }
+    }
+
+    public class EditStatusAd extends AsyncTask<String, Void, String>{
+        String idNewStatus;
+        String idAd;
+        @Override
+        protected String doInBackground(String... strings) {
+                idAd = strings[0];
+                idNewStatus = strings[1];
+            try {
+                URL url = new URL("http://192.168.100.4:8080/greenapp/update_ad_status.php");
+                HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
+
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoInput(true);
+                httpURLConnection.setDoOutput(true);
+
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+                String updateValues = URLEncoder.encode("idAd", "UTF-8") + "=" + URLEncoder.encode(idAd, "UTF-8") + "&"
+                        + URLEncoder.encode("idStatus", "UTF-8") + "=" + URLEncoder.encode(idNewStatus, "UTF-8");
+                bufferedWriter.write(updateValues);
+
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+
+                InputStream inputStream = httpURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
+                String dataLine = "";
+                String updateResult = "";
+                while ((dataLine = bufferedReader.readLine()) != null) {
+                    updateResult += dataLine;
+                }
+                bufferedReader.close();
+
+                inputStream.close();
+                httpURLConnection.disconnect();
+
+                return updateResult;
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            if(s.equals(GeneralConstants.SUCCESS)) {
+
+                        lista.clear();
+                        adapter.notifyDataSetChanged();
+                        GetUserData gd = new GetUserData();
+                        gd.execute();
+
+            }
         }
     }
 

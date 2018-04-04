@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<LinearLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginTop="10dp"
+    android:orientation="vertical">
+
+    <android.support.design.widget.TextInputEditText
+        android:id="@+id/locatieIntalnire"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Locatie"
+        android:inputType="textMultiLine" />
+
+    <MultiAutoCompleteTextView
+        android:id="@+id/userIntalnire"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:hint="User"
+        android:inputType="textMultiLine" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:weightSum="3">
+
+        <EditText
+            android:id="@+id/dataIntalnire"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:hint="dd/mm/yyyy"
+            android:inputType="textMultiLine" />
+
+        <Button
+            android:id="@+id/btnPickDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Selectare" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_weight="3">
+
+        <EditText
+            android:id="@+id/oraIntalnire"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:hint="hh:mm"
+            android:inputType="textMultiLine" />
+
+        <Button
+            android:id="@+id/btnPickHour"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Selectare" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnSaveTransactionDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Salvare" />
+</LinearLayout>
+</ScrollView>

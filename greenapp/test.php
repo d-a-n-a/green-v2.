@@ -18,7 +18,7 @@ $descriere = $_POST["descriere"];
 	    $insertProdus->bind_param('sdds', $denumire, $valabilitate, $idCategorie,$detalii);
 	    $insertProdus->execute();  
 		$idProdus =(int) $insertProdus->insert_id;
-
+echo $idProdus;
 
 	$userIdByEmail = $connect->prepare("select ID_USER from users where email like ?;");
     $userIdByEmail->bind_param('s', $email);
@@ -26,10 +26,9 @@ $descriere = $_POST["descriere"];
     $userIdByEmail->store_result();
 	$userIdByEmail->bind_result($idUser);
 	$userIdByEmail->fetch(); 
- 
- 	$insertAd = $connect->prepare("insert into anunturi( data_introducerii, durata_in_zile, tip, ID_USER, ID_PRODUS, ID_STATUS) values (?,?,?,?,?,?);");
-	$idStatus = 1; 
-	$durata = 5;
-	$insertAd->bind_param('sdsddd', $data, $durata, $tip, $idUser, $idProdus, $idStatus);
+ echo "+".$idUser;
+ 	$insertAd = $connect->prepare("insert into anunturi( data_introducerii, durata_in_zile, tip, descriere, ID_USER, ID_PRODUS, ID_STATUS) values (?,?,?,?,?,?,?);");
+	$idStatus = 1;  
+	$insertAd->bind_param('sdssddd', $data, $durata, $tip, $descriere, $idUser, $idProdus, $idStatus);
 	$insertAd->execute();  
  ?>

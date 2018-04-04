@@ -194,7 +194,9 @@ public class CreateAccountTask extends AsyncTask<String, Void, String> {
 
                 //192.168.43.191
 
-                URL url = new URL("http://10.38.31.11:8080/greenapp/create_account.php");
+              //  URL url = new URL("http://10.38.31.11:8080/greenapp/create_account.php");
+                URL url = new URL("http://192.168.100.4:8080/greenapp/create_account.php");
+
                 HttpURLConnection http = (HttpURLConnection)url.openConnection();
                 http.setRequestMethod("POST");
                 http.setDoInput(true);

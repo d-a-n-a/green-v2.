@@ -6,4 +6,5 @@
  define("EMAIL_EXISTENT", "Exista deja un cont cu acest email.");
  define("USERNAME_INVALID", "Username existent.");
  define("INSERT_ADD", "insert_add");
+ define("SUCCESS", "success");
 ?>

@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
     <item
-        android:id="@+id/idEdit"
+        android:id="@+id/idEditStaus"
          android:title="Modificare status" />
     <item
         android:id="@+id/idDelete"
         android:title="Stergere anunt" />
+    <item
+        android:id="@+id/idEdit"
+        android:title="Modificare detalii anunt" />
 </menu>

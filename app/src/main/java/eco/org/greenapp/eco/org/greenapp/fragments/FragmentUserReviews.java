@@ -100,7 +100,8 @@ public class GetReviews extends AsyncTask<String, Void, String>{
     protected String doInBackground(String... strings) {
         username = strings[0];
         try {
-            URL url = new URL("http://10.38.31.11:8080/greenapp/select_user_reviews.php");
+            URL url = new URL("http://192.168.100.4:8080/greenapp/select_user_reviews.php");
+            //URL url = new URL("http://10.38.31.11:8080/greenapp/select_user_reviews.php");
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("POST");
             con.setDoInput(true);

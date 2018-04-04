@@ -1,5 +1,6 @@
 package eco.org.greenapp.eco.org.greenapp.fragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
@@ -20,10 +21,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +37,7 @@ import eco.org.greenapp.RequestHttp;
 import eco.org.greenapp.eco.org.greenapp.activities.AdForProduct;
 import eco.org.greenapp.eco.org.greenapp.adapters.AdvertisementAdapter;
 import eco.org.greenapp.eco.org.greenapp.classes.Advertisement;
+import eco.org.greenapp.eco.org.greenapp.constants.GeneralConstants;
 
 
 public class FragmentOne extends Fragment {
@@ -97,8 +103,25 @@ public  class GetData extends AsyncTask<Void,Void,String> {
     @Override
     protected String doInBackground(Void... voids) {
         try {
-            URL url = new URL("http://10.38.31.11:8080/greenapp/select_advertisements.php");
+            URL url = new URL("http://192.168.100.4:8080/greenapp/select_advertisements.php");
+           // URL url = new URL("http://10.38.31.11:8080/greenapp/select_advertisements.php");
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
+
+            con.setRequestMethod("POST");
+            con.setDoInput(true);
+            con.setDoOutput(true);
+
+            OutputStream outputStream = con.getOutputStream();
+            BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+            String username = URLEncoder.encode("username", "UTF-8") + "=" + URLEncoder.encode(getActivity()
+                    .getSharedPreferences(GeneralConstants.SESSION, Context.MODE_PRIVATE)
+                    .getString(GeneralConstants.TOKEN,null), "UTF-8");
+            bufferedWriter.write(username);
+
+            bufferedWriter.flush();
+            bufferedWriter.close();
+            outputStream.close();
+
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream(), "iso-8859-1"));
             String result;
 

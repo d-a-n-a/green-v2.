@@ -38,7 +38,9 @@ public class ExecuteUpdatesTask extends AsyncTask<String, Void, String> {
             String newValue = strings[2];
 
 //192.168.43.191
-            URL url = new URL("http://10.38.31.11:8080/greenapp/update_last_name.php");
+            //URL url = new URL("http://10.38.31.11:8080/greenapp/update_last_name.php");
+            URL url = new URL("http://192.168.100.4:8080/greenapp/update_last_name.php");
+
             HttpURLConnection http = (HttpURLConnection) url.openConnection();
             http.setRequestMethod("POST");
             http.setDoInput(true);

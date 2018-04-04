@@ -43,7 +43,9 @@ public class ExecuteInsertTasks extends AsyncTask<HashMap<String, String>, Void,
         OutputStream outputStream = null;
         try {
             String queryData = "";
-            URL url = new URL("http://10.38.31.11:8080/greenapp/test.php");
+            URL url = new URL("http://192.168.100.4:8080/greenapp/test.php");
+
+            //URL url = new URL("http://10.38.31.11:8080/greenapp/test.php");
             HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
 
             httpURLConnection.setRequestMethod("POST");

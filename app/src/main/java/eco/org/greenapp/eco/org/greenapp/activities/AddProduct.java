@@ -2,6 +2,7 @@ package eco.org.greenapp.eco.org.greenapp.activities;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.view.GravityCompat;
@@ -22,6 +23,7 @@ import java.util.Date;
 import java.util.HashMap;
 
 import eco.org.greenapp.R;
+import eco.org.greenapp.eco.org.greenapp.classes.Advertisement;
 import eco.org.greenapp.eco.org.greenapp.constants.GeneralConstants;
 import eco.org.greenapp.eco.org.greenapp.profile_activities.ExecuteInsertTasks;
 
@@ -33,9 +35,9 @@ public class AddProduct extends AppCompatActivity implements NavigationView.OnNa
     Spinner etMonth;
     EditText etDetails;
     EditText etDurata;
-
+    Intent intent;
     ContentValues contentValues;
-
+    int edit = 0;
     HashMap<String, String> values = new HashMap<String,String>();
 
     @Override
@@ -51,7 +53,18 @@ public class AddProduct extends AppCompatActivity implements NavigationView.OnNa
         etYear = (EditText)findViewById(R.id.yearInput);
         etDetails = (EditText)findViewById(R.id.productDetailsInput);
         etDurata = (EditText)findViewById(R.id.adDurata);
-
+/*
+        intent = getIntent();
+        if(intent != null){
+            edit = 1;
+            Advertisement ad = (Advertisement) intent.getSerializableExtra("editAd");
+            txtProductName.setText(ad.getDenumireProdus());
+        etProductDescription.setText(ad.getDescriereProdus());
+        // productCategory.setSe;
+        // etDay.setText(ad.getda);
+        etDetails.setText(ad.getDetaliiAnunt());
+        etDurata.setText(ad.);
+    }*/
        /* contentValues = new ContentValues();
         contentValues.put("cod", GeneralConstants.INSERT_ADD);
         contentValues.put("email", getSharedPreferences(GeneralConstants.SESSION, Context.MODE_PRIVATE).getString("email",null));
@@ -78,8 +91,8 @@ public class AddProduct extends AppCompatActivity implements NavigationView.OnNa
 
                     Date date = Calendar.getInstance().getTime();
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MMMM-yyyy");
-                    String dataIntroducerii = simpleDateFormat.format(date);
-
+                //    String dataIntroducerii = simpleDateFormat.format(date);
+                    String dataIntroducerii = GeneralConstants.SDF.format(date);
                     final String valabilitate = etDay.getText()+"-"+etMonth.getSelectedItem().toString()+"-"+etYear.getText();
                     values.put("cod", GeneralConstants.INSERT_ADD);
                     values.put("email", getSharedPreferences(GeneralConstants.SESSION, Context.MODE_PRIVATE).getString("email",null));
