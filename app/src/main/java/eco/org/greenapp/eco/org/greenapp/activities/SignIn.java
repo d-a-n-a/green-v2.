@@ -180,9 +180,9 @@ else
                 for (int i = 0; i < resultArray.length(); i++) {
                     objects.add(resultArray.getString(i));
                 }
-                Toast.makeText(getApplicationContext(), result.toString(), Toast.LENGTH_LONG).show();
+            //    Toast.makeText(getApplicationContext(), result.toString(), Toast.LENGTH_LONG).show();
 
-                 sharedPreferences = getSharedPreferences(GeneralConstants.SESSION, Context.MODE_PRIVATE);
+                sharedPreferences = getSharedPreferences(GeneralConstants.SESSION, Context.MODE_PRIVATE);
                 sharedPreferencesEditor = sharedPreferences.edit();
                 sharedPreferencesEditor.putString(SharedPreferencesConstants.LAST_NAME, objects.get(0));
                 sharedPreferencesEditor.putString(SharedPreferencesConstants.FIRST_NAME, objects.get(1));

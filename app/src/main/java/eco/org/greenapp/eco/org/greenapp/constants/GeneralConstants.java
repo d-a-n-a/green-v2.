@@ -25,4 +25,5 @@ public static final String INVALID = "Acest email/username nu corespunde niciunu
     public static final String INSERT_DEMAND = "demand" ;
     public static final String SUCCESS = "success";
 
+    public static final String INSERT_TRANSACTION  = "insert_transaction";
 }

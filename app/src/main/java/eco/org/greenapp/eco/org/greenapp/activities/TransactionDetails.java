@@ -25,11 +25,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -53,23 +57,25 @@ public class TransactionDetails extends AppCompatActivity {
     int ad;
     Intent intent;
     int intentAd = 0;
-List<String> listaUsers;
-ArrayAdapter<String> adapter;
+    List<String> listaUsers   = new ArrayList<>();
+    ArrayAdapter<String> adapter;
     @Override
     public void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.transaction_details);
+
         myCalendar = Calendar.getInstance();
         data = (EditText)findViewById(R.id.dataIntalnire);
         ora = (EditText)findViewById(R.id.oraIntalnire);
         locatie = (TextInputEditText)findViewById(R.id.locatieIntalnire);
         user = (AutoCompleteTextView) findViewById(R.id.userIntalnire);
-        listaUsers = new ArrayList<>();
-        adapter = new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_expandable_list_item_1, listaUsers);
+
+        user.setThreshold(1);
+
         GetUsers getUsers = new GetUsers();
         getUsers.execute();
-        user.setAdapter(adapter);
-        Toast.makeText(getApplicationContext(), listaUsers.toString(), Toast.LENGTH_LONG).show();
+
+
 
         intent = getIntent();
         if(intent != null)
@@ -125,7 +131,13 @@ ArrayAdapter<String> adapter;
                         || ora.getText().toString().isEmpty() || data.getText().toString().isEmpty())
                     Toast.makeText(getApplicationContext(), "Completati toate campurile!", Toast.LENGTH_LONG).show();
                 else{
-                    //aici adau tranzactia.. dar cum fac cu userul?
+                    InsertTransaction insertTransaction = new InsertTransaction();
+                    insertTransaction.execute(locatie.getText().toString().trim(),
+                            data.getText().toString().trim(), ora.getText().toString().trim(),
+                            getSharedPreferences(GeneralConstants.SESSION, Context.MODE_PRIVATE).getString(GeneralConstants.TOKEN,null),
+                            user.getText().toString().trim(),
+                            ""+ad);
+                    TransactionDetails.this.finish();
 
                 }
             }
@@ -138,6 +150,8 @@ ArrayAdapter<String> adapter;
             try {
                 URL url = new URL("http://192.168.100.4:8080/greenapp/select_users.php");
                 HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
+                httpURLConnection.setDoInput(true);
+                httpURLConnection.setDoOutput(true);
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
                 String dataLine = "";
                 String jsonResult = "";
@@ -164,15 +178,74 @@ ArrayAdapter<String> adapter;
                 JSONArray jsonArray = new JSONArray(s);
                 for(int i=0; i<jsonArray.length(); i++){
                     JSONObject user = jsonArray.getJSONObject(i);
-                     if(!user.getString("username").equals(myUsername)) {
-
-                         listaUsers.add(user.getString("username"));
+                      if(!user.getString("username").equals(myUsername)) {
+                          listaUsers.add(user.getString("username"));
                      }
                 }
+                adapter = new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_list_item_1, listaUsers.toArray(new String[0]));
+                user.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
     }
 
+    public class InsertTransaction extends AsyncTask<String, Void, String>{
+
+        @Override
+        protected String doInBackground(String... strings) {
+            String locatie = strings[0];
+            String data = strings[1];
+            String ora = strings[2];
+            String expeditor = strings[3];
+            String destinatar = strings[4];
+            String idAnunt = strings[5];
+            String queryData;
+            try {
+                URL url = new URL("http://192.168.100.4:8080/greenapp/insert_transaction.php");
+                HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoInput(true);
+                queryData = URLEncoder.encode("expeditor","UTF-8") + "=" + URLEncoder.encode(expeditor,"UTF-8") + "&"
+                        +  URLEncoder.encode("destinatar","UTF-8") + "=" + URLEncoder.encode(destinatar,"UTF-8") + "&"
+                        +  URLEncoder.encode("locatie","UTF-8") + "=" + URLEncoder.encode(locatie,"UTF-8") + "&"
+                        +  URLEncoder.encode("data","UTF-8") + "=" + URLEncoder.encode(data,"UTF-8") + "&"
+                        +  URLEncoder.encode("ora","UTF-8") + "=" + URLEncoder.encode(ora,"UTF-8") +"&"
+                        + URLEncoder.encode("idAnunt","UTF-8") + "=" + URLEncoder.encode(idAnunt,"UTF-8");
+
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+                bufferedWriter.write(queryData);
+
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream(), "iso-8859-1"));
+                String result;
+
+                StringBuilder sb = new StringBuilder();
+
+                while((result = bufferedReader.readLine())!=null){
+                    sb.append(result);
+                }
+                httpURLConnection.disconnect();
+                return sb.toString();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            if(s.equals(GeneralConstants.SUCCESS)){
+                Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
+            }
+        }
+    }
 }

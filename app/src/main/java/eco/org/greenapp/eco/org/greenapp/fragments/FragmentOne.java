@@ -140,25 +140,27 @@ public  class GetData extends AsyncTask<Void,Void,String> {
     @Override
     protected void onPostExecute(String s) {
 
-        try {
-            JSONArray vectorAds = new JSONArray(s);
-            for(int i=0; i<vectorAds.length(); i++){
-                JSONObject adItem = vectorAds.getJSONObject(i);
-                Advertisement ad = new Advertisement();
-                ad.setUsername(adItem.getString("username"));
-                ad.setStatusAnunt(adItem.getString("tipStatus"));
-                ad.setDenumireProdus(adItem.getString("denumire"));
-                ad.setTip(adItem.getString("tipAnunt"));
-                ad.setDataPostarii(adItem.getString("dataIntroducerii"));
-                ad.setCategorie(adItem.getString("categorie"));
-                ad.setLocatieUser(adItem.getString("strada"));
-                ad.setDescriereProdus(adItem.getString("descriereProdus"));
-                ad.setDetaliiAnunt(adItem.getString("detaliiAnunt"));
-                ad.setValabilitate(adItem.getString("valabilitate"));
-                lista.add(ad);
+        if(s!=null) {
+            try {
+                JSONArray vectorAds = new JSONArray(s);
+                for (int i = 0; i < vectorAds.length(); i++) {
+                    JSONObject adItem = vectorAds.getJSONObject(i);
+                    Advertisement ad = new Advertisement();
+                    ad.setUsername(adItem.getString("username"));
+                    ad.setStatusAnunt(adItem.getString("tipStatus"));
+                    ad.setDenumireProdus(adItem.getString("denumire"));
+                    ad.setTip(adItem.getString("tipAnunt"));
+                    ad.setDataPostarii(adItem.getString("dataIntroducerii"));
+                    ad.setCategorie(adItem.getString("categorie"));
+                    ad.setLocatieUser(adItem.getString("strada"));
+                    ad.setDescriereProdus(adItem.getString("descriereProdus"));
+                    ad.setDetaliiAnunt(adItem.getString("detaliiAnunt"));
+                    ad.setValabilitate(adItem.getString("valabilitate"));
+                    lista.add(ad);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-        } catch (JSONException e) {
-            e.printStackTrace();
         }
     }
 }

@@ -23,7 +23,11 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCEa4xCNXzzumzQI074uiBhIYaq4tsOPjM" /> <!-- aici trebuie sa iau cheie noua, aia de la greenapp nu a mers; asta e de la proiect dam -->
         <activity android:name=".eco.org.greenapp.activities.SignIn">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".eco.org.greenapp.activities.CreateAccount" >
 
@@ -52,11 +56,7 @@
             android:name=".AppMenu"
             android:label="@string/title_activity_app_menu"
             android:theme="@style/AppTheme.NoActionBar" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".eco.org.greenapp.activities.Home">
             <meta-data

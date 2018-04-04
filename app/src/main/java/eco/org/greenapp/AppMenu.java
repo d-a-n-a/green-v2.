@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import eco.org.greenapp.eco.org.greenapp.activities.MyProfile;
 import eco.org.greenapp.eco.org.greenapp.activities.ProfileSettings;
+import eco.org.greenapp.eco.org.greenapp.activities.SignIn;
 import eco.org.greenapp.eco.org.greenapp.constants.GeneralConstants;
 import eco.org.greenapp.eco.org.greenapp.constants.SharedPreferencesConstants;
 import eco.org.greenapp.eco.org.greenapp.fragments.FragmentOne;
@@ -60,8 +61,9 @@ public class AppMenu extends AppCompatActivity
         sharedPreferences = getSharedPreferences(GeneralConstants.SESSION, Context.MODE_PRIVATE);
 
        // if(!sharedPreferences.getString("completeSignUp",null).equals("complet")){
-if(sharedPreferences.getString(SharedPreferencesConstants.STREET,null).isEmpty() || sharedPreferences.getString(SharedPreferencesConstants.ABOUT,null).isEmpty()){
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//if(sharedPreferences.getString(SharedPreferencesConstants.STREET,null).isEmpty() || sharedPreferences.getString(SharedPreferencesConstants.ABOUT,null).isEmpty()){
+        if(!sharedPreferences.contains(SharedPreferencesConstants.STREET) && ! sharedPreferences.contains(SharedPreferencesConstants.ABOUT)){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage("Pentru a putea utiliza functionalitatile trebuie sa completati toate datele de la profilul personal.")
                     .setCancelable(false)
                     .setPositiveButton("Du-ma la Setari profil", new DialogInterface.OnClickListener() {
@@ -174,6 +176,7 @@ if(sharedPreferences.getString(SharedPreferencesConstants.STREET,null).isEmpty()
                 break;
             }
             case R.id.nav_logout: {
+                startActivity(new Intent(getApplicationContext(), SignIn.class));
                 break;
             }
             case R.id.nav_help: {
