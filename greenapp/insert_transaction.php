@@ -6,7 +6,7 @@ require "constants.php";
 $expeditor = $_POST["expeditor"];
 $destinatar = $_POST["destinatar"]; 
 $locatie = $_POST["locatie"];
-$data = (int)$_POST["data"];
+$data = $_POST["data"];
 $ora = $_POST["ora"];
 $idAnunt = $_POST["idAnunt"]; 
 
