@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -40,7 +41,7 @@ public class AdForProduct extends AppCompatActivity implements OnMapReadyCallbac
     TextView detalii;
     TextView status;
     TextView zile;
-
+    ImageView imageView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,8 +57,7 @@ public class AdForProduct extends AppCompatActivity implements OnMapReadyCallbac
         detalii = (TextView)findViewById(R.id.productDetails);
         status = (TextView)findViewById(R.id.statusType);
         zile = (TextView)findViewById(R.id.daysSincePosted);
-
-
+        imageView = (ImageView)findViewById(R.id.userProfileImage);
 
         mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.locationMap);
@@ -65,6 +65,18 @@ public class AdForProduct extends AppCompatActivity implements OnMapReadyCallbac
 
         intent = getIntent();
         ad = (Advertisement)intent.getSerializableExtra("selectedAd");
+
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), UserInfo.class);
+                intent.putExtra("username", ad.getUsername());
+                startActivity(intent);
+            }
+        });
+
+
+
         denumireProdus.setText(ad.getDenumireProdus());
         descriereProdus.setText(ad.getDescriereProdus());
         categorie.setText(ad.getCategorie());

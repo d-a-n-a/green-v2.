@@ -13,9 +13,9 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import eco.org.greenapp.R;
-import eco.org.greenapp.eco.org.greenapp.fragments.FragmentGeneralUserInfo;
-import eco.org.greenapp.eco.org.greenapp.fragments.FragmentUserAds;
-import eco.org.greenapp.eco.org.greenapp.fragments.FragmentUserReviews;
+import eco.org.greenapp.eco.org.greenapp.fragments.FragmentMyGeneralUserInfo;
+import eco.org.greenapp.eco.org.greenapp.fragments.FragmentMyAds;
+import eco.org.greenapp.eco.org.greenapp.fragments.FragmentMyReviews;
 import eco.org.greenapp.eco.org.greenapp.fragments.TransactionHistoryFragment;
 
  public class MyProfile extends AppCompatActivity {
@@ -29,7 +29,7 @@ import eco.org.greenapp.eco.org.greenapp.fragments.TransactionHistoryFragment;
         setContentView(R.layout.activity_my_profile);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragmentArea,new FragmentGeneralUserInfo());
+        fragmentTransaction.replace(R.id.fragmentArea,new FragmentMyGeneralUserInfo());
         fragmentTransaction.commit();
 
         ((Button)findViewById(R.id.btnSettings)).setOnClickListener(new View.OnClickListener() {
@@ -47,16 +47,16 @@ import eco.org.greenapp.eco.org.greenapp.fragments.TransactionHistoryFragment;
         ((Button)findViewById(R.id.btnTransactionHistory)).setBackgroundResource(R.drawable.custom_button_profile_options);
          Fragment fragment = new Fragment();
         if(view == findViewById(R.id.button5)){
-            fragment =  new FragmentGeneralUserInfo();
+            fragment =  new FragmentMyGeneralUserInfo();
         }
         else
         if(view == findViewById(R.id.button3)){
-            fragment = new FragmentUserAds();
+            fragment = new FragmentMyAds();
 
         }
         else if(view == findViewById(R.id.btnTakeProduct))
         {
-            fragment = new FragmentUserReviews();
+            fragment = new FragmentMyReviews();
         }
         else
             if(view == findViewById(R.id.btnTransactionHistory)){

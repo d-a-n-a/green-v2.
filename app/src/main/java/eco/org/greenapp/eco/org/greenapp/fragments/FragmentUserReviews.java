@@ -1,7 +1,5 @@
 package eco.org.greenapp.eco.org.greenapp.fragments;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,21 +25,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import eco.org.greenapp.R;
-import eco.org.greenapp.eco.org.greenapp.adapters.AdvertisementAdapter;
 import eco.org.greenapp.eco.org.greenapp.adapters.ReviewAdapter;
-import eco.org.greenapp.eco.org.greenapp.classes.Advertisement;
 import eco.org.greenapp.eco.org.greenapp.classes.Review;
-import eco.org.greenapp.eco.org.greenapp.constants.GeneralConstants;
-import eco.org.greenapp.eco.org.greenapp.constants.SharedPreferencesConstants;
 
+/**
+ * Created by danan on 4/5/2018.
+ */
 
 public class FragmentUserReviews extends Fragment {
-
 
     private View view;
     private ListView lvReviews;
     private List<Review> lista;
     SwipeRefreshLayout swipeContainer;
+    String username;
 
     public FragmentUserReviews() {
         // Required empty public constructor
@@ -52,6 +48,14 @@ public class FragmentUserReviews extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            username = bundle.getString("username",null);
+        }
+        GetUserReviews gd = new GetUserReviews();
+        gd.execute(username);
+
         lista = new ArrayList<>();
         if(view==null)
         {
@@ -64,9 +68,6 @@ public class FragmentUserReviews extends Fragment {
         }
 
 
-        getData();
-
-        //lista = parseJson(getResult);
         final ReviewAdapter adapter=new ReviewAdapter(getActivity(),R.layout.review_item,lista);
         lvReviews=(ListView)view.findViewById(R.id.idLvReview);
 
@@ -82,74 +83,73 @@ public class FragmentUserReviews extends Fragment {
 
                 swipeContainer.setRefreshing(false);
 
-               getData();
+                GetUserReviews gd = new GetUserReviews();
+                gd.execute(username);
+
             }
         });
 
         return view;
     }
-public void getData(){
-    String username = getContext().getSharedPreferences(GeneralConstants.SESSION, Context.MODE_PRIVATE).getString(GeneralConstants.TOKEN,null);
-     GetReviews gd = new GetReviews();
-    gd.execute(username);
-}
-public class GetReviews extends AsyncTask<String, Void, String>{
 
-    String username;
-    @Override
-    protected String doInBackground(String... strings) {
-        username = strings[0];
-        try {
-            URL url = new URL("http://192.168.100.4:8080/greenapp/select_user_reviews.php");
-            //URL url = new URL("http://10.38.31.11:8080/greenapp/select_user_reviews.php");
-            HttpURLConnection con = (HttpURLConnection) url.openConnection();
-            con.setRequestMethod("POST");
-            con.setDoInput(true);
-            con.setDoOutput(true);
+    public class GetUserReviews extends AsyncTask<String, Void, String> {
 
-            OutputStream outputStream = con.getOutputStream();
-            BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream,"UTF-8"));
-            String getByEmail = URLEncoder.encode("username", "UTF-8") + "=" + URLEncoder.encode(username, "UTF-8");
-            bufferedWriter.write(getByEmail);
+        String username;
+        @Override
+        protected String doInBackground(String... strings) {
+            username = strings[0];
+            try {
+                URL url = new URL("http://192.168.100.4:8080/greenapp/select_user_reviews.php");
+                //URL url = new URL("http://10.38.31.11:8080/greenapp/select_user_reviews.php");
+                HttpURLConnection con = (HttpURLConnection) url.openConnection();
+                con.setRequestMethod("POST");
+                con.setDoInput(true);
+                con.setDoOutput(true);
 
-            bufferedWriter.flush();
-            bufferedWriter.close();
-            outputStream.close();
+                OutputStream outputStream = con.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream,"UTF-8"));
+                String getByEmail = URLEncoder.encode("username", "UTF-8") + "=" + URLEncoder.encode(username, "UTF-8");
+                bufferedWriter.write(getByEmail);
 
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream(), "iso-8859-1"));
-            String result;
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
 
-            StringBuilder sb = new StringBuilder();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream(), "iso-8859-1"));
+                String result;
 
-            while((result = bufferedReader.readLine())!=null){
-                sb.append(result);
+                StringBuilder sb = new StringBuilder();
+
+                while((result = bufferedReader.readLine())!=null){
+                    sb.append(result);
+                }
+                con.disconnect();
+                return sb.toString();
+            } catch (Exception e) {
+                return null;
             }
-            con.disconnect();
-            return sb.toString();
-        } catch (Exception e) {
-            return null;
+
         }
 
-    }
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            try {
+                JSONArray vectorReviews = new JSONArray(s);
+                for(int i=0; i<vectorReviews.length(); i++){
+                    JSONObject adItem = vectorReviews.getJSONObject(i);
+                    Review review = new Review();
 
-    @Override
-    protected void onPostExecute(String s) {
-        super.onPostExecute(s);
-        try {
-            JSONArray vectorReviews = new JSONArray(s);
-            for(int i=0; i<vectorReviews.length(); i++){
-                JSONObject adItem = vectorReviews.getJSONObject(i);
-                Review review = new Review();
-
-                review.setData_adaugare(adItem.getString("data"));
-                review.setContinut(adItem.getString("detalii"));
-                review.setNota(Integer.parseInt(adItem.getString("nota")));
-                review.setUser(adItem.getString("username"));
-                lista.add(review);
+                    review.setData_adaugare(adItem.getString("data"));
+                    review.setContinut(adItem.getString("detalii"));
+                    review.setNota(Integer.parseInt(adItem.getString("nota")));
+                    review.setUser(adItem.getString("username"));
+                    lista.add(review);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-}
+        }}
+
+
 }

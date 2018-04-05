@@ -5,9 +5,15 @@
     tools:context="eco.org.greenapp.eco.org.greenapp.fragments.TransactionHistoryFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/idSwipeTransactions"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="aici apare lista cu tranzactiile in curs de efectuare sau tranzactiile incheiate. layoutul pentru fiecare item este transaction_item.xml" />
+        android:layout_height="match_parent">
+
+        <ListView
+            android:id="@+id/idLvTransactions"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </FrameLayout>
