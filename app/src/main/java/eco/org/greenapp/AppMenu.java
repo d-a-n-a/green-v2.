@@ -3,6 +3,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -17,10 +18,25 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.TextView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
+
+import eco.org.greenapp.eco.org.greenapp.GetImageTask;
 import eco.org.greenapp.eco.org.greenapp.activities.MyProfile;
 import eco.org.greenapp.eco.org.greenapp.activities.ProfileSettings;
 import eco.org.greenapp.eco.org.greenapp.activities.SignIn;
@@ -37,7 +53,7 @@ public class AppMenu extends AppCompatActivity
     private FragmentOne frone;
     private FragmentTwo frtwo;
     private FragmentThree frthree;
-
+    private ImageView imageView;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor sharedPreferencesEditor;
 
@@ -85,7 +101,6 @@ public class AppMenu extends AppCompatActivity
 
 }
 
-////////////////////////
         mainNav = (BottomNavigationView)findViewById(R.id.main_nav);
         mainFrame = (FrameLayout)findViewById(R.id.main_frame);
         frone = new FragmentOne();
@@ -115,7 +130,13 @@ public class AppMenu extends AppCompatActivity
             }
         });
 
-    }
+
+
+
+        View navheader = navigationView.getHeaderView(0);
+        imageView = (ImageView)navheader.findViewById(R.id.imageViewUser);
+        new GetUrlPhoto().execute(getSharedPreferences(GeneralConstants.SESSION, Context.MODE_PRIVATE).getString(GeneralConstants.TOKEN,null));
+     }
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -199,4 +220,55 @@ public class AppMenu extends AppCompatActivity
         fragmentTransaction.commit();
 
     }
-}
+    public class GetUrlPhoto extends AsyncTask<String, Void, String>{
+
+        @Override
+        protected String doInBackground(String... strings) {
+
+                String username;
+                try {
+                    username = strings[0];
+                    URL url = new URL("http://192.168.100.4:8080/greenapp/select_my_photo_url.php");
+                    HttpURLConnection con = (HttpURLConnection) url.openConnection();
+
+
+                    con.setRequestMethod("POST");
+                    con.setDoInput(true);
+                    con.setDoOutput(true);
+
+                    OutputStream outputStream = con.getOutputStream();
+                    BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+                    String usernamepost = URLEncoder.encode("username", "UTF-8") + "=" + URLEncoder.encode(username, "UTF-8");
+                    bufferedWriter.write(usernamepost);
+
+                    bufferedWriter.flush();
+                    bufferedWriter.close();
+                    outputStream.close();
+
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream(), "iso-8859-1"));
+                    String result;
+
+                    StringBuilder stringBuilder = new StringBuilder();
+
+                    while ((result = bufferedReader.readLine()) != null) {
+                        stringBuilder.append(result);
+                    }
+                    con.disconnect();
+                    return stringBuilder.toString();
+                } catch (Exception e) {
+                    return null;
+                }
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                 if (s != null)
+                {
+                      GetImageTask getImageTask = new GetImageTask(imageView);
+                     getImageTask.execute("http://192.168.100.4:8080"+s);
+
+                }
+            }
+
+        }
+    }

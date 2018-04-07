@@ -23,6 +23,7 @@ import eco.org.greenapp.eco.org.greenapp.profile_activities.ChangeLastName;
 import eco.org.greenapp.eco.org.greenapp.profile_activities.ChangeLocation;
 import eco.org.greenapp.eco.org.greenapp.profile_activities.ChangePassword;
 import eco.org.greenapp.eco.org.greenapp.profile_activities.ChangePhoneNumber;
+import eco.org.greenapp.eco.org.greenapp.profile_activities.ChangeProfilePhoto;
 import eco.org.greenapp.eco.org.greenapp.profile_activities.ChangeUsername;
 
 public class ProfileSettings extends AppCompatActivity {
@@ -57,6 +58,12 @@ public class ProfileSettings extends AppCompatActivity {
         setContentView(R.layout.activity_profile_settings);
 
 
+        ((LinearLayout)findViewById(R.id.userAvatarLayout)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), ChangeProfilePhoto.class));
+            }
+        });
         ((LinearLayout)findViewById(R.id.userAboutLayout)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

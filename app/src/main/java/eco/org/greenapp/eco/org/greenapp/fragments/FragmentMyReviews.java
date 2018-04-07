@@ -9,6 +9,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -28,6 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import eco.org.greenapp.R;
+import eco.org.greenapp.eco.org.greenapp.GetImageTask;
 import eco.org.greenapp.eco.org.greenapp.adapters.AdvertisementAdapter;
 import eco.org.greenapp.eco.org.greenapp.adapters.ReviewAdapter;
 import eco.org.greenapp.eco.org.greenapp.classes.Advertisement;
@@ -43,7 +45,6 @@ public class FragmentMyReviews extends Fragment {
     private ListView lvReviews;
     private List<Review> lista;
     SwipeRefreshLayout swipeContainer;
-
     public FragmentMyReviews() {
         // Required empty public constructor
     }
@@ -85,6 +86,7 @@ public class FragmentMyReviews extends Fragment {
                getData();
             }
         });
+
 
         return view;
     }
@@ -145,6 +147,7 @@ public class GetReviews extends AsyncTask<String, Void, String>{
                 review.setContinut(adItem.getString("detalii"));
                 review.setNota(Integer.parseInt(adItem.getString("nota")));
                 review.setUser(adItem.getString("username"));
+                review.setUrlProfil(adItem.getString("fotografie"));
                 lista.add(review);
             }
         } catch (JSONException e) {

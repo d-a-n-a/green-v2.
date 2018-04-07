@@ -163,52 +163,50 @@ public class SignIn extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String result) {
+            if (result != null) {
+                if (result.equals(GeneralConstants.INVALID)) {
+                    Toast.makeText(getApplicationContext(), "invalid  " + result, Toast.LENGTH_LONG).show();
 
-if(result.equals(GeneralConstants.INVALID)){
-    Toast.makeText(getApplicationContext(),"invalid  " + result, Toast.LENGTH_LONG).show();
+                } else if (result.equals(GeneralConstants.RESULT_NOT_OK)) {
+                    Toast.makeText(getApplicationContext(), "combinatie incorecta", Toast.LENGTH_LONG).show();
+                } else {
 
-}
-else
-    if(result.equals(GeneralConstants.RESULT_NOT_OK)){
-    Toast.makeText(getApplicationContext(), "combinatie incorecta", Toast.LENGTH_LONG).show();
-    }
-    else {
+                    try {
+                        ArrayList<String> objects = new ArrayList<>();
+                        JSONArray resultArray = new JSONArray(result);
+                        for (int i = 0; i < resultArray.length(); i++) {
+                            objects.add(resultArray.getString(i));
+                        }
+                        //    Toast.makeText(getApplicationContext(), result.toString(), Toast.LENGTH_LONG).show();
 
-            try {
-                ArrayList<String> objects = new ArrayList<>();
-                JSONArray resultArray = new JSONArray(result);
-                for (int i = 0; i < resultArray.length(); i++) {
-                    objects.add(resultArray.getString(i));
+                        sharedPreferences = getSharedPreferences(GeneralConstants.SESSION, Context.MODE_PRIVATE);
+                        sharedPreferencesEditor = sharedPreferences.edit();
+                        sharedPreferencesEditor.putString(SharedPreferencesConstants.LAST_NAME, objects.get(0));
+                        sharedPreferencesEditor.putString(SharedPreferencesConstants.FIRST_NAME, objects.get(1));
+                        sharedPreferencesEditor.putString(SharedPreferencesConstants.EMAIL, objects.get(2));
+                        sharedPreferencesEditor.putString(GeneralConstants.TOKEN, objects.get(3));
+                        //chestia e ca daca imi creez cont si intru de pe alt telefon - o sa crape pentru ca nu o sa am parola salvata pe undeva... sau nu.. nu stiu... emailul e important oricum
+                        //sharedPreferencesEditor.putString(GeneralConstants.PASSWORD, objects.get(4));
+                        sharedPreferencesEditor.putString(SharedPreferencesConstants.ABOUT, objects.get(6));
+                        sharedPreferencesEditor.putString(SharedPreferencesConstants.PHONE_NUMBER, objects.get(7));
+                        sharedPreferencesEditor.putString(SharedPreferencesConstants.REGISTER_DATE, objects.get(8));
+                        sharedPreferencesEditor.putString(SharedPreferencesConstants.STREET, objects.get(9));
+                        if (resultArray.get(7).toString().isEmpty() || objects.get(9).equals("0"))
+                            sharedPreferencesEditor.putString(SharedPreferencesConstants.COMPLETE_REGISTER, "incomplet");
+                        else
+                            sharedPreferencesEditor.putString(SharedPreferencesConstants.COMPLETE_REGISTER, "complet");
+                        sharedPreferencesEditor.apply();
+
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    startActivity(new Intent(getApplicationContext(), AppMenu.class));
+                    finish();
                 }
-            //    Toast.makeText(getApplicationContext(), result.toString(), Toast.LENGTH_LONG).show();
-
-                sharedPreferences = getSharedPreferences(GeneralConstants.SESSION, Context.MODE_PRIVATE);
-                sharedPreferencesEditor = sharedPreferences.edit();
-                sharedPreferencesEditor.putString(SharedPreferencesConstants.LAST_NAME, objects.get(0));
-                sharedPreferencesEditor.putString(SharedPreferencesConstants.FIRST_NAME, objects.get(1));
-                sharedPreferencesEditor.putString(SharedPreferencesConstants.EMAIL, objects.get(2));
-                sharedPreferencesEditor.putString(GeneralConstants.TOKEN, objects.get(3));
-                //chestia e ca daca imi creez cont si intru de pe alt telefon - o sa crape pentru ca nu o sa am parola salvata pe undeva... sau nu.. nu stiu... emailul e important oricum
-                //sharedPreferencesEditor.putString(GeneralConstants.PASSWORD, objects.get(4));
-                sharedPreferencesEditor.putString(SharedPreferencesConstants.ABOUT, objects.get(6));
-                sharedPreferencesEditor.putString(SharedPreferencesConstants.PHONE_NUMBER, objects.get(7));
-                sharedPreferencesEditor.putString(SharedPreferencesConstants.REGISTER_DATE, objects.get(8));
-                sharedPreferencesEditor.putString(SharedPreferencesConstants.STREET, objects.get(9));
-                if (resultArray.get(7).toString().isEmpty() || objects.get(9).equals("0"))
-                    sharedPreferencesEditor.putString(SharedPreferencesConstants.COMPLETE_REGISTER, "incomplet");
-                else
-                    sharedPreferencesEditor.putString(SharedPreferencesConstants.COMPLETE_REGISTER, "complet");
-                sharedPreferencesEditor.apply();
-
-
-            } catch (JSONException e) {
-                e.printStackTrace();
             }
-
-            startActivity(new Intent(getApplicationContext(), AppMenu.class));
-            finish();
         }
-    }
         }
     }
 

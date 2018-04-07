@@ -4,7 +4,6 @@
     android:id="@+id/linearLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/grayBackgound"
     android:gravity="center_horizontal"
     android:orientation="vertical">
 
@@ -112,6 +111,7 @@
                     android:paddingRight="20dp">
 
                     <ImageView
+                        android:id="@+id/imgUpload"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:src="@drawable/photocamera" />
@@ -208,8 +208,8 @@
                     android:layout_marginRight="12dp"
                     android:layout_weight="0.8"
                     android:background="@drawable/border_edit_text"
-                    android:hint="@string/month"
                     android:entries="@array/months"
+                    android:hint="@string/month"
                     android:textAlignment="center"
                     android:textColor="@color/darkGrey" />
 

@@ -36,7 +36,10 @@
             android:id="@+id/cerereoferta"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="cerere/OFERTA" />
+            android:text="cerere/OFERTA"
+            android:textAllCaps="true"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/user"

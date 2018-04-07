@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import eco.org.greenapp.R;
 import eco.org.greenapp.eco.org.greenapp.constants.GeneralConstants;

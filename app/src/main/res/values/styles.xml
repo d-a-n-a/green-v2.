@@ -11,6 +11,7 @@
 
     <style name="TextInputLabel" parent="TextAppearance.Design.Hint">
         <item name="android:textSize">15sp</item>
+        <item name="android:color">@color/colorAccent</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

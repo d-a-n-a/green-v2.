@@ -1,6 +1,8 @@
 package eco.org.greenapp.eco.org.greenapp.activities;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -12,12 +14,17 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -27,6 +34,7 @@ import java.net.URLEncoder;
 
 
 import eco.org.greenapp.R;
+import eco.org.greenapp.eco.org.greenapp.GetImageTask;
 import eco.org.greenapp.eco.org.greenapp.fragments.FragmentGeneralUserInfo;
 import eco.org.greenapp.eco.org.greenapp.fragments.FragmentUserAds;
 import eco.org.greenapp.eco.org.greenapp.fragments.FragmentMyReviews;
@@ -36,7 +44,8 @@ public class UserInfo extends AppCompatActivity {
     Intent intent;
     String username;
     RatingBar rating;
-
+    String imgUrl;
+    ImageView imgV;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +54,7 @@ public class UserInfo extends AppCompatActivity {
         setContentView(R.layout.activity_user_info);
 
         rating = (RatingBar) findViewById(R.id.ratingUser);
-
+        imgV = (ImageView)findViewById(R.id.userProfilePicture);
         intent = getIntent();
         if (intent != null)
             username = intent.getStringExtra("username");
@@ -127,11 +136,27 @@ public class UserInfo extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String s) {
+             String nota;
             if (s != null)
-                if (s.equals("nu are reviews"))
-                    Toast.makeText(getApplicationContext(), "nu are reviews", Toast.LENGTH_LONG).show();
-                else
-                    rating.setRating(Float.parseFloat(s)*rating.getNumStars()/10);
+               {
+                   try {
+                       JSONObject jsonObject = new JSONObject(s);
+
+                       if(jsonObject.getString("review").equals("nu are reviews"))
+                             nota = ""+0;
+                         else
+                             nota = jsonObject.getString("review");
+                         rating.setRating(Float.parseFloat(nota)*rating.getNumStars()/10);
+                         imgUrl = "http://192.168.100.4:8080"+jsonObject.getString("foto");
+                         if(!jsonObject.getString("foto").isEmpty() && !(jsonObject.getString("foto")==null) )
+                       new GetImageTask((ImageView) findViewById(R.id.userProfilePicture))
+                               .execute(imgUrl);
+                   } catch (JSONException e) {
+                       e.printStackTrace();
+                   }
+
+               }
         }
+
     }
 }

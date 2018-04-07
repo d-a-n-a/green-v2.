@@ -144,6 +144,7 @@ public class FragmentUserReviews extends Fragment {
                     review.setContinut(adItem.getString("detalii"));
                     review.setNota(Integer.parseInt(adItem.getString("nota")));
                     review.setUser(adItem.getString("username"));
+                    review.setUrlProfil(adItem.getString("fotografie"));
                     lista.add(review);
                 }
             } catch (JSONException e) {

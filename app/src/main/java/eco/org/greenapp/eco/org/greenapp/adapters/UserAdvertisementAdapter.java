@@ -6,6 +6,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -17,6 +18,7 @@ import java.lang.reflect.Array;
 import java.util.List;
 
 import eco.org.greenapp.R;
+import eco.org.greenapp.eco.org.greenapp.GetImageTask;
 import eco.org.greenapp.eco.org.greenapp.classes.Advertisement;
 import eco.org.greenapp.eco.org.greenapp.classes.User;
 
@@ -45,13 +47,17 @@ public class UserAdvertisementAdapter extends ArrayAdapter<Advertisement> {
         TextView dataIntroducerii = (TextView)view.findViewById(R.id.dataIntroducerii);
         TextView status = (TextView)view.findViewById(R.id.statusInfo);
         LinearLayout optiuni = (LinearLayout)view.findViewById(R.id.adOptions);
+        ImageView imgv = (ImageView)view.findViewById(R.id.productPhoto);
 
         Advertisement ad = this.ads.get(position);
         titlu.setText(ad.getDenumireProdus());
         tip.setText(ad.getTip());
         dataIntroducerii.setText(ad.getDataPostarii());
         status.setText(ad.getStatusAnunt());
-
+        if(!ad.getUrl().isEmpty()){
+            GetImageTask getImageTask = new GetImageTask(imgv);
+            getImageTask.execute("http://192.168.100.4:8080"+ad.getUrl());
+        }
         return view;
     }
 }

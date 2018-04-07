@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -13,6 +14,7 @@ import org.w3c.dom.Text;
 import java.util.List;
 
 import eco.org.greenapp.R;
+import eco.org.greenapp.eco.org.greenapp.GetImageTask;
 import eco.org.greenapp.eco.org.greenapp.classes.Advertisement;
 import eco.org.greenapp.eco.org.greenapp.classes.Review;
 
@@ -38,6 +40,7 @@ public class ReviewAdapter extends ArrayAdapter<Review> {
         TextView date = (TextView)view.findViewById(R.id.dateOfReview);
         TextView continut = (TextView)view.findViewById(R.id.reviewContent);
         TextView nota = (TextView)view.findViewById(R.id.reviewScore);
+        ImageView img = (ImageView)view.findViewById(R.id.reviewerAvatar);
 
 
         Review review = this.listaReviews.get(position);
@@ -45,6 +48,12 @@ public class ReviewAdapter extends ArrayAdapter<Review> {
         date.setText(review.getData_adaugare());
         continut.setText(review.getContinut());
         nota.setText(""+review.getNota()+"/10");
+
+        if(!review.getUrlProfil().isEmpty() && !(review.getUrlProfil()==null))
+        {
+            GetImageTask getImageTask = new GetImageTask(img);
+            getImageTask.execute("http://192.168.100.4:8080"+review.getUrlProfil());
+        }
 
         return view;
     }

@@ -152,6 +152,7 @@ public class FragmentUserAds extends Fragment {
                         ad.setDenumireProdus(adItem.getString("denumire"));
                         ad.setTip(adItem.getString("tipAnunt"));
                         ad.setDataPostarii(adItem.getString("dataIntroducerii"));
+                        ad.setUrl(adItem.getString("imagine"));
                         lista.add(ad);
                     }
                 } catch (JSONException e) {

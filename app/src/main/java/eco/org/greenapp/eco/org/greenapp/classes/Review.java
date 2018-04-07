@@ -9,6 +9,7 @@ public class Review {
     private String data_adaugare;
     private int nota;
     private String continut;
+    private String urlProfil;
     public Review(){
 
     }
@@ -43,5 +44,13 @@ public class Review {
 
     public void setContinut(String continut) {
         this.continut = continut;
+    }
+
+    public String getUrlProfil() {
+        return urlProfil;
+    }
+
+    public void setUrlProfil(String urlProfil) {
+        this.urlProfil = urlProfil;
     }
 }

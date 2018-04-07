@@ -28,7 +28,10 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="40dp"
-        android:text="@string/btnUpdateAboutMe" />
+        android:background="@drawable/button_diverse"
+        android:text="@string/btnUpdateAboutMe"
+        android:textColor="@color/accent"
+        android:textStyle="bold" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingActionButton"

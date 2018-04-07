@@ -26,4 +26,7 @@ public static final String INVALID = "Acest email/username nu corespunde niciunu
     public static final String SUCCESS = "success";
 
     public static final String INSERT_TRANSACTION  = "insert_transaction";
+    public static final int PICK_IMAGE = 10;
+    public static final String UPLOAD_KEY = "image";
+
 }

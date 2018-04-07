@@ -8,30 +8,6 @@
     tools:layout_editor_absoluteY="81dp">
 
     <LinearLayout
-        android:id="@+id/backgroundLayout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="355dp"
-        android:background="@drawable/bakcground"
-        android:foregroundGravity="center_horizontal"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/btnTakeProduct"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/userProfileImage"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_gravity="bottom|center_horizontal"
-            android:layout_weight="1"
-            android:visibility="visible"
-            app:srcCompat="@drawable/ic_launcher_background" />
-
-    </LinearLayout>
-
-    <LinearLayout
         android:id="@+id/containerLayout"
         android:layout_width="0dp"
         android:layout_height="442dp"
@@ -63,7 +39,7 @@
                     android:text="denumire produs"
                     android:textAlignment="center"
                     android:textAllCaps="true"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textStyle="bold" />
 
                 <View
@@ -98,7 +74,7 @@
                     android:text="status"
                     android:textAlignment="center"
                     android:textAllCaps="true"
-                    android:textColor="@color/colorAccent" />
+                    android:textColor="@color/accent" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -206,6 +182,7 @@
                     android:id="@+id/productDetails"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:drawableLeft="@drawable/info"
@@ -216,6 +193,7 @@
                     android:paddingLeft="5dp"
                     android:paddingTop="5dp"
                     android:text="detalii" />
+
             </LinearLayout>
 
 
@@ -223,12 +201,42 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/backgroundLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginBottom="355dp"
+        android:background="@drawable/bakcground"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/btnTakeProduct"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/userProfileImage"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="bottom"
+            android:visibility="visible"
+            app:srcCompat="@drawable/useravatar" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:text="username posesor"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
     <Button
         android:id="@+id/btnTakeProduct"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="3dp"
-        android:background="@color/colorBackgound"
+        android:background="@color/colorAccent"
         android:fontFamily="@font/nanum_gothic_regular"
         android:text="vreau produsul"
         android:textColor="@color/grayBackgound"

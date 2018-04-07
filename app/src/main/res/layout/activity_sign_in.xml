@@ -58,16 +58,16 @@
 
         <ImageView
             android:id="@+id/logInPhoto"
-            android:layout_width="109dp"
+            android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginBottom="35dp"
             android:layout_marginTop="16dp"
+            android:src="@drawable/earthh"
             app:layout_constraintBottom_toTopOf="@+id/username"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@mipmap/ic_launcher_round" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/btnAuthenticate"
@@ -78,7 +78,7 @@
             android:elegantTextHeight="true"
             android:fontFamily="@font/nanum_gothic_regular"
             android:text="@string/signin"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/accent"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -97,7 +97,7 @@
         android:elegantTextHeight="true"
         android:fontFamily="@font/nanum_gothic_regular"
         android:text="@string/signup"
-        android:textColor="@android:color/background_light"
+        android:textColor="#fff"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -2,15 +2,19 @@ package eco.org.greenapp.eco.org.greenapp.fragments;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,7 +45,7 @@ public class FragmentGeneralUserInfo extends Fragment {
     SharedPreferences sharedPreferences;
     View view;
     String username;
-
+    String urlImagine;
     public FragmentGeneralUserInfo(){
 
     }
@@ -129,10 +133,11 @@ public class SelectUserInfo extends AsyncTask<String, Void, String>{
                 etBiography.setText(detalii.getString("bio"));
                 etDate.setText(detalii.getString("data"));
                 etLocation.setText(detalii.getString("locatie"));
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
     }
-}
+ }
 }

@@ -19,6 +19,7 @@ public class Advertisement implements Serializable{
     private String locatieUser;
     private String descriereProdus;
     private String detaliiAnunt;
+    private String url;
 
  public Advertisement(){}
     public int getId() {
@@ -107,5 +108,13 @@ public class Advertisement implements Serializable{
 
     public void setStatusAnunt(String statusAnunt) {
         this.statusAnunt = statusAnunt;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

@@ -14,9 +14,7 @@ import java.util.Map;
 
 import javax.net.ssl.HttpsURLConnection;
 
-/**
- * Created by danan on 4/1/2018.
- */
+
 
 public class RequestHttp {//de mODIFICAT CLASA
 

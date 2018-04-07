@@ -148,9 +148,9 @@
             android:id="@+id/userProfilePicture"
             android:layout_width="80dp"
             android:layout_height="80dp"
+            android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="-40dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="44dp"
             android:adjustViewBounds="true"
             android:src="@mipmap/ic_launcher_round" />
 

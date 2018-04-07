@@ -29,7 +29,7 @@
             android:elegantTextHeight="true"
             android:fontFamily="@font/nanum_gothic_regular"
             android:text="@string/signup"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/accent"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
