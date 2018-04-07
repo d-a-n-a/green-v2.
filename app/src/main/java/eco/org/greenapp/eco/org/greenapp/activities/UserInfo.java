@@ -49,8 +49,8 @@ public class UserInfo extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+       /* this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);*/
         setContentView(R.layout.activity_user_info);
 
         rating = (RatingBar) findViewById(R.id.ratingUser);
@@ -149,7 +149,7 @@ public class UserInfo extends AppCompatActivity {
                          rating.setRating(Float.parseFloat(nota)*rating.getNumStars()/10);
                          imgUrl = "http://192.168.100.4:8080"+jsonObject.getString("foto");
                          if(!jsonObject.getString("foto").isEmpty() && !(jsonObject.getString("foto")==null) )
-                       new GetImageTask((ImageView) findViewById(R.id.userProfilePicture))
+                       new GetImageTask((ImageView) findViewById(R.id.userProfilePicture), getApplicationContext())
                                .execute(imgUrl);
                    } catch (JSONException e) {
                        e.printStackTrace();

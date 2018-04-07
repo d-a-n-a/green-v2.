@@ -51,7 +51,7 @@ public class ReviewAdapter extends ArrayAdapter<Review> {
 
         if(!review.getUrlProfil().isEmpty() && !(review.getUrlProfil()==null))
         {
-            GetImageTask getImageTask = new GetImageTask(img);
+            GetImageTask getImageTask = new GetImageTask(img, getContext());
             getImageTask.execute("http://192.168.100.4:8080"+review.getUrlProfil());
         }
 

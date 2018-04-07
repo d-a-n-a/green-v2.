@@ -8,7 +8,7 @@ $myArray = array();
  
 
  
-if($result = $connect->query("SELECT r.data_postarii as data, r.detalii, r.nota, u.username from users u, reviews r where u.ID_USER = r.ID_AUTOR AND r.ID_USER = (SELECT u.ID_USER from users u WHERE u.username='".$username."');"))
+if($result = $connect->query("SELECT r.data_postarii as data, r.detalii, r.nota, u.username, u.fotografie from users u, reviews r where u.ID_USER = r.ID_AUTOR AND r.ID_USER = (SELECT u.ID_USER from users u WHERE u.username='".$username."');"))
 
  {
 

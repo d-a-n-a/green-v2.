@@ -55,7 +55,7 @@ public class UserAdvertisementAdapter extends ArrayAdapter<Advertisement> {
         dataIntroducerii.setText(ad.getDataPostarii());
         status.setText(ad.getStatusAnunt());
         if(!ad.getUrl().isEmpty()){
-            GetImageTask getImageTask = new GetImageTask(imgv);
+            GetImageTask getImageTask = new GetImageTask(imgv, getContext());
             getImageTask.execute("http://192.168.100.4:8080"+ad.getUrl());
         }
         return view;

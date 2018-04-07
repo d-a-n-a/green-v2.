@@ -10,10 +10,20 @@
 	$query->store_result();
 	$query->bind_result($avgNota);
 	$query->fetch();
+
+
+	$queryF = $connect->prepare("SELECT fotografie from   users where username like ?;");
+	$queryF->bind_param('s', $username);
+	$queryF->execute();
+	$queryF->store_result();
+	$queryF->bind_result($foto);
+	$queryF->fetch();
+
 	if(is_null($avgNota ))
-		echo 'nu are reviews';
-	else
-		echo $avgNota; 
+		 $avgNota = -1;
+	$array = array("review" => $avgNota,"foto" => $foto);
+    echo json_encode($array);
+	
 
 
 

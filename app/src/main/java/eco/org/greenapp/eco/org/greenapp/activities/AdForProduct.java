@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +24,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import eco.org.greenapp.R;
+import eco.org.greenapp.eco.org.greenapp.GetImageTask;
 import eco.org.greenapp.eco.org.greenapp.classes.Advertisement;
 import eco.org.greenapp.eco.org.greenapp.constants.GeneralConstants;
 
@@ -45,8 +47,8 @@ public class AdForProduct extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+       /* this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);*/
         setContentView(R.layout.activity_ad_for_product);
 
         denumireProdus = (TextView)findViewById(R.id.productName);
@@ -64,7 +66,8 @@ public class AdForProduct extends AppCompatActivity implements OnMapReadyCallbac
         mapFragment.getMapAsync(this);
 
         intent = getIntent();
-        ad = (Advertisement)intent.getSerializableExtra("selectedAd");
+        if(intent != null)
+             ad = (Advertisement)intent.getSerializableExtra("selectedAd");
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,8 +77,6 @@ public class AdForProduct extends AppCompatActivity implements OnMapReadyCallbac
                 startActivity(intent);
             }
         });
-
-
 
         denumireProdus.setText(ad.getDenumireProdus());
         descriereProdus.setText(ad.getDescriereProdus());

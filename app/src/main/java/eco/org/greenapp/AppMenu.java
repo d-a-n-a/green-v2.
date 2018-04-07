@@ -22,6 +22,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -135,7 +136,10 @@ public class AppMenu extends AppCompatActivity
 
         View navheader = navigationView.getHeaderView(0);
         imageView = (ImageView)navheader.findViewById(R.id.imageViewUser);
-        new GetUrlPhoto().execute(getSharedPreferences(GeneralConstants.SESSION, Context.MODE_PRIVATE).getString(GeneralConstants.TOKEN,null));
+         new GetUrlPhoto().execute(getSharedPreferences(GeneralConstants.SESSION, Context.MODE_PRIVATE).getString(GeneralConstants.TOKEN,null));
+        ((TextView)navheader.findViewById(R.id.myusername)).setText(getSharedPreferences(
+                GeneralConstants.SESSION, Context.MODE_PRIVATE
+        ).getString(GeneralConstants.TOKEN, null));
      }
     @Override
     public void onBackPressed() {
@@ -264,8 +268,8 @@ public class AppMenu extends AppCompatActivity
             protected void onPostExecute(String s) {
                  if (s != null)
                 {
-                      GetImageTask getImageTask = new GetImageTask(imageView);
-                     getImageTask.execute("http://192.168.100.4:8080"+s);
+                      GetImageTask getImageTask = new GetImageTask(imageView, getApplicationContext());
+                      getImageTask.execute("http://192.168.100.4:8080"+s);
 
                 }
             }
