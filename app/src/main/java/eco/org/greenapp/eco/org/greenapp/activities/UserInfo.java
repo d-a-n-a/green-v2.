@@ -64,30 +64,54 @@ public class UserInfo extends AppCompatActivity {
     }
 
     public void selectionOfFragment(View view) {
-        ((Button) findViewById(R.id.button3)).setBackgroundResource(R.drawable.button_user_info_normal);
-        ((Button) findViewById(R.id.btnTakeProduct)).setBackgroundResource(R.drawable.button_user_info_normal);
-        ((Button) findViewById(R.id.button5)).setBackgroundResource(R.drawable.button_user_info_normal);
+        ((Button) findViewById(R.id.button3)).setBackgroundResource(R.drawable.custom_button_profile_options);
+        ((Button) findViewById(R.id.btnTakeProduct)).setBackgroundResource(R.drawable.custom_button_profile_options);
+
+        ((Button)findViewById(R.id.button3)).setBackgroundResource(R.drawable.custom_button_profile_options_selected);
+        ((Button)findViewById(R.id.button3)).setTextColor(getResources().getColor(R.color.white));
+
+
         ((FloatingActionButton) findViewById(R.id.floatingMessage)).setVisibility(View.INVISIBLE);
         Fragment fragment = new Fragment();
         if (view == findViewById(R.id.button5)) {
+            ((Button)findViewById(R.id.button5)).setTextColor(getResources().getColor(R.color.white));
+
             fragment = new FragmentGeneralUserInfo();
+
+            ((Button)findViewById(R.id.button3)).setBackgroundResource(R.drawable.custom_button_profile_options);
+            ((Button)findViewById(R.id.button3)).setTextColor(getResources().getColor(R.color.colorGreenSheen));
+
+            ((Button)findViewById(R.id.btnTakeProduct)).setTextColor(getResources().getColor(R.color.colorGreenSheen));
+
+
             Bundle bundle = new Bundle();
             bundle.putString("username", username);
             fragment.setArguments(bundle);
         } else if (view == findViewById(R.id.button3)) {
+            ((Button)findViewById(R.id.button3)).setTextColor(getResources().getColor(R.color.white));
             fragment = new FragmentUserAds();
+
+            ((Button)findViewById(R.id.button5)).setTextColor(getResources().getColor(R.color.colorGreenSheen));
+            ((Button)findViewById(R.id.btnTakeProduct)).setTextColor(getResources().getColor(R.color.colorGreenSheen));
+
             Bundle bundle = new Bundle();
             bundle.putString("username", username);
             fragment.setArguments(bundle);
 
         } else if (view == findViewById(R.id.btnTakeProduct)) {
+            ((Button)findViewById(R.id.btnTakeProduct)).setTextColor(getResources().getColor(R.color.white));
             fragment = new FragmentUserReviews();
+
+            ((Button)findViewById(R.id.button3)).setBackgroundResource(R.drawable.custom_button_profile_options);
+            ((Button)findViewById(R.id.button3)).setTextColor(getResources().getColor(R.color.colorGreenSheen));
+            ((Button)findViewById(R.id.button5)).setTextColor(getResources().getColor(R.color.colorGreenSheen));
+
             Bundle bundle = new Bundle();
             bundle.putString("username", username);
             fragment.setArguments(bundle);
         }
         ((LinearLayout) findViewById(R.id.hiddenLayout)).setVisibility(View.INVISIBLE);
-        view.setBackgroundResource(R.drawable.button_user_info_accent);
+        view.setBackgroundResource(R.drawable.custom_button_profile_options_selected);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 

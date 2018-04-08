@@ -4,7 +4,7 @@
     android:layout_width="350dp"
     android:layout_height="200dp"
     android:layout_gravity="center_vertical|center_horizontal"
-    android:background="@color/backgroundLight"
+    android:background="@color/lightGrey"
     android:orientation="vertical"
     android:padding="10dp">
 
@@ -29,5 +29,5 @@
         android:layout_marginTop="30dp"
         android:background="@drawable/button_diverse"
         android:text="salvare"
-        android:textColor="@color/colorAccent" />
+        android:textColor="@color/colorPrimaryDark" />
 </LinearLayout>

@@ -10,8 +10,8 @@
         android:id="@+id/productPhoto"
         android:layout_width="0dp"
         android:layout_height="148dp"
-        android:layout_weight="1"
-        app:srcCompat="@mipmap/ic_launcher" />
+        android:layout_marginRight="5dp"
+        android:layout_weight="1" />
 
     <LinearLayout
         android:id="@+id/aboutProductLayout"
@@ -96,7 +96,7 @@
             android:text="STATUS"
             android:textAlignment="center"
             android:textAllCaps="true"
-            android:textColor="@color/colorAccent" />
+            android:textColor="@color/accent" />
 
     </LinearLayout>
 

@@ -18,11 +18,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="selectare imagine" />
+        android:background="@drawable/button_diverse"
+        android:text="selectare imagine"
+        android:textColor="@color/colorGreenSheen"
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/btnSavePhoto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="salvare" />
+        android:layout_marginTop="10dp"
+        android:background="@drawable/button_sign_in"
+        android:text="salvare"
+        android:textColor="#fff"
+        android:textStyle="bold" />
 </LinearLayout>

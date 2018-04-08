@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:text="cerere/OFERTA"
             android:textAllCaps="true"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/colorGreenSheen"
             android:textStyle="bold" />
 
         <TextView
@@ -74,6 +74,7 @@
         android:layout_marginTop="10dp"
         android:backgroundTint="@color/colorAccentMild"
         android:text="anulare"
+        android:textColor="@color/accent"
         app:layout_constraintBottom_toTopOf="@+id/btnConfirm"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/linearLayout"
@@ -85,8 +86,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="11dp"
-        android:backgroundTint="@color/backgroundLight"
+        android:backgroundTint="@color/colorDiverse"
         android:text="confirmare"
+        android:textColor="@color/colorPrimaryDark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/linearLayout"

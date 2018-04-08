@@ -14,8 +14,9 @@
     <color name="colorPrimary">#54b0f3</color>
 
 -->
+    <color name="white">#fff</color>
  <color name="colorPrimary">#fff</color>
-
+<color name="colorDiverse">#cddcf7</color>
  <color name="colorPrimaryDark">#303f9f</color>
     <color name="colorAccent">#7bf1a6  </color>
     <color name="colorGreenSheen">#79a9eb</color>

@@ -24,13 +24,12 @@
         android:id="@+id/btnUpdateAboutMe"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/etAboutMeInput"
         android:layout_below="@+id/etAboutMeInput"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="39dp"
         android:background="@drawable/button_diverse"
         android:text="@string/btnUpdateAboutMe"
-        android:textColor="@color/accent"
+        android:textColor="@color/colorGreenSheen"
         android:textStyle="bold" />
 
     <android.support.design.widget.FloatingActionButton

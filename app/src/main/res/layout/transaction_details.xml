@@ -47,6 +47,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@drawable/button_log_in"
             android:text="Selectare" />
     </LinearLayout>
 
@@ -69,6 +70,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@drawable/button_log_in"
             android:text="Selectare" />
     </LinearLayout>
 
@@ -77,6 +79,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Salvare" />
+        android:background="@drawable/button_diverse"
+        android:text="Salvare"
+        android:textColor="@color/colorPrimaryDark"
+        android:textStyle="bold" />
 </LinearLayout>
 </ScrollView>

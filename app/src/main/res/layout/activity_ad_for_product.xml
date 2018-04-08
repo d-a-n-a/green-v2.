@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="eco.org.greenapp.eco.org.greenapp.activities.AdForProduct"
-    tools:layout_editor_absoluteY="81dp">
+    tools:layout_editor_absoluteY="25dp">
 
     <LinearLayout
         android:id="@+id/containerLayout"
@@ -15,7 +15,7 @@
         android:layout_marginStart="15dp"
         android:background="@drawable/border_edit_text"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/btnTakeProduct"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
@@ -88,7 +88,9 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:layout_weight="1"
-                        android:background="@drawable/border_edit_text">
+                        android:background="@drawable/border_edit_text"
+                        android:paddingBottom="2dp"
+                        android:paddingTop="2dp">
 
                         <TextView
                             android:id="@+id/cateogoryName"
@@ -98,7 +100,7 @@
                             android:text="categorie"
                             android:textAlignment="center"
                             android:textAllCaps="true"
-                            android:textColor="@color/colorPrimary" />
+                            android:textColor="@color/colorGreenSheen" />
 
                         <TextView
                             android:id="@+id/category"
@@ -115,7 +117,9 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:layout_weight="1"
-                        android:background="@drawable/border_edit_text">
+                        android:background="@drawable/border_edit_text"
+                        android:paddingBottom="2dp"
+                        android:paddingTop="2dp">
 
                         <TextView
                             android:id="@+id/expirationDate"
@@ -125,7 +129,7 @@
                             android:text="valabilitate"
                             android:textAlignment="center"
                             android:textAllCaps="true"
-                            android:textColor="@color/colorPrimary" />
+                            android:textColor="@color/colorGreenSheen" />
 
                         <TextView
                             android:id="@+id/dataValabilitate"
@@ -201,12 +205,11 @@
 
     </LinearLayout>
 
-    <LinearLayout
+    <ImageView
         android:id="@+id/backgroundLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="355dp"
-        android:background="@drawable/bakcground"
+        android:layout_marginBottom="390dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/btnTakeProduct"
         app:layout_constraintEnd_toEndOf="parent"
@@ -214,24 +217,39 @@
         app:layout_constraintTop_toTopOf="parent">
 
 
-        <ImageView
-            android:id="@+id/userProfileImage"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_gravity="bottom"
-            android:visibility="visible"
-            app:srcCompat="@drawable/useravatar" />
+    </ImageView>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_weight="1"
-            android:text="username posesor"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+    <ImageView
+        android:id="@+id/userProfileImage"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="356dp"
+        android:layout_marginTop="175dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/btnTakeProduct"
+        app:layout_constraintEnd_toStartOf="@+id/textView"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/useravatar" />
 
-    </LinearLayout>
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginEnd="197dp"
+        android:layout_marginTop="14dp"
+        android:layout_weight="1"
+        android:text="username posesor"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/backgroundLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/userProfileImage"
+        app:layout_constraintTop_toTopOf="@+id/containerLayout"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/btnTakeProduct"

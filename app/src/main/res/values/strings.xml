@@ -62,7 +62,7 @@
     <string name="nullInputs">Completati username si parola!</string>
     <string name="userUsername">Username</string>
     <string name="btnUpdateAboutMe">Salvare</string>
-    <string name="howToCompleteAboutMe">Desrierea trebuie sa aiba minim 20 caractere si sa fie diferita de cea anterioara(ca sa se justifice update in php).</string>
+    <string name="howToCompleteAboutMe">Desrierea trebuie sa aiba minim 20 caractere si sa fie diferita de cea anterioara.</string>
     <string name="hintCity">judet</string>
     <string name="street">locatie aproximativa</string>
     <string name="spinnerSelection">Tara</string>

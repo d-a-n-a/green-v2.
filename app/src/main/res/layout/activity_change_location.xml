@@ -6,45 +6,44 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <RelativeLayout
-     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorPrimaryDark"
-    tools:context="eco.org.greenapp.eco.org.greenapp.profile_activities.ChangeLocation">
-
-
-    <Spinner
-        android:id="@+id/spinnerCountries"
-        android:layout_width="360dp"
-        android:layout_height="30dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/etCity"
-        android:layout_marginTop="50dp"
-        android:keyboardNavigationCluster="true" />
-
-    <AutoCompleteTextView
-        android:id="@+id/etCity"
-        android:layout_width="360dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/spinnerCountries"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
-        android:ems="10"
-        android:hint="@string/hintCity"
-        android:completionThreshold="1"
-        android:inputType="textPersonName" />
+        tools:context="eco.org.greenapp.eco.org.greenapp.profile_activities.ChangeLocation">
 
-    <EditText
-        android:id="@+id/etStreet"
-        android:layout_width="360dp"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/etCity"
-        android:layout_below="@+id/etCity"
-        android:layout_marginEnd="24dp"
-        android:layout_marginTop="40dp"
-        android:ems="10"
-        android:hint="@string/street"
-        android:inputType="textPersonName" />
+
+        <Spinner
+            android:id="@+id/spinnerCountries"
+            android:layout_width="360dp"
+            android:layout_height="30dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/etCity"
+            android:layout_marginTop="50dp"
+            android:background="@color/colorDiverse"
+            android:keyboardNavigationCluster="true" />
+
+        <AutoCompleteTextView
+            android:id="@+id/etCity"
+            android:layout_width="360dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/spinnerCountries"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp"
+            android:completionThreshold="1"
+            android:ems="10"
+            android:hint="@string/hintCity"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/etStreet"
+            android:layout_width="360dp"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/etCity"
+            android:layout_below="@+id/etCity"
+            android:layout_marginEnd="24dp"
+            android:layout_marginTop="40dp"
+            android:ems="10"
+            android:hint="@string/street"
+            android:inputType="textPersonName" />
 
         <LinearLayout
             android:id="@+id/layoutAutoComplete"
@@ -54,11 +53,6 @@
             android:layout_marginTop="20dp"
             android:orientation="vertical">
 
-            <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/placeAutocompleteFragment"
-                class="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
         </LinearLayout>
 
         <fragment
@@ -77,7 +71,17 @@
             android:layout_alignStart="@+id/etStreet"
             android:layout_below="@+id/idMapFragmentLocation"
             android:layout_marginTop="30dp"
+            android:background="@drawable/button_diverse"
             android:text="Button"
-            android:textColor="@color/colorPrimaryDark" />
-</RelativeLayout>
+            android:textColor="@color/colorGreenSheen"
+            android:textStyle="bold" />
+
+        <fragment
+            android:id="@+id/placeAutocompleteFragment"
+            class="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignTop="@+id/layoutAutoComplete" />
+    </RelativeLayout>
 </ScrollView>

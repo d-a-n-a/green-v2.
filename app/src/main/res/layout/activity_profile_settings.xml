@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundLight"
+    android:background="@color/colorDiverse"
     tools:context="eco.org.greenapp.eco.org.greenapp.activities.ProfileSettings">
 
     <RelativeLayout
@@ -13,7 +13,7 @@
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/constraintLayout3"
-            android:layout_width="370dp"
+            android:layout_width="match_parent"
             android:layout_height="147dp"
             android:layout_centerHorizontal="true"
             android:layout_centerInParent="false"
@@ -32,7 +32,7 @@
                 android:layout_height="50dp"
                 android:weightSum="5"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
@@ -146,14 +146,15 @@
             <LinearLayout
                 android:id="@+id/userScoreLayout"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/border_edit_text"
-                android:paddingBottom="5dp"
+                android:layout_height="54dp"
+                android:background="@drawable/bottom_border_grid"
                 android:weightSum="5"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/userAboutLayout">
+                app:layout_constraintTop_toBottomOf="@+id/userAboutLayout"
+                app:layout_constraintVertical_bias="0.0">
 
                 <ImageView
                     android:id="@+id/star"
@@ -202,7 +203,7 @@
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/constrlay"
-            android:layout_width="370dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/constraintLayout3"
             android:layout_centerHorizontal="true"
@@ -416,7 +417,7 @@
                 android:id="@+id/userLocationLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:background="@drawable/border_edit_text"
+                android:background="@drawable/bottom_border_grid"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
                 android:weightSum="5"
@@ -467,7 +468,7 @@
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/constrainlayout"
-            android:layout_width="370dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/constrlay"
             android:layout_centerHorizontal="true"
@@ -616,7 +617,7 @@
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/consl"
-            android:layout_width="370dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/constrainlayout"
             android:layout_centerHorizontal="true"
@@ -678,7 +679,7 @@
                 android:id="@+id/logOutLayout"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
-                android:background="@drawable/border_edit_text"
+                android:background="@drawable/bottom_border_grid"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
                 android:weightSum="5"

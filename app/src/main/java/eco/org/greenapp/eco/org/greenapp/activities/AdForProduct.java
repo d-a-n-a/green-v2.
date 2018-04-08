@@ -1,6 +1,7 @@
 package eco.org.greenapp.eco.org.greenapp.activities;
 
 import android.content.Intent;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,12 +26,13 @@ import java.util.Date;
 
 import eco.org.greenapp.R;
 import eco.org.greenapp.eco.org.greenapp.GetImageTask;
+import eco.org.greenapp.eco.org.greenapp.ProductImageTask;
 import eco.org.greenapp.eco.org.greenapp.classes.Advertisement;
 import eco.org.greenapp.eco.org.greenapp.constants.GeneralConstants;
 
 public class AdForProduct extends AppCompatActivity implements OnMapReadyCallback {
 
-    ImageView userProfilePhoto;
+    ImageView produtPhoto;
     SupportMapFragment mapFragment;
     Advertisement ad;
     Intent intent;
@@ -68,6 +70,11 @@ public class AdForProduct extends AppCompatActivity implements OnMapReadyCallbac
         intent = getIntent();
         if(intent != null)
              ad = (Advertisement)intent.getSerializableExtra("selectedAd");
+
+        produtPhoto = (ImageView)findViewById(R.id.backgroundLayout);
+        Toast.makeText(getApplicationContext(), ad.getUrl(), Toast.LENGTH_LONG).show();
+        ProductImageTask productImageTask = new ProductImageTask(produtPhoto, getApplicationContext());
+        productImageTask.execute("http://192.168.100.4:8080"+ad.getUrl());
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
