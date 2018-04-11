@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -35,7 +36,7 @@ public class UserTransactionsAdapter extends ArrayAdapter<Transaction> {
     public View getView(final int position, View convertView, ViewGroup parent)
     {
         LayoutInflater li = LayoutInflater.from(getContext());
-        View view = li.inflate(this.idResource,parent, false);
+        final View view = li.inflate(this.idResource,parent, false);
 
         TextView titlu = (TextView)view.findViewById(R.id.denumire);
         TextView user = (TextView)view.findViewById(R.id.user);
@@ -57,6 +58,21 @@ public class UserTransactionsAdapter extends ArrayAdapter<Transaction> {
             co.setText("oferta");
         strada.setText(tr.getLocatie());
         dataora.setText(tr.getData().toString()+" - "+tr.getOra());
+
+        ((Button)view.findViewById(R.id.btnCancel)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            view.setBackgroundColor(view.getResources().getColor(R.color.colorAccent));
+            view.setAlpha(0.3f);//dar si cand le preiau din baza de date trebuie sa fac ceva in asa fel incat sa apara cu fundal
+            }
+        });
+
+        ((Button)view.findViewById(R.id.btnConfirm)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
         return view;
     }
 

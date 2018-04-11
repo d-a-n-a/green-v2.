@@ -103,7 +103,7 @@ public class ChangeProfilePhoto extends AppCompatActivity {
                 data.put("username", getSharedPreferences(GeneralConstants.SESSION, Context.MODE_PRIVATE).getString(
                         GeneralConstants.TOKEN,null
                 ));
-                String rezultat = executeRequests.sendPostRequest("http://192.168.100.4:8080/greenapp/update_profile_photo.php",data);
+                String rezultat = executeRequests.sendPostRequest(GeneralConstants.URL+"/update_profile_photo.php",data);
 
                 return rezultat;
             }

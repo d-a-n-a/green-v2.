@@ -173,7 +173,7 @@ public class ChangeLocation extends AppCompatActivity implements OnMapReadyCallb
                 String address = strings[2];
                 String email = sharedPreferences.getString(SharedPreferencesConstants.EMAIL, null);
 //192.168.43.191
-                URL url = new URL("http://10.38.31.11:8080/greenapp/updateLocation.php");
+                URL url = new URL(GeneralConstants.URL+"/updateLocation.php");
                 HttpURLConnection http = (HttpURLConnection) url.openConnection();
                 http.setRequestMethod("POST");
                 http.setDoInput(true);

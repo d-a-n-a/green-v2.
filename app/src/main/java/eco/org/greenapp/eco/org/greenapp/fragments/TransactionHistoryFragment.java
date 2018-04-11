@@ -90,7 +90,7 @@ public class TransactionHistoryFragment extends Fragment {
         @Override
         protected String doInBackground(Void... voids) {
             try {
-                URL url = new URL("http://192.168.100.4:8080/greenapp/select_transactions.php");
+                URL url = new URL(GeneralConstants.URL+"/select_transactions.php");
                 HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
 

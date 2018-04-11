@@ -17,6 +17,7 @@ import eco.org.greenapp.R;
 import eco.org.greenapp.eco.org.greenapp.GetImageTask;
 import eco.org.greenapp.eco.org.greenapp.classes.Advertisement;
 import eco.org.greenapp.eco.org.greenapp.classes.Review;
+import eco.org.greenapp.eco.org.greenapp.constants.GeneralConstants;
 
 /**
  * Created by danan on 4/2/2018.
@@ -52,7 +53,7 @@ public class ReviewAdapter extends ArrayAdapter<Review> {
         if(!review.getUrlProfil().isEmpty() && !(review.getUrlProfil()==null))
         {
             GetImageTask getImageTask = new GetImageTask(img, getContext());
-            getImageTask.execute("http://192.168.100.4:8080"+review.getUrlProfil());
+            getImageTask.execute(GeneralConstants.Url+review.getUrlProfil());
         }
 
         return view;

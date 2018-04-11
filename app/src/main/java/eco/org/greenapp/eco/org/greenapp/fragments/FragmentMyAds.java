@@ -19,6 +19,8 @@ import android.widget.PopupMenu;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.gms.location.GeofencingEvent;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -172,7 +174,7 @@ public class FragmentMyAds extends Fragment {
         protected String doInBackground(Void... voids) {
             try {
                 //URL url = new URL("http://10.38.31.11:8080/greenapp/select_user_advertisements.php");
-                URL url = new URL("http://192.168.100.4:8080/greenapp/select_user_advertisements.php");
+                URL url = new URL(GeneralConstants.URL+"/select_user_advertisements.php");
                 HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
 
@@ -239,7 +241,7 @@ if(s!=null) {
             URL url = null;
             try {
                // url = new URL("http://10.38.31.11:8080/greenapp/delete_advertisement.php");
-                url = new URL("http://192.168.100.4:8080/greenapp/delete_advertisement.php");
+                url = new URL(GeneralConstants.URL+"/delete_advertisement.php");
                 HttpURLConnection con = (HttpURLConnection) url.openConnection();
                 con.setRequestMethod("POST");
                 con.setDoOutput(true);
@@ -295,7 +297,7 @@ return updateResult;
                 idAd = strings[0];
                 idNewStatus = strings[1];
             try {
-                URL url = new URL("http://192.168.100.4:8080/greenapp/update_ad_status.php");
+                URL url = new URL(GeneralConstants.URL+"/update_ad_status.php");
                 HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
 
                 httpURLConnection.setRequestMethod("POST");

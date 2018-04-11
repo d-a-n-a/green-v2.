@@ -20,7 +20,7 @@ public class GeneralConstants {
     public static final int USERNAME_RESULT_CODE = 7;
     public static final String RESULT_OK = "OK";
     public static final String RESULT_NOT_OK = "fail";
-public static final String INVALID = "Acest email/username nu corespunde niciunui cont.";
+    public static final String INVALID = "Acest email/username nu corespunde niciunui cont.";
     public static final String INSERT_ADD = "insert_add" ;
     public static final String INSERT_DEMAND = "demand" ;
     public static final String SUCCESS = "success";
@@ -28,5 +28,8 @@ public static final String INVALID = "Acest email/username nu corespunde niciunu
     public static final String INSERT_TRANSACTION  = "insert_transaction";
     public static final int PICK_IMAGE = 10;
     public static final String UPLOAD_KEY = "image";
+
+    public static final String URL = "http://192.168.43.191:8080/greenapp";
+    public static final String Url = "http://192.168.43.191:8080";
 
 }

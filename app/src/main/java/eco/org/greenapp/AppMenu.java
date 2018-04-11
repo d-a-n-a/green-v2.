@@ -232,7 +232,7 @@ public class AppMenu extends AppCompatActivity
                 String username;
                 try {
                     username = strings[0];
-                    URL url = new URL("http://192.168.100.4:8080/greenapp/select_my_photo_url.php");
+                    URL url = new URL(GeneralConstants.URL+"/select_my_photo_url.php");
                     HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
 
@@ -269,7 +269,7 @@ public class AppMenu extends AppCompatActivity
                  if (s != null)
                 {
                       GetImageTask getImageTask = new GetImageTask(imageView, getApplicationContext());
-                      getImageTask.execute("http://192.168.100.4:8080"+s);
+                      getImageTask.execute(GeneralConstants.Url+s);
 
                 }
             }

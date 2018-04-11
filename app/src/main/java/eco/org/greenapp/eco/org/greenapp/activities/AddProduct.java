@@ -35,6 +35,8 @@ import eco.org.greenapp.eco.org.greenapp.ExecuteRequests;
 import eco.org.greenapp.eco.org.greenapp.constants.GeneralConstants;
 import eco.org.greenapp.eco.org.greenapp.profile_activities.ExecuteInsertTasks;
 
+import static eco.org.greenapp.eco.org.greenapp.constants.GeneralConstants.URL;
+
 public class AddProduct extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     TextInputEditText txtProductName;
     EditText etProductDescription;
@@ -257,7 +259,7 @@ public class AddProduct extends AppCompatActivity implements NavigationView.OnNa
                 HashMap<String,String> data = new HashMap<>();
 
                 data.put(GeneralConstants.UPLOAD_KEY, uploadImage);
-                String httpRezultat = executeRequests.sendPostRequest("http://192.168.100.4:8080/greenapp/upload_image_test.php",data);
+                String httpRezultat = executeRequests.sendPostRequest(URL+"/upload_image_test.php",data);
 
                 return httpRezultat;
             }

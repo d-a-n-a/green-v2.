@@ -118,9 +118,8 @@ public class SignIn extends AppCompatActivity {
             try {
                 String token = parameters[0];
                 String password = parameters[1];
-                // 192.168.43.191
-              //  URL url = new URL("http://10.38.31.11:8080/greenapp/login.php");
-                URL url = new URL("http://192.168.100.4:8080/greenapp/login.php");
+               //  URL url = new URL("http://10.38.31.11:8080/greenapp/login.php");
+                URL url = new URL(GeneralConstants.URL+"/login.php");
 
                 HttpURLConnection http = (HttpURLConnection)url.openConnection();
                 http.setRequestMethod("POST");

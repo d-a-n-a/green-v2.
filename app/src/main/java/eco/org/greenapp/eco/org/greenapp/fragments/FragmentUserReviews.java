@@ -27,6 +27,7 @@ import java.util.List;
 import eco.org.greenapp.R;
 import eco.org.greenapp.eco.org.greenapp.adapters.ReviewAdapter;
 import eco.org.greenapp.eco.org.greenapp.classes.Review;
+import eco.org.greenapp.eco.org.greenapp.constants.GeneralConstants;
 
 /**
  * Created by danan on 4/5/2018.
@@ -99,7 +100,7 @@ public class FragmentUserReviews extends Fragment {
         protected String doInBackground(String... strings) {
             username = strings[0];
             try {
-                URL url = new URL("http://192.168.100.4:8080/greenapp/select_user_reviews.php");
+                URL url = new URL(GeneralConstants.URL+"/select_user_reviews.php");
                 //URL url = new URL("http://10.38.31.11:8080/greenapp/select_user_reviews.php");
                 HttpURLConnection con = (HttpURLConnection) url.openConnection();
                 con.setRequestMethod("POST");

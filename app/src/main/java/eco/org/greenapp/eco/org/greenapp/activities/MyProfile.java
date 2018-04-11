@@ -119,7 +119,7 @@ String imgUrl;
              String username;
              try {
                  username = strings[0];
-                 URL url = new URL("http://192.168.100.4:8080/greenapp/calculate_review.php");
+                 URL url = new URL(GeneralConstants.URL+"/calculate_review.php");
                  HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
 
@@ -164,7 +164,7 @@ String imgUrl;
                      else
                          nota = jsonObject.getString("review");
                      ratingBar.setRating(Float.parseFloat(nota)*ratingBar.getNumStars()/10);
-                     imgUrl = "http://192.168.100.4:8080"+jsonObject.getString("foto");
+                     imgUrl = GeneralConstants.Url+jsonObject.getString("foto");
                      if(!jsonObject.getString("foto").isEmpty() && !(jsonObject.getString("foto")==null) )
                          new GetImageTask((ImageView) findViewById(R.id.userProfilePicture), getApplicationContext())
                                  .execute(imgUrl);

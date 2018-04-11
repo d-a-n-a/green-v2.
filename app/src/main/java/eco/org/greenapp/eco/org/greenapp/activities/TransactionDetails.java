@@ -148,7 +148,7 @@ public class TransactionDetails extends AppCompatActivity {
         @Override
         protected String doInBackground(Void... voids) {
             try {
-                URL url = new URL("http://192.168.100.4:8080/greenapp/select_users.php");
+                URL url = new URL(GeneralConstants.URL+"/select_users.php");
                 HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
                 httpURLConnection.setDoInput(true);
                 httpURLConnection.setDoOutput(true);
@@ -203,7 +203,7 @@ public class TransactionDetails extends AppCompatActivity {
             String idAnunt = strings[5];
             String queryData;
             try {
-                URL url = new URL("http://192.168.100.4:8080/greenapp/insert_transaction.php");
+                URL url = new URL(GeneralConstants.URL+"/insert_transaction.php");
                 HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
                 httpURLConnection.setRequestMethod("POST");
                 httpURLConnection.setDoInput(true);

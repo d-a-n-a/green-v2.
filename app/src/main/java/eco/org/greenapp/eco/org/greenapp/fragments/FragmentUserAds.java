@@ -106,7 +106,7 @@ public class FragmentUserAds extends Fragment {
             try {
                 username = strings[0];
                 //URL url = new URL("http://10.38.31.11:8080/greenapp/select_user_advertisements.php");
-                URL url = new URL("http://192.168.100.4:8080/greenapp/select_user_ads.php");
+                URL url = new URL(GeneralConstants.URL+"/select_user_ads.php");
                 HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
 

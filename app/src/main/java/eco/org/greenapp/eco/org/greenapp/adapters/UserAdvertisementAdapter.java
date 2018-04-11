@@ -21,6 +21,7 @@ import eco.org.greenapp.R;
 import eco.org.greenapp.eco.org.greenapp.GetImageTask;
 import eco.org.greenapp.eco.org.greenapp.classes.Advertisement;
 import eco.org.greenapp.eco.org.greenapp.classes.User;
+import eco.org.greenapp.eco.org.greenapp.constants.GeneralConstants;
 
 /**
  * Created by danan on 4/2/2018.
@@ -56,7 +57,7 @@ public class UserAdvertisementAdapter extends ArrayAdapter<Advertisement> {
         status.setText(ad.getStatusAnunt());
         if(!ad.getUrl().isEmpty()){
             GetImageTask getImageTask = new GetImageTask(imgv, getContext());
-            getImageTask.execute("http://192.168.100.4:8080"+ad.getUrl());
+            getImageTask.execute(GeneralConstants.Url+ad.getUrl());
         }
         return view;
     }

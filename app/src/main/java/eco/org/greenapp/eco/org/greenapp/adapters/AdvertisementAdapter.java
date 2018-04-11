@@ -14,6 +14,7 @@ import java.util.List;
 import eco.org.greenapp.R;
 import eco.org.greenapp.eco.org.greenapp.GetImageTask;
 import eco.org.greenapp.eco.org.greenapp.classes.Advertisement;
+import eco.org.greenapp.eco.org.greenapp.constants.GeneralConstants;
 
 /**
  * Created by danan on 4/1/2018.
@@ -48,7 +49,7 @@ public class AdvertisementAdapter extends ArrayAdapter<Advertisement> {
         status.setText(ad.getStatusAnunt());
         if(!ad.getUrl().isEmpty()) {
             GetImageTask getImageTask = new GetImageTask(photo, getContext());
-            getImageTask.execute("http://192.168.100.4:8080" + ad.getUrl());
+            getImageTask.execute(GeneralConstants.Url + ad.getUrl());
         }
         return view;
     }

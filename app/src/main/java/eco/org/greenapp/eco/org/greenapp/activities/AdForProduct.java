@@ -74,7 +74,7 @@ public class AdForProduct extends AppCompatActivity implements OnMapReadyCallbac
         produtPhoto = (ImageView)findViewById(R.id.backgroundLayout);
         Toast.makeText(getApplicationContext(), ad.getUrl(), Toast.LENGTH_LONG).show();
         ProductImageTask productImageTask = new ProductImageTask(produtPhoto, getApplicationContext());
-        productImageTask.execute("http://192.168.100.4:8080"+ad.getUrl());
+        productImageTask.execute(GeneralConstants.Url+ad.getUrl());
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override

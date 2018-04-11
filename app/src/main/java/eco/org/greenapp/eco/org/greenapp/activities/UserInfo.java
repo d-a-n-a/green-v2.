@@ -35,6 +35,7 @@ import java.net.URLEncoder;
 
 import eco.org.greenapp.R;
 import eco.org.greenapp.eco.org.greenapp.GetImageTask;
+import eco.org.greenapp.eco.org.greenapp.constants.GeneralConstants;
 import eco.org.greenapp.eco.org.greenapp.fragments.FragmentGeneralUserInfo;
 import eco.org.greenapp.eco.org.greenapp.fragments.FragmentUserAds;
 import eco.org.greenapp.eco.org.greenapp.fragments.FragmentMyReviews;
@@ -126,7 +127,7 @@ public class UserInfo extends AppCompatActivity {
             String username;
             try {
                 username = strings[0];
-                URL url = new URL("http://192.168.100.4:8080/greenapp/calculate_review.php");
+                URL url = new URL(GeneralConstants.URL+"/calculate_review.php");
                 HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
 
@@ -171,7 +172,7 @@ public class UserInfo extends AppCompatActivity {
                          else
                              nota = jsonObject.getString("review");
                          rating.setRating(Float.parseFloat(nota)*rating.getNumStars()/10);
-                         imgUrl = "http://192.168.100.4:8080"+jsonObject.getString("foto");
+                         imgUrl = GeneralConstants.Url+jsonObject.getString("foto");
                          if(!jsonObject.getString("foto").isEmpty() && !(jsonObject.getString("foto")==null) )
                        new GetImageTask((ImageView) findViewById(R.id.userProfilePicture), getApplicationContext())
                                .execute(imgUrl);
