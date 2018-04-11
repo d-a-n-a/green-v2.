@@ -57,7 +57,7 @@
 
 
             <TextView
-                android:id="@+id/textView13"
+                android:id="@+id/textFeedback"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignStart="@+id/inputSubiect"
@@ -70,7 +70,7 @@
                 android:id="@+id/inputSubiect"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/textView13"
+                android:layout_below="@+id/textFeedback"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="15dp"
