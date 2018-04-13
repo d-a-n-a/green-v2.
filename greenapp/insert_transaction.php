@@ -31,8 +31,14 @@ $idAnunt = $_POST["idAnunt"];
 	    $insertTransaction->bind_param('sssdddd',$locatie, $data, $ora,$idExpeditor,$idDestinatar,$idAnunt,$idStatus);
 	    $insertTransaction->execute();  
 		$idTranzactie =(int) $insertTransaction->insert_id;
-		echo $idTranzactie;
 
+
+		$updateAnunt = $connect->prepare("update anunturi set ID_ANUNT=?");
+		$idStatusAnunt = 8;
+		$updateAnunt->bind_param('i', $updateAnunt);
+		$updateAnunt->execute();
+
+		echo $idTranzactie;
  
  ?>
  

@@ -128,10 +128,12 @@
 
     <string-array name="editAdStatus">
         <item>disponibil</item>
+        <item>rezervat</item>
         <item>indisponibil</item>
     </string-array>
     <string-array name="idEditAdStatus">
         <item>3</item>
+        <item>8</item>
         <item>4</item>
     </string-array>
 

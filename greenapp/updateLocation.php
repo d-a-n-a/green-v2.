@@ -8,6 +8,9 @@ $country = $_POST["country"];
 $city = $_POST["city"];
 $address = $_POST["address"];
 $email = $_POST["email"]; 
+$latitudine = $_POST["latitudine"];
+$longitudine = $_POST["longitudine"];
+
  //echo $country.$city.$address.$email;
 $userLocation = $connect->prepare('select ID_LOCATIE from users where email like  ?;');
 $userLocation->bind_param('s', $email);
@@ -18,8 +21,10 @@ $userLocation->fetch();
 
 if($idLocation === 0){
 	 
-	$insertQuery = $connect->prepare('insert into locatii(oras, strada, tara) values (?,?,?);');
-	$insertQuery->bind_param('sss', $city, $address, $country);
+	 $lat = (double)$latitudine;
+	 $lng = (double)$longitudine;
+	$insertQuery = $connect->prepare('insert into locatii(oras, strada, tara, latitudine, longitudine) values (?,?,?,?,?);');
+	$insertQuery->bind_param('sssdd', $city, $address, $country, $lat, $lng);
 	$insertQuery->execute();
 	$locationId = $insertQuery->insert_id;
 	
@@ -35,8 +40,10 @@ if($idLocation === 0){
 //		}
 }
 else{
-	$updateQuery = $connect->prepare('update locatii set oras=?, strada=?, tara=? where ID_LOCATIE = ?;');
-	$updateQuery->bind_param('sssd', $city, $address, $country, $idLocation);
+	 $lat = (double)$latitudine;
+	 $lng = (double)$longitudine;
+	$updateQuery = $connect->prepare('update locatii set oras=?, strada=?, tara=?, latitudine = ?, longitudine = ? where ID_LOCATIE = ?;');
+	$updateQuery->bind_param('sssddi', $city, $address, $country, $lat, $lng,$idLocation);
 	$updateQuery->execute();
 
 	if($updateQuery->execute())

@@ -147,7 +147,9 @@ public class FragmentMyAds extends Fragment {
                                         String idNewStatus = getResources().getStringArray(R.array.idEditAdStatus)[statusSpinner.getSelectedItemPosition()];
                                         EditStatusAd editStatusAd  = new EditStatusAd();
                                         editStatusAd.execute(""+lista.get(position).getId(), idNewStatus);
-                                        if(statusSpinner.getSelectedItem().toString().equals("indisponibil")){
+                                        //dar DACA TRECE PE DISPONIBIL?
+                                        //DAR DACA TRECE PE INDISPONIBIL?
+                                        if(statusSpinner.getSelectedItem().toString().equals("rezervat")){
                                             Intent intent = new Intent(getContext(), TransactionDetails.class);
                                             intent.putExtra("idAd", lista.get(position).getId());
                                             startActivity(intent);

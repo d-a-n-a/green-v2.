@@ -157,6 +157,7 @@ public  class GetData extends AsyncTask<Void,Void,String> {
                     ad.setDetaliiAnunt(adItem.getString("detaliiAnunt"));
                     ad.setValabilitate(adItem.getString("valabilitate"));
                     ad.setUrl(adItem.getString("imagine"));
+                    ad.setEmail(adItem.getString("email"));
                     lista.add(ad);
                 }
             } catch (JSONException e) {

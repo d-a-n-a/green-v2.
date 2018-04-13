@@ -7,7 +7,7 @@ package eco.org.greenapp.eco.org.greenapp.classes;
 public class Review {
     private String user;
     private String data_adaugare;
-    private int nota;
+    private float nota;
     private String continut;
     private String urlProfil;
     public Review(){
@@ -30,11 +30,11 @@ public class Review {
         this.data_adaugare = data_adaugare;
     }
 
-    public int getNota() {
+    public float getNota() {
         return nota;
     }
 
-    public void setNota(int nota) {
+    public void setNota(float nota) {
         this.nota = nota;
     }
 

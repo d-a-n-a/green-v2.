@@ -29,7 +29,7 @@ public class GeneralConstants {
     public static final int PICK_IMAGE = 10;
     public static final String UPLOAD_KEY = "image";
 
-    public static final String URL = "http://192.168.43.191:8080/greenapp";
-    public static final String Url = "http://192.168.43.191:8080";
+    public static final String URL = "http://10.38.31.11:8080/greenapp";
+    public static final String Url = "http://10.38.31.11:8080";
 
 }

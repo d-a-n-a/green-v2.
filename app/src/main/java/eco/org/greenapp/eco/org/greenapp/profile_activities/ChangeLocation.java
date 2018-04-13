@@ -55,7 +55,7 @@ public class ChangeLocation extends AppCompatActivity implements OnMapReadyCallb
     Spinner spinnerCountries;
     AutoCompleteTextView eCity;
     EditText eStreet;
-
+    double latitudine, longitudine;
     PlaceAutocompleteFragment placeAutocompleteFragment;
     private  GoogleMap googleMap;
 
@@ -77,6 +77,8 @@ public class ChangeLocation extends AppCompatActivity implements OnMapReadyCallb
             @Override
             public void onPlaceSelected(Place place) {
                 eStreet.setText(place.getName());
+                latitudine = place.getLatLng().latitude;
+                longitudine = place.getLatLng().longitude;
                 googleMap.addMarker(new MarkerOptions()
                         .position(place.getLatLng())
                         .title(place.getName().toString()));
@@ -113,7 +115,7 @@ public class ChangeLocation extends AppCompatActivity implements OnMapReadyCallb
                     UpdateLocationTask updateLocationTask = new UpdateLocationTask(getApplicationContext());
                     updateLocationTask.execute(sharedPreferences.getString(SharedPreferencesConstants.COUNTRY, null),
                             sharedPreferences.getString(SharedPreferencesConstants.CITY, null),
-                            sharedPreferences.getString(SharedPreferencesConstants.STREET, null));
+                            sharedPreferences.getString(SharedPreferencesConstants.STREET, null), ""+latitudine,""+latitudine);
 
                 }
             }
@@ -172,6 +174,8 @@ public class ChangeLocation extends AppCompatActivity implements OnMapReadyCallb
                 String city = strings[1];
                 String address = strings[2];
                 String email = sharedPreferences.getString(SharedPreferencesConstants.EMAIL, null);
+                String latitudine = strings[3];
+                String longitudine = strings[4];
 //192.168.43.191
                 URL url = new URL(GeneralConstants.URL+"/updateLocation.php");
                 HttpURLConnection http = (HttpURLConnection) url.openConnection();
@@ -184,7 +188,9 @@ public class ChangeLocation extends AppCompatActivity implements OnMapReadyCallb
                 String updateValues = URLEncoder.encode("country", "UTF-8") + "=" + URLEncoder.encode(country, "UTF-8") + "&"
                         + URLEncoder.encode("city", "UTF-8") + "=" + URLEncoder.encode(city, "UTF-8") + "&"
                         + URLEncoder.encode("address", "UTF-8") + "=" + URLEncoder.encode( address, "UTF-8") + "&"
-                        +URLEncoder.encode("email", "UTF-8") + "=" + URLEncoder.encode(email, "UTF-8");
+                        +URLEncoder.encode("email", "UTF-8") + "=" + URLEncoder.encode(email, "UTF-8") + "&"
+                        +URLEncoder.encode("latitudine", "UTF-8") + "=" + URLEncoder.encode(""+latitudine, "UTF-8") + "&"
+                        +URLEncoder.encode("longitudine", "UTF-8") + "=" + URLEncoder.encode(""+longitudine, "UTF-8") ;
                 bufferedWriter.write(updateValues);
 
                 bufferedWriter.flush();

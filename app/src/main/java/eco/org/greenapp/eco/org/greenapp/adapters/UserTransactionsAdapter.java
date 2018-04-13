@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -19,6 +20,17 @@ import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.List;
 
 import eco.org.greenapp.R;
@@ -29,6 +41,7 @@ import eco.org.greenapp.eco.org.greenapp.classes.Review;
 import eco.org.greenapp.eco.org.greenapp.classes.Transaction;
 import eco.org.greenapp.eco.org.greenapp.constants.GeneralConstants;
 import eco.org.greenapp.eco.org.greenapp.constants.SharedPreferencesConstants;
+import eco.org.greenapp.eco.org.greenapp.fragments.FragmentMyAds;
 
 /**
  * Created by danan on 4/5/2018.
@@ -71,19 +84,20 @@ public class UserTransactionsAdapter extends ArrayAdapter<Transaction> {
         strada.setText(tr.getLocatie());
         dataora.setText(tr.getData().toString()+" - "+tr.getOra());
 
-        if(tr.getStatus().equals("incurs"))
+        if(tr.getStatus().equals("anulat"))
         {
+
             ((Button)view.findViewById(R.id.btnConfirm)).setVisibility(View.INVISIBLE);
             ((Button)view.findViewById(R.id.btnCancel)).setVisibility(View.INVISIBLE);
             ((Button)view.findViewById(R.id.btnEliminare)).setVisibility(View.VISIBLE);
 
-            view.setBackgroundColor(view.getResources().getColor(R.color.colorBackgound));
+            view.setBackgroundColor(view.getResources().getColor(R.color.colorAccentMild));
             ((Button)view.findViewById(R.id.btnEliminare)).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(view.getContext());
                     alertDialog.setMessage("Sunteti sigur ca vreti sa eliminati definitiv aceasta tranzactie?");
-                    alertDialog.setTitle("Eliminare anunt");
+                    alertDialog.setTitle("Eliminare tranzactie din istoric");
 
                     alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
@@ -107,54 +121,161 @@ public class UserTransactionsAdapter extends ArrayAdapter<Transaction> {
                 }
             });
         }
-        ((Button)view.findViewById(R.id.btnCancel)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-          //  view.setBackgroundColor(view.getResources().getColor(R.color.colorAccent));
-           // view.setAlpha(0.3f);//dar si cand le preiau din baza de date trebuie sa fac ceva in asa fel incat sa apara cu fundal
-            }
-        });
+        else
+            if(tr.getStatus().equals("finalizat")){
+                ((Button)view.findViewById(R.id.btnConfirm)).setVisibility(View.INVISIBLE);
+                ((Button)view.findViewById(R.id.btnCancel)).setVisibility(View.INVISIBLE);
+                ((Button)view.findViewById(R.id.btnEliminare)).setVisibility(View.VISIBLE);
 
-        ((Button)view.findViewById(R.id.btnConfirm)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//de aici pornesc review pe OK
-                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(view.getContext());
-                dialogBuilder.setView( R.layout.layout_confirmare_tranzactie);
+                view.setBackgroundColor(view.getResources().getColor(R.color.colorBackgound));
 
-                final AlertDialog alertDialog = dialogBuilder.create();
-                alertDialog.show();
-
-                ((Button)alertDialog.findViewById(R.id.btnAnulare)).setOnClickListener(new View.OnClickListener() {
+                ((Button)view.findViewById(R.id.btnEliminare)).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        //aici doar se inchide fereastra
-                        alertDialog.dismiss();
+                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(view.getContext());
+                        alertDialog.setMessage("Sunteti sigur ca vreti sa eliminati definitiv aceasta tranzactie?");
+                        alertDialog.setTitle("Eliminare tranzactie");
+//se elimina si anuntul - e normal; UPDATE: ANUNTUL POATE FI ELIMINAT MANUAL; ca poate vrea sa tina lista totusi pentru ceilalti useri
+                        //cand ii intra pe profil
+                        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                transactions.remove(position);
+                                //AICI IMI ELIMINA TRANZACTIA, DAR NU SI PRODUSUL - ASA VREAU?
+                                //SAU AS PUTEA SA LE LAS CU FINALIZAT LA STATUS SI EU SA LE PREIAU DOAR PE CELE CARE SUNT
+                                // DIFERITE DE FINALIZAT
+                                DeleteTask deleteTask = new  DeleteTask(view.getContext());
+                                deleteTask.execute(tr.getIdTranzactie());
+                            } });
+
+
+                        alertDialog.setNegativeButton("Renunta", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                try {
+                                    finalize();
+                                } catch (Throwable throwable) {
+                                    throwable.printStackTrace();
+                                }
+                            } });
+                        alertDialog.show();
+
                     }
                 });
-                ((Button)alertDialog.findViewById(R.id.btnNu)).setOnClickListener(new View.OnClickListener() {
-                    //pe cazul asta, tranzactia este trecuta ca finalizata
+            }
+            else {
+                ((Button) view.findViewById(R.id.btnCancel)).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        alertDialog.dismiss();
+                        EditStatus editStatus = new EditStatus();
+                        editStatus.execute(""+tr.getIdTranzactie(), ""+6, ""+tr.getIdAnunt(), ""+3);
+
                     }
                 });
-                ((Button)alertDialog.findViewById(R.id.btnDa)).setOnClickListener(new View.OnClickListener() {
-                   //tranzactia se schimba pe finalizata si se porneste intent pentru activitatea de review
+
+                ((Button) view.findViewById(R.id.btnConfirm)).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
-                        Intent intent =  new Intent(getContext(), Feedback.class);
-                        if(tr.getExpeditor().equals(me))
-                            intent.putExtra("user",tr.getDestinatar());
-                        else
-                            intent.putExtra("user", tr.getExpeditor());
-                        context.startActivity(intent);
-                     }
+                        EditStatus editStatus = new EditStatus();
+                        editStatus.execute(""+tr.getIdTranzactie(), ""+7, ""+tr.getIdAnunt(), ""+4);
+
+                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(view.getContext());
+                        dialogBuilder.setView(R.layout.layout_confirmare_tranzactie);
+
+                        final AlertDialog alertDialog = dialogBuilder.create();
+                        alertDialog.show();
+
+                        ((Button) alertDialog.findViewById(R.id.btnAnulare)).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                 alertDialog.dismiss();
+                            }
+                        });
+                        ((Button) alertDialog.findViewById(R.id.btnNu)).setOnClickListener(new View.OnClickListener() {
+                            //pe cazul asta, tranzactia este trecuta ca finalizata
+                            @Override
+                            public void onClick(View v) {
+                                alertDialog.dismiss();
+                            }
+                        });
+                        ((Button) alertDialog.findViewById(R.id.btnDa)).setOnClickListener(new View.OnClickListener() {
+                            //tranzactia se schimba pe finalizata si se porneste intent pentru activitatea de review
+                            @Override
+                            public void onClick(View v) {
+
+                                Intent intent = new Intent(getContext(), Feedback.class);
+                                if (tr.getExpeditor().equals(me))
+                                    intent.putExtra("user", tr.getDestinatar());
+                                else
+                                    intent.putExtra("user", tr.getExpeditor());
+                                context.startActivity(intent);
+                            }
+                        });
+                    }
                 });
             }
-        });
         return view;
+    }
+    public class EditStatus extends AsyncTask<String, Void, String> {
+        String idTransaction;
+        String idAd;
+        String idnewStatusTransaction;
+        String idNewStatusAd;
+        @Override
+        protected String doInBackground(String... strings) {
+            idTransaction = strings[0];
+            idnewStatusTransaction = strings[1];
+            idAd = strings[2];
+            idNewStatusAd = strings[3];
+            try {
+                URL url = new URL(GeneralConstants.URL+"/update_transaction_ad.php");
+                HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
+
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoInput(true);
+                httpURLConnection.setDoOutput(true);
+
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+                String updateValues = URLEncoder.encode("idTransaction", "UTF-8") + "=" + URLEncoder.encode(idTransaction, "UTF-8") + "&"
+                        + URLEncoder.encode("idStatusTransaction", "UTF-8") + "=" + URLEncoder.encode(idnewStatusTransaction, "UTF-8") + "&"
+                        + URLEncoder.encode("idAd", "UTF-8") + "=" + URLEncoder.encode(idAd, "UTF-8") + "&"
+                        + URLEncoder.encode("idStatusAd", "UTF-8") + "=" + URLEncoder.encode(idNewStatusAd, "UTF-8");
+                bufferedWriter.write(updateValues);
+
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+
+                InputStream inputStream = httpURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
+                String dataLine = "";
+                String updateResult = "";
+                while ((dataLine = bufferedReader.readLine()) != null) {
+                    updateResult += dataLine;
+                }
+                bufferedReader.close();
+
+                inputStream.close();
+                httpURLConnection.disconnect();
+
+                return updateResult;
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            if(s!=null)
+                Toast.makeText(getContext(), s, Toast.LENGTH_LONG).show();
+        }
     }
 
 

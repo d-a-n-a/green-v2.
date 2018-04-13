@@ -1,6 +1,7 @@
 package eco.org.greenapp.eco.org.greenapp.activities;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -72,7 +74,6 @@ public class AdForProduct extends AppCompatActivity implements OnMapReadyCallbac
              ad = (Advertisement)intent.getSerializableExtra("selectedAd");
 
         produtPhoto = (ImageView)findViewById(R.id.backgroundLayout);
-        Toast.makeText(getApplicationContext(), ad.getUrl(), Toast.LENGTH_LONG).show();
         ProductImageTask productImageTask = new ProductImageTask(produtPhoto, getApplicationContext());
         productImageTask.execute(GeneralConstants.Url+ad.getUrl());
 
@@ -115,6 +116,21 @@ Log.i("days", ""+days);
         }
 
         zile.setText("anunt postat acum "+days + " zile");
+
+        ((Button)findViewById(R.id.btnTakeProduct)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent email = new Intent(Intent.ACTION_SEND);
+                email.putExtra(Intent.EXTRA_EMAIL, "dana.neagu1@gmail.com");
+                email.putExtra(Intent.EXTRA_SUBJECT, "Contactare");
+
+
+                // need this to prompts email client only
+                email.setType("message/rfc822");
+
+                startActivity(Intent.createChooser(email, "Choose an Email client :"));
+            }
+        });
     }
 
     @Override

@@ -13,7 +13,7 @@ public class Advertisement implements Serializable{
     private String username;
     private String denumireProdus;
     private String statusAnunt;
-//imaginea!!!!
+    private String email;
     private String valabilitate;
     private String categorie;
     private String locatieUser;
@@ -24,6 +24,14 @@ public class Advertisement implements Serializable{
  public Advertisement(){}
     public int getId() {
         return id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getValabilitate() {
