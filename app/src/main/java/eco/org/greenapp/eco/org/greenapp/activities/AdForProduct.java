@@ -120,15 +120,15 @@ Log.i("days", ""+days);
         ((Button)findViewById(R.id.btnTakeProduct)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent email = new Intent(Intent.ACTION_SEND);
-                email.putExtra(Intent.EXTRA_EMAIL, "dana.neagu1@gmail.com");
-                email.putExtra(Intent.EXTRA_SUBJECT, "Contactare");
-
-
-                // need this to prompts email client only
-                email.setType("message/rfc822");
-
-                startActivity(Intent.createChooser(email, "Choose an Email client :"));
+                Intent intent = new Intent (Intent.ACTION_SEND);
+                intent.setType("message/rfc822");
+                intent.putExtra(Intent.EXTRA_EMAIL, new String[]{ad.getEmail()});
+                intent.putExtra(Intent.EXTRA_SUBJECT, "Contactare anunt: "+ad.getDenumireProdus());
+                intent.setPackage("com.google.android.gm");
+                if (intent.resolveActivity(getPackageManager())!=null)
+                    startActivity(intent);
+                else
+                    Toast.makeText(getApplicationContext(),"Gmail App is not installed",Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -6,13 +6,13 @@
         android:id="@+id/nav_one"
         android:checkable="false"
         android:icon="@drawable/about"
-        android:title="one" />
+        android:title="ads" />
     <item
         android:id="@+id/nav_two"
-        android:icon="@drawable/about"
-        android:title="two" />
+        android:icon="@drawable/plus"
+        android:title="Adauga anunt" />
     <item
         android:id="@+id/nav_three"
         android:icon="@drawable/about"
-        android:title="three" />
+        android:title="cautare" />
 </menu>

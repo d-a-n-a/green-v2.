@@ -1,6 +1,7 @@
 package eco.org.greenapp.eco.org.greenapp.activities;
 
 
+import android.app.Activity;
 import android.widget.Spinner;
 import android.widget.Toast;
 import android.os.Bundle;
@@ -179,12 +180,16 @@ public class AddProduct extends AppCompatActivity implements NavigationView.OnNa
   }
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        super.onBackPressed();
+       /* DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
-        }
+        }*/
+        Intent returnIntent = getIntent();
+        setResult(Activity.RESULT_OK,returnIntent);
+        finish();
     }
 
     @Override

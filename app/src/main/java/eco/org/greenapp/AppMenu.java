@@ -1,4 +1,5 @@
 package eco.org.greenapp;
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -38,6 +39,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 
 import eco.org.greenapp.eco.org.greenapp.GetImageTask;
+import eco.org.greenapp.eco.org.greenapp.activities.AddProduct;
 import eco.org.greenapp.eco.org.greenapp.activities.MyProfile;
 import eco.org.greenapp.eco.org.greenapp.activities.ProfileSettings;
 import eco.org.greenapp.eco.org.greenapp.activities.SignIn;
@@ -57,6 +59,14 @@ public class AppMenu extends AppCompatActivity
     private ImageView imageView;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor sharedPreferencesEditor;
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == 55 && resultCode== Activity.RESULT_OK) {
+            setFragment(new FragmentOne());
+            Toast.makeText(getApplicationContext(), "sdf", Toast.LENGTH_SHORT).show();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,7 +128,8 @@ public class AppMenu extends AppCompatActivity
                         return true;
 
                     case R.id.nav_two:
-                        setFragment(frtwo);
+                       // setFragment(frtwo);
+                        startActivityForResult(new Intent(getApplicationContext(), AddProduct.class), 55);
                         return true;
 
                     case R.id.nav_three:
