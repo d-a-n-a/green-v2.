@@ -66,6 +66,9 @@ public class FilterFindUsers extends AppCompatActivity {
                     {
                         //TODO
                         //filtrare avand categoriile
+                            //nu exista utilizatori => popup: refa criteriile sau renunta
+                            //exista utilizatori => afisare in listview
+                                        //onClick ma duce catre pagina lui personala
                     }
             }
         });
