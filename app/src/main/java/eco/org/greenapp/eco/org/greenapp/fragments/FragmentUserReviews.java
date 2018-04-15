@@ -143,7 +143,7 @@ public class FragmentUserReviews extends Fragment {
 
                     review.setData_adaugare(adItem.getString("data"));
                     review.setContinut(adItem.getString("detalii"));
-                    review.setNota(Integer.parseInt(adItem.getString("nota")));
+                    review.setNota(Float.parseFloat(adItem.getString("nota")));
                     review.setUser(adItem.getString("username"));
                     review.setUrlProfil(adItem.getString("fotografie"));
                     lista.add(review);
