@@ -13,8 +13,7 @@ public class User {
     private String biografie;
     private String email;
 
-    //fotografie! PLUS REVIEW
-    //dar trebui e sa ii iau si tranzactiile si anunturile!! -  pe astea le fac din shared preferences mai bine cu emailul!
+    //fotografie!  o iau dupa username cu GetImageTask
 
     public User(){}
 

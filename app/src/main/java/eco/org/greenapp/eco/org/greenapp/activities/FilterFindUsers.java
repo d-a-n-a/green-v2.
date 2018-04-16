@@ -1,6 +1,7 @@
 package eco.org.greenapp.eco.org.greenapp.activities;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,7 +12,12 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 import eco.org.greenapp.R;
+import eco.org.greenapp.eco.org.greenapp.classes.User;
 import eco.org.greenapp.eco.org.greenapp.profile_activities.ChangeLocation;
 
 public class FilterFindUsers extends AppCompatActivity {
@@ -23,11 +29,14 @@ public class FilterFindUsers extends AppCompatActivity {
     int selectie = 0;
     Switch swHaine, swAlimente, swAltele;
     Button btnFiltrare;
+    List<User> listaUtilizatori;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filter_find_users);
+
+        listaUtilizatori = new ArrayList<>();
 
         txtViewSchimbareLocatie = (TextView)findViewById(R.id.textViewChangeLocation);
         txtViewSchimbareLocatie.setOnClickListener(new View.OnClickListener() {
@@ -69,12 +78,26 @@ public class FilterFindUsers extends AppCompatActivity {
                             //nu exista utilizatori => popup: refa criteriile sau renunta
                             //exista utilizatori => afisare in listview
                                         //onClick ma duce catre pagina lui personala
+                         Intent intent = new Intent();
+                        intent.putExtra("listaUtilizatori", (Serializable)listaUtilizatori);
+                        startActivity(intent);
+
+
                     }
             }
         });
+    }
 
+    public class GetUsersByCriteria extends AsyncTask<String, Void, String>{
 
+        @Override
+        protected String doInBackground(String... strings) {
+            return null;
+        }
 
-
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+        }
     }
 }

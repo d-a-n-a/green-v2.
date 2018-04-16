@@ -25,7 +25,12 @@
             android:value="AIzaSyCEa4xCNXzzumzQI074uiBhIYaq4tsOPjM" /> <!-- aici trebuie sa iau cheie noua, aia de la greenapp nu a mers; asta e de la proiect dam -->
         <activity
             android:name=".eco.org.greenapp.activities.SignIn"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter></activity>
         <activity android:name=".eco.org.greenapp.activities.CreateAccount" />
         <activity
             android:name=".eco.org.greenapp.activities.AddProduct"
@@ -104,11 +109,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="eco.org.greenapp.AppMenu" />
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".eco.org.greenapp.activities.UsersFilterList"></activity>
     </application>
