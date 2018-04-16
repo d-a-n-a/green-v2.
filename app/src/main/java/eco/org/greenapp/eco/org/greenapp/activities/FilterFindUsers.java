@@ -1,5 +1,6 @@
 package eco.org.greenapp.eco.org.greenapp.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -12,12 +13,33 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
 import eco.org.greenapp.R;
+import eco.org.greenapp.eco.org.greenapp.classes.Selectie;
 import eco.org.greenapp.eco.org.greenapp.classes.User;
+import eco.org.greenapp.eco.org.greenapp.classes.UserFiltru;
+import eco.org.greenapp.eco.org.greenapp.constants.GeneralConstants;
+import eco.org.greenapp.eco.org.greenapp.constants.SharedPreferencesConstants;
 import eco.org.greenapp.eco.org.greenapp.profile_activities.ChangeLocation;
 
 public class FilterFindUsers extends AppCompatActivity {
@@ -30,6 +52,13 @@ public class FilterFindUsers extends AppCompatActivity {
     Switch swHaine, swAlimente, swAltele;
     Button btnFiltrare;
     List<User> listaUtilizatori;
+
+
+String latitudine, longitudine;
+Selectie catAlimente, catHaine, catAltele;
+Selectie tipCerere, tipOferta;
+String maxDistanta;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,38 +95,129 @@ public class FilterFindUsers extends AppCompatActivity {
         btnFiltrare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(selectie == 0)
+               /* if(selectie == 0)
                     Toast.makeText(getApplicationContext(), "Alegeti cel putin un criteriu.", Toast.LENGTH_SHORT).show();
                 else
                     if(!cbOferte.isSelected() && !cbCereri.isSelected())
                         Toast.makeText(getApplicationContext(), "Selectati Cereri si/sau Oferte", Toast.LENGTH_LONG).show();
                     else
-                    {
-                        //TODO
+                    {*/
+
+                        latitudine = getSharedPreferences(GeneralConstants.SESSION, Context.MODE_PRIVATE)
+                                    .getString(SharedPreferencesConstants.LATITUDINE, null);
+                        longitudine = getSharedPreferences(GeneralConstants.SESSION, Context.MODE_PRIVATE)
+                                .getString(SharedPreferencesConstants.LONGITUDINE, null);
+
+                        tipCerere = (cbCereri.isSelected()) ? Selectie.DA : Selectie.NU;
+                        tipOferta = (cbOferte.isSelected()) ? Selectie.DA : Selectie.NU;
+                        catHaine = (swHaine.isChecked()) ? Selectie.DA : Selectie.NU;
+                        catAlimente = (swAlimente.isChecked()) ? Selectie.DA : Selectie.NU;
+                        catHaine = (swHaine.isChecked()) ? Selectie.DA : Selectie.NU;
+                        catAltele = (swAltele.isChecked()) ? Selectie.DA : Selectie.NU;
+                        maxDistanta = ""+seekBarDistanta.getProgress();
                         //filtrare avand categoriile
                             //nu exista utilizatori => popup: refa criteriile sau renunta
                             //exista utilizatori => afisare in listview
                                         //onClick ma duce catre pagina lui personala
-                         Intent intent = new Intent();
-                        intent.putExtra("listaUtilizatori", (Serializable)listaUtilizatori);
-                        startActivity(intent);
+                        GetUsersByCriteria getUsersByCriteria = new GetUsersByCriteria();
+                        getUsersByCriteria.execute(latitudine, longitudine,
+                                ""+tipCerere, ""+tipOferta,
+                                ""+catHaine, ""+catAlimente, ""+catAltele,
+                                maxDistanta);
 
 
                     }
-            }
+          //  }
         });
     }
 
     public class GetUsersByCriteria extends AsyncTask<String, Void, String>{
-
+        String lat, lng;
+        String cerere, oferta;
+        String alimente, haine, altele;
+        String distanta;
         @Override
         protected String doInBackground(String... strings) {
+            lat = strings[0];
+            lng = strings[1];
+            cerere = strings[2];
+            oferta = strings[3];
+            haine = strings[4];
+            alimente = strings[5];
+            altele = strings[6];
+            distanta = strings[7];
+            try {
+                URL url = new URL(GeneralConstants.URL+"/find_users.php");
+                HttpURLConnection http = (HttpURLConnection) url.openConnection();
+
+                http.setDoInput(true);
+                http.setDoOutput(true);
+                http.setRequestMethod("POST");
+
+                OutputStream outputStream = http.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+                String findUsers = URLEncoder.encode("latitudine", "UTF-8") + "=" + URLEncoder.encode(lat, "UTF-8") + "&"
+                        + URLEncoder.encode("longitudine", "UTF-8") + "=" + URLEncoder.encode(lng, "UTF-8") + "&"
+                        + URLEncoder.encode("cerere", "UTF-8") + "=" + URLEncoder.encode( cerere, "UTF-8") + "&"
+                        +URLEncoder.encode("oferta", "UTF-8") + "=" + URLEncoder.encode(oferta, "UTF-8") + "&"
+                        +URLEncoder.encode("alimente", "UTF-8") + "=" + URLEncoder.encode(""+alimente, "UTF-8") + "&"
+                        +URLEncoder.encode("haine", "UTF-8") + "=" + URLEncoder.encode(""+haine, "UTF-8") +  "&"
+                        +URLEncoder.encode("altele", "UTF-8") + "=" + URLEncoder.encode(""+altele, "UTF-8") + "&"
+                        +URLEncoder.encode("distanta", "UTF-8") + "=" + URLEncoder.encode(""+distanta, "UTF-8");
+                bufferedWriter.write(findUsers);
+
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+
+                InputStream inputStream = http.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
+                String dataLine = "";
+                String updateResult = "";
+                while ((dataLine = bufferedReader.readLine()) != null) {
+                    updateResult += dataLine;
+                }
+                bufferedReader.close();
+                inputStream.close();
+                http.disconnect();
+
+                return updateResult;
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            } catch (ProtocolException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             return null;
         }
 
         @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
+            protected void onPostExecute(String s) {
+
+if(s!=null){
+    try {
+        JSONArray jsonArray = new JSONArray(s);
+        for(int i=0; i<jsonArray.length(); i++){
+            JSONObject jsonObject = jsonArray.getJSONObject(i);
+            UserFiltru user  = new UserFiltru();
+            user.setMedieReviews(Float.parseFloat(jsonObject.getString("review")));
+            user.setUrlProfil(jsonObject.getString("fotografie"));
+            user.setUsername(jsonObject.getString("username"));
+            user.setLocatie(jsonObject.getString("strada"));
+            listaUtilizatori.add(user);
         }
+        Toast.makeText(getApplicationContext(), listaUtilizatori.toString(), Toast.LENGTH_LONG).show();
+        /*Intent intent = new Intent();
+        intent.putExtra("listaUtilizatori", (Serializable)listaUtilizatori);
+        startActivity(intent);*/
+    } catch (JSONException e) {
+        e.printStackTrace();
+    }
+
+}
+         }
     }
 }

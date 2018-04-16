@@ -16,5 +16,7 @@ public class SharedPreferencesConstants {
     public static final String CITY = "city";
     public static final String ABOUT = "about_me";
     public static final String PASSWORD = "password";
+    public static final String LATITUDINE = "latitudine";
+    public static final String LONGITUDINE = "longitudine";
 
 }

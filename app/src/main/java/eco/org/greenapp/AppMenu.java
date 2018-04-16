@@ -40,6 +40,7 @@ import java.net.URLEncoder;
 
 import eco.org.greenapp.eco.org.greenapp.GetImageTask;
 import eco.org.greenapp.eco.org.greenapp.activities.AddProduct;
+import eco.org.greenapp.eco.org.greenapp.activities.FilterFindUsers;
 import eco.org.greenapp.eco.org.greenapp.activities.MyProfile;
 import eco.org.greenapp.eco.org.greenapp.activities.ProfileSettings;
 import eco.org.greenapp.eco.org.greenapp.activities.SignIn;
@@ -192,7 +193,7 @@ public class AppMenu extends AppCompatActivity
 
         switch (id){
             case R.id.nav_about: {
-
+                startActivity(new Intent(getApplicationContext(),FilterFindUsers.class));
                 break;
             }
             case R.id.nav_profile: {

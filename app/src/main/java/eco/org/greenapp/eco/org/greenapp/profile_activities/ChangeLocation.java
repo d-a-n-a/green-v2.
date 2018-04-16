@@ -79,6 +79,10 @@ public class ChangeLocation extends AppCompatActivity implements OnMapReadyCallb
                 eStreet.setText(place.getName());
                 latitudine = place.getLatLng().latitude;
                 longitudine = place.getLatLng().longitude;
+                sharedPreferencesEditor = sharedPreferences.edit();
+                sharedPreferencesEditor.putString(SharedPreferencesConstants.LATITUDINE, ""+latitudine);
+                sharedPreferencesEditor.putString(SharedPreferencesConstants.LONGITUDINE, ""+longitudine);
+                sharedPreferencesEditor.apply();
                 googleMap.addMarker(new MarkerOptions()
                         .position(place.getLatLng())
                         .title(place.getName().toString()));
@@ -115,7 +119,7 @@ public class ChangeLocation extends AppCompatActivity implements OnMapReadyCallb
                     UpdateLocationTask updateLocationTask = new UpdateLocationTask(getApplicationContext());
                     updateLocationTask.execute(sharedPreferences.getString(SharedPreferencesConstants.COUNTRY, null),
                             sharedPreferences.getString(SharedPreferencesConstants.CITY, null),
-                            sharedPreferences.getString(SharedPreferencesConstants.STREET, null), ""+latitudine,""+latitudine);
+                            sharedPreferences.getString(SharedPreferencesConstants.STREET, null), ""+latitudine,""+longitudine);
 
                 }
             }
