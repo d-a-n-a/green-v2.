@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import eco.org.greenapp.R;
 import eco.org.greenapp.eco.org.greenapp.constants.GeneralConstants;
@@ -45,7 +46,8 @@ public class ChangeAboutMe extends AppCompatActivity {
                 }
                 else{
                     sharedPreferencesEditor = sharedPreferences.edit();
-                    sharedPreferencesEditor.putString(SharedPreferencesConstants.ABOUT, etAbout.getText().toString().trim());
+                    sharedPreferencesEditor.putString(SharedPreferencesConstants.ABOUT, etAbout.getText().toString());
+                    Toast.makeText(getApplicationContext(), etAbout.getText().toString(), Toast.LENGTH_LONG).show();
                     sharedPreferencesEditor.apply();
                    // finishActivity(GeneralConstants.ABOUT_RESULT_CODE);
                     //finishActivity(RESULT_OK);

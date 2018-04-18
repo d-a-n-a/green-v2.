@@ -39,6 +39,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 
 import eco.org.greenapp.eco.org.greenapp.GetImageTask;
+import eco.org.greenapp.eco.org.greenapp.activities.AddDemandProduct;
 import eco.org.greenapp.eco.org.greenapp.activities.AddProduct;
 import eco.org.greenapp.eco.org.greenapp.activities.FilterFindUsers;
 import eco.org.greenapp.eco.org.greenapp.activities.MyProfile;
@@ -87,10 +88,10 @@ public class AppMenu extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         sharedPreferences = getSharedPreferences(GeneralConstants.SESSION, Context.MODE_PRIVATE);
+        if(sharedPreferences.getString(SharedPreferencesConstants.ABOUT,null).isEmpty() && sharedPreferences.getString(SharedPreferencesConstants.STREET,null).equals("null")){
 
-       // if(!sharedPreferences.getString("completeSignUp",null).equals("complet")){
-//if(sharedPreferences.getString(SharedPreferencesConstants.STREET,null).isEmpty() || sharedPreferences.getString(SharedPreferencesConstants.ABOUT,null).isEmpty()){
-        if(!sharedPreferences.contains(SharedPreferencesConstants.STREET) && ! sharedPreferences.contains(SharedPreferencesConstants.ABOUT)){
+     // if(sharedPreferences.getString("completeSignUp",null).equals("incomplet")){
+       // if(!sharedPreferences.contains(SharedPreferencesConstants.STREET) && ! sharedPreferences.contains(SharedPreferencesConstants.ABOUT)){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage("Pentru a putea utiliza functionalitatile trebuie sa completati toate datele de la profilul personal.")
                     .setCancelable(false)
@@ -105,7 +106,9 @@ public class AppMenu extends AppCompatActivity
             //startActivityForResult pentru setari, ca dupa ce ma intorc, sa modific completeSignUp
         }
         else
-{
+       //if(!sharedPreferences.getString(SharedPreferencesConstants.STREET,null).isEmpty() && !sharedPreferences.getString(SharedPreferencesConstants.ABOUT,null).isEmpty()){
+       {
+
         SharedPreferences sharedPreferences = getSharedPreferences(GeneralConstants.SESSION, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(SharedPreferencesConstants.COMPLETE_REGISTER, "complet");
@@ -130,7 +133,23 @@ public class AppMenu extends AppCompatActivity
 
                     case R.id.nav_two:
                        // setFragment(frtwo);
-                        startActivityForResult(new Intent(getApplicationContext(), AddProduct.class), 55);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(AppMenu.this);
+                        builder.setMessage("Ce tip de anunt doriti sa introduceti?")
+                                .setPositiveButton("Oferta", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        startActivityForResult(new Intent(getApplicationContext(), AddProduct.class), 55);
+                                    }
+                                })
+                                .setNegativeButton("Cerere", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        startActivityForResult(new Intent(getApplicationContext(), AddDemandProduct.class), 55);
+                                    }
+                                });
+                        AlertDialog alert = builder.create();
+                        alert.show();
+
+
                         return true;
 
                     case R.id.nav_three:

@@ -146,7 +146,7 @@
                         android:paddingTop="5dp"
                         android:text="@string/productCategory"
                         android:textAllCaps="true"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/colorGreenSheen"
                         android:textColorLink="@color/colorPrimary" />
 
                     <Spinner
@@ -179,7 +179,7 @@
                         android:paddingTop="5dp"
                         android:text="durata anunt"
                         android:textAllCaps="true"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/colorGreenSheen"
                         android:textColorLink="@color/colorPrimary" />
 
                     <EditText

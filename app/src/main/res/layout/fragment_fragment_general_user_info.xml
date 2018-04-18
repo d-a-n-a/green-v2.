@@ -61,7 +61,8 @@
                 android:layout_weight="0.87"
                 android:fontFamily="@font/lora_regular"
                 android:text="@string/signUpDate"
-                android:textAlignment="viewEnd" />
+                android:textAlignment="viewEnd"
+                android:textSize="15sp" />
 
             <TextView
                 android:layout_width="0dp"
@@ -82,6 +83,7 @@
                 android:fontFamily="@font/lora_regular"
                 android:gravity="center_vertical"
                 android:text="12/12/2017"
+                android:textSize="15sp"
                 tools:layout_editor_absoluteX="62dp"
                 tools:layout_editor_absoluteY="169dp" />
 
@@ -110,6 +112,7 @@
             android:layout_weight="1"
             android:background="@drawable/border_green_edit_text"
             android:drawableLeft="@android:drawable/ic_menu_compass"
+            android:fontFamily="@font/lora_regular"
             android:gravity="center_vertical"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"

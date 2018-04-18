@@ -57,9 +57,6 @@ public class SignIn extends AppCompatActivity {
         etPassword = (EditText)findViewById(R.id.userPassword);
         etUsername = (EditText)findViewById(R.id.username);
 
-
-
-
         /*etUsername.setText(sharedPreferences.getString(SharedPreferencesConstants.EMAIL, ""));
         etPassword.setText(sharedPreferences.getString(SharedPreferencesConstants.PASSWORD, ""));*/
 
@@ -118,7 +115,6 @@ public class SignIn extends AppCompatActivity {
             try {
                 String token = parameters[0];
                 String password = parameters[1];
-               //  URL url = new URL("http://10.38.31.11:8080/greenapp/login.php");
                 URL url = new URL(GeneralConstants.URL+"/login.php");
 
                 HttpURLConnection http = (HttpURLConnection)url.openConnection();
@@ -176,7 +172,6 @@ public class SignIn extends AppCompatActivity {
                         for (int i = 0; i < resultArray.length(); i++) {
                             objects.add(resultArray.getString(i));
                         }
-                        //    Toast.makeText(getApplicationContext(), result.toString(), Toast.LENGTH_LONG).show();
 
                         sharedPreferences = getSharedPreferences(GeneralConstants.SESSION, Context.MODE_PRIVATE);
                         sharedPreferencesEditor = sharedPreferences.edit();
@@ -190,7 +185,7 @@ public class SignIn extends AppCompatActivity {
                         sharedPreferencesEditor.putString(SharedPreferencesConstants.PHONE_NUMBER, objects.get(7));
                         sharedPreferencesEditor.putString(SharedPreferencesConstants.REGISTER_DATE, objects.get(8));
                         sharedPreferencesEditor.putString(SharedPreferencesConstants.STREET, objects.get(9));
-                        if (resultArray.get(7).toString().isEmpty() || objects.get(9).equals("0"))
+                        if (objects.get(6).toString().isEmpty() || objects.get(9).equals("null"))
                             sharedPreferencesEditor.putString(SharedPreferencesConstants.COMPLETE_REGISTER, "incomplet");
                         else
                             sharedPreferencesEditor.putString(SharedPreferencesConstants.COMPLETE_REGISTER, "complet");

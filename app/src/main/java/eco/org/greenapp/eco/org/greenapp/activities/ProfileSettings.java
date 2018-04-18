@@ -168,5 +168,14 @@ public class ProfileSettings extends AppCompatActivity {
             AlertDialog alert = builder.create();
             alert.show();
         }
+        else
+        {
+
+            SharedPreferences.Editor editor =  getSharedPreferences(GeneralConstants.SESSION, Context.MODE_PRIVATE).edit();
+            editor.putString(SharedPreferencesConstants.COMPLETE_REGISTER, "complet");
+            editor.putString(SharedPreferencesConstants.STREET,((TextView)findViewById(R.id.userLocation)).getText().toString());
+            editor.putString(SharedPreferencesConstants.ABOUT,((TextView)findViewById(R.id.aboutUserDescription)).getText().toString());
+            editor.apply();
+        }
     }
 }

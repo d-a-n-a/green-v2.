@@ -38,7 +38,7 @@ public class FragmentUserReviews extends Fragment {
     private View view;
     private ListView lvReviews;
     private List<Review> lista;
-    SwipeRefreshLayout swipeContainer;
+   // SwipeRefreshLayout swipeContainer;
     String username;
 
     public FragmentUserReviews() {
@@ -68,13 +68,15 @@ public class FragmentUserReviews extends Fragment {
             parent.removeView(view);
         }
 
+/*
 
         final ReviewAdapter adapter=new ReviewAdapter(getActivity(),R.layout.review_item,lista);
         lvReviews=(ListView)view.findViewById(R.id.idLvReview);
 
         lvReviews.setAdapter(adapter);
+*/
 
-        swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.idSwipeReview);
+     /*   swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.idSwipeReview);
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -88,7 +90,7 @@ public class FragmentUserReviews extends Fragment {
                 gd.execute(username);
 
             }
-        });
+        });*/
 
         return view;
     }
@@ -148,6 +150,13 @@ public class FragmentUserReviews extends Fragment {
                     review.setUrlProfil(adItem.getString("fotografie"));
                     lista.add(review);
                 }
+
+
+                final ReviewAdapter adapter=new ReviewAdapter(getActivity(),R.layout.review_item,lista);
+                lvReviews=(ListView)view.findViewById(R.id.idLvReview);
+
+                lvReviews.setAdapter(adapter);
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }

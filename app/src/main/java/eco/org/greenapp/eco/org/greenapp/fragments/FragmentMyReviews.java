@@ -44,7 +44,7 @@ public class FragmentMyReviews extends Fragment {
     private View view;
     private ListView lvReviews;
     private List<Review> lista;
-    SwipeRefreshLayout swipeContainer;
+   // SwipeRefreshLayout swipeContainer;
     public FragmentMyReviews() {
         // Required empty public constructor
     }
@@ -68,12 +68,12 @@ public class FragmentMyReviews extends Fragment {
         getData();
 
         //lista = parseJson(getResult);
-        final ReviewAdapter adapter=new ReviewAdapter(getActivity(),R.layout.review_item,lista);
+      /*  final ReviewAdapter adapter=new ReviewAdapter(getActivity(),R.layout.review_item,lista);
         lvReviews=(ListView)view.findViewById(R.id.idLvReview);
+*/
+        /*lvReviews.setAdapter(adapter);*/
 
-        lvReviews.setAdapter(adapter);
-
-        swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.idSwipeReview);
+      /*  swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.idSwipeReview);
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -86,7 +86,7 @@ public class FragmentMyReviews extends Fragment {
                getData();
             }
         });
-
+*/
 
         return view;
     }
@@ -150,6 +150,9 @@ public class GetReviews extends AsyncTask<String, Void, String>{
                 review.setUrlProfil(adItem.getString("fotografie"));
                 lista.add(review);
             }
+            final ReviewAdapter adapter=new ReviewAdapter(getActivity(),R.layout.review_item,lista);
+            lvReviews=(ListView)view.findViewById(R.id.idLvReview);
+            lvReviews.setAdapter(adapter);
         } catch (JSONException e) {
             e.printStackTrace();
         }

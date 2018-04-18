@@ -58,6 +58,27 @@ public class FragmentUserAds extends Fragment {
     public FragmentUserAds() {
         // Required empty public constructor
     }
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (swipeContainer!=null) {
+            swipeContainer.setRefreshing(false);
+            swipeContainer.destroyDrawingCache();
+            swipeContainer.clearAnimation();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        lista.clear();
+        adapter.notifyDataSetChanged();
+
+        swipeContainer.setRefreshing(false);
+
+        GetUserData gd = new GetUserData();
+        gd.execute();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

@@ -50,6 +50,16 @@ public class FragmentOne extends Fragment {
     public FragmentOne() {
         // Required empty public constructor
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (swipeContainer!=null) {
+            swipeContainer.setRefreshing(false);
+            swipeContainer.destroyDrawingCache();
+            swipeContainer.clearAnimation();
+        }
+    }
     @Override
             public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
                                      final Bundle savedInstanceState) {

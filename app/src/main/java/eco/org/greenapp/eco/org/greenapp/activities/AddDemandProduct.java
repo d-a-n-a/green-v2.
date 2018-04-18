@@ -42,9 +42,8 @@ public class AddDemandProduct extends AppCompatActivity implements OnMapReadyCal
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_demand_product);
 
-        mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.productMapView);
-       mapFragment.getMapAsync(this);
+           /* mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.productMapView);
+            mapFragment.getMapAsync(this);*/
 
 
 
@@ -68,7 +67,7 @@ public class AddDemandProduct extends AppCompatActivity implements OnMapReadyCal
                         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MMMM-yyyy");
                         String dataIntroducerii = simpleDateFormat.format(date);
 
-                        final String valabilitate = "nespecificat";
+                        final String valabilitate = "0";
                         valori.put("cod", GeneralConstants.INSERT_DEMAND);
                         valori.put("email", getSharedPreferences(GeneralConstants.SESSION, Context.MODE_PRIVATE).getString("email",null));
                         valori.put("data_introducerii", dataIntroducerii);

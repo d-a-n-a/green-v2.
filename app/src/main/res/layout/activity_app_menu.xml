@@ -44,7 +44,7 @@
         android:paddingLeft="20dp"
         app:headerLayout="@layout/nav_header_app_menu"
         app:itemTextAppearance="@style/TextInputLabel"
-        app:itemTextColor="#fff"
+        app:itemTextColor="@color/colorPrimaryDark"
         app:menu="@menu/activity_app_menu_drawer" />
 
 </android.support.v4.widget.DrawerLayout>
