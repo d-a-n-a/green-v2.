@@ -122,7 +122,7 @@ public class AddProduct extends AppCompatActivity implements NavigationView.OnNa
                     ExecuteInsertTasks executeInsertTasks = new ExecuteInsertTasks(getApplicationContext());
                     executeInsertTasks.execute(values);
                     uploadImage();
-
+                    finish();
                 }
             }
         });

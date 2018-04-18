@@ -67,7 +67,7 @@ public class FragmentUserAds extends Fragment {
             view = inflater.inflate(R.layout.fragment_fragment_user_ads, container, false);
         } else {
             ViewGroup parent = (ViewGroup) view.getParent();
-            // parent.removeView(view); //asta e posibil sa faca probleme
+            parent.removeView(view); //asta e posibil sa faca probleme
         }
 
         Bundle bundle = this.getArguments();
@@ -89,11 +89,11 @@ public class FragmentUserAds extends Fragment {
 
                 lista.clear();
                 adapter.notifyDataSetChanged();
-                GetUserData gd = new GetUserData();
-                gd.execute();
+
                 swipeContainer.setRefreshing(false);
 
-
+                GetUserData gd = new GetUserData();
+                gd.execute();
             }
         });
         return view;

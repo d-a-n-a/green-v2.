@@ -46,59 +46,59 @@ public class FragmentOne extends Fragment {
     private ListView lvAnunturi;
     private List<Advertisement> lista;
      SwipeRefreshLayout swipeContainer;
+
     public FragmentOne() {
         // Required empty public constructor
     }
-
     @Override
-        public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
-                                 final Bundle savedInstanceState) {
-            // Inflate the layout for this fragment
-            lista = new ArrayList<>();
-            if(view==null)
-            {
-                view=inflater.inflate(R.layout.fragment_fragment_one, container,false);
-            }
-            else
-            {
-                ViewGroup parent = (ViewGroup) view.getParent();
-               // parent.removeView(view);
-            }
-            getData();
-            //lista = parseJson(getResult);
-            final AdvertisementAdapter adapter=new AdvertisementAdapter(getActivity(),R.layout.product_item,lista);
-            lvAnunturi=(ListView)view.findViewById(R.id.lvAds);
-
-            lvAnunturi.setAdapter(adapter);
-
-            swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipe);
-            swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-                @Override
-                public void onRefresh() {
-
-                    lista.clear();
-                    adapter.notifyDataSetChanged();
-
-                    swipeContainer.setRefreshing(false);
-
-                    GetData gd = new GetData();
-                    gd.execute();
-
+            public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
+                                     final Bundle savedInstanceState) {
+                // Inflate the layout for this fragment
+                lista = new ArrayList<>();
+                if(view==null)
+                {
+                    view=inflater.inflate(R.layout.fragment_fragment_one, container,false);
                 }
-            });
-
-
-            lvAnunturi.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Intent intent = new Intent(getActivity().getApplicationContext(), AdForProduct.class);
-                    intent.putExtra("selectedAd", (Serializable)lista.get(position));
-                    startActivity(intent);
+                else
+                {
+                    ViewGroup parent = (ViewGroup) view.getParent();
+                   // parent.removeView(view);
                 }
-            });
+                getData();
+                //lista = parseJson(getResult);
+                final AdvertisementAdapter adapter=new AdvertisementAdapter(getActivity(),R.layout.product_item,lista);
+                lvAnunturi=(ListView)view.findViewById(R.id.lvAds);
 
-            return view;
-        }
+                lvAnunturi.setAdapter(adapter);
+
+                swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipe);
+                swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                    @Override
+                    public void onRefresh() {
+
+                        lista.clear();
+                        adapter.notifyDataSetChanged();
+
+                        swipeContainer.setRefreshing(false);
+
+                        GetData gd = new GetData();
+                        gd.execute();
+
+                    }
+                });
+
+
+                lvAnunturi.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Intent intent = new Intent(getActivity().getApplicationContext(), AdForProduct.class);
+                        intent.putExtra("selectedAd", (Serializable)lista.get(position));
+                        startActivity(intent);
+                    }
+                });
+
+                return view;
+            }
 public  class GetData extends AsyncTask<Void,Void,String> {
     @Override
     protected String doInBackground(Void... voids) {

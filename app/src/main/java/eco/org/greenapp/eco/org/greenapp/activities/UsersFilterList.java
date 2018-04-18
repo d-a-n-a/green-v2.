@@ -5,7 +5,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.ListViewCompat;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import eco.org.greenapp.R;
@@ -24,9 +27,11 @@ public class UsersFilterList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_users_filter_list);
 
+        lista = new ArrayList<>();
+
         listView = (ListView)findViewById(R.id.idListViewUsers);
         intent = getIntent();
-        if(intent != null && intent.getData() != null){
+        if(intent != null){
             ok = 1;
             lista = (List<User>) intent.getSerializableExtra("listaUtilizatori");
         }

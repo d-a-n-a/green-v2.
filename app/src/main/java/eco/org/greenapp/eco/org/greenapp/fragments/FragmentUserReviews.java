@@ -65,7 +65,7 @@ public class FragmentUserReviews extends Fragment {
         else
         {
             ViewGroup parent = (ViewGroup) view.getParent();
-            // parent.removeView(view);
+            parent.removeView(view);
         }
 
 

@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/colorBackgound"
+        android:background="@color/colorAccent"
         android:text="@string/addAd"
         android:textColor="@android:color/background_light" />
 
@@ -46,7 +46,7 @@
                 android:text="@string/productName"
                 android:textAlignment="textStart"
                 android:textAllCaps="true"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/colorGreenSheen"
                 android:textSize="18sp" />
 
             <android.support.design.widget.TextInputEditText
@@ -70,7 +70,7 @@
                 android:text="@string/productDescription"
                 android:textAlignment="textStart"
                 android:textAllCaps="true"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/colorGreenSheen"
                 android:textSize="18sp" />
 
             <EditText
@@ -129,11 +129,13 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1.2"
+                    android:background="@drawable/border_edit_text"
                     android:gravity="center_vertical"
                     android:padding="5dp"
                     android:text="@string/addPhoto"
                     android:textAlignment="center"
-                    android:textColor="@color/darkGrey" />
+                    android:textColor="@color/colorGreenSheen"
+                    android:textStyle="bold" />
             </LinearLayout>
 
             <LinearLayout
@@ -152,7 +154,7 @@
                     android:paddingTop="5dp"
                     android:text="@string/productCategory"
                     android:textAllCaps="true"
-                    android:textColor="@color/colorPrimary" />
+                    android:textColor="@color/colorGreenSheen" />
 
                 <Spinner
                     android:id="@+id/spinnerProductCategory"
@@ -187,7 +189,7 @@
                     android:paddingTop="5dp"
                     android:text="@string/availability"
                     android:textAllCaps="true"
-                    android:textColor="@color/colorPrimary" />
+                    android:textColor="@color/colorGreenSheen" />
 
                 <EditText
                     android:id="@+id/dayInput"
@@ -243,7 +245,7 @@
                     android:paddingTop="5dp"
                     android:text="@string/productDetails"
                     android:textAllCaps="true"
-                    android:textColor="@color/colorPrimary" />
+                    android:textColor="@color/colorGreenSheen" />
 
 
             </LinearLayout>
@@ -281,7 +283,7 @@
                     android:paddingTop="5dp"
                     android:text="Durata valabilitate anunt(zile)"
                     android:textAllCaps="true"
-                    android:textColor="@color/colorPrimary" />
+                    android:textColor="@color/colorGreenSheen" />
 
                 <EditText
                     android:id="@+id/adDurata"

@@ -29,6 +29,8 @@
                 android:id="@+id/username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
                 android:layout_marginTop="40dp"
                 android:fontFamily="@font/nanum_gothic_regular"
                 android:text="@string/user"
@@ -60,7 +62,7 @@
 
                 <Button
                     android:id="@+id/button3"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/custom_button_profile_options"
@@ -71,7 +73,7 @@
 
                 <Button
                     android:id="@+id/btnTakeProduct"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/custom_button_profile_options"
@@ -82,10 +84,10 @@
 
                 <Button
                     android:id="@+id/button5"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentStart="false"
-                    android:layout_alignTop="@+id/bottomLayout"
+                    android:layout_alignEnd="@+id/buttonsLayout"
+                    android:layout_alignTop="@+id/buttonsLayout"
                     android:layout_weight="1"
                     android:background="@drawable/custom_button_profile_options"
                     android:onClick="selectionOfFragment"

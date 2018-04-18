@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -37,6 +38,7 @@ import eco.org.greenapp.R;
 import eco.org.greenapp.eco.org.greenapp.GetImageTask;
 import eco.org.greenapp.eco.org.greenapp.constants.GeneralConstants;
 import eco.org.greenapp.eco.org.greenapp.fragments.FragmentGeneralUserInfo;
+import eco.org.greenapp.eco.org.greenapp.fragments.FragmentOne;
 import eco.org.greenapp.eco.org.greenapp.fragments.FragmentUserAds;
 import eco.org.greenapp.eco.org.greenapp.fragments.FragmentMyReviews;
 import eco.org.greenapp.eco.org.greenapp.fragments.FragmentUserReviews;
@@ -60,13 +62,26 @@ public class UserInfo extends AppCompatActivity {
         if (intent != null)
             username = intent.getStringExtra("username");
 
+        ((TextView)findViewById(R.id.username)).setText(username);
         CalculateReview calculateReview = new CalculateReview();
         calculateReview.execute(username);
+/*
+        Fragment fragment;
+        fragment =  new FragmentGeneralUserInfo();
+        if(savedInstanceState == null) {
+            FragmentManager manager = getSupportFragmentManager();
+            FragmentTransaction transaction = manager.beginTransaction();
+            transaction.replace(R.id.fragmentArea, fragment);
+            transaction.detach(fragment).attach(fragment).commit();
+
+          //  transaction.commit();
+        }*/
     }
 
     public void selectionOfFragment(View view) {
         ((Button) findViewById(R.id.button3)).setBackgroundResource(R.drawable.custom_button_profile_options);
         ((Button) findViewById(R.id.btnTakeProduct)).setBackgroundResource(R.drawable.custom_button_profile_options);
+        ((Button) findViewById(R.id.button5)).setBackgroundResource(R.drawable.custom_button_profile_options);
 
         ((Button)findViewById(R.id.button3)).setBackgroundResource(R.drawable.custom_button_profile_options_selected);
         ((Button)findViewById(R.id.button3)).setTextColor(getResources().getColor(R.color.white));
@@ -74,8 +89,10 @@ public class UserInfo extends AppCompatActivity {
 
         ((FloatingActionButton) findViewById(R.id.floatingMessage)).setVisibility(View.INVISIBLE);
         Fragment fragment = new Fragment();
+
         if (view == findViewById(R.id.button5)) {
             ((Button)findViewById(R.id.button5)).setTextColor(getResources().getColor(R.color.white));
+
 
             fragment = new FragmentGeneralUserInfo();
 
@@ -115,9 +132,12 @@ public class UserInfo extends AppCompatActivity {
         view.setBackgroundResource(R.drawable.custom_button_profile_options_selected);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
         fragmentTransaction.replace(R.id.fragmentArea, fragment);
+      //  fragmentTransaction.detach(fragment).attach(fragment).commit();
+
         fragmentTransaction.commit();
+
+
     }
 
 

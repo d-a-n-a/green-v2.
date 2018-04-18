@@ -1,13 +1,17 @@
 package eco.org.greenapp.eco.org.greenapp.activities;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.PopupWindow;
 import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -19,6 +23,7 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -108,12 +113,11 @@ String maxDistanta;
                         longitudine = getSharedPreferences(GeneralConstants.SESSION, Context.MODE_PRIVATE)
                                 .getString(SharedPreferencesConstants.LONGITUDINE, null);
 
-                        tipCerere = (cbCereri.isSelected()) ? Selectie.DA : Selectie.NU;
-                        tipOferta = (cbOferte.isSelected()) ? Selectie.DA : Selectie.NU;
-                        catHaine = (swHaine.isChecked()) ? Selectie.DA : Selectie.NU;
-                        catAlimente = (swAlimente.isChecked()) ? Selectie.DA : Selectie.NU;
-                        catHaine = (swHaine.isChecked()) ? Selectie.DA : Selectie.NU;
-                        catAltele = (swAltele.isChecked()) ? Selectie.DA : Selectie.NU;
+                        tipCerere = (cbCereri.isChecked()) ? Selectie.cerere : Selectie.NU;
+                        tipOferta = (cbOferte.isChecked()) ? Selectie.oferta : Selectie.NU;
+                        catHaine = (swHaine.isChecked()) ? Selectie.haine : Selectie.NU;
+                        catAlimente = (swAlimente.isChecked()) ? Selectie.alimente : Selectie.NU;
+                        catAltele = (swAltele.isChecked()) ? Selectie.altele : Selectie.NU;
                         maxDistanta = ""+seekBarDistanta.getProgress();
                         //filtrare avand categoriile
                             //nu exista utilizatori => popup: refa criteriile sau renunta
@@ -132,10 +136,19 @@ String maxDistanta;
     }
 
     public class GetUsersByCriteria extends AsyncTask<String, Void, String>{
+        AlertDialog.Builder alertDialog;
+
         String lat, lng;
         String cerere, oferta;
         String alimente, haine, altele;
         String distanta;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            alertDialog = new AlertDialog.Builder(FilterFindUsers.this);
+        }
+
         @Override
         protected String doInBackground(String... strings) {
             lat = strings[0];
@@ -163,7 +176,7 @@ String maxDistanta;
                         +URLEncoder.encode("alimente", "UTF-8") + "=" + URLEncoder.encode(""+alimente, "UTF-8") + "&"
                         +URLEncoder.encode("haine", "UTF-8") + "=" + URLEncoder.encode(""+haine, "UTF-8") +  "&"
                         +URLEncoder.encode("altele", "UTF-8") + "=" + URLEncoder.encode(""+altele, "UTF-8") + "&"
-                        +URLEncoder.encode("distanta", "UTF-8") + "=" + URLEncoder.encode(""+distanta, "UTF-8");
+                        +URLEncoder.encode("distanta", "UTF-8") + "=" + URLEncoder.encode(""+(50000+distanta), "UTF-8");
                 bufferedWriter.write(findUsers);
 
                 bufferedWriter.flush();
@@ -200,6 +213,8 @@ String maxDistanta;
 if(s!=null){
     try {
         JSONArray jsonArray = new JSONArray(s);
+       // Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
+
         for(int i=0; i<jsonArray.length(); i++){
             JSONObject jsonObject = jsonArray.getJSONObject(i);
             UserFiltru user  = new UserFiltru();
@@ -209,13 +224,25 @@ if(s!=null){
             user.setLocatie(jsonObject.getString("strada"));
             listaUtilizatori.add(user);
         }
-        Toast.makeText(getApplicationContext(), listaUtilizatori.toString(), Toast.LENGTH_LONG).show();
-        /*Intent intent = new Intent();
-        intent.putExtra("listaUtilizatori", (Serializable)listaUtilizatori);
-        startActivity(intent);*/
+        if(listaUtilizatori.size() > 0) {
+            Intent intent = new Intent(getApplicationContext(), UsersFilterList.class);
+            intent.putExtra("listaUtilizatori", (Serializable) listaUtilizatori);
+            startActivity(intent);
+        }
+        else
+        {
+        Toast.makeText(getApplicationContext(), "Nu s-au gasit utilizatori", Toast.LENGTH_LONG).show();
+        }
     } catch (JSONException e) {
+        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+
         e.printStackTrace();
     }
+
+}
+else
+{
+    Toast.makeText(getApplicationContext(), "Null", Toast.LENGTH_LONG).show();
 
 }
          }

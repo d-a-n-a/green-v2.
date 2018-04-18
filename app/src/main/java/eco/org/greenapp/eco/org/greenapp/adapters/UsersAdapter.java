@@ -1,6 +1,7 @@
 package eco.org.greenapp.eco.org.greenapp.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.icu.lang.UScript;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -29,6 +31,7 @@ import java.util.List;
 
 import eco.org.greenapp.R;
 import eco.org.greenapp.eco.org.greenapp.GetImageTask;
+import eco.org.greenapp.eco.org.greenapp.activities.UserInfo;
 import eco.org.greenapp.eco.org.greenapp.classes.Review;
 import eco.org.greenapp.eco.org.greenapp.classes.User;
 import eco.org.greenapp.eco.org.greenapp.constants.GeneralConstants;
@@ -38,8 +41,7 @@ import eco.org.greenapp.eco.org.greenapp.constants.GeneralConstants;
  */
 
 public class UsersAdapter extends ArrayAdapter<User> {
-    ImageView img;
-    TextView review;
+
 
     Context context;
     int idLayout;
@@ -59,19 +61,34 @@ public class UsersAdapter extends ArrayAdapter<User> {
 
         TextView username = (TextView)view.findViewById(R.id.username);
         TextView adresa = (TextView)view.findViewById(R.id.userAddress);
-        review = (TextView)view.findViewById(R.id.reviewScore);
-        img = (ImageView)view.findViewById(R.id.userAvatar);
+        TextView review = (TextView)view.findViewById(R.id.reviewScore);
+        ImageView img = (ImageView)view.findViewById(R.id.userAvatar);
 
-        User user = this.listaUsers.get(position);
+        final User user = this.listaUsers.get(position);
         username.setText(user.getUsername());
         adresa.setText(user.getLocatie());
 
 
-       new CalculateReview().execute(user.getUsername());
+        new CalculateReview(img, review).execute(user.getUsername());
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, UserInfo.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);;
+                intent.putExtra("username", user.getUsername());
+                context.startActivity(intent);
+            }
+        });
 
         return view;
     }
     public class CalculateReview extends AsyncTask<String, Void, String> {
+        ImageView imageView;
+        TextView txtView;
+
+        public  CalculateReview(ImageView imageView, TextView txtReview){
+            this.imageView = imageView;
+            this.txtView = txtReview;
+        }
         @Override
         protected String doInBackground(String... strings) {
             String username;
@@ -121,10 +138,11 @@ public class UsersAdapter extends ArrayAdapter<User> {
                         nota = ""+0;
                     else
                         nota = jsonObject.getString("review");
-                    review.setText(Float.parseFloat(nota)+"/10");
+                    nota = String.format("%.2f", Float.parseFloat(nota));
+                    txtView.setText(Float.parseFloat(nota)+"/10");
                     String imgUrl = GeneralConstants.Url+jsonObject.getString("foto");
                     if(!jsonObject.getString("foto").isEmpty() && !(jsonObject.getString("foto")==null) )
-                        new GetImageTask((ImageView) img, context).execute(imgUrl);
+                        new GetImageTask((ImageView) imageView, context).execute(imgUrl);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

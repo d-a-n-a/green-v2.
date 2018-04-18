@@ -2,6 +2,7 @@ package eco.org.greenapp.eco.org.greenapp.profile_activities;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.provider.Settings;
 import android.widget.Toast;
@@ -22,6 +23,7 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 
 import eco.org.greenapp.eco.org.greenapp.constants.GeneralConstants;
+import eco.org.greenapp.eco.org.greenapp.constants.SharedPreferencesConstants;
 
 /**
  * Created by danan on 3/28/2018.
@@ -64,7 +66,9 @@ public class ExecuteInsertTasks extends AsyncTask<HashMap<String, String>, Void,
                 case GeneralConstants.INSERT_ADD:
                 {
                     queryData = URLEncoder.encode("cod","UTF-8") + "=" + URLEncoder.encode(values.get("cod"),"UTF-8") + "&"
-                            + URLEncoder.encode("email","UTF-8") + "=" + URLEncoder.encode("dana.neagu1@gmail.com","UTF-8") + "&"
+                            + URLEncoder.encode("email","UTF-8") + "=" + URLEncoder.encode(context.getSharedPreferences(
+                            GeneralConstants.SESSION, Context.MODE_PRIVATE
+                    ).getString(SharedPreferencesConstants.EMAIL,null),"UTF-8") + "&"
                             + URLEncoder.encode("data", "UTF-8") + "=" + URLEncoder.encode(values.get("data_introducerii"), "UTF-8") + "&"
                             + URLEncoder.encode("durata", "UTF-8") + "=" + URLEncoder.encode(values.get("durata"), "UTF-8") + "&"
                             + URLEncoder.encode("tip", "UTF-8") + "=" + URLEncoder.encode(values.get("tip"), "UTF-8") + "&"
@@ -79,7 +83,9 @@ public class ExecuteInsertTasks extends AsyncTask<HashMap<String, String>, Void,
                 case GeneralConstants.INSERT_DEMAND:
                 {
                     queryData = URLEncoder.encode("cod","UTF-8") + "=" + URLEncoder.encode(values.get("cod"),"UTF-8") + "&"
-                            + URLEncoder.encode("email","UTF-8") + "=" + URLEncoder.encode("dana.neagu1@gmail.com","UTF-8") + "&"
+                            + URLEncoder.encode("email","UTF-8") + "=" + URLEncoder.encode(context.getSharedPreferences(
+                                    GeneralConstants.SESSION, Context.MODE_PRIVATE
+                    ).getString(SharedPreferencesConstants.EMAIL,null),"UTF-8") + "&"
                             + URLEncoder.encode("data", "UTF-8") + "=" + URLEncoder.encode(values.get("data_introducerii"), "UTF-8") + "&"
                             + URLEncoder.encode("durata", "UTF-8") + "=" + URLEncoder.encode(values.get("durata"), "UTF-8") + "&"
                             + URLEncoder.encode("tip", "UTF-8") + "=" + URLEncoder.encode(values.get("tip"), "UTF-8") + "&"

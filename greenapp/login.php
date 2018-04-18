@@ -12,6 +12,7 @@ $mysql_query_userExist = $connect->prepare('select * from users where username l
 $mysql_query_userExist -> bind_param('ss', $token, $token);
 $mysql_query_userExist -> execute();
 $mysql_query_userExist -> store_result(); 
+
 if($mysql_query_userExist->num_rows === 0){
 	echo INVALID;
 }
@@ -19,7 +20,7 @@ else {
 
 $hash_pass = md5($password);   
  
-$mysql_query = $connect->prepare('select ID_USER, nume, prenume, email, username, parola, fotografie, biografie, telefon, data_inregistrarii, ID_LOCATIE from users where (username like ? and parola like ?) or (email like ? and parola like ?);');
+$mysql_query = $connect->prepare('select u.ID_USER, u.nume, u.prenume, u.email, u.username, u.parola, u.fotografie, u.biografie, u.telefon, u.data_inregistrarii, (SELECT l.strada from locatii l where u.ID_LOCATIE = l.ID_LOCATIE) from users u where (u.username like ? and u.parola like ?) or (u.email like ? and u.parola like ?);');
 $mysql_query->bind_param('ssss', $token, $hash_pass, $token, $hash_pass); 
 $mysql_query->execute();  
 $mysql_query->store_result(); 

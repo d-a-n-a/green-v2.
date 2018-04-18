@@ -14,7 +14,7 @@
         <android.support.constraint.ConstraintLayout
             android:id="@+id/constraintLayout3"
             android:layout_width="match_parent"
-            android:layout_height="147dp"
+            android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerInParent="false"
             android:layout_marginBottom="10dp"
@@ -28,24 +28,21 @@
 
             <LinearLayout
                 android:id="@+id/layout1"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:weightSum="5"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:layout_width="411dp"
+                android:layout_height="wrap_content"
+                android:weightSum="5">
 
                 <LinearLayout
                     android:id="@+id/userAvatarLayout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/bottom_border_grid"
+                    android:paddingBottom="15dp"
+                    android:paddingTop="15dp"
                     android:weightSum="5"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/userAboutLayout">
+                    app:layout_constraintStart_toStartOf="parent">
 
                     <ImageView
                         android:id="@+id/userAvatar"
@@ -86,12 +83,13 @@
                 android:id="@+id/userAboutLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="50dp"
                 android:background="@drawable/bottom_border_grid"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
                 android:weightSum="5"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/layout1">
 
                 <ImageView
                     android:id="@+id/about"
@@ -146,8 +144,10 @@
             <LinearLayout
                 android:id="@+id/userScoreLayout"
                 android:layout_width="0dp"
-                android:layout_height="54dp"
+                android:layout_height="wrap_content"
                 android:background="@drawable/bottom_border_grid"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
                 android:weightSum="5"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -174,7 +174,7 @@
 
                     <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:fontFamily="@font/nanum_gothic_regular"
                         android:gravity="center_vertical"
@@ -533,8 +533,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bottom_border_grid"
-                android:paddingBottom="5dp"
-                android:paddingTop="5dp"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
                 android:weightSum="5"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

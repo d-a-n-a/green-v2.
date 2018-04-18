@@ -5,5 +5,5 @@ package eco.org.greenapp.eco.org.greenapp.classes;
  */
 
 public enum Selectie {
-    DA, NU
+    DA, NU, cerere, oferta, haine, alimente, altele
 }
