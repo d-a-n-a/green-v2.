@@ -56,6 +56,20 @@ public class UserInfo extends AppCompatActivity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);*/
         setContentView(R.layout.activity_user_info);
 
+        ((FloatingActionButton)findViewById(R.id.floatingMessage)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent (Intent.ACTION_SEND);
+                intent.setType("message/rfc822");
+                intent.putExtra(Intent.EXTRA_EMAIL, "mail");
+                intent.putExtra(Intent.EXTRA_SUBJECT, "Contactare");
+                intent.setPackage("com.google.android.gm");
+                if (intent.resolveActivity(getPackageManager())!=null)
+                    startActivity(intent);
+                else
+                    Toast.makeText(getApplicationContext(),"Aplicatia Gmail nu este instalata pe dispozitiv.",Toast.LENGTH_SHORT).show();
+            }
+        });
         rating = (RatingBar) findViewById(R.id.ratingUser);
         imgV = (ImageView)findViewById(R.id.userProfilePicture);
         intent = getIntent();
@@ -79,6 +93,7 @@ public class UserInfo extends AppCompatActivity {
         }*/
     }
 
+
     public void selectionOfFragment(View view) {
         ((Button) findViewById(R.id.button3)).setBackgroundResource(R.drawable.custom_button_profile_options);
         ((Button) findViewById(R.id.btnTakeProduct)).setBackgroundResource(R.drawable.custom_button_profile_options);
@@ -88,7 +103,7 @@ public class UserInfo extends AppCompatActivity {
         ((Button)findViewById(R.id.button3)).setTextColor(getResources().getColor(R.color.white));
 
 
-        ((FloatingActionButton) findViewById(R.id.floatingMessage)).setVisibility(View.INVISIBLE);
+       // ((FloatingActionButton) findViewById(R.id.floatingMessage)).setVisibility(View.INVISIBLE);
         Fragment fragment = new Fragment();
 
         if (view == findViewById(R.id.button5)) {

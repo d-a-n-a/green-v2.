@@ -17,7 +17,6 @@
         android:layout_gravity="center_vertical|center_horizontal"
         android:layout_marginRight="5dp"
         android:layout_weight="0.7"
-        app:srcCompat="@android:drawable/sym_def_app_icon"
         tools:layout_editor_absoluteX="25dp"
         tools:layout_editor_absoluteY="34dp" />
 

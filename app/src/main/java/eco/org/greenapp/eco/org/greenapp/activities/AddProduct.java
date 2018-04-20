@@ -107,6 +107,7 @@ public class AddProduct extends AppCompatActivity implements NavigationView.OnNa
                 //    String dataIntroducerii = simpleDateFormat.format(date);
                     String dataIntroducerii = GeneralConstants.SDF.format(date);
                     final String valabilitate = etDay.getText()+"-"+etMonth.getSelectedItem().toString()+"-"+etYear.getText();
+                   // Toast.makeText(getApplicationContext(), valabilitate, Toast.LENGTH_LONG).show();
                     values.put("cod", GeneralConstants.INSERT_ADD);
                     values.put("email", getSharedPreferences(GeneralConstants.SESSION, Context.MODE_PRIVATE).getString("email",null));
                     values.put("data_introducerii", dataIntroducerii);

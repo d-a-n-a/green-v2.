@@ -110,19 +110,6 @@
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="10dp">
 
-                <android.support.design.widget.FloatingActionButton
-                    android:id="@+id/floatingMessage"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="false"
-                    android:layout_gravity="bottom|right"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginRight="5dp"
-                    android:layout_weight="1"
-                    android:clickable="true"
-                    app:backgroundTint="@color/colorBackgound"
-                    app:srcCompat="@drawable/messages" />
-
                 <LinearLayout
                     android:id="@+id/hiddenLayout"
                     android:layout_width="match_parent"
@@ -139,6 +126,19 @@
 
                 </LinearLayout>
             </FrameLayout>
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/floatingMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/username"
+                android:layout_alignEnd="@+id/buttonsLayout"
+                android:layout_gravity="bottom|right"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:visibility="visible"
+                app:backgroundTint="@color/colorDiverse"
+                app:srcCompat="@drawable/messages" />
 
         </RelativeLayout>
 

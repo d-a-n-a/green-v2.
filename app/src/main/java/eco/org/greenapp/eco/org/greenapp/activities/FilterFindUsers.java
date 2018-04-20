@@ -176,7 +176,7 @@ String maxDistanta;
                         +URLEncoder.encode("alimente", "UTF-8") + "=" + URLEncoder.encode(""+alimente, "UTF-8") + "&"
                         +URLEncoder.encode("haine", "UTF-8") + "=" + URLEncoder.encode(""+haine, "UTF-8") +  "&"
                         +URLEncoder.encode("altele", "UTF-8") + "=" + URLEncoder.encode(""+altele, "UTF-8") + "&"
-                        +URLEncoder.encode("distanta", "UTF-8") + "=" + URLEncoder.encode(""+(50000+distanta), "UTF-8");
+                        +URLEncoder.encode("distanta", "UTF-8") + "=" + URLEncoder.encode(""+(10000+distanta), "UTF-8");
                 bufferedWriter.write(findUsers);
 
                 bufferedWriter.flush();
@@ -231,7 +231,19 @@ if(s!=null){
         }
         else
         {
-        Toast.makeText(getApplicationContext(), "Nu s-au gasit utilizatori", Toast.LENGTH_LONG).show();
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(FilterFindUsers.this);
+            alertDialog.setMessage("Nu s-a gasit niciun utilizator conform criteriilor.");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    try {
+                        finalize();
+                    } catch (Throwable throwable) {
+                        throwable.printStackTrace();
+                    }
+                } });
+
+            alertDialog.show();
         }
     } catch (JSONException e) {
         Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();

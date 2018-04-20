@@ -52,33 +52,13 @@ public class FragmentUserAds extends Fragment {
     private View view;
     private ListView lvAnunturi;
     private List<Advertisement> lista;
-    SwipeRefreshLayout swipeContainer;
+   // SwipeRefreshLayout swipeContainer;
     UserAdvertisementAdapter adapter;
     String username;
     public FragmentUserAds() {
         // Required empty public constructor
     }
-    @Override
-    public void onPause() {
-        super.onPause();
-        if (swipeContainer!=null) {
-            swipeContainer.setRefreshing(false);
-            swipeContainer.destroyDrawingCache();
-            swipeContainer.clearAnimation();
-        }
-    }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        lista.clear();
-        adapter.notifyDataSetChanged();
-
-        swipeContainer.setRefreshing(false);
-
-        GetUserData gd = new GetUserData();
-        gd.execute();
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -103,20 +83,6 @@ public class FragmentUserAds extends Fragment {
         lvAnunturi = (ListView) view.findViewById(R.id.idLv);
         lvAnunturi.setAdapter(adapter);
 
-        swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.idSwipe);
-        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-
-                lista.clear();
-                adapter.notifyDataSetChanged();
-
-                swipeContainer.setRefreshing(false);
-
-                GetUserData gd = new GetUserData();
-                gd.execute();
-            }
-        });
         return view;
     }
 

@@ -141,7 +141,7 @@ Log.i("days", ""+days);
                 if (intent.resolveActivity(getPackageManager())!=null)
                     startActivity(intent);
                 else
-                    Toast.makeText(getApplicationContext(),"Gmail App is not installed",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"Aplicatia Gmail nu este instalata pe dispozitiv.",Toast.LENGTH_SHORT).show();
             }
         });
     }

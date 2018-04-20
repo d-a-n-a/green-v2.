@@ -110,7 +110,12 @@
                 android:value="eco.org.greenapp.AppMenu" />
 
         </activity>
-        <activity android:name=".eco.org.greenapp.activities.UsersFilterList"></activity>
+        <activity android:name=".eco.org.greenapp.activities.UsersFilterList"
+            android:label="Utilizatori gasiti">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="eco.org.greenapp.AppMenu" />
+        </activity>
     </application>
 
 </manifest>
