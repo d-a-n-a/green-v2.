@@ -72,8 +72,13 @@ public class AdForProduct extends AppCompatActivity implements OnMapReadyCallbac
         intent = getIntent();
         if(intent != null)
              ad = (Advertisement)intent.getSerializableExtra("selectedAd");
-
         produtPhoto = (ImageView)findViewById(R.id.backgroundLayout);
+
+        if(ad.getTip().equals("doresc")){
+            produtPhoto.setPadding(30,30,30,30);
+            produtPhoto.setBackground(getDrawable(R.drawable.wanted));
+         }
+
         ProductImageTask productImageTask = new ProductImageTask(produtPhoto, getApplicationContext());
         productImageTask.execute(GeneralConstants.Url+ad.getUrl());
 
@@ -87,13 +92,21 @@ public class AdForProduct extends AppCompatActivity implements OnMapReadyCallbac
         });
 
         denumireProdus.setText(ad.getDenumireProdus());
-        descriereProdus.setText(ad.getDescriereProdus());
+        descriereProdus.setText(ad.getDetaliiAnunt());
         categorie.setText(ad.getCategorie());
         valabilitate.setText(ad.getValabilitate());
         locatie.setText(ad.getLocatieUser());
-        detalii.setText(ad.getDetaliiAnunt());
+        detalii.setText(ad.getDescriereProdus());
         status.setText(ad.getStatusAnunt());
-
+        ((TextView)findViewById(R.id.usernameanunt)).setText(ad.getUsername());
+        ((TextView)findViewById(R.id.usernameanunt)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), UserInfo.class);
+                intent.putExtra("username", ad.getUsername());
+                startActivity(intent);
+            }
+        });
         String dataIntroducerii = ad.getDataPostarii().trim();
         Log.i("introducere", dataIntroducerii);
         long days=0;

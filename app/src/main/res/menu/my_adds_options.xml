@@ -6,7 +6,7 @@
     <item
         android:id="@+id/idDelete"
         android:title="Stergere anunt" />
-    <item
+   <!-- <item
         android:id="@+id/idEdit"
-        android:title="Modificare detalii anunt" />
+        android:title="Modificare detalii anunt" />-->
 </menu>

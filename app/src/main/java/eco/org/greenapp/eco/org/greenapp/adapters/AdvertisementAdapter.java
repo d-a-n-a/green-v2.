@@ -47,10 +47,13 @@ public class AdvertisementAdapter extends ArrayAdapter<Advertisement> {
         tip.setText(ad.getTip());
         dataPostare.setText(ad.getDataPostarii());
         status.setText(ad.getStatusAnunt());
+        if(ad.getTip().equals("doresc"))
+            photo.setImageDrawable(getContext().getDrawable(R.drawable.wanted));
         if(!ad.getUrl().isEmpty()) {
             GetImageTask getImageTask = new GetImageTask(photo, getContext());
             getImageTask.execute(GeneralConstants.Url + ad.getUrl());
         }
+
         return view;
     }
 }

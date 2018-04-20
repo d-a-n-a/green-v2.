@@ -135,8 +135,8 @@ if(s!=null) {
             ad.setData(transaction.getString("data_predare"));
             ad.setLocatie(transaction.getString("locatie_predare"));
             ad.setOra(transaction.getString("ora_predare"));
-            ad.setExpeditor(transaction.getString("expeditor"));
-            ad.setDestinatar(transaction.getString("destinatar"));
+            ad.setExpeditor(transaction.getString("username_expeditor"));
+            ad.setDestinatar(transaction.getString("username_destinatar"));
             ad.setDenumire(transaction.getString("denumire"));
             ad.setIdAnunt(Integer.parseInt(transaction.getString("ID_ANUNT")));
             ad.setIdTranzactie(Integer.parseInt(transaction.getString("ID_TRANZACTIE")));

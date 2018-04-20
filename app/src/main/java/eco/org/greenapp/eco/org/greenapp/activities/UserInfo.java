@@ -62,6 +62,7 @@ public class UserInfo extends AppCompatActivity {
         if (intent != null)
             username = intent.getStringExtra("username");
 
+//pare sa nu puna username
         ((TextView)findViewById(R.id.username)).setText(username);
         CalculateReview calculateReview = new CalculateReview();
         calculateReview.execute(username);

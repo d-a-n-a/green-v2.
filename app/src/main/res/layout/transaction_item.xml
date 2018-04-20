@@ -19,7 +19,7 @@
         android:layout_marginTop="5dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnEliminare"
+        app:layout_constraintEnd_toStartOf="@+id/btnReview"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -100,14 +100,14 @@
         app:layout_constraintTop_toBottomOf="@+id/btnCancel" />
 
     <Button
-        android:id="@+id/btnEliminare"
+        android:id="@+id/btnReview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="38dp"
         android:layout_marginEnd="26dp"
         android:layout_marginTop="38dp"
         android:backgroundTint="@color/colorAccentMild"
-        android:text="eliminare"
+        android:text="review "
         android:textColor="@color/accent"
         android:textStyle="bold"
         android:visibility="invisible"

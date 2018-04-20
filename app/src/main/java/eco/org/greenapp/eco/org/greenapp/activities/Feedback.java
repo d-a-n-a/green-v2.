@@ -28,6 +28,7 @@ RatingBar nota;
 
 String txtDetalii;
 double iNota;
+int tranzactie;
 String currentUsername;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +41,10 @@ String currentUsername;
         currentUsername = getSharedPreferences(GeneralConstants.SESSION, Context.MODE_PRIVATE).getString(GeneralConstants.TOKEN, null);
 
         intent = getIntent();
-        if (intent != null)
+        if (intent != null) {
             user = intent.getStringExtra("user");
+            tranzactie = intent.getIntExtra("idTranzactie",0);
+        }
         ((TextView) findViewById(R.id.textFeedback)).setText("Adaugare review pentru utilizatorul " + user);
 
 
@@ -60,9 +63,10 @@ String currentUsername;
                             json.put("user", user);
                             json.put("detalii", detalii.getText().toString().trim());
                             json.put("nota", iNota*2);
-                            Toast.makeText(getApplicationContext(), json.toString(), Toast.LENGTH_LONG).show();
+                            json.put("tranzactie", tranzactie);
                             AddReviewTask addReviewTask = new AddReviewTask(getApplicationContext());
                             addReviewTask.execute(json);
+                            finish();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

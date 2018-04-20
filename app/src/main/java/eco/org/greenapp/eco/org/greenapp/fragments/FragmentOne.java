@@ -114,7 +114,6 @@ public  class GetData extends AsyncTask<Void,Void,String> {
     protected String doInBackground(Void... voids) {
         try {
             URL url = new URL(GeneralConstants.URL+"/select_advertisements.php");
-           // URL url = new URL("http://10.38.31.11:8080/greenapp/select_advertisements.php");
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
             con.setRequestMethod("POST");

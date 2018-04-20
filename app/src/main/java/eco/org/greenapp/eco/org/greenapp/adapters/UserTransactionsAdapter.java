@@ -1,24 +1,17 @@
 package eco.org.greenapp.eco.org.greenapp.adapters;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.PopupMenu;
-import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -36,12 +29,9 @@ import java.util.List;
 import eco.org.greenapp.R;
 import eco.org.greenapp.eco.org.greenapp.DeleteTask;
 import eco.org.greenapp.eco.org.greenapp.activities.Feedback;
-import eco.org.greenapp.eco.org.greenapp.classes.Advertisement;
-import eco.org.greenapp.eco.org.greenapp.classes.Review;
 import eco.org.greenapp.eco.org.greenapp.classes.Transaction;
 import eco.org.greenapp.eco.org.greenapp.constants.GeneralConstants;
 import eco.org.greenapp.eco.org.greenapp.constants.SharedPreferencesConstants;
-import eco.org.greenapp.eco.org.greenapp.fragments.FragmentMyAds;
 
 /**
  * Created by danan on 4/5/2018.
@@ -77,10 +67,10 @@ public class UserTransactionsAdapter extends ArrayAdapter<Transaction> {
         else
             user.setText(tr.getDestinatar());
 
-        if(me.equals(tr.getDestinatar()))
-            co.setText("cerere");
-        else
+        if(me.equals(tr.getExpeditor()))
             co.setText("oferta");
+        else
+            co.setText("");//nu are sens sa pun chiar cerere pentru ca nu e pe anuntul meu de cerere, e pe anuntul altcuiva de oferta
         strada.setText(tr.getLocatie());
         dataora.setText(tr.getData().toString()+" - "+tr.getOra());
 
@@ -89,10 +79,10 @@ public class UserTransactionsAdapter extends ArrayAdapter<Transaction> {
 
             ((Button)view.findViewById(R.id.btnConfirm)).setVisibility(View.INVISIBLE);
             ((Button)view.findViewById(R.id.btnCancel)).setVisibility(View.INVISIBLE);
-            ((Button)view.findViewById(R.id.btnEliminare)).setVisibility(View.VISIBLE);
+
 
             view.setBackgroundColor(view.getResources().getColor(R.color.colorAccentMild));
-            ((Button)view.findViewById(R.id.btnEliminare)).setOnClickListener(new View.OnClickListener() {
+            ((Button)view.findViewById(R.id.btnReview)).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(view.getContext());
@@ -125,27 +115,28 @@ public class UserTransactionsAdapter extends ArrayAdapter<Transaction> {
             if(tr.getStatus().equals("finalizat")){
                 ((Button)view.findViewById(R.id.btnConfirm)).setVisibility(View.INVISIBLE);
                 ((Button)view.findViewById(R.id.btnCancel)).setVisibility(View.INVISIBLE);
-                ((Button)view.findViewById(R.id.btnEliminare)).setVisibility(View.VISIBLE);
 
-                view.setBackgroundColor(view.getResources().getColor(R.color.colorBackgound));
+                //butonul pentru adaugare review este accesibil doar daca nu mai exista
+                //un alt review catre acel user pe baza aceleiasi tranzactii
+                CheckReview checkReview = new CheckReview(view);
+                checkReview.execute( me, tr.getExpeditor(), ""+tr.getIdTranzactie());
 
-                ((Button)view.findViewById(R.id.btnEliminare)).setOnClickListener(new View.OnClickListener() {
+               // view.setBackgroundColor(view.getResources().getColor(R.color.colorBackgound));
+
+                ((Button)view.findViewById(R.id.btnReview)).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         AlertDialog.Builder alertDialog = new AlertDialog.Builder(view.getContext());
-                        alertDialog.setMessage("Sunteti sigur ca vreti sa eliminati definitiv aceasta tranzactie?");
-                        alertDialog.setTitle("Eliminare tranzactie");
-//se elimina si anuntul - e normal; UPDATE: ANUNTUL POATE FI ELIMINAT MANUAL; ca poate vrea sa tina lista totusi pentru ceilalti useri
-                        //cand ii intra pe profil
+                        alertDialog.setMessage("Doriti sa adaugati review pentru acest utilizator?");
+                        alertDialog.setTitle("Review");
+
                         alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
 
-                                transactions.remove(position);
-                                //AICI IMI ELIMINA TRANZACTIA, DAR NU SI PRODUSUL - ASA VREAU?
-                                //SAU AS PUTEA SA LE LAS CU FINALIZAT LA STATUS SI EU SA LE PREIAU DOAR PE CELE CARE SUNT
-                                // DIFERITE DE FINALIZAT
-                                DeleteTask deleteTask = new  DeleteTask(view.getContext());
-                                deleteTask.execute(tr.getIdTranzactie());
+                                Intent intent = new Intent(getContext(), Feedback.class);
+                                intent.putExtra("user", tr.getExpeditor());
+                                intent.putExtra("idTranzactie", tr.getIdTranzactie());
+                                context.startActivity(intent);
                             } });
 
 
@@ -277,6 +268,72 @@ public class UserTransactionsAdapter extends ArrayAdapter<Transaction> {
                 Toast.makeText(getContext(), s, Toast.LENGTH_LONG).show();
         }
     }
+    public class CheckReview extends AsyncTask<String, Void, String>{
+View context;
+CheckReview(View context){
+    this.context = context;
 
+}
+String autor, user;
+String idTranzactie;
+        @Override
+        protected String doInBackground(String... strings) {
+            autor = strings[0];
+            user = strings[1];
+            idTranzactie = strings[2];
+            URL url = null;
+            try {
+                url = new URL(GeneralConstants.URL+"/existenta_review.php");
+                HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoInput(true);
+                httpURLConnection.setDoOutput(true);
+
+
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream,"UTF-8"));
+                String reviewData = URLEncoder.encode("autor", "UTF-8") + "=" + URLEncoder.encode(autor, "UTF-8") + "&"
+                        + URLEncoder.encode("user", "UTF-8") + "=" + URLEncoder.encode(user, "UTF-8") + "&"
+                        + URLEncoder.encode("tranzactie", "UTF-8") + "=" + URLEncoder.encode(idTranzactie, "UTF-8");
+                bufferedWriter.write(reviewData);
+
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream(), "iso-8859-1"));
+                String result;
+
+                StringBuilder stringBuilder = new StringBuilder();
+
+                while((result = bufferedReader.readLine())!=null){
+                    stringBuilder.append(result);
+                }
+                httpURLConnection.disconnect();
+                return stringBuilder.toString();
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+          String me = getContext().getSharedPreferences(GeneralConstants.SESSION, Context.MODE_PRIVATE).getString(GeneralConstants.TOKEN, null);
+
+           if(s.equals("success") && !me.equals(user))
+           {
+               ((Button) context.findViewById(R.id.btnReview)).setVisibility(View.VISIBLE);
+           }
+           else
+               ((Button) context.findViewById(R.id.btnReview)).setVisibility(View.INVISIBLE);
+
+
+
+        }
+    }
 
 }

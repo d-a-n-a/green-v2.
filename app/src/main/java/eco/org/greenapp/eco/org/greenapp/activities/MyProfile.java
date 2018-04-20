@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
+import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -57,6 +58,9 @@ String imgUrl;
                 startActivity(new Intent(getApplicationContext(), ProfileSettings.class));
             }
         });
+
+        ((TextView)findViewById(R.id.username)).setText(getSharedPreferences(GeneralConstants.SESSION, Context.MODE_PRIVATE).getString(
+                GeneralConstants.TOKEN,null));
 
         ratingBar = (RatingBar)findViewById(R.id.ratingUser);
 

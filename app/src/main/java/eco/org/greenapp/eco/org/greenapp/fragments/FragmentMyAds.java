@@ -2,11 +2,13 @@ package eco.org.greenapp.eco.org.greenapp.fragments;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -40,6 +42,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import eco.org.greenapp.R;
+import eco.org.greenapp.eco.org.greenapp.DeleteTask;
 import eco.org.greenapp.eco.org.greenapp.activities.AddProduct;
 import eco.org.greenapp.eco.org.greenapp.activities.TransactionDetails;
 import eco.org.greenapp.eco.org.greenapp.adapters.AdvertisementAdapter;
@@ -116,22 +119,42 @@ public class FragmentMyAds extends Fragment {
                     public boolean onMenuItemClick(MenuItem item) {
 
                         switch (item.getItemId()) {
-                            case R.id.idEdit:
+                          /*  case R.id.idEdit:
 
                             {
 
-/*
+*//*
                                Intent intent = new Intent(getContext(), AddProduct.class);
                                intent.putExtra("editAd", lista.get(position));
-                               startActivity(intent);*/
+                               startActivity(intent);*//*
                             }
-                                break;
+                                break;*/
                             case R.id.idDelete:
-                                DeleteAd deleteAd = new DeleteAd();
-                                deleteAd.execute(lista.get(position).getId());
+                                if(lista.get(position).getStatusAnunt().equals("rezervat"))
+                                {
 
-                                lista.remove(position);
-                                adapter.notifyDataSetChanged();
+                                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+                                    alertDialog.setMessage("Produsul este rezervat. Nu se poate elimina!");
+                                    alertDialog.setTitle("Imposibil");
+
+                                    alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            try {
+                                                finalize();
+                                            } catch (Throwable throwable) {
+                                                throwable.printStackTrace();
+                                            }
+                                        } });
+
+                                    alertDialog.show();
+                                }
+                                else {
+                                    DeleteAd deleteAd = new DeleteAd();
+                                    deleteAd.execute(lista.get(position).getId());
+
+                                    lista.remove(position);
+                                    adapter.notifyDataSetChanged();
+                                }
                                 break;
 
                             case R.id.idEditStaus:
@@ -175,7 +198,6 @@ public class FragmentMyAds extends Fragment {
         @Override
         protected String doInBackground(Void... voids) {
             try {
-                //URL url = new URL("http://10.38.31.11:8080/greenapp/select_user_advertisements.php");
                 URL url = new URL(GeneralConstants.URL+"/select_user_advertisements.php");
                 HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
@@ -242,7 +264,6 @@ if(s!=null) {
             idAnunt = integers[0];
             URL url = null;
             try {
-               // url = new URL("http://10.38.31.11:8080/greenapp/delete_advertisement.php");
                 url = new URL(GeneralConstants.URL+"/delete_advertisement.php");
                 HttpURLConnection con = (HttpURLConnection) url.openConnection();
                 con.setRequestMethod("POST");

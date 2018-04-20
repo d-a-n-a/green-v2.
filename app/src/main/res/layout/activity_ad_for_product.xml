@@ -27,6 +27,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -227,28 +228,30 @@
         android:layout_marginBottom="515dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/btnTakeProduct"
-        app:layout_constraintEnd_toStartOf="@+id/textView"
+        app:layout_constraintEnd_toStartOf="@+id/usernameanunt"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/useravatar" />
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
+        android:id="@+id/usernameanunt"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:layout_marginEnd="181dp"
         android:layout_weight="1"
         android:background="@drawable/button_user_info_normal"
-        android:padding="3dp"
+        android:paddingBottom="3dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingTop="3dp"
         android:text="username posesor"
+        android:textAllCaps="true"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/userProfileImage"
-        app:layout_constraintTop_toTopOf="@+id/userProfileImage" />
+        tools:layout_editor_absoluteX="102dp"
+        tools:layout_editor_absoluteY="188dp" />
 
     <Button
         android:id="@+id/btnTakeProduct"
@@ -257,7 +260,7 @@
         android:layout_marginBottom="1dp"
         android:background="@color/colorAccent"
         android:fontFamily="@font/nanum_gothic_regular"
-        android:text="vreau produsul"
+        android:text="contacteaza"
         android:textColor="@color/grayBackgound"
         android:textSize="18sp"
         android:textStyle="bold"

@@ -35,6 +35,7 @@ public class AddReviewTask  extends AsyncTask<JSONObject, Void, String>{
         String expeditor;
         String destinatar;
         double nota;
+        int tranzactie;
         String detalii;
         Date date = Calendar.getInstance().getTime();
         String data = GeneralConstants.SDF.format(date);
@@ -43,6 +44,7 @@ public class AddReviewTask  extends AsyncTask<JSONObject, Void, String>{
              destinatar = json.getString("user");
              detalii  = json.getString("detalii");
              nota = json.getDouble("nota");
+             tranzactie = json.getInt("tranzactie");
 
             try {
                 URL url = new URL(GeneralConstants.URL+"/insert_review.php");
@@ -57,7 +59,8 @@ public class AddReviewTask  extends AsyncTask<JSONObject, Void, String>{
                         + URLEncoder.encode("user", "UTF-8") + "=" + URLEncoder.encode(destinatar, "UTF-8") + "&"
                         + URLEncoder.encode("nota", "UTF-8") + "=" + URLEncoder.encode(""+nota, "UTF-8") + "&"
                         + URLEncoder.encode("detalii", "UTF-8") + "=" + URLEncoder.encode(detalii, "UTF-8") + "&"
-                        + URLEncoder.encode("data", "UTF-8") + "=" + URLEncoder.encode(data, "UTF-8");
+                        + URLEncoder.encode("data", "UTF-8") + "=" + URLEncoder.encode(data, "UTF-8") + "&"
+                        + URLEncoder.encode("tranzactie", "UTF-8") + "=" + URLEncoder.encode(""+tranzactie, "UTF-8");
                 bufferedWriter.write(reviewData);
 
                 bufferedWriter.flush();
@@ -89,7 +92,11 @@ public class AddReviewTask  extends AsyncTask<JSONObject, Void, String>{
     protected void onPostExecute(String s) {
         if(s!=null)
         {
-            Toast.makeText(context.getApplicationContext(), s, Toast.LENGTH_LONG).show();
+       //     Toast.makeText(context.getApplicationContext(), s, Toast.LENGTH_LONG).show();
+        }
+        else
+        {
+            Toast.makeText(context.getApplicationContext(), "Something went wrong!", Toast.LENGTH_LONG).show();
         }
     }
 }
