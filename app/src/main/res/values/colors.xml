@@ -23,6 +23,7 @@
     <color name="colorBackgound">#cdced2</color>
     <color name="backgroundLight">#d4fae2</color>
     <color name="colorAccentMild">#fdd8e2</color>
+    <color name = "colorAccentMildMild">#fef0f4 </color>
     <color name="grayBackgound">#f3f6fb</color>
     <color name="lightGrey">#e1e1e1</color>
     <color name="darkGrey">#484848</color>

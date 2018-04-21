@@ -111,6 +111,7 @@ public class ChangeProfilePhoto extends AppCompatActivity {
 
         UpdateProfile ui = new UpdateProfile();
         ui.execute(bitmap);
+        finish();
     }
     public String getStringImage(Bitmap bitmapParam){
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();

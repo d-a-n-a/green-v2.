@@ -212,7 +212,7 @@ public class AppMenu extends AppCompatActivity
 
         switch (id){
             case R.id.nav_about: {
-                startActivity(new Intent(getApplicationContext(),FilterFindUsers.class));
+startActivity(new Intent(getApplicationContext(), AboutApp.class));
                 break;
             }
             case R.id.nav_profile: {

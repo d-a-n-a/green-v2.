@@ -26,11 +26,8 @@
         <activity
             android:name=".eco.org.greenapp.activities.SignIn"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter></activity>
+        </activity>
         <activity android:name=".eco.org.greenapp.activities.CreateAccount" />
         <activity
             android:name=".eco.org.greenapp.activities.AddProduct"
@@ -108,13 +105,20 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="eco.org.greenapp.AppMenu" />
-
         </activity>
-        <activity android:name=".eco.org.greenapp.activities.UsersFilterList"
+        <activity
+            android:name=".eco.org.greenapp.activities.UsersFilterList"
             android:label="Utilizatori gasiti">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="eco.org.greenapp.AppMenu" />
+        </activity>
+        <activity android:name=".AboutApp">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

@@ -81,6 +81,7 @@ public class AddDemandProduct extends AppCompatActivity implements OnMapReadyCal
 
                         ExecuteInsertTasks executeInsertTasks  = new ExecuteInsertTasks(getApplicationContext());
                         executeInsertTasks.execute(valori);
+                        finish();
                     }
                 }
             });

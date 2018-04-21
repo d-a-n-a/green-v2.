@@ -4,14 +4,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.renderscript.ScriptGroup;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -42,7 +47,7 @@ public class SignIn extends AppCompatActivity {
     EditText etUsername;
     String sPassword;
     String sUsername;
-
+    Switch switchPass;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor sharedPreferencesEditor;
 
@@ -56,6 +61,23 @@ public class SignIn extends AppCompatActivity {
 
         etPassword = (EditText)findViewById(R.id.userPassword);
         etUsername = (EditText)findViewById(R.id.username);
+        switchPass = (Switch)findViewById(R.id.showPassword);
+
+        switchPass.setChecked(true);
+        switchPass.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(!switchPass.isChecked())
+                {
+                    etPassword.setInputType(InputType.TYPE_CLASS_TEXT);
+                }
+                else
+                {
+                    etPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                }
+
+            }
+        });
 
         /*etUsername.setText(sharedPreferences.getString(SharedPreferencesConstants.EMAIL, ""));
         etPassword.setText(sharedPreferences.getString(SharedPreferencesConstants.PASSWORD, ""));*/

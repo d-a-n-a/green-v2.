@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="eco.org.greenapp.AboutApp">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/backgoround_about" />
+
+    <TextView
+        android:id="@+id/txtAbout"
+        android:layout_width="293dp"
+        android:layout_height="191dp"
+        android:layout_marginBottom="71dp"
+        android:layout_marginStart="16dp"
+        android:background="#80000000"
+        android:fontFamily="@font/nanum_gothic_regular"
+        android:padding="7dp"
+        android:scrollbars="vertical"
+        android:text="Aplicația își propune să aducă împreună oamenii care își doresc ca prin simplele lor acțiuni să controbuie la un mediu cât mai
+favorabil. Se dorește în esență crearea progresivă a unei comunități prin intermediul căreia să fie facilitat schimbul de produse în aparență
+inutile, dar cărora li se poate găsi întrebuințare."
+        android:textColor="#fff"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</android.support.constraint.ConstraintLayout>

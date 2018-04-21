@@ -18,7 +18,7 @@
             android:layout_alignParentTop="true"
             android:layout_alignStart="@+id/etCity"
             android:layout_marginTop="50dp"
-            android:background="@color/colorDiverse"
+            android:background="@color/colorGreenSheen"
             android:keyboardNavigationCluster="true" />
 
         <AutoCompleteTextView
@@ -70,9 +70,10 @@
             android:layout_alignParentBottom="false"
             android:layout_alignStart="@+id/etStreet"
             android:layout_below="@+id/idMapFragmentLocation"
+            android:layout_marginBottom="10dp"
             android:layout_marginTop="30dp"
             android:background="@drawable/button_diverse"
-            android:text="Button"
+            android:text="salvare"
             android:textColor="@color/colorGreenSheen"
             android:textStyle="bold" />
 

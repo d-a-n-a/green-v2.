@@ -1,6 +1,7 @@
 package eco.org.greenapp.eco.org.greenapp.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,6 +20,7 @@ import java.util.List;
 
 import eco.org.greenapp.R;
 import eco.org.greenapp.eco.org.greenapp.GetImageTask;
+import eco.org.greenapp.eco.org.greenapp.activities.AdForProduct;
 import eco.org.greenapp.eco.org.greenapp.classes.Advertisement;
 import eco.org.greenapp.eco.org.greenapp.classes.User;
 import eco.org.greenapp.eco.org.greenapp.constants.GeneralConstants;
@@ -50,7 +52,7 @@ public class UserAdvertisementAdapter extends ArrayAdapter<Advertisement> {
         LinearLayout optiuni = (LinearLayout)view.findViewById(R.id.adOptions);
         ImageView imgv = (ImageView)view.findViewById(R.id.productPhoto);
 
-        Advertisement ad = this.ads.get(position);
+        final Advertisement ad = this.ads.get(position);
         titlu.setText(ad.getDenumireProdus());
         tip.setText(ad.getTip());
         dataIntroducerii.setText(ad.getDataPostarii());
@@ -61,6 +63,20 @@ public class UserAdvertisementAdapter extends ArrayAdapter<Advertisement> {
             GetImageTask getImageTask = new GetImageTask(imgv, getContext());
             getImageTask.execute(GeneralConstants.Url+ad.getUrl());
         }
+        //daca nu e al meu atunci ii dau clickc atre adforproduct
+       /* String me = getContext().getSharedPreferences(GeneralConstants.SESSION, Context.MODE_PRIVATE)
+                .getString(GeneralConstants.TOKEN, null);
+        if(!ad.getUsername().equals(me))
+        {
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getContext(), AdForProduct.class);
+                    intent.putExtra("selectedAd", ad);
+                    getContext().startActivity(intent);
+                }
+            });
+        }*/
         return view;
     }
 }

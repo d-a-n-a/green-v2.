@@ -244,17 +244,19 @@ public class AddProduct extends AppCompatActivity implements NavigationView.OnNa
 
             ProgressDialog progressDialog;
             ExecuteRequests executeRequests = new ExecuteRequests();
+/*
 
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
                 progressDialog = ProgressDialog.show(AddProduct.this, "Uploading...", null,true,true);
             }
+*/
 
             @Override
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
-                progressDialog.dismiss();
+//                progressDialog.dismiss();
              }
 
             @Override

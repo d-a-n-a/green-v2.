@@ -79,7 +79,7 @@ public class TransactionHistoryFragment extends Fragment {
                 GetUserTransactions getUserTransactions = new GetUserTransactions();
                 getUserTransactions.execute();
                 swipeContainer.setRefreshing(false);
-
+                adapter.notifyDataSetChanged();
 
 
             }
@@ -142,7 +142,10 @@ if(s!=null) {
             ad.setIdTranzactie(Integer.parseInt(transaction.getString("ID_TRANZACTIE")));
             ad.setStatus(transaction.getString("status"));
             transactions.add(ad);
+
+
         }
+        adapter.notifyDataSetChanged();
     } catch (JSONException e) {
         e.printStackTrace();
     }

@@ -14,12 +14,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginStart="18dp"
+        android:layout_marginEnd="68dp"
+        android:layout_marginStart="23dp"
         android:layout_marginTop="5dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnReview"
+        app:layout_constraintEnd_toStartOf="@+id/statusTranz"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -107,13 +107,28 @@
         android:layout_marginBottom="38dp"
         android:layout_marginEnd="26dp"
         android:layout_marginTop="38dp"
-        android:backgroundTint="@color/colorAccentMild"
+        android:backgroundTint="@color/backgroundLight"
         android:text="review "
-        android:textColor="@color/accent"
+        android:textColor="@color/colorGreenSheen"
         android:textStyle="bold"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/linearLayout"
         app:layout_constraintTop_toTopOf="@+id/linearLayout" />
+
+    <TextView
+        android:id="@+id/statusTranz"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="3dp"
+        android:layout_marginTop="5dp"
+        android:text="TextView"
+        android:textAllCaps="true"
+        android:textColor="@color/colorAccent"
+        android:textStyle="bold"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/linearLayout"
+        app:layout_constraintTop_toBottomOf="@+id/btnReview" />
 </android.support.constraint.ConstraintLayout>

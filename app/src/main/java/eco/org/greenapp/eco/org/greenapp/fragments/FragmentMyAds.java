@@ -79,7 +79,7 @@ public class FragmentMyAds extends Fragment {
         else
         {
             ViewGroup parent = (ViewGroup) view.getParent();
-           // parent.removeView(view); //asta e posibil sa faca probleme
+            parent.removeView(view); //asta e posibil sa faca probleme
         }
 
 

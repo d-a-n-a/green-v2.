@@ -59,6 +59,8 @@ public class UserTransactionsAdapter extends ArrayAdapter<Transaction> {
         TextView strada = (TextView)view.findViewById(R.id.strada);
         TextView dataora = (TextView)view.findViewById(R.id.data);
         final Transaction tr = this.transactions.get(position);
+        TextView tvStatus = (TextView)view.findViewById(R.id.statusTranz);
+        tvStatus.setText(tr.getStatus());
 
         titlu.setText(tr.getDenumire());
         final String me = this.getContext().getSharedPreferences(GeneralConstants.SESSION, Context.MODE_PRIVATE).getString(GeneralConstants.TOKEN, null);
@@ -79,9 +81,9 @@ public class UserTransactionsAdapter extends ArrayAdapter<Transaction> {
 
             ((Button)view.findViewById(R.id.btnConfirm)).setVisibility(View.INVISIBLE);
             ((Button)view.findViewById(R.id.btnCancel)).setVisibility(View.INVISIBLE);
+            ((TextView)view.findViewById(R.id.statusTranz)).setVisibility(View.VISIBLE);
 
-
-            view.setBackgroundColor(view.getResources().getColor(R.color.colorAccentMild));
+            view.setBackgroundColor(view.getResources().getColor(R.color.colorAccentMildMild));
             ((Button)view.findViewById(R.id.btnReview)).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -115,7 +117,7 @@ public class UserTransactionsAdapter extends ArrayAdapter<Transaction> {
             if(tr.getStatus().equals("finalizat")){
                 ((Button)view.findViewById(R.id.btnConfirm)).setVisibility(View.INVISIBLE);
                 ((Button)view.findViewById(R.id.btnCancel)).setVisibility(View.INVISIBLE);
-
+                ((TextView)view.findViewById(R.id.statusTranz)).setVisibility(View.VISIBLE);
                 //butonul pentru adaugare review este accesibil doar daca nu mai exista
                 //un alt review catre acel user pe baza aceleiasi tranzactii
                 CheckReview checkReview = new CheckReview(view);

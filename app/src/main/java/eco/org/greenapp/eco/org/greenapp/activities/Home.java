@@ -1,6 +1,7 @@
 package eco.org.greenapp.eco.org.greenapp.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -54,7 +55,9 @@ public class Home extends AppCompatActivity {
                         return true;
 
                     case R.id.nav_three:
-                        setFragment(frthree);
+                        //setFragment(frthree);
+
+
                         return true;
 
                     default:
