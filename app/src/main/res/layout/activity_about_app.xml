@@ -19,13 +19,14 @@
         android:id="@+id/txtAbout"
         android:layout_width="293dp"
         android:layout_height="191dp"
-        android:layout_marginBottom="71dp"
+        android:layout_marginBottom="35dp"
         android:layout_marginStart="16dp"
         android:background="#80000000"
         android:fontFamily="@font/nanum_gothic_regular"
+        android:maxHeight="20dp"
         android:padding="7dp"
         android:scrollbars="vertical"
-        android:text="Aplicația își propune să aducă împreună oamenii care își doresc ca prin simplele lor acțiuni să controbuie la un mediu cât mai
+        android:text="Aplicația își propune să aducă împreună oamenii care își doresc ca prin simplele lor acțiuni să contribuie la un mediu cât mai
 favorabil. Se dorește în esență crearea progresivă a unei comunități prin intermediul căreia să fie facilitat schimbul de produse în aparență
 inutile, dar cărora li se poate găsi întrebuințare."
         android:textColor="#fff"

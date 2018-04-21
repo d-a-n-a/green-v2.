@@ -47,6 +47,8 @@ String imgUrl;
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
      //   setContentView(R.layout.activity_profile_settings);
         setContentView(R.layout.activity_my_profile);
+        ((Button)findViewById(R.id.button5)).setBackgroundResource(R.drawable.custom_button_profile_options_selected);
+        ((Button)findViewById(R.id.button5)).setTextColor(getResources().getColor(R.color.white));
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragmentArea,new FragmentMyGeneralUserInfo());

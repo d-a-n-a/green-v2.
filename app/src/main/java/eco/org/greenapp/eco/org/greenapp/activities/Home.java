@@ -56,9 +56,8 @@ public class Home extends AppCompatActivity {
 
                     case R.id.nav_three:
                         //setFragment(frthree);
-
-
-                        return true;
+                        startActivity(new Intent(getApplicationContext(), FilterFindUsers.class));
+                        return false;
 
                     default:
                         return false;

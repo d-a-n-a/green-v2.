@@ -52,7 +52,7 @@ public class FragmentUserAds extends Fragment {
     private View view;
     private ListView lvAnunturi;
     private List<Advertisement> lista;
-   // SwipeRefreshLayout swipeContainer;
+    SwipeRefreshLayout swipeContainer;
     UserAdvertisementAdapter adapter;
     String username;
     public FragmentUserAds() {
@@ -64,6 +64,12 @@ public class FragmentUserAds extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         lista = new ArrayList<>();
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            username = bundle.getString("username",null);
+        }
+        GetUserData gd = new GetUserData();
+        gd.execute(username);
         if (view == null) {
             view = inflater.inflate(R.layout.fragment_fragment_user_ads, container, false);
         } else {
@@ -71,17 +77,30 @@ public class FragmentUserAds extends Fragment {
             parent.removeView(view); //asta e posibil sa faca probleme
         }
 
-        Bundle bundle = this.getArguments();
-        if (bundle != null) {
-            username = bundle.getString("username",null);
-        }
-         GetUserData gd = new GetUserData();
-        gd.execute(username);
+
+
 
         adapter = new UserAdvertisementAdapter(getActivity(), R.layout.user_ad_item, lista);
         adapter.notifyDataSetChanged();
         lvAnunturi = (ListView) view.findViewById(R.id.idLv);
         lvAnunturi.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+
+
+        swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.idSwipe);
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                lista.clear();
+                adapter.notifyDataSetChanged();
+                GetUserData gd = new GetUserData();
+                gd.execute(username);
+                swipeContainer.setRefreshing(false);
+                adapter.notifyDataSetChanged();
+
+            }
+        });
 
         return view;
     }
@@ -92,7 +111,6 @@ public class FragmentUserAds extends Fragment {
             String username;
             try {
                 username = strings[0];
-                //URL url = new URL("http://10.38.31.11:8080/greenapp/select_user_advertisements.php");
                 URL url = new URL(GeneralConstants.URL+"/select_user_ads.php");
                 HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
@@ -142,6 +160,7 @@ public class FragmentUserAds extends Fragment {
                         ad.setUrl(adItem.getString("imagine"));
                         lista.add(ad);
                     }
+                    adapter.notifyDataSetChanged();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

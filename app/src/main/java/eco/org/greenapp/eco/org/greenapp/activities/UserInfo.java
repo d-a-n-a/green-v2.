@@ -38,6 +38,7 @@ import eco.org.greenapp.R;
 import eco.org.greenapp.eco.org.greenapp.GetImageTask;
 import eco.org.greenapp.eco.org.greenapp.constants.GeneralConstants;
 import eco.org.greenapp.eco.org.greenapp.fragments.FragmentGeneralUserInfo;
+import eco.org.greenapp.eco.org.greenapp.fragments.FragmentMyGeneralUserInfo;
 import eco.org.greenapp.eco.org.greenapp.fragments.FragmentOne;
 import eco.org.greenapp.eco.org.greenapp.fragments.FragmentUserAds;
 import eco.org.greenapp.eco.org.greenapp.fragments.FragmentMyReviews;
@@ -55,6 +56,8 @@ public class UserInfo extends AppCompatActivity {
        /* this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);*/
         setContentView(R.layout.activity_user_info);
+
+
 
         ((FloatingActionButton)findViewById(R.id.floatingMessage)).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,7 +79,20 @@ public class UserInfo extends AppCompatActivity {
         if (intent != null)
             username = intent.getStringExtra("username");
 
-//pare sa nu puna username
+        Fragment fragment = new FragmentUserAds();
+        Bundle bundle = new Bundle();
+        bundle.putString("username", username);
+        fragment.setArguments(bundle);
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragmentArea,fragment);
+        fragmentTransaction.commit();
+        
+        ((Button)findViewById(R.id.button3)).setBackgroundResource(R.drawable.custom_button_profile_options_selected);
+        ((Button)findViewById(R.id.button3)).setTextColor(getResources().getColor(R.color.white));
+
+
         ((TextView)findViewById(R.id.username)).setText(username);
         CalculateReview calculateReview = new CalculateReview();
         calculateReview.execute(username);

@@ -72,6 +72,9 @@ public class FragmentMyAds extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         lista = new ArrayList<>();
+
+        GetUserData gd = new GetUserData();
+        gd.execute();
         if(view==null)
         {
             view=inflater.inflate(R.layout.fragment_fragment_user_ads, container,false);
@@ -79,13 +82,11 @@ public class FragmentMyAds extends Fragment {
         else
         {
             ViewGroup parent = (ViewGroup) view.getParent();
-            parent.removeView(view); //asta e posibil sa faca probleme
+           // parent.removeView(view); //asta e posibil sa faca probleme
         }
 
 
 
-        GetUserData gd = new GetUserData();
-        gd.execute();
 
         adapter =new UserAdvertisementAdapter(getActivity(),R.layout.my_adds_item,lista);
         adapter.notifyDataSetChanged();
@@ -102,8 +103,7 @@ public class FragmentMyAds extends Fragment {
                 GetUserData gd = new GetUserData();
                 gd.execute();
                 swipeContainer.setRefreshing(false);
-
-
+                adapter.notifyDataSetChanged();
 
             }
         });
@@ -249,6 +249,7 @@ if(s!=null) {
             ad.setUrl(adItem.getString("imagine"));
             lista.add(ad);
         }
+        adapter.notifyDataSetChanged();
     } catch (JSONException e) {
         e.printStackTrace();
     }
