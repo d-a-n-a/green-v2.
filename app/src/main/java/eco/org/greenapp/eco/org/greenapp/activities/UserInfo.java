@@ -88,7 +88,7 @@ public class UserInfo extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragmentArea,fragment);
         fragmentTransaction.commit();
-        
+
         ((Button)findViewById(R.id.button3)).setBackgroundResource(R.drawable.custom_button_profile_options_selected);
         ((Button)findViewById(R.id.button3)).setTextColor(getResources().getColor(R.color.white));
 

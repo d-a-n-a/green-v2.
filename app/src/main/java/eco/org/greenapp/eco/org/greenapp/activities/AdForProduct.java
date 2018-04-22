@@ -69,6 +69,7 @@ public class AdForProduct extends AppCompatActivity implements OnMapReadyCallbac
                 .findFragmentById(R.id.locationMap);
         mapFragment.getMapAsync(this);
 
+
         intent = getIntent();
         if(intent != null)
              ad = (Advertisement)intent.getSerializableExtra("selectedAd");
@@ -148,10 +149,10 @@ Log.i("days", ""+days);
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        LatLng position = new LatLng(44.446255, 26.087572);
+        LatLng position = new LatLng(ad.getLatitudine(), ad.getLongitudine());
         googleMap.addMarker(new MarkerOptions()
                 .position(position)
-                .title("locatie")
+                .title(ad.getLocatieUser())
         );
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position,15));
     }

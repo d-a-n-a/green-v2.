@@ -40,6 +40,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import eco.org.greenapp.R;
+import eco.org.greenapp.eco.org.greenapp.classes.Advertisement;
 import eco.org.greenapp.eco.org.greenapp.classes.Selectie;
 import eco.org.greenapp.eco.org.greenapp.classes.User;
 import eco.org.greenapp.eco.org.greenapp.classes.UserFiltru;
@@ -56,7 +57,7 @@ public class FilterFindUsers extends AppCompatActivity {
     int selectie = 0;
     Switch swHaine, swAlimente, swAltele;
     Button btnFiltrare;
-    List<User> listaUtilizatori;
+    List<Advertisement> listaUtilizatori;
 
 
 String latitudine, longitudine;
@@ -123,6 +124,7 @@ String maxDistanta;
                             //nu exista utilizatori => popup: refa criteriile sau renunta
                             //exista utilizatori => afisare in listview
                                         //onClick ma duce catre pagina lui personala
+                Toast.makeText(getApplicationContext(), "ceva main", Toast.LENGTH_SHORT).show();
                         GetUsersByCriteria getUsersByCriteria = new GetUsersByCriteria();
                         getUsersByCriteria.execute(latitudine, longitudine,
                                 ""+tipCerere, ""+tipOferta,
@@ -151,7 +153,7 @@ String maxDistanta;
 
         @Override
         protected String doInBackground(String... strings) {
-            lat = strings[0];
+             lat = strings[0];
             lng = strings[1];
             cerere = strings[2];
             oferta = strings[3];
@@ -176,7 +178,7 @@ String maxDistanta;
                         +URLEncoder.encode("alimente", "UTF-8") + "=" + URLEncoder.encode(""+alimente, "UTF-8") + "&"
                         +URLEncoder.encode("haine", "UTF-8") + "=" + URLEncoder.encode(""+haine, "UTF-8") +  "&"
                         +URLEncoder.encode("altele", "UTF-8") + "=" + URLEncoder.encode(""+altele, "UTF-8") + "&"
-                        +URLEncoder.encode("distanta", "UTF-8") + "=" + URLEncoder.encode(""+(10000+distanta), "UTF-8");
+                        +URLEncoder.encode("distanta", "UTF-8") + "=" + URLEncoder.encode(""+(100000+distanta), "UTF-8");
                 bufferedWriter.write(findUsers);
 
                 bufferedWriter.flush();
@@ -210,7 +212,7 @@ String maxDistanta;
         @Override
             protected void onPostExecute(String s) {
 
-if(s!=null){
+/*if(s!=null){
     try {
         JSONArray jsonArray = new JSONArray(s);
        // Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
@@ -251,10 +253,61 @@ if(s!=null){
         e.printStackTrace();
     }
 
+}*/
+if (s != null) {
+    Toast.makeText(getApplicationContext(), "s "+s, Toast.LENGTH_SHORT).show();
+    try {
+        JSONArray vectorAds = new JSONArray(s);
+        for (int i = 0; i < vectorAds.length(); i++) {
+            JSONObject adItem = vectorAds.getJSONObject(i);
+            Advertisement ad = new Advertisement();
+            ad.setUsername(adItem.getString("username"));
+            ad.setStatusAnunt(adItem.getString("tipStatus"));
+            ad.setDenumireProdus(adItem.getString("denumire"));
+            ad.setTip(adItem.getString("tipAnunt"));
+            ad.setDataPostarii(adItem.getString("dataIntroducerii"));
+            ad.setCategorie(adItem.getString("categorie"));
+            ad.setLocatieUser(adItem.getString("strada"));
+            ad.setDescriereProdus(adItem.getString("descriereProdus"));
+            ad.setDetaliiAnunt(adItem.getString("detaliiAnunt"));
+            ad.setValabilitate(adItem.getString("valabilitate"));
+            ad.setUrl(adItem.getString("imagine"));
+            ad.setEmail(adItem.getString("email"));
+            ad.setDistanta(Float.parseFloat(adItem.getString("distanta")));
+            ad.setLatitudine(Float.parseFloat(adItem.getString("latitudine")));
+            ad.setLongitudine(Float.parseFloat(adItem.getString("longitudine")));
+            listaUtilizatori.add(ad);
+        }
+        if(listaUtilizatori.size() > 0) {
+            Toast.makeText(getApplicationContext(), "ceva > 0", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getApplicationContext(), UsersFilterList.class);
+            intent.putExtra("listaUtilizatori", (Serializable) listaUtilizatori);
+            startActivity(intent);
+        }
+        else
+        {
+            Toast.makeText(getApplicationContext(), "ceva alert ", Toast.LENGTH_SHORT).show();
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(FilterFindUsers.this);
+            alertDialog.setMessage("Nu s-a gasit niciun anunt conform criteriilor.");
+
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    try {
+                        finalize();
+                    } catch (Throwable throwable) {
+                        throwable.printStackTrace();
+                    }
+                } });
+
+            alertDialog.show();
+        }
+    } catch (JSONException e) {
+        e.printStackTrace();
+    }
 }
 else
 {
-    Toast.makeText(getApplicationContext(), "Null", Toast.LENGTH_LONG).show();
+    Toast.makeText(getApplicationContext(), "Ups...", Toast.LENGTH_LONG).show();
 
 }
          }

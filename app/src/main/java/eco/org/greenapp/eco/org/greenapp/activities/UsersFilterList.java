@@ -12,14 +12,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import eco.org.greenapp.R;
+import eco.org.greenapp.eco.org.greenapp.adapters.AdvertisementAdapter;
 import eco.org.greenapp.eco.org.greenapp.adapters.UsersAdapter;
+import eco.org.greenapp.eco.org.greenapp.classes.Advertisement;
 import eco.org.greenapp.eco.org.greenapp.classes.User;
 
 public class UsersFilterList extends AppCompatActivity {
 
     ListView listView;
-    List<User> lista;
-    UsersAdapter adapter;
+    List<Advertisement> lista;
+    AdvertisementAdapter adapter;
     Intent intent;
     int ok;
     @Override
@@ -33,10 +35,10 @@ public class UsersFilterList extends AppCompatActivity {
         intent = getIntent();
         if(intent != null){
             ok = 1;
-            lista = (List<User>) intent.getSerializableExtra("listaUtilizatori");
+            lista = (List<Advertisement>) intent.getSerializableExtra("listaUtilizatori");
         }
 
-        adapter = new UsersAdapter(getApplicationContext(), R.layout.user_item,lista);
+        adapter = new AdvertisementAdapter(getApplicationContext(), R.layout.product_item,lista);
         listView.setAdapter(adapter);
     }
 }

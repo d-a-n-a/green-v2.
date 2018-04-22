@@ -20,6 +20,9 @@ public class Advertisement implements Serializable{
     private String descriereProdus;
     private String detaliiAnunt;
     private String url;
+    private float latitudine;
+    private float longitudine;
+    private float distanta;
 
  public Advertisement(){}
     public int getId() {
@@ -124,5 +127,29 @@ public class Advertisement implements Serializable{
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public float getLatitudine() {
+        return latitudine;
+    }
+
+    public void setLatitudine(float latitudine) {
+        this.latitudine = latitudine;
+    }
+
+    public float getLongitudine() {
+        return longitudine;
+    }
+
+    public void setLongitudine(float longitudine) {
+        this.longitudine = longitudine;
+    }
+
+    public float getDistanta() {
+        return distanta;
+    }
+
+    public void setDistanta(float distanta) {
+        this.distanta = distanta;
     }
 }
