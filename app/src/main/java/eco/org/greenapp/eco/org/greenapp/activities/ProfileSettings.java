@@ -13,6 +13,7 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import eco.org.greenapp.AboutApp;
 import eco.org.greenapp.R;
 import eco.org.greenapp.eco.org.greenapp.constants.GeneralConstants;
 import eco.org.greenapp.eco.org.greenapp.constants.SharedPreferencesConstants;
@@ -139,6 +140,15 @@ public class ProfileSettings extends AppCompatActivity {
                 .getString(SharedPreferencesConstants.PHONE_NUMBER, null));
         ((TextView)findViewById(R.id.username)).setText(getSharedPreferences(GeneralConstants.SESSION, Context.MODE_PRIVATE)
                 .getString(GeneralConstants.TOKEN, null));
+
+
+        ((TextView)findViewById(R.id.userScore)).setText("/10");// asta in onpostexecute pentru ca trebuie sa fac si aici async
+        ((LinearLayout)findViewById(R.id.aboutAppLayout)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), AboutApp.class));
+            }
+        });
     }
 
     @Override

@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -120,11 +121,8 @@ String maxDistanta;
                         catAlimente = (swAlimente.isChecked()) ? Selectie.alimente : Selectie.NU;
                         catAltele = (swAltele.isChecked()) ? Selectie.altele : Selectie.NU;
                         maxDistanta = ""+seekBarDistanta.getProgress();
-                        //filtrare avand categoriile
-                            //nu exista utilizatori => popup: refa criteriile sau renunta
-                            //exista utilizatori => afisare in listview
-                                        //onClick ma duce catre pagina lui personala
-                Toast.makeText(getApplicationContext(), "ceva main", Toast.LENGTH_SHORT).show();
+
+
                         GetUsersByCriteria getUsersByCriteria = new GetUsersByCriteria();
                         getUsersByCriteria.execute(latitudine, longitudine,
                                 ""+tipCerere, ""+tipOferta,
@@ -178,7 +176,7 @@ String maxDistanta;
                         +URLEncoder.encode("alimente", "UTF-8") + "=" + URLEncoder.encode(""+alimente, "UTF-8") + "&"
                         +URLEncoder.encode("haine", "UTF-8") + "=" + URLEncoder.encode(""+haine, "UTF-8") +  "&"
                         +URLEncoder.encode("altele", "UTF-8") + "=" + URLEncoder.encode(""+altele, "UTF-8") + "&"
-                        +URLEncoder.encode("distanta", "UTF-8") + "=" + URLEncoder.encode(""+(100000+distanta), "UTF-8");
+                        +URLEncoder.encode("distanta", "UTF-8") + "=" + URLEncoder.encode(""+(distanta), "UTF-8");
                 bufferedWriter.write(findUsers);
 
                 bufferedWriter.flush();
@@ -255,8 +253,8 @@ String maxDistanta;
 
 }*/
 if (s != null) {
-    Toast.makeText(getApplicationContext(), "s "+s, Toast.LENGTH_SHORT).show();
     try {
+
         JSONArray vectorAds = new JSONArray(s);
         for (int i = 0; i < vectorAds.length(); i++) {
             JSONObject adItem = vectorAds.getJSONObject(i);
@@ -278,16 +276,15 @@ if (s != null) {
             ad.setLongitudine(Float.parseFloat(adItem.getString("longitudine")));
             listaUtilizatori.add(ad);
         }
-        if(listaUtilizatori.size() > 0) {
-            Toast.makeText(getApplicationContext(), "ceva > 0", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(getApplicationContext(), UsersFilterList.class);
+       if(listaUtilizatori.size() > 0) {
+//            Toast.makeText(getApplicationContext(), listaUtilizatori.size(), Toast.LENGTH_LONG).show();
+             Intent intent = new Intent(getApplicationContext(), UsersFilterList.class);
             intent.putExtra("listaUtilizatori", (Serializable) listaUtilizatori);
             startActivity(intent);
-        }
+       }
         else
         {
-            Toast.makeText(getApplicationContext(), "ceva alert ", Toast.LENGTH_SHORT).show();
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(FilterFindUsers.this);
+             AlertDialog.Builder alertDialog = new AlertDialog.Builder(FilterFindUsers.this);
             alertDialog.setMessage("Nu s-a gasit niciun anunt conform criteriilor.");
 
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {

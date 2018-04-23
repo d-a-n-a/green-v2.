@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/border_edit_text"
@@ -42,7 +43,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.4"
                 android:fontFamily="@font/lora_regular"
-                android:text="@string/byWho" />
+                android:text="@string/byWho"
+                android:textColor="@color/darkGrey" />
 
             <TextView
                 android:id="@+id/ownerUser"
@@ -61,7 +63,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/lora_regular"
-            android:text="tip " />
+            android:text="tip "
+            android:textColor="@color/darkGrey" />
 
         <LinearLayout
             android:id="@+id/availabilityLayout"
@@ -75,7 +78,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.8"
                 android:fontFamily="@font/lora_regular"
-                android:text="Data postarii" />
+                android:text="Data postarii"
+                android:textColor="@color/darkGrey" />
 
             <TextView
                 android:id="@+id/timeAdded"
@@ -83,7 +87,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1.2"
                 android:fontFamily="@font/lora_regular"
-                android:text="2/26/2018" />
+                android:text="2/26/2018"
+                android:textColor="@color/darkGrey" />
         </LinearLayout>
 
         <TextView
