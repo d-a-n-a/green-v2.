@@ -40,6 +40,7 @@ etPhoneNumber.setText(getSharedPreferences(GeneralConstants.SESSION, Context.MOD
 
                     ExecuteUpdatesTask executeUpdatesTask = new ExecuteUpdatesTask(getApplicationContext());
                     executeUpdatesTask.execute("4", sharedPreferences.getString(SharedPreferencesConstants.EMAIL,null), etPhoneNumber.getText().toString().trim());
+                    finish();
                 }
             }
         });

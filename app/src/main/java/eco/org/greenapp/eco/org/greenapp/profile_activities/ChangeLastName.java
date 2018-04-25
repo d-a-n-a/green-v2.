@@ -48,7 +48,7 @@ public class ChangeLastName extends AppCompatActivity {
 
                 ExecuteUpdatesTask executeUpdatesTask = new ExecuteUpdatesTask(getApplicationContext());
                 executeUpdatesTask.execute("0", sharedPreferences.getString(SharedPreferencesConstants.EMAIL,null), etLastNameInput.getText().toString().trim());
-
+                finish();
             }
             }
         });

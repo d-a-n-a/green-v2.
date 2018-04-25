@@ -190,4 +190,11 @@
         <item>2019</item>
     </string-array>
     <string-array name="hours"></string-array>
+
+    <string-array name="kmDistance">
+        <item>0</item>
+        <item>10</item>
+        <item>20</item>
+        <item>30</item>
+    </string-array>
 </resources>

@@ -82,7 +82,7 @@ public class ExecuteUpdatesTask extends AsyncTask<String, Void, String> {
 
     @Override
     protected void onPostExecute(String s)  {
-Toast.makeText(this.context, s, Toast.LENGTH_LONG).show();
+//Toast.makeText(this.context, s, Toast.LENGTH_LONG).show();
     if(s.equals("fail"))
     {
 

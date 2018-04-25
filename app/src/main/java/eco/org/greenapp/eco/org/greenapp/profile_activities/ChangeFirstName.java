@@ -46,7 +46,8 @@ public class ChangeFirstName extends AppCompatActivity {
 
                     ExecuteUpdatesTask executeUpdatesTask = new ExecuteUpdatesTask(getApplicationContext());
                     executeUpdatesTask.execute("1", sharedPreferences.getString(SharedPreferencesConstants.EMAIL,null), etFirstNameInput.getText().toString().trim());
-                }
+                    finish();
+               }
             }
         });
 

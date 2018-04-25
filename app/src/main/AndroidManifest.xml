@@ -44,7 +44,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".eco.org.greenapp.activities.AddDemandProduct" />
         <activity android:name=".eco.org.greenapp.activities.Feedback" />
-        <activity android:name=".eco.org.greenapp.activities.MyProfile" >
+        <activity android:name=".eco.org.greenapp.activities.MyProfile">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="eco.org.greenapp.eco.org.greenapp.activities.ProfileSettings" />
@@ -125,6 +125,12 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="eco.org.greenapp.AppMenu" />
+        </activity>
+        <activity android:name=".eco.org.greenapp.activities.Help" />
+        <activity android:name=".eco.org.greenapp.activities.UsersByLocation">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="eco.org.greenapp.eco.org.greenapp.activities.ProfileSettings" />
         </activity>
     </application>
 

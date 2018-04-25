@@ -54,7 +54,7 @@ public class ChangeAboutMe extends AppCompatActivity {
                  //   onBackPressed();
                     ExecuteUpdatesTask executeUpdatesTask = new ExecuteUpdatesTask(getApplicationContext());
                     executeUpdatesTask.execute("5", sharedPreferences.getString(SharedPreferencesConstants.EMAIL,null), etAbout.getText().toString().trim());
-
+finish();
                  }
             }
         });

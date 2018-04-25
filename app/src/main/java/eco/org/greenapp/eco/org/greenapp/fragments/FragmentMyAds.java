@@ -91,7 +91,7 @@ public class FragmentMyAds extends Fragment {
 
 
 
-        adapter =new UserAdvertisementAdapter(getActivity(),R.layout.my_adds_item,lista);
+        adapter = new UserAdvertisementAdapter(getActivity(),R.layout.my_adds_item,lista);
         adapter.notifyDataSetChanged();
         lvAnunturi=(ListView)view.findViewById(R.id.idLv);
         lvAnunturi.setAdapter(adapter);

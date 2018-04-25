@@ -44,6 +44,7 @@ public class ChangeEmail extends AppCompatActivity {
 
                     ExecuteUpdatesTask executeUpdatesTask = new ExecuteUpdatesTask(getApplicationContext());
                     executeUpdatesTask.execute("3", sharedPreferences.getString(SharedPreferencesConstants.EMAIL,null), etEmail.getText().toString().trim());
+                    finish();
                 }
             }
         });

@@ -56,4 +56,6 @@ public class Locatie implements Serializable {
     public void setLongitudine(float longitudine) {
         this.longitudine = longitudine;
     }
+
+
 }

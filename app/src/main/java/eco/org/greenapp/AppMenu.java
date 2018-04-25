@@ -45,6 +45,7 @@ import eco.org.greenapp.eco.org.greenapp.activities.FilterFindUsers;
 import eco.org.greenapp.eco.org.greenapp.activities.MyProfile;
 import eco.org.greenapp.eco.org.greenapp.activities.ProfileSettings;
 import eco.org.greenapp.eco.org.greenapp.activities.SignIn;
+import eco.org.greenapp.eco.org.greenapp.activities.UsersByLocation;
 import eco.org.greenapp.eco.org.greenapp.constants.GeneralConstants;
 import eco.org.greenapp.eco.org.greenapp.constants.SharedPreferencesConstants;
 import eco.org.greenapp.eco.org.greenapp.fragments.FragmentOne;
@@ -148,12 +149,11 @@ public class AppMenu extends AppCompatActivity
                                 });
                         AlertDialog alert = builder.create();
                         alert.show();
-
-
                         return true;
 
                     case R.id.nav_three:
-                        setFragment(frthree);
+                        //setFragment(frthree);
+                        startActivity(new Intent(getApplicationContext(), FilterFindUsers.class));
                         return true;
 
                     default:
@@ -197,7 +197,8 @@ public class AppMenu extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.findUsersByLocation) {
+            startActivity(new Intent(getApplicationContext(), UsersByLocation.class));
             return true;
         }
 
@@ -233,9 +234,11 @@ startActivity(new Intent(getApplicationContext(), AboutApp.class));
             }
             case R.id.nav_logout: {
                 startActivity(new Intent(getApplicationContext(), SignIn.class));
+                finish();
                 break;
             }
             case R.id.nav_help: {
+                //TODO  de pus ce inseamna fiecare categorie si fiecare status la tranzactie, respectiv anunt
                 break;
             }
             case R.id.nav_message: {

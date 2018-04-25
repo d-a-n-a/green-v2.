@@ -15,9 +15,7 @@ import java.util.List;
 
 import eco.org.greenapp.R;
 import eco.org.greenapp.eco.org.greenapp.adapters.AdvertisementAdapter;
-import eco.org.greenapp.eco.org.greenapp.adapters.UsersAdapter;
 import eco.org.greenapp.eco.org.greenapp.classes.Advertisement;
-import eco.org.greenapp.eco.org.greenapp.classes.User;
 
 public class UsersFilterList extends AppCompatActivity {
 

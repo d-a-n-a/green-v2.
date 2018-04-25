@@ -35,7 +35,7 @@ public class ChangeUsername extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Introduceti usernameul dorit.", Toast.LENGTH_LONG).show();
                 }
                 else {
-                    if (!checkUsernameAvailability()) {
+                    if (!checkUsernameAvailability(etUsername.getText().toString())) {
                         Toast.makeText(getApplicationContext(), "Acest username exista deja.", Toast.LENGTH_LONG).show();
                     }
                     else
@@ -47,6 +47,7 @@ public class ChangeUsername extends AppCompatActivity {
 
                         ExecuteUpdatesTask executeUpdatesTask = new ExecuteUpdatesTask(getApplicationContext());
                         executeUpdatesTask.execute("2", sharedPreferences.getString(SharedPreferencesConstants.EMAIL,null), etUsername.getText().toString().trim());
+                        finish();
                     }
 
                 }
@@ -59,7 +60,8 @@ public class ChangeUsername extends AppCompatActivity {
             return  false;
         return true;
     }
-    public boolean checkUsernameAvailability(){
+    public boolean checkUsernameAvailability(String usernameNou){
+        
         //todo trebuie sa verific in baza de date ca nu mai exista acest username
         return true;
     }

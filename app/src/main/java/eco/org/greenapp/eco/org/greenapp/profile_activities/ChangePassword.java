@@ -47,7 +47,7 @@ public class ChangePassword extends AppCompatActivity {
 
                         ExecuteUpdatesTask executeUpdatesTask = new ExecuteUpdatesTask(getApplicationContext());
                         executeUpdatesTask.execute("7", sharedPreferences.getString(SharedPreferencesConstants.EMAIL,null), etNewPassword.getText().toString().trim());
-
+                        finish();
                     }
             }
         });

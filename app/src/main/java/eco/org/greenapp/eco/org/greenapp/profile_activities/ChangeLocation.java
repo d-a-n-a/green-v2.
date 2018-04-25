@@ -180,7 +180,7 @@ public class ChangeLocation extends AppCompatActivity implements OnMapReadyCallb
                 String email = sharedPreferences.getString(SharedPreferencesConstants.EMAIL, null);
                 String latitudine = strings[3];
                 String longitudine = strings[4];
-//192.168.43.191
+
                 URL url = new URL(GeneralConstants.URL+"/updateLocation.php");
                 HttpURLConnection http = (HttpURLConnection) url.openConnection();
                 http.setRequestMethod("POST");
@@ -226,6 +226,8 @@ public class ChangeLocation extends AppCompatActivity implements OnMapReadyCallb
         protected void onPostExecute(String s) {
             if(s.equals("fail"))
                 Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
+            finish();
           }
+
     }
     }
