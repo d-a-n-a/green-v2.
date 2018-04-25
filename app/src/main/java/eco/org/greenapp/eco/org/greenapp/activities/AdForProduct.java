@@ -81,30 +81,30 @@ public class AdForProduct extends AppCompatActivity implements OnMapReadyCallbac
          }
 
         ProductImageTask productImageTask = new ProductImageTask(produtPhoto, getApplicationContext());
-        productImageTask.execute(GeneralConstants.Url+ad.getUrl());
+        productImageTask.execute(GeneralConstants.Url+ad.getProdus().getUrl());
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), UserInfo.class);
-                intent.putExtra("username", ad.getUsername());
+                intent.putExtra("username", ad.getUser().getUsername());
                 startActivity(intent);
             }
         });
 
-        denumireProdus.setText(ad.getDenumireProdus());
-        descriereProdus.setText(ad.getDetaliiAnunt());
-        categorie.setText(ad.getCategorie());
-        valabilitate.setText(ad.getValabilitate());
-        locatie.setText(ad.getLocatieUser());
+        denumireProdus.setText(ad.getProdus().getDenumireProdus());
+        descriereProdus.setText(ad.getProdus().getDetaliiAnunt());
+        categorie.setText(ad.getProdus().getCategorie().getDenumire());
+        valabilitate.setText(ad.getProdus().getValabilitate());
+        locatie.setText(ad.getUser().getLocatie().getStrada());
         detalii.setText(ad.getDescriereProdus());
-        status.setText(ad.getStatusAnunt());
-        ((TextView)findViewById(R.id.usernameanunt)).setText(ad.getUsername());
+        status.setText(ad.getStatusAnunt().getTip());
+        ((TextView)findViewById(R.id.usernameanunt)).setText(ad.getUser().getUsername());
         ((TextView)findViewById(R.id.usernameanunt)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), UserInfo.class);
-                intent.putExtra("username", ad.getUsername());
+                intent.putExtra("username", ad.getUser().getUsername());
                 startActivity(intent);
             }
         });
@@ -136,8 +136,8 @@ Log.i("days", ""+days);
             public void onClick(View v) {
                 Intent intent = new Intent (Intent.ACTION_SEND);
                 intent.setType("message/rfc822");
-                intent.putExtra(Intent.EXTRA_EMAIL, new String[]{ad.getEmail()});
-                intent.putExtra(Intent.EXTRA_SUBJECT, "Contactare anunt: "+ad.getDenumireProdus());
+                intent.putExtra(Intent.EXTRA_EMAIL, new String[]{ad.getUser().getEmail()});
+                intent.putExtra(Intent.EXTRA_SUBJECT, "Contactare anunt: "+ad.getProdus().getDenumireProdus());
                 intent.setPackage("com.google.android.gm");
                 if (intent.resolveActivity(getPackageManager())!=null)
                     startActivity(intent);
@@ -149,10 +149,10 @@ Log.i("days", ""+days);
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        LatLng position = new LatLng(ad.getLatitudine(), ad.getLongitudine());
+        LatLng position = new LatLng(ad.getUser().getLocatie().getLatitudine(), ad.getUser().getLocatie().getLongitudine());
         googleMap.addMarker(new MarkerOptions()
                 .position(position)
-                .title(ad.getLocatieUser())
+                .title(ad.getUser().getLocatie().getStrada())
         );
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position,15));
     }

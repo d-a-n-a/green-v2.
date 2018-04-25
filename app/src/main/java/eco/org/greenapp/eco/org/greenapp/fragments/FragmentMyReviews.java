@@ -34,6 +34,7 @@ import eco.org.greenapp.eco.org.greenapp.adapters.AdvertisementAdapter;
 import eco.org.greenapp.eco.org.greenapp.adapters.ReviewAdapter;
 import eco.org.greenapp.eco.org.greenapp.classes.Advertisement;
 import eco.org.greenapp.eco.org.greenapp.classes.Review;
+import eco.org.greenapp.eco.org.greenapp.classes.User;
 import eco.org.greenapp.eco.org.greenapp.constants.GeneralConstants;
 import eco.org.greenapp.eco.org.greenapp.constants.SharedPreferencesConstants;
 
@@ -142,12 +143,13 @@ public class GetReviews extends AsyncTask<String, Void, String>{
             for(int i=0; i<vectorReviews.length(); i++){
                 JSONObject adItem = vectorReviews.getJSONObject(i);
                 Review review = new Review();
-
+                User user = new User();
                 review.setData_adaugare(adItem.getString("data"));
                 review.setContinut(adItem.getString("detalii"));
                 review.setNota(Float.parseFloat(adItem.getString("nota")));
-                review.setUser(adItem.getString("username"));
-                review.setUrlProfil(adItem.getString("fotografie"));
+                user.setUsername(adItem.getString("username"));
+                user.setUrl(adItem.getString("fotografie"));
+                review.setUser(user);
                 lista.add(review);
             }
             final ReviewAdapter adapter=new ReviewAdapter(getActivity(),R.layout.review_item,lista);

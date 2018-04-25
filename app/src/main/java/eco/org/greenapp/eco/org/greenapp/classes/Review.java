@@ -5,21 +5,14 @@ package eco.org.greenapp.eco.org.greenapp.classes;
  */
 
 public class Review {
-    private String user;
+    //private String user;
     private String data_adaugare;
     private float nota;
     private String continut;
-    private String urlProfil;
+    private User user;
+   // private String urlProfil;
     public Review(){
 
-    }
-
-    public String getUser() {
-        return user;
-    }
-
-    public void setUser(String user) {
-        this.user = user;
     }
 
     public String getData_adaugare() {
@@ -46,11 +39,11 @@ public class Review {
         this.continut = continut;
     }
 
-    public String getUrlProfil() {
-        return urlProfil;
+    public User getUser() {
+        return user;
     }
 
-    public void setUrlProfil(String urlProfil) {
-        this.urlProfil = urlProfil;
+    public void setUser(User user) {
+        this.user = user;
     }
 }

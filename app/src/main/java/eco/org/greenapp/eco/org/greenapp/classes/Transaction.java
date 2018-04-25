@@ -11,11 +11,14 @@ public class Transaction implements Serializable {
     private String locatie;
     private String data;
     private String ora;
-    private int idAnunt;
-    private String status;
+   // private int idAnunt;
+    //private String status;
+    private Status status;
     private String expeditor;
     private String destinatar;
-    private String denumire;
+   // private String denumire;
+
+    private Advertisement anunt;
 
     public int getIdTranzactie() {
         return idTranzactie;
@@ -49,19 +52,13 @@ public class Transaction implements Serializable {
         this.ora = ora;
     }
 
-    public int getIdAnunt() {
-        return idAnunt;
-    }
 
-    public void setIdAnunt(int idAnunt) {
-        this.idAnunt = idAnunt;
-    }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 
@@ -81,11 +78,11 @@ public class Transaction implements Serializable {
         this.destinatar = destinatar;
     }
 
-    public String getDenumire() {
-        return denumire;
+    public Advertisement getAnunt() {
+        return anunt;
     }
 
-    public void setDenumire(String denumire) {
-        this.denumire = denumire;
+    public void setAnunt(Advertisement anunt) {
+        this.anunt = anunt;
     }
 }

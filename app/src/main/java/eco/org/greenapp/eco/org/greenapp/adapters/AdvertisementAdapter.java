@@ -42,16 +42,16 @@ public class AdvertisementAdapter extends ArrayAdapter<Advertisement> {
         ImageView photo = (ImageView)view.findViewById(R.id.productPhoto);
 
         Advertisement ad = this.listaAnunturi.get(position);
-        denumire.setText(ad.getDenumireProdus());
-        user.setText(ad.getUsername());
+        denumire.setText(ad.getProdus().getDenumireProdus());
+        user.setText(ad.getUser().getUsername());
         tip.setText(ad.getTip());
         dataPostare.setText(ad.getDataPostarii());
-        status.setText(ad.getStatusAnunt());
+        status.setText(ad.getStatusAnunt().getTip());
         if(ad.getTip().equals("doresc"))
             photo.setImageDrawable(getContext().getDrawable(R.drawable.wanted));
-        if(!ad.getUrl().isEmpty()) {
+        if(!ad.getProdus().getUrl().isEmpty()) {
             GetImageTask getImageTask = new GetImageTask(photo, getContext());
-            getImageTask.execute(GeneralConstants.Url + ad.getUrl());
+            getImageTask.execute(GeneralConstants.Url + ad.getProdus().getUrl());
         }
 
         return view;

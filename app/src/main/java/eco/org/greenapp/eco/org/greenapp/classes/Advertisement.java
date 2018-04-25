@@ -9,19 +9,32 @@ import java.io.Serializable;
 public class Advertisement implements Serializable{
     private int id;
     private String dataPostarii;
+    //nu am durata in zile, dar oricum in aplicatie nu fac nimic cu ea
+    //sau as putea sa o pun pentru ca oricum calculez cu cate zile in urma s-au postat anunturile
     private String tip;
-    private String username;
-    private String denumireProdus;
-    private String statusAnunt;
-    private String email;
+    private String descriereProdus;//care e de fapt descriere de la anunt
+    private Status statusAnunt;
+
+    private User user;
+   // private String username;
+   // private String email;
+   // private String locatieUser;
+   // private float latitudine;
+   //  private float longitudine;
+
+    //private String statusAnunt;
+
+    private Produs produs;
+    /*private String denumireProdus;
     private String valabilitate;
-    private String categorie;
-    private String locatieUser;
-    private String descriereProdus;
-    private String detaliiAnunt;
+    private String categorie;//pe asta o gasesc in produs
+
     private String url;
-    private float latitudine;
-    private float longitudine;
+
+    private String detaliiAnunt;//asta e descriere din anunturi table; ba nu, asta cred ca e de fapt detalii din produs*/
+
+
+
     private float distanta;
 
  public Advertisement(){}
@@ -29,37 +42,7 @@ public class Advertisement implements Serializable{
         return id;
     }
 
-    public String getEmail() {
-        return email;
-    }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getValabilitate() {
-        return valabilitate;
-    }
-
-    public void setValabilitate(String valabilitate) {
-        this.valabilitate = valabilitate;
-    }
-
-    public String getCategorie() {
-        return categorie;
-    }
-
-    public void setCategorie(String categorie) {
-        this.categorie = categorie;
-    }
-
-    public String getLocatieUser() {
-        return locatieUser;
-    }
-
-    public void setLocatieUser(String locatieUser) {
-        this.locatieUser = locatieUser;
-    }
 
     public String getDescriereProdus() {
         return descriereProdus;
@@ -68,15 +51,6 @@ public class Advertisement implements Serializable{
     public void setDescriereProdus(String descriereProdus) {
         this.descriereProdus = descriereProdus;
     }
-
-    public String getDetaliiAnunt() {
-        return detaliiAnunt;
-    }
-
-    public void setDetaliiAnunt(String detaliiAnunt) {
-        this.detaliiAnunt = detaliiAnunt;
-    }
-
     public void setId(int id) {
         this.id = id;
     }
@@ -97,52 +71,13 @@ public class Advertisement implements Serializable{
         this.tip = tip;
     }
 
-    public String getUsername() {
-        return username;
-    }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getDenumireProdus() {
-        return denumireProdus;
-    }
-
-    public void setDenumireProdus(String denumireProdus) {
-        this.denumireProdus = denumireProdus;
-    }
-
-    public String getStatusAnunt() {
+    public Status getStatusAnunt() {
         return statusAnunt;
     }
 
-    public void setStatusAnunt(String statusAnunt) {
+    public void setStatusAnunt(Status statusAnunt) {
         this.statusAnunt = statusAnunt;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public float getLatitudine() {
-        return latitudine;
-    }
-
-    public void setLatitudine(float latitudine) {
-        this.latitudine = latitudine;
-    }
-
-    public float getLongitudine() {
-        return longitudine;
-    }
-
-    public void setLongitudine(float longitudine) {
-        this.longitudine = longitudine;
     }
 
     public float getDistanta() {
@@ -151,5 +86,21 @@ public class Advertisement implements Serializable{
 
     public void setDistanta(float distanta) {
         this.distanta = distanta;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Produs getProdus() {
+        return produs;
+    }
+
+    public void setProdus(Produs produs) {
+        this.produs = produs;
     }
 }

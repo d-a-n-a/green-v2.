@@ -66,7 +66,7 @@ public class UsersAdapter extends ArrayAdapter<User> {
 
         final User user = this.listaUsers.get(position);
         username.setText(user.getUsername());
-        adresa.setText(user.getLocatie());
+        adresa.setText(user.getLocatie().getStrada());
 
 
         new CalculateReview(img, review).execute(user.getUsername());

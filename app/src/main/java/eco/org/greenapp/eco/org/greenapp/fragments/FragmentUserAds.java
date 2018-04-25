@@ -41,6 +41,9 @@ import eco.org.greenapp.R;
 import eco.org.greenapp.eco.org.greenapp.activities.TransactionDetails;
 import eco.org.greenapp.eco.org.greenapp.adapters.UserAdvertisementAdapter;
 import eco.org.greenapp.eco.org.greenapp.classes.Advertisement;
+import eco.org.greenapp.eco.org.greenapp.classes.Produs;
+import eco.org.greenapp.eco.org.greenapp.classes.Status;
+import eco.org.greenapp.eco.org.greenapp.classes.User;
 import eco.org.greenapp.eco.org.greenapp.constants.GeneralConstants;
 
 /**
@@ -149,15 +152,21 @@ public class FragmentUserAds extends Fragment {
                 try {
                     JSONArray vectorAds = new JSONArray(s);
                     for (int i = 0; i < vectorAds.length(); i++) {
+                        eco.org.greenapp.eco.org.greenapp.classes.Status status = new eco.org.greenapp.eco.org.greenapp.classes.Status();
+                        Produs produs = new Produs();
                         JSONObject adItem = vectorAds.getJSONObject(i);
                         Advertisement ad = new Advertisement();
                         ad.setId(Integer.parseInt(adItem.getString("id")));
-                        ad.setUsername(adItem.getString("username"));
-                        ad.setStatusAnunt(adItem.getString("tipStatus"));
-                        ad.setDenumireProdus(adItem.getString("denumire"));
+                        User user = new User();
+                        user.setUsername(adItem.getString("username"));
+                        status.setTip(adItem.getString("tipStatus"));
+                        ad.setStatusAnunt(status);
+                        produs.setDenumireProdus(adItem.getString("denumire"));
+                        produs.setUrl(adItem.getString("imagine"));
                         ad.setTip(adItem.getString("tipAnunt"));
                         ad.setDataPostarii(adItem.getString("dataIntroducerii"));
-                        ad.setUrl(adItem.getString("imagine"));
+                        ad.setUser(user);
+                        ad.setProdus(produs);
                         lista.add(ad);
                     }
                     adapter.notifyDataSetChanged();

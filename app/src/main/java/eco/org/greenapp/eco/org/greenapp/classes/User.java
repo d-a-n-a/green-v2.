@@ -10,12 +10,12 @@ public class User implements Serializable {
     private String nume;
     private String prenume;
     private String username;
-    private String locatie;
+    //private String locatie;
+    private Locatie locatie;
     private String dataInregistrarii;
     private String biografie;
     private String email;
-
-    //fotografie!  o iau dupa username cu GetImageTask
+    private String url;
 
     public User(){}
 
@@ -51,11 +51,11 @@ public class User implements Serializable {
         this.username = username;
     }
 
-    public String getLocatie() {
+    public Locatie getLocatie() {
         return locatie;
     }
 
-    public void setLocatie(String locatie) {
+    public void setLocatie(Locatie locatie) {
         this.locatie = locatie;
     }
 
@@ -73,5 +73,13 @@ public class User implements Serializable {
 
     public void setBiografie(String biografie) {
         this.biografie = biografie;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

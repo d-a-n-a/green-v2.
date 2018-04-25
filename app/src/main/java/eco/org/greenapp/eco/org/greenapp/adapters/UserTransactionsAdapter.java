@@ -60,9 +60,9 @@ public class UserTransactionsAdapter extends ArrayAdapter<Transaction> {
         TextView dataora = (TextView)view.findViewById(R.id.data);
         final Transaction tr = this.transactions.get(position);
         TextView tvStatus = (TextView)view.findViewById(R.id.statusTranz);
-        tvStatus.setText(tr.getStatus());
+        tvStatus.setText(tr.getStatus().getTip());
 
-        titlu.setText(tr.getDenumire());
+        titlu.setText(tr.getAnunt().getProdus().getDenumireProdus());
         final String me = this.getContext().getSharedPreferences(GeneralConstants.SESSION, Context.MODE_PRIVATE).getString(GeneralConstants.TOKEN, null);
         if(me.equals(tr.getDestinatar()))
             user.setText(tr.getExpeditor());
@@ -76,7 +76,7 @@ public class UserTransactionsAdapter extends ArrayAdapter<Transaction> {
         strada.setText(tr.getLocatie());
         dataora.setText(tr.getData().toString()+" - "+tr.getOra());
 
-        if(tr.getStatus().equals("anulat"))
+        if(tr.getStatus().getTip().equals("anulat"))
         {
 
             ((Button)view.findViewById(R.id.btnConfirm)).setVisibility(View.INVISIBLE);
@@ -114,7 +114,7 @@ public class UserTransactionsAdapter extends ArrayAdapter<Transaction> {
             });
         }
         else
-            if(tr.getStatus().equals("finalizat")){
+            if(tr.getStatus().getTip().equals("finalizat")){
                 ((Button)view.findViewById(R.id.btnConfirm)).setVisibility(View.INVISIBLE);
                 ((Button)view.findViewById(R.id.btnCancel)).setVisibility(View.INVISIBLE);
                 ((TextView)view.findViewById(R.id.statusTranz)).setVisibility(View.VISIBLE);
@@ -160,7 +160,7 @@ public class UserTransactionsAdapter extends ArrayAdapter<Transaction> {
                     @Override
                     public void onClick(View v) {
                         EditStatus editStatus = new EditStatus();
-                        editStatus.execute(""+tr.getIdTranzactie(), ""+6, ""+tr.getIdAnunt(), ""+3);
+                        editStatus.execute(""+tr.getIdTranzactie(), ""+6, ""+tr.getAnunt().getId(), ""+3);
 
                     }
                 });
@@ -170,7 +170,7 @@ public class UserTransactionsAdapter extends ArrayAdapter<Transaction> {
                     public void onClick(View v) {
 
                         EditStatus editStatus = new EditStatus();
-                        editStatus.execute(""+tr.getIdTranzactie(), ""+7, ""+tr.getIdAnunt(), ""+4);
+                        editStatus.execute(""+tr.getIdTranzactie(), ""+7, ""+tr.getAnunt().getId(), ""+4);
 
                         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(view.getContext());
                         dialogBuilder.setView(R.layout.layout_confirmare_tranzactie);

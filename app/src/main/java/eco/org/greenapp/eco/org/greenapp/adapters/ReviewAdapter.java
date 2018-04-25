@@ -45,15 +45,15 @@ public class ReviewAdapter extends ArrayAdapter<Review> {
 
 
         Review review = this.listaReviews.get(position);
-        reviewer.setText(review.getUser());
+        reviewer.setText(review.getUser().getUsername());
         date.setText(review.getData_adaugare());
         continut.setText(review.getContinut());
         nota.setText(""+review.getNota()+"/10");
 
-        if(!review.getUrlProfil().isEmpty() && !(review.getUrlProfil()==null))
+        if(!review.getUser().getUrl().isEmpty() && !(review.getUser().getUrl()==null))
         {
             GetImageTask getImageTask = new GetImageTask(img, getContext());
-            getImageTask.execute(GeneralConstants.Url+review.getUrlProfil());
+            getImageTask.execute(GeneralConstants.Url+review.getUser().getUrl());
         }
 
         return view;

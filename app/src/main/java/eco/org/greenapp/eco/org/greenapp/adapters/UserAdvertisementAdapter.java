@@ -53,15 +53,15 @@ public class UserAdvertisementAdapter extends ArrayAdapter<Advertisement> {
         ImageView imgv = (ImageView)view.findViewById(R.id.productPhoto);
 
         final Advertisement ad = this.ads.get(position);
-        titlu.setText(ad.getDenumireProdus());
+        titlu.setText(ad.getProdus().getDenumireProdus());
         tip.setText(ad.getTip());
         dataIntroducerii.setText(ad.getDataPostarii());
-        status.setText(ad.getStatusAnunt());
+        status.setText(ad.getStatusAnunt().getTip());
         if(ad.getTip().equals("doresc"))
             imgv.setImageDrawable(getContext().getDrawable(R.drawable.wanted));
-        if(!ad.getUrl().isEmpty()){
+        if(!ad.getProdus().getUrl().isEmpty()){
             GetImageTask getImageTask = new GetImageTask(imgv, getContext());
-            getImageTask.execute(GeneralConstants.Url+ad.getUrl());
+            getImageTask.execute(GeneralConstants.Url+ad.getProdus().getUrl());
         }
         //daca nu e al meu atunci ii dau clickc atre adforproduct
        /* String me = getContext().getSharedPreferences(GeneralConstants.SESSION, Context.MODE_PRIVATE)

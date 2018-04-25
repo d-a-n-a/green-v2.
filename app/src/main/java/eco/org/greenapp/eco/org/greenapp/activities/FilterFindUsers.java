@@ -3,16 +3,13 @@ package eco.org.greenapp.eco.org.greenapp.activities;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.PopupWindow;
 import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -24,7 +21,6 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -42,9 +38,11 @@ import java.util.List;
 
 import eco.org.greenapp.R;
 import eco.org.greenapp.eco.org.greenapp.classes.Advertisement;
-import eco.org.greenapp.eco.org.greenapp.classes.Selectie;
+import eco.org.greenapp.eco.org.greenapp.classes.Categorie;
+import eco.org.greenapp.eco.org.greenapp.classes.Locatie;
+import eco.org.greenapp.eco.org.greenapp.classes.Produs;
+import eco.org.greenapp.eco.org.greenapp.enumerations.Selectie;
 import eco.org.greenapp.eco.org.greenapp.classes.User;
-import eco.org.greenapp.eco.org.greenapp.classes.UserFiltru;
 import eco.org.greenapp.eco.org.greenapp.constants.GeneralConstants;
 import eco.org.greenapp.eco.org.greenapp.constants.SharedPreferencesConstants;
 import eco.org.greenapp.eco.org.greenapp.profile_activities.ChangeLocation;
@@ -176,7 +174,7 @@ String maxDistanta;
                         +URLEncoder.encode("alimente", "UTF-8") + "=" + URLEncoder.encode(""+alimente, "UTF-8") + "&"
                         +URLEncoder.encode("haine", "UTF-8") + "=" + URLEncoder.encode(""+haine, "UTF-8") +  "&"
                         +URLEncoder.encode("altele", "UTF-8") + "=" + URLEncoder.encode(""+altele, "UTF-8") + "&"
-                        +URLEncoder.encode("distanta", "UTF-8") + "=" + URLEncoder.encode(""+(distanta), "UTF-8");
+                        +URLEncoder.encode("distanta", "UTF-8") + "=" + URLEncoder.encode(""+(200+distanta), "UTF-8");
                 bufferedWriter.write(findUsers);
 
                 bufferedWriter.flush();
@@ -259,21 +257,37 @@ if (s != null) {
         for (int i = 0; i < vectorAds.length(); i++) {
             JSONObject adItem = vectorAds.getJSONObject(i);
             Advertisement ad = new Advertisement();
-            ad.setUsername(adItem.getString("username"));
-            ad.setStatusAnunt(adItem.getString("tipStatus"));
-            ad.setDenumireProdus(adItem.getString("denumire"));
+            eco.org.greenapp.eco.org.greenapp.classes.Status status = new eco.org.greenapp.eco.org.greenapp.classes.Status();
+            Produs produs = new Produs();
+            Categorie categorie = new Categorie();
+
+            User user = new User();
+            user.setUsername(adItem.getString("username"));
+            user.setEmail(adItem.getString("email"));
+
+            Locatie locatie = new Locatie();
+            locatie.setLatitudine(Float.parseFloat(adItem.getString("latitudine")));
+            locatie.setLongitudine(Float.parseFloat(adItem.getString("longitudine")));
+            locatie.setStrada(adItem.getString("strada"));
+            user.setLocatie(locatie);
+
+
+            status.setTip(adItem.getString("tipStatus"));
+            ad.setStatusAnunt(status);
+            produs.setDenumireProdus(adItem.getString("denumire"));
+            produs.setUrl(adItem.getString("imagine"));
+            produs.setValabilitate(adItem.getString("valabilitate"));
+            produs.setDetaliiAnunt(adItem.getString("detaliiAnunt"));
+            categorie.setDenumire(adItem.getString("categorie"));
+            produs.setCategorie(categorie);
+
             ad.setTip(adItem.getString("tipAnunt"));
             ad.setDataPostarii(adItem.getString("dataIntroducerii"));
-            ad.setCategorie(adItem.getString("categorie"));
-            ad.setLocatieUser(adItem.getString("strada"));
+
             ad.setDescriereProdus(adItem.getString("descriereProdus"));
-            ad.setDetaliiAnunt(adItem.getString("detaliiAnunt"));
-            ad.setValabilitate(adItem.getString("valabilitate"));
-            ad.setUrl(adItem.getString("imagine"));
-            ad.setEmail(adItem.getString("email"));
+            ad.setProdus(produs);
             ad.setDistanta(Float.parseFloat(adItem.getString("distanta")));
-            ad.setLatitudine(Float.parseFloat(adItem.getString("latitudine")));
-            ad.setLongitudine(Float.parseFloat(adItem.getString("longitudine")));
+            ad.setUser(user);
             listaUtilizatori.add(ad);
         }
        if(listaUtilizatori.size() > 0) {

@@ -30,6 +30,8 @@ import eco.org.greenapp.R;
 import eco.org.greenapp.eco.org.greenapp.adapters.UserAdvertisementAdapter;
 import eco.org.greenapp.eco.org.greenapp.adapters.UserTransactionsAdapter;
 import eco.org.greenapp.eco.org.greenapp.classes.Advertisement;
+import eco.org.greenapp.eco.org.greenapp.classes.Produs;
+import eco.org.greenapp.eco.org.greenapp.classes.Status;
 import eco.org.greenapp.eco.org.greenapp.classes.Transaction;
 import eco.org.greenapp.eco.org.greenapp.constants.GeneralConstants;
 
@@ -126,10 +128,15 @@ public class TransactionHistoryFragment extends Fragment {
 
         @Override
         protected void onPostExecute(String s) {
+
 if(s!=null) {
+
     try {
         JSONArray vectorTransactions = new JSONArray(s);
         for (int i = 0; i < vectorTransactions.length(); i++) {
+            eco.org.greenapp.eco.org.greenapp.classes.Status status = new eco.org.greenapp.eco.org.greenapp.classes.Status();
+            Advertisement anunt = new Advertisement();
+            Produs produs = new Produs();
             JSONObject transaction = vectorTransactions.getJSONObject(i);
             Transaction ad = new Transaction();
             ad.setData(transaction.getString("data_predare"));
@@ -137,10 +144,14 @@ if(s!=null) {
             ad.setOra(transaction.getString("ora_predare"));
             ad.setExpeditor(transaction.getString("username_expeditor"));
             ad.setDestinatar(transaction.getString("username_destinatar"));
-            ad.setDenumire(transaction.getString("denumire"));
-            ad.setIdAnunt(Integer.parseInt(transaction.getString("ID_ANUNT")));
+            produs.setDenumireProdus(transaction.getString("denumire"));
+            anunt.setId(Integer.parseInt(transaction.getString("ID_ANUNT")));
             ad.setIdTranzactie(Integer.parseInt(transaction.getString("ID_TRANZACTIE")));
-            ad.setStatus(transaction.getString("status"));
+            status.setTip(transaction.getString("status"));
+            ad.setStatus(status);
+
+            anunt.setProdus(produs);
+            ad.setAnunt(anunt);
             transactions.add(ad);
 
 

@@ -37,6 +37,11 @@ import eco.org.greenapp.RequestHttp;
 import eco.org.greenapp.eco.org.greenapp.activities.AdForProduct;
 import eco.org.greenapp.eco.org.greenapp.adapters.AdvertisementAdapter;
 import eco.org.greenapp.eco.org.greenapp.classes.Advertisement;
+import eco.org.greenapp.eco.org.greenapp.classes.Categorie;
+import eco.org.greenapp.eco.org.greenapp.classes.Locatie;
+import eco.org.greenapp.eco.org.greenapp.classes.Produs;
+import eco.org.greenapp.eco.org.greenapp.classes.Status;
+import eco.org.greenapp.eco.org.greenapp.classes.User;
 import eco.org.greenapp.eco.org.greenapp.constants.GeneralConstants;
 
 
@@ -150,26 +155,42 @@ public  class GetData extends AsyncTask<Void,Void,String> {
     protected void onPostExecute(String s) {
 
         if(s!=null) {
+
             try {
                 JSONArray vectorAds = new JSONArray(s);
                 for (int i = 0; i < vectorAds.length(); i++) {
+                    eco.org.greenapp.eco.org.greenapp.classes.Status status = new eco.org.greenapp.eco.org.greenapp.classes.Status();
+                    Produs produs = new Produs();
+                    Categorie categorie = new Categorie();
                     JSONObject adItem = vectorAds.getJSONObject(i);
                     Advertisement ad = new Advertisement();
-                    ad.setUsername(adItem.getString("username"));
-                    ad.setStatusAnunt(adItem.getString("tipStatus"));
-                    ad.setDenumireProdus(adItem.getString("denumire"));
+
+                    User user = new User();
+                    user.setUsername(adItem.getString("username"));
+                    user.setEmail(adItem.getString("email"));
+
+                    Locatie locatie = new Locatie();
+                    locatie.setStrada(adItem.getString("strada"));
+                    locatie.setLatitudine(Float.parseFloat(adItem.getString("latitudine")));
+                    locatie.setLongitudine(Float.parseFloat(adItem.getString("longitudine")));
+                    user.setLocatie(locatie);
+
+                    status.setTip(adItem.getString("tipStatus"));
+                    ad.setStatusAnunt(status);
+                    produs.setDenumireProdus(adItem.getString("denumire"));
+                    categorie.setDenumire(adItem.getString("categorie"));
+                    produs.setCategorie(categorie);
+                    produs.setDetaliiAnunt(adItem.getString("detaliiAnunt"));
+                    produs.setUrl(adItem.getString("imagine"));
+                    produs.setValabilitate(adItem.getString("valabilitate"));
                     ad.setTip(adItem.getString("tipAnunt"));
                     ad.setDataPostarii(adItem.getString("dataIntroducerii"));
-                    ad.setCategorie(adItem.getString("categorie"));
-                    ad.setLocatieUser(adItem.getString("strada"));
+
                     ad.setDescriereProdus(adItem.getString("descriereProdus"));
-                    ad.setDetaliiAnunt(adItem.getString("detaliiAnunt"));
-                    ad.setValabilitate(adItem.getString("valabilitate"));
-                    ad.setUrl(adItem.getString("imagine"));
-                    ad.setEmail(adItem.getString("email"));
+                    ad.setProdus(produs);
+
                     ad.setDistanta(0.0f);
-                    ad.setLatitudine(Float.parseFloat(adItem.getString("latitudine")));
-                    ad.setLongitudine(Float.parseFloat(adItem.getString("longitudine")));
+                    ad.setUser(user);
                     lista.add(ad);
                 }
             } catch (JSONException e) {
