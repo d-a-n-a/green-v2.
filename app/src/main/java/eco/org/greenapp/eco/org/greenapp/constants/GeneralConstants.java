@@ -7,7 +7,7 @@ import java.text.SimpleDateFormat;
  */
 
 public class GeneralConstants {
-    public static final SimpleDateFormat SDF = new SimpleDateFormat("dd/MM/yyyy");
+    public static final SimpleDateFormat SDF =new SimpleDateFormat("yyyy-MM-dd");//new SimpleDateFormat("dd/MM/yyyy");
     public static final String SESSION = "user_session";
     public static final String TOKEN = "token";
     public static final String PASSWORD = "password";

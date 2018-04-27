@@ -2,7 +2,10 @@ package eco.org.greenapp.eco.org.greenapp.activities;
 
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.widget.DatePicker;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.os.Bundle;
 import android.util.Base64;
@@ -26,6 +29,8 @@ import android.os.AsyncTask;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -42,14 +47,14 @@ public class AddProduct extends AppCompatActivity implements NavigationView.OnNa
     TextInputEditText txtProductName;
     EditText etProductDescription;
     Spinner productCategory;
-    EditText etDay, etYear;
-    Spinner etMonth;
+
     EditText etDetails;
     EditText etDurata;
     Bitmap bitmap;
     ImageView img;
     HashMap<String, String> values = new HashMap<String,String>();
-
+    Calendar myCalendar;
+    TextView data;
 
 
     @Override
@@ -60,12 +65,36 @@ public class AddProduct extends AppCompatActivity implements NavigationView.OnNa
         txtProductName = (TextInputEditText)findViewById(R.id.productNameInput);
         etProductDescription = (EditText)findViewById(R.id.productDescriptionInput);
         productCategory = (Spinner)findViewById(R.id.spinnerProductCategory);
-        etDay = (EditText)findViewById(R.id.dayInput);
-        etMonth = (Spinner)findViewById(R.id.monthInput);
-        etYear = (EditText)findViewById(R.id.yearInput);
+
         etDetails = (EditText)findViewById(R.id.productDetailsInput);
         etDurata = (EditText)findViewById(R.id.adDurata);
         img = (ImageView)findViewById(R.id.imgUpload);
+
+
+        data = (TextView) findViewById(R.id.data);
+        myCalendar = Calendar.getInstance();
+        final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                  int dayOfMonth) {
+
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, monthOfYear);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                data.setText(GeneralConstants.SDF.format(myCalendar.getTime()));
+
+            }
+
+        };
+        ((Button)findViewById(R.id.btnSelectData)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new DatePickerDialog(AddProduct.this, date, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
 /*
         intent = getIntent();
         if(intent != null){
@@ -103,22 +132,20 @@ public class AddProduct extends AppCompatActivity implements NavigationView.OnNa
                 else {
 
                     Date date = Calendar.getInstance().getTime();
-                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MMMM-yyyy");
-                //    String dataIntroducerii = simpleDateFormat.format(date);
                     String dataIntroducerii = GeneralConstants.SDF.format(date);
-                    final String valabilitate = etDay.getText()+"-"+etMonth.getSelectedItem().toString()+"-"+etYear.getText();
-                   // Toast.makeText(getApplicationContext(), valabilitate, Toast.LENGTH_LONG).show();
+                    final String valabilitate = GeneralConstants.SDF.format(myCalendar.getTime());
                     values.put("cod", GeneralConstants.INSERT_ADD);
                     values.put("email", getSharedPreferences(GeneralConstants.SESSION, Context.MODE_PRIVATE).getString("email",null));
                     values.put("data_introducerii", dataIntroducerii);
                     values.put("durata", etDurata.getText().toString());
                     values.put("tip", "ofer");
                     values.put("denumire", txtProductName.getText().toString().trim());
-                    values.put("valabilitate", valabilitate);
+
+                        values.put("valabilitate", valabilitate);
+
                     values.put("categorie", productCategory.getSelectedItem().toString());
                     values.put("detalii", etDetails.getText().toString().trim());
                     values.put("descriere", etProductDescription.getText().toString().trim());
-                    //Toast.makeText(getApplicationContext(), values.get("email")+"-"+values.get("valabilitate")+"-"+values.get("tip"), Toast.LENGTH_LONG).show();
 
                     ExecuteInsertTasks executeInsertTasks = new ExecuteInsertTasks(getApplicationContext());
                     executeInsertTasks.execute(values);

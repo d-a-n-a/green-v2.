@@ -26,6 +26,27 @@
         android:layout_marginTop="10dp"
         android:entries="@array/kmDistance" />
 
+    <Button
+        android:id="@+id/btndo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/button_diverse"
+        android:text="Cautare"
+        android:textColor="@color/colorPrimaryDark"
+        android:textStyle="bold" />
+
+    <fragment
+        android:id="@+id/locationsMap"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="15dp" />
+
     <ListView
         android:id="@+id/lvUsersByLocation"
         android:layout_width="match_parent"

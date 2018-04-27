@@ -92,7 +92,7 @@
         android:backgroundTint="@color/colorDiverse"
         android:text="confirmare"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="13sp"
+        android:textSize="12sp"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

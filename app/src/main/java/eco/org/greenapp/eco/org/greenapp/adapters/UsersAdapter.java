@@ -134,7 +134,7 @@ public class UsersAdapter extends ArrayAdapter<User> {
                 try {
                     JSONObject jsonObject = new JSONObject(s);
 
-                    if(jsonObject.getString("review").equals("nu are reviews"))
+                    if(jsonObject.getString("review").equals("0"))
                         nota = ""+0;
                     else
                         nota = jsonObject.getString("review");

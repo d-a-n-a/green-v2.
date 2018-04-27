@@ -1,5 +1,6 @@
 package eco.org.greenapp.eco.org.greenapp.activities;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.provider.ContactsContract;
@@ -10,6 +11,8 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -39,6 +42,7 @@ public class AdForProduct extends AppCompatActivity implements OnMapReadyCallbac
     Advertisement ad;
     Intent intent;
 
+
     TextView denumireProdus;
     TextView descriereProdus;
     TextView categorie;
@@ -48,6 +52,8 @@ public class AdForProduct extends AppCompatActivity implements OnMapReadyCallbac
     TextView status;
     TextView zile;
     ImageView imageView;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +70,7 @@ public class AdForProduct extends AppCompatActivity implements OnMapReadyCallbac
         status = (TextView)findViewById(R.id.statusType);
         zile = (TextView)findViewById(R.id.daysSincePosted);
         imageView = (ImageView)findViewById(R.id.userProfileImage);
+
 
         mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.locationMap);

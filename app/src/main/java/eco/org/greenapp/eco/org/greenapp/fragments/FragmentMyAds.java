@@ -174,6 +174,11 @@ public class FragmentMyAds extends Fragment {
                                         EditStatusAd editStatusAd  = new EditStatusAd();
                                         editStatusAd.execute(""+lista.get(position).getId(), idNewStatus);
                                         //dar DACA TRECE PE DISPONIBIL?
+                                        //todo trebuie sa verific statusul vechi si sa il compar cu cel nou
+                                            // indisponibil -> disponibil il las
+                                            // il las sa il treaca si pe indisponibil
+                                                // inregistrez tranzactia ca direct finalizata
+                                            //rezervat -> indisponibil nu are sens sa faca, asa ca il las sa selecteze, dar ii dau mesaj eventual
                                         //DAR DACA TRECE PE INDISPONIBIL?
                                         if(statusSpinner.getSelectedItem().toString().equals("rezervat")){
                                             Intent intent = new Intent(getContext(), TransactionDetails.class);

@@ -4,17 +4,34 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.text.DecimalFormat;
 
 import eco.org.greenapp.AboutApp;
 import eco.org.greenapp.R;
+import eco.org.greenapp.eco.org.greenapp.GetImageTask;
 import eco.org.greenapp.eco.org.greenapp.constants.GeneralConstants;
 import eco.org.greenapp.eco.org.greenapp.constants.SharedPreferencesConstants;
 import eco.org.greenapp.eco.org.greenapp.profile_activities.ChangeAboutMe;
@@ -29,6 +46,7 @@ import eco.org.greenapp.eco.org.greenapp.profile_activities.ChangeUsername;
 
 public class ProfileSettings extends AppCompatActivity {
 
+    TextView rating;
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         //todo asta ar parea ca nu prea merge??
@@ -57,7 +75,7 @@ public class ProfileSettings extends AppCompatActivity {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_profile_settings);
-
+        rating  = (TextView) findViewById(R.id.userScore);
 
         ((LinearLayout)findViewById(R.id.userAvatarLayout)).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -149,6 +167,10 @@ public class ProfileSettings extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), AboutApp.class));
             }
         });
+
+        new CalculateMyReview().execute(getSharedPreferences(GeneralConstants.SESSION, Context.MODE_PRIVATE).getString(
+                GeneralConstants.TOKEN,null
+        ));
     }
 
     @Override
@@ -188,4 +210,70 @@ public class ProfileSettings extends AppCompatActivity {
             editor.apply();
         }
     }
+
+    public class CalculateMyReview extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... strings) {
+            String username;
+            try {
+                username = strings[0];
+                URL url = new URL(GeneralConstants.URL+"/calculate_review.php");
+                HttpURLConnection con = (HttpURLConnection) url.openConnection();
+
+
+                con.setRequestMethod("POST");
+                con.setDoInput(true);
+                con.setDoOutput(true);
+
+                OutputStream outputStream = con.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+                String usernamepost = URLEncoder.encode("username", "UTF-8") + "=" + URLEncoder.encode(username, "UTF-8");
+                bufferedWriter.write(usernamepost);
+
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream(), "iso-8859-1"));
+                String result;
+
+                StringBuilder sb = new StringBuilder();
+
+                while ((result = bufferedReader.readLine()) != null) {
+                    sb.append(result);
+                }
+                con.disconnect();
+                return sb.toString();
+            } catch (Exception e) {
+                return null;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            String nota;
+
+            DecimalFormat decimalFormat = new DecimalFormat();
+            decimalFormat.setMaximumFractionDigits(2);
+            if (s != null)
+            {
+                try {
+                    JSONObject jsonObject = new JSONObject(s);
+
+                    if(jsonObject.getString("review").equals("nu are reviews"))
+                        nota = ""+0;
+                    else
+                        nota = jsonObject.getString("review");
+
+                    nota = String.format("%.2f", Float.parseFloat(nota)*5/10);
+                    rating.setText("" + nota + "/10");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }
+
+    }
+
 }
