@@ -5,20 +5,30 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Build;
-import android.os.Looper;
-import android.provider.Settings;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.os.Looper;
+import android.provider.Settings;
+
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -26,16 +36,13 @@ import android.widget.Toast;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationResult;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
+
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
+
+
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -55,6 +62,7 @@ import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import eco.org.greenapp.R;
@@ -62,6 +70,7 @@ import eco.org.greenapp.eco.org.greenapp.adapters.UsersAdapter;
 import eco.org.greenapp.eco.org.greenapp.classes.Locatie;
 import eco.org.greenapp.eco.org.greenapp.classes.User;
 import eco.org.greenapp.eco.org.greenapp.constants.GeneralConstants;
+import eco.org.greenapp.eco.org.greenapp.maps.JSONMaps;
 
 public class UsersByLocation extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -80,26 +89,20 @@ public class UsersByLocation extends AppCompatActivity implements OnMapReadyCall
     Location mLastLocation;
     Marker markerLocatie;
     Double latitudine, longitudine;
+    LatLng latLngME;
+
+   // private LatLng chan = new LatLng(44.466038, 26.179048);
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_users_by_location);
+
         lista = new ArrayList<>();
         listViewUsersByLocation = (ListView) findViewById(R.id.lvUsersByLocation);
-
-
         spinnerDistanta = (Spinner) findViewById(R.id.spinnerDistanceKm);
-
-
         username = getSharedPreferences(GeneralConstants.SESSION, Context.MODE_PRIVATE)
                 .getString(GeneralConstants.TOKEN, null);
-
-/* //de astea nu am nevoie, pentru ca eu fac pe baza locatiei curente, nu cea din profil
-        latitudine = Float.parseFloat(getSharedPreferences(GeneralConstants.SESSION, Context.MODE_PRIVATE)
-                .getString(SharedPreferencesConstants.LATITUDINE, null));
-        longitudine = Float.parseFloat(getSharedPreferences(GeneralConstants.SESSION, Context.MODE_PRIVATE)
-                .getString(SharedPreferencesConstants.LONGITUDINE, null));*/
 
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.locationsMap);
         mapFragment.getMapAsync(this);
@@ -110,7 +113,7 @@ public class UsersByLocation extends AppCompatActivity implements OnMapReadyCall
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
         if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            buildAlertMessageNoGps();
+            avertizareNoGps();
 
         }
         ((Button) findViewById(R.id.btndo)).setOnClickListener(new View.OnClickListener() {
@@ -147,6 +150,22 @@ public class UsersByLocation extends AppCompatActivity implements OnMapReadyCall
             fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper());
             googleMap.setMyLocationEnabled(true);
         }
+
+
+        ///////////////////
+
+        /*double distance = (delhi_location.distanceTo(chan_location))*0.000621371;
+        AlertDialog alertDialog = new AlertDialog.Builder(UsersByLocation.this).create();
+        alertDialog.setTitle("Info");
+        alertDialog.setMessage("Distanta" + distance+" miles cica");
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.show();*/
     }
     private void permisiuneLocatie() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -174,8 +193,7 @@ public class UsersByLocation extends AppCompatActivity implements OnMapReadyCall
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
             case PERMISIUNE_LOCATIE: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -195,23 +213,23 @@ public class UsersByLocation extends AppCompatActivity implements OnMapReadyCall
     }
     LocationCallback locationCallback = new LocationCallback() {
         @Override
-        public void onLocationResult(LocationResult locationResult) {
-            List<Location> locationList = locationResult.getLocations();
-            if (locationList.size() > 0) {
-                Location location = locationList.get(locationList.size() - 1);
+        public void onLocationResult(LocationResult rezultat) {
+            List<Location> listaLocatii = rezultat.getLocations();
+            if (listaLocatii.size() > 0) {
+                Location location = listaLocatii.get(listaLocatii.size() - 1);
                  mLastLocation = location;
                 if (markerLocatie != null) {
                     markerLocatie.remove();
                 }
                 latitudine = location.getLatitude();
                 longitudine = location.getLongitude();
-                LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+                 latLngME = new LatLng(location.getLatitude(), location.getLongitude());
                 MarkerOptions markerOptions = new MarkerOptions();
-                markerOptions.position(latLng);
+                markerOptions.position(latLngME);
                 markerOptions.title("Locatia mea");
                 markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE));
                 markerLocatie = googleMap.addMarker(markerOptions);
-                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12));
+                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLngME, 12));
             }
         }
     };
@@ -303,10 +321,29 @@ public class UsersByLocation extends AppCompatActivity implements OnMapReadyCall
             if(s.equals(GeneralConstants.RESULT_NOT_OK))
                 Toast.makeText(getApplicationContext(), "Ups.. eroare preluare utilizatori dupa locatie. (UsersByLocation)", Toast.LENGTH_LONG).show();
             else {
-                for (int i = 0; i<s.size(); i++){
+               /* for (int i = 0; i<s.size(); i++){
                     googleMap.addMarker(new MarkerOptions()
                             .position(new LatLng(s.get(i).getLocatie().getLatitudine(), s.get(i).getLocatie().getLongitudine())))
                             .setTitle(s.get(i).getUsername());//si in lista de jos apar detaliile, inclusiv distanta in timp sau km exacti
+                }*/
+                adapter.notifyDataSetChanged();
+                LatLng origine = new LatLng(latLngME.latitude, latLngME.longitude);
+                for(int ii = 0;ii<s.size();ii++) {
+                    LatLng destinatie = new LatLng(s.get(ii).getLocatie().getLatitudine(), s.get(ii).getLocatie().getLongitudine());
+                    googleMap.addMarker(new MarkerOptions().position(destinatie).title(s.get(ii).getUsername()));
+                    //googleMap.addMarker(new MarkerOptions().position(origine).title("me"));
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLng(destinatie));
+                    String str_origin = "origin=" + latLngME.latitude + "," + latLngME.longitude;
+                    String str_dest = "destination=" + destinatie.latitude + "," + destinatie.longitude;
+                    String sensor = "sensor=false";
+                    String parameters = str_origin + "&" + str_dest + "&" + sensor;
+                    String output = "json";
+                    String url = "https://maps.googleapis.com/maps/api/directions/" + output + "?" + parameters;
+                    FetchUrl fetchUrl = new FetchUrl();
+                    fetchUrl.execute(url);
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLng(origine));
+                    googleMap.animateCamera(CameraUpdateFactory.zoomTo(12));
+
                 }
                 adapter.notifyDataSetChanged();
              }
@@ -314,10 +351,10 @@ public class UsersByLocation extends AppCompatActivity implements OnMapReadyCall
     }
 
 
-    protected void buildAlertMessageNoGps() {
+    protected void avertizareNoGps() {
 
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Pentru localizare aplicatia are nevoie de permisiune.")
+        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setMessage("Pentru localizare aplicatia are nevoie de permisiune.")
                 .setCancelable(false)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(final DialogInterface dialog, final int id) {
@@ -330,7 +367,7 @@ public class UsersByLocation extends AppCompatActivity implements OnMapReadyCall
                         dialog.cancel();
                     }
                 });
-        final AlertDialog alert = builder.create();
+        final AlertDialog alert = alertDialogBuilder.create();
         alert.show();
     }
     @Override
@@ -338,6 +375,114 @@ public class UsersByLocation extends AppCompatActivity implements OnMapReadyCall
         super.onPause();
         if (fusedLocationProviderClient != null) {
             fusedLocationProviderClient.removeLocationUpdates(locationCallback);
+        }
+    }
+
+
+
+    private class FetchUrl extends  AsyncTask<String, Void, String>{
+
+        @Override
+        protected String doInBackground(String... url) {
+            String data ="";
+            try{
+                data = downloadUrl(url[0]);
+            }
+            catch (Exception e){
+
+            }
+            return data;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            ParserTask parserTask = new ParserTask();
+            parserTask.execute(s);
+        }
+    }
+    private String downloadUrl(String strUrl) throws  IOException{
+        String data ="";
+        InputStream iStream = null;
+        HttpURLConnection urlConnection = null;
+        try{
+            URL url = new URL(strUrl);
+            urlConnection = (HttpURLConnection)url.openConnection();
+            urlConnection.connect();
+            iStream = urlConnection.getInputStream();
+            BufferedReader br = new BufferedReader(new InputStreamReader(iStream));
+            StringBuffer sb = new StringBuffer();
+            String line = "";
+            while((line = br.readLine())!=null){
+                sb.append(line);
+            }
+            data  = sb.toString();
+            br.close();
+        }
+        catch (Exception e){
+
+        }
+        finally {
+            iStream.close();
+            urlConnection.disconnect();
+        }
+        return data;
+    }
+
+    private class ParserTask extends AsyncTask<String, Integer, List<List<HashMap<String,String>>>>{
+
+        @Override
+        protected List<List<HashMap<String, String>>> doInBackground(String... strings) {
+            JSONObject jObject;
+            List<List<HashMap<String, String>>> routes = null;
+            try{
+                jObject = new JSONObject(strings[0]);
+                JSONMaps jsonMaps = new JSONMaps();
+                routes = jsonMaps.parse(jObject);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return routes;
+        }
+
+        @Override
+        protected void onPostExecute(List<List<HashMap<String, String>>> lists) {
+            ArrayList<LatLng> points;
+            PolylineOptions lineOptions = null;
+            String dist="";
+            Toast.makeText(getApplicationContext(), lists.toString(), Toast.LENGTH_LONG).show();
+            Log.i("AAA", lists.toString());
+             for(int i=0; i<lists.size();i++){
+                points = new ArrayList<>();
+                lineOptions = new PolylineOptions();
+                List<HashMap<String, String>> path = lists.get(i);
+                for(int j=0;j<path.size();j++){
+                    HashMap<String,String> point = path.get(j);
+                    if(j==0){    // Get distance from the list
+                        dist = (String)point.get("duration");
+                        Toast.makeText(getApplicationContext(), dist+" - ", Toast.LENGTH_LONG).show();
+                        continue;
+                    }else if(j==1){ // Get duration from the list
+                        String duration = (String)point.get("distance");
+                        Toast.makeText(getApplicationContext(), duration, Toast.LENGTH_LONG).show();
+                        continue;
+                    }
+                    double lat = Double.parseDouble(point.get("lat"));
+                    double lng = Double.parseDouble(point.get("lng"));
+                    LatLng position = new LatLng(lat,lng);
+                    points.add(position);
+                }
+                lineOptions.addAll(points);
+                lineOptions.width(10);
+                lineOptions.color(Color.BLUE);
+            }
+            if(lineOptions!=null){
+                googleMap.addPolyline(lineOptions);
+            }
+            else
+            {
+                Toast.makeText(getApplicationContext(), "no poly", Toast.LENGTH_LONG).show();
+            }
         }
     }
 }
