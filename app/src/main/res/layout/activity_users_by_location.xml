@@ -1,61 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="eco.org.greenapp.eco.org.greenapp.activities.UsersByLocation"
-    android:orientation="vertical">
+    android:layout_height="610dp">
 
-    <TextView
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="15dp"
-        android:text="Cautare utilizatori apropiati. Selectati distanta maxima dorita(km)."
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="15sp" />
+        android:orientation="vertical"
+        tools:context="eco.org.greenapp.eco.org.greenapp.activities.UsersByLocation">
 
-    <Spinner
-        android:id="@+id/spinnerDistanceKm"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="10dp"
-        android:entries="@array/kmDistance" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="15dp"
+            android:text="Cautare utilizatori apropiati. Selectati distanta maxima dorita(km)."
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="15sp" />
 
-    <Button
-        android:id="@+id/btndo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/button_diverse"
-        android:text="Cautare"
-        android:textColor="@color/colorPrimaryDark"
-        android:textStyle="bold" />
+        <Spinner
+            android:id="@+id/spinnerDistanceKm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="10dp"
+            android:entries="@array/kmDistance" />
 
-    <fragment
-        android:id="@+id/locationsMap"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="15dp" />
+        <Button
+            android:id="@+id/btndo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/button_diverse"
+            android:text="Cautare"
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="bold" />
 
-    <ListView
-        android:id="@+id/lvUsersByLocation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="10dp">
+        <fragment
+            android:id="@+id/locationsMap"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="15dp" />
 
+        <ListView
+            android:id="@+id/lvUsersByLocation"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="10dp" >
 
-    </ListView>
+        </ListView>
 
-</LinearLayout>
+    </LinearLayout>
+
+</ScrollView>

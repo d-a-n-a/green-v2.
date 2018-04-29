@@ -66,6 +66,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import eco.org.greenapp.R;
+import eco.org.greenapp.eco.org.greenapp.adapters.SecondUsersAdapter;
 import eco.org.greenapp.eco.org.greenapp.adapters.UsersAdapter;
 import eco.org.greenapp.eco.org.greenapp.classes.Locatie;
 import eco.org.greenapp.eco.org.greenapp.classes.User;
@@ -73,8 +74,6 @@ import eco.org.greenapp.eco.org.greenapp.constants.GeneralConstants;
 import eco.org.greenapp.eco.org.greenapp.maps.JSONMaps;
 
 public class UsersByLocation extends AppCompatActivity implements OnMapReadyCallback {
-
-
     ListView listViewUsersByLocation;
     UsersAdapter adapter;
     List<User> lista;
@@ -91,15 +90,24 @@ public class UsersByLocation extends AppCompatActivity implements OnMapReadyCall
     Double latitudine, longitudine;
     LatLng latLngME;
 
-   // private LatLng chan = new LatLng(44.466038, 26.179048);
+    List<String> DURATE;
+    List<String> DISTANTE;
+    List<User> listaUtilizatoriGasiti = new ArrayList<>();
+
+    SecondUsersAdapter secondUsersAdapter;
+    List<HashMap<String, String>> listaMapare;
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_users_by_location);
 
+
         lista = new ArrayList<>();
+
+        listaMapare = new ArrayList<>();
         listViewUsersByLocation = (ListView) findViewById(R.id.lvUsersByLocation);
+        listViewUsersByLocation.setNestedScrollingEnabled(true);
         spinnerDistanta = (Spinner) findViewById(R.id.spinnerDistanceKm);
         username = getSharedPreferences(GeneralConstants.SESSION, Context.MODE_PRIVATE)
                 .getString(GeneralConstants.TOKEN, null);
@@ -107,8 +115,11 @@ public class UsersByLocation extends AppCompatActivity implements OnMapReadyCall
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.locationsMap);
         mapFragment.getMapAsync(this);
 
-        adapter = new UsersAdapter(getApplicationContext(), R.layout.user_item, lista);
-        listViewUsersByLocation.setAdapter(adapter);
+
+
+
+        //adapter = new UsersAdapter(getApplicationContext(), R.layout.user_item, lista);
+        //listViewUsersByLocation.setAdapter(adapter);
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
@@ -116,7 +127,7 @@ public class UsersByLocation extends AppCompatActivity implements OnMapReadyCall
             avertizareNoGps();
 
         }
-        ((Button) findViewById(R.id.btndo)).setOnClickListener(new View.OnClickListener() {
+     /*   ((Button) findViewById(R.id.btndo)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 distanta = spinnerDistanta.getSelectedItem().toString();
@@ -124,7 +135,7 @@ public class UsersByLocation extends AppCompatActivity implements OnMapReadyCall
                 getUsersByLocation.execute("" + 44.44, "" + 26.08, distanta, "alina");
                 adapter.notifyDataSetChanged();
             }
-        });
+        });*/
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(UsersByLocation.this);
     }
 
@@ -150,22 +161,6 @@ public class UsersByLocation extends AppCompatActivity implements OnMapReadyCall
             fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper());
             googleMap.setMyLocationEnabled(true);
         }
-
-
-        ///////////////////
-
-        /*double distance = (delhi_location.distanceTo(chan_location))*0.000621371;
-        AlertDialog alertDialog = new AlertDialog.Builder(UsersByLocation.this).create();
-        alertDialog.setTitle("Info");
-        alertDialog.setMessage("Distanta" + distance+" miles cica");
-        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-        alertDialog.show();*/
     }
     private void permisiuneLocatie() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -216,20 +211,37 @@ public class UsersByLocation extends AppCompatActivity implements OnMapReadyCall
         public void onLocationResult(LocationResult rezultat) {
             List<Location> listaLocatii = rezultat.getLocations();
             if (listaLocatii.size() > 0) {
-                Location location = listaLocatii.get(listaLocatii.size() - 1);
+                final Location location = listaLocatii.get(listaLocatii.size() - 1);
                  mLastLocation = location;
                 if (markerLocatie != null) {
                     markerLocatie.remove();
                 }
                 latitudine = location.getLatitude();
                 longitudine = location.getLongitude();
-                 latLngME = new LatLng(location.getLatitude(), location.getLongitude());
+                latLngME = new LatLng(location.getLatitude(), location.getLongitude());
                 MarkerOptions markerOptions = new MarkerOptions();
                 markerOptions.position(latLngME);
                 markerOptions.title("Locatia mea");
                 markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE));
                 markerLocatie = googleMap.addMarker(markerOptions);
                 googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLngME, 12));
+
+                ((Button) findViewById(R.id.btndo)).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        secondUsersAdapter = new SecondUsersAdapter(getApplication(),R.layout.user_item, listaMapare);
+                        listViewUsersByLocation.setAdapter(secondUsersAdapter);
+
+                        //secondUsersAdapter.clear();
+                        distanta = spinnerDistanta.getSelectedItem().toString();
+                        GetUsersByLocation getUsersByLocation = new GetUsersByLocation();
+                        getUsersByLocation.execute("" + latitudine, "" + longitudine, distanta, "alina");
+                        //adapter.notifyDataSetChanged();
+                        //
+                         secondUsersAdapter.notifyDataSetChanged();
+                    }
+                });
             }
         }
     };
@@ -295,8 +307,7 @@ public class UsersByLocation extends AppCompatActivity implements OnMapReadyCall
                         lista.add(user);
 
                     }
-
-                }catch (JSONException e) {
+                 }catch (JSONException e) {
                     e.printStackTrace();
                 }
 
@@ -315,6 +326,9 @@ public class UsersByLocation extends AppCompatActivity implements OnMapReadyCall
 
         @Override
         protected void onPostExecute(List<User> s) {
+            if(s == null)
+                 Toast.makeText(getApplicationContext(), "Nu s-a primit lista.", Toast.LENGTH_SHORT).show();
+
             if(s.size() == 0)
                 Toast.makeText(getApplicationContext(), "Nu s-a gasit niciun utilizator.", Toast.LENGTH_LONG).show();
 
@@ -326,12 +340,15 @@ public class UsersByLocation extends AppCompatActivity implements OnMapReadyCall
                             .position(new LatLng(s.get(i).getLocatie().getLatitudine(), s.get(i).getLocatie().getLongitudine())))
                             .setTitle(s.get(i).getUsername());//si in lista de jos apar detaliile, inclusiv distanta in timp sau km exacti
                 }*/
-                adapter.notifyDataSetChanged();
+                listaUtilizatoriGasiti = s;
+                //adapter.notifyDataSetChanged();
                 LatLng origine = new LatLng(latLngME.latitude, latLngME.longitude);
+
+                List<String> urls = new ArrayList<>();
                 for(int ii = 0;ii<s.size();ii++) {
+                    Log.i("X", ""+s.size());
                     LatLng destinatie = new LatLng(s.get(ii).getLocatie().getLatitudine(), s.get(ii).getLocatie().getLongitudine());
                     googleMap.addMarker(new MarkerOptions().position(destinatie).title(s.get(ii).getUsername()));
-                    //googleMap.addMarker(new MarkerOptions().position(origine).title("me"));
                     googleMap.moveCamera(CameraUpdateFactory.newLatLng(destinatie));
                     String str_origin = "origin=" + latLngME.latitude + "," + latLngME.longitude;
                     String str_dest = "destination=" + destinatie.latitude + "," + destinatie.longitude;
@@ -339,13 +356,19 @@ public class UsersByLocation extends AppCompatActivity implements OnMapReadyCall
                     String parameters = str_origin + "&" + str_dest + "&" + sensor;
                     String output = "json";
                     String url = "https://maps.googleapis.com/maps/api/directions/" + output + "?" + parameters;
-                    FetchUrl fetchUrl = new FetchUrl();
-                    fetchUrl.execute(url);
+                    //FetchUrl fetchUrl = new FetchUrl();
+                    //fetchUrl.execute(url);//TODO aici sa ii dau o lista de url, nu un url de mai multe ori ca nu stiu cum reactioneaza la async idiotul
+                   urls.add(url);
+                    Log.i("A","indice "+ii);
                     googleMap.moveCamera(CameraUpdateFactory.newLatLng(origine));
                     googleMap.animateCamera(CameraUpdateFactory.zoomTo(12));
 
                 }
-                adapter.notifyDataSetChanged();
+                FetchUrl fetchUrl = new FetchUrl();
+                fetchUrl.execute(urls);
+               // adapter.notifyDataSetChanged();
+//secondUsersAdapter.notifyDataSetChanged();
+
              }
         }
     }
@@ -380,109 +403,145 @@ public class UsersByLocation extends AppCompatActivity implements OnMapReadyCall
 
 
 
-    private class FetchUrl extends  AsyncTask<String, Void, String>{
-
+    private class FetchUrl extends  AsyncTask<List<String>, Void, List<String>>{
         @Override
-        protected String doInBackground(String... url) {
-            String data ="";
-            try{
-                data = downloadUrl(url[0]);
-            }
-            catch (Exception e){
+        protected List<String> doInBackground(List<String>[] lists) {
+            List<String> lista = lists[0];
 
+            List<String> data = new ArrayList<>();
+            InputStream iStream = null;
+            HttpURLConnection urlConnection = null;
+            for (int i = 0; i < lista.size(); i++) {
+                String strUrl = lista.get(i);
+                try {
+                    URL url = new URL(strUrl);
+                    urlConnection = (HttpURLConnection) url.openConnection();
+                    urlConnection.connect();
+                    iStream = urlConnection.getInputStream();
+                    BufferedReader br = new BufferedReader(new InputStreamReader(iStream));
+                    StringBuffer sb = new StringBuffer();
+                    String line = "";
+                    while ((line = br.readLine()) != null) {
+                        sb.append(line);
+                    }
+                    data.add(sb.toString());
+                    br.close();
+                } catch (Exception e) {
+
+                } finally {
+                    try {
+                        iStream.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    urlConnection.disconnect();
+                }
             }
             return data;
         }
-
         @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
+        protected void onPostExecute(List<String> s) {
             ParserTask parserTask = new ParserTask();
             parserTask.execute(s);
         }
     }
-    private String downloadUrl(String strUrl) throws  IOException{
-        String data ="";
+    private List<String> downloadUrl(List<String> lista) throws  IOException{
+        List<String> data = new ArrayList<>();
         InputStream iStream = null;
         HttpURLConnection urlConnection = null;
-        try{
-            URL url = new URL(strUrl);
-            urlConnection = (HttpURLConnection)url.openConnection();
-            urlConnection.connect();
-            iStream = urlConnection.getInputStream();
-            BufferedReader br = new BufferedReader(new InputStreamReader(iStream));
-            StringBuffer sb = new StringBuffer();
-            String line = "";
-            while((line = br.readLine())!=null){
-                sb.append(line);
-            }
-            data  = sb.toString();
-            br.close();
-        }
-        catch (Exception e){
+        for(int i=0;i<lista.size();i++) {
+            String strUrl = lista.get(i);
+            try {
+                URL url = new URL(strUrl);
+                urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.connect();
+                iStream = urlConnection.getInputStream();
+                BufferedReader br = new BufferedReader(new InputStreamReader(iStream));
+                StringBuffer sb = new StringBuffer();
+                String line = "";
+                while ((line = br.readLine()) != null) {
+                    sb.append(line);
+                }
+                data.add(sb.toString());
+                br.close();
+            } catch (Exception e) {
 
-        }
-        finally {
-            iStream.close();
-            urlConnection.disconnect();
+            } finally {
+                iStream.close();
+                urlConnection.disconnect();
+            }
         }
         return data;
     }
 
-    private class ParserTask extends AsyncTask<String, Integer, List<List<HashMap<String,String>>>>{
+    private class ParserTask extends AsyncTask<List<String>, Integer, HashMap<Integer,List<List<HashMap<String,String>>>>>{
+
 
         @Override
-        protected List<List<HashMap<String, String>>> doInBackground(String... strings) {
+        protected HashMap<Integer,List<List<HashMap<String, String>>>> doInBackground(List<String>[] lists) {
+            List<String> lista = lists[0];//asta e lista de jsoane de la url
+            Log.i("CARrrrjsons", ""+lista.size());
             JSONObject jObject;
-            List<List<HashMap<String, String>>> routes = null;
-            try{
-                jObject = new JSONObject(strings[0]);
-                JSONMaps jsonMaps = new JSONMaps();
-                routes = jsonMaps.parse(jObject);
-            } catch (JSONException e) {
-                e.printStackTrace();
+            HashMap<Integer,List<List<HashMap<String, String>>>> carnat = new HashMap<>();
+            //strings.length
+            JSONArray jsonArray = new JSONArray();
+            for(int i=0;i<lista.size();i++) {
+                List<List<HashMap<String, String>>> routes = null;
+                try {
+                    jObject = new JSONObject(lista.get(i));//todo fac jsonobject pentru fiecare string din strings
+                    jsonArray.put(jObject);
+                   // JSONMaps jsonMaps = new JSONMaps();//todo fac defapt jsonarray si sa returneze direct de tip carnat
+                    //routes = jsonMaps.parse(jObject);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
-            return routes;
+            JSONMaps jsonMaps = new JSONMaps();
+            carnat = jsonMaps.parse(jsonArray);
+            Log.i("CARrrrdo", carnat.size()+ " = "+carnat.toString());
+            Log.i("CARrrrdoHash", carnat.get(0).toString());
+            return carnat;
         }
 
         @Override
-        protected void onPostExecute(List<List<HashMap<String, String>>> lists) {
-            ArrayList<LatLng> points;
-            PolylineOptions lineOptions = null;
-            String dist="";
-            Toast.makeText(getApplicationContext(), lists.toString(), Toast.LENGTH_LONG).show();
-            Log.i("AAA", lists.toString());
-             for(int i=0; i<lists.size();i++){
-                points = new ArrayList<>();
-                lineOptions = new PolylineOptions();
-                List<HashMap<String, String>> path = lists.get(i);
-                for(int j=0;j<path.size();j++){
-                    HashMap<String,String> point = path.get(j);
-                    if(j==0){    // Get distance from the list
-                        dist = (String)point.get("duration");
-                        Toast.makeText(getApplicationContext(), dist+" - ", Toast.LENGTH_LONG).show();
-                        continue;
-                    }else if(j==1){ // Get duration from the list
-                        String duration = (String)point.get("distance");
-                        Toast.makeText(getApplicationContext(), duration, Toast.LENGTH_LONG).show();
-                        continue;
-                    }
-                    double lat = Double.parseDouble(point.get("lat"));
-                    double lng = Double.parseDouble(point.get("lng"));
-                    LatLng position = new LatLng(lat,lng);
-                    points.add(position);
-                }
-                lineOptions.addAll(points);
-                lineOptions.width(10);
-                lineOptions.color(Color.BLUE);
+        protected void onPostExecute(HashMap<Integer,List<List<HashMap<String, String>>>> lists) {
+            listaMapare.clear();
+
+            Log.i("CARrrr", lists.toString());
+            List<String> distante = new ArrayList<>();
+            List<String> durate = new ArrayList<>();
+for(int t=0;t< lists.size();t++){
+    List<List<HashMap<String, String>>> tempHash = lists.get(t);
+
+    if(!tempHash.isEmpty()) {
+        Log.i("CARrrrhash", t+"-"+tempHash.toString()+" === "+tempHash.get(0).get(0).toString().split("=")[1]);
+        Log.i("CARrrrhash", tempHash.get(0).get(1).toString().split("=")[1].replace("}",""));
+
+        durate.add(tempHash.get(0).get(0).toString().split("=")[1]);
+        distante.add(tempHash.get(0).get(1).toString().split("=")[1].replace("}", ""));
+    }
+    else
+    {
+
+        durate.add("nespecificat");
+        distante.add("nespecificat");
+
+    }
+}
+            Log.i("listautilizator", listaUtilizatoriGasiti.toString());
+            //listaMapare = new ArrayList<>();
+
+            for(int r = 0; r < distante.size(); r++){
+                HashMap<String,String> mapare = new HashMap<>();
+                mapare.put("durata", durate.get(r));
+                mapare.put("distanta", distante.get(r));
+                mapare.put("username", listaUtilizatoriGasiti.get(r).getUsername());
+                mapare.put("adresa", listaUtilizatoriGasiti.get(r).getLocatie().getStrada());
+                mapare.put("imagine", listaUtilizatoriGasiti.get(r).getUrl());
+                listaMapare.add(mapare);
             }
-            if(lineOptions!=null){
-                googleMap.addPolyline(lineOptions);
-            }
-            else
-            {
-                Toast.makeText(getApplicationContext(), "no poly", Toast.LENGTH_LONG).show();
-            }
+            Log.i("CARrrrMAPARE", listaMapare.size()+" - "+listaMapare.toString());
+            secondUsersAdapter.notifyDataSetChanged();
         }
     }
 }

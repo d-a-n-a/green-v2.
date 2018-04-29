@@ -26,7 +26,11 @@
         <activity
             android:name=".eco.org.greenapp.activities.SignIn"
             android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".eco.org.greenapp.activities.CreateAccount" />
         <activity
@@ -129,11 +133,7 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="eco.org.greenapp.eco.org.greenapp.activities.ProfileSettings" />
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 
