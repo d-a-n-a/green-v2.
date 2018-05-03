@@ -122,6 +122,7 @@ String maxDistanta;
 
 
                         GetUsersByCriteria getUsersByCriteria = new GetUsersByCriteria();
+                        Toast.makeText(getApplicationContext(), latitudine+"   "+longitudine, Toast.LENGTH_LONG).show();
                         getUsersByCriteria.execute(latitudine, longitudine,
                                 ""+tipCerere, ""+tipOferta,
                                 ""+catHaine, ""+catAlimente, ""+catAltele,

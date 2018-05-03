@@ -1,6 +1,7 @@
 package eco.org.greenapp.eco.org.greenapp.activities;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -89,9 +90,6 @@ public class UsersByLocation extends AppCompatActivity implements OnMapReadyCall
     Marker markerLocatie;
     Double latitudine, longitudine;
     LatLng latLngME;
-
-    List<String> DURATE;
-    List<String> DISTANTE;
     List<User> listaUtilizatoriGasiti = new ArrayList<>();
 
     SecondUsersAdapter secondUsersAdapter;
@@ -115,11 +113,12 @@ public class UsersByLocation extends AppCompatActivity implements OnMapReadyCall
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.locationsMap);
         mapFragment.getMapAsync(this);
 
+        secondUsersAdapter = new SecondUsersAdapter(getApplication(),R.layout.user_item, listaMapare);
+        listViewUsersByLocation.setAdapter(secondUsersAdapter);
 
 
-
-        //adapter = new UsersAdapter(getApplicationContext(), R.layout.user_item, lista);
-        //listViewUsersByLocation.setAdapter(adapter);
+       // adapter = new UsersAdapter(getApplicationContext(), R.layout.user_item, lista);
+       // listViewUsersByLocation.setAdapter(adapter);
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
@@ -230,16 +229,9 @@ public class UsersByLocation extends AppCompatActivity implements OnMapReadyCall
                     @Override
                     public void onClick(View v) {
 
-                        secondUsersAdapter = new SecondUsersAdapter(getApplication(),R.layout.user_item, listaMapare);
-                        listViewUsersByLocation.setAdapter(secondUsersAdapter);
-
-                        //secondUsersAdapter.clear();
                         distanta = spinnerDistanta.getSelectedItem().toString();
                         GetUsersByLocation getUsersByLocation = new GetUsersByLocation();
                         getUsersByLocation.execute("" + latitudine, "" + longitudine, distanta, "alina");
-                        //adapter.notifyDataSetChanged();
-                        //
-                         secondUsersAdapter.notifyDataSetChanged();
                     }
                 });
             }
@@ -356,19 +348,14 @@ public class UsersByLocation extends AppCompatActivity implements OnMapReadyCall
                     String parameters = str_origin + "&" + str_dest + "&" + sensor;
                     String output = "json";
                     String url = "https://maps.googleapis.com/maps/api/directions/" + output + "?" + parameters;
-                    //FetchUrl fetchUrl = new FetchUrl();
-                    //fetchUrl.execute(url);//TODO aici sa ii dau o lista de url, nu un url de mai multe ori ca nu stiu cum reactioneaza la async idiotul
-                   urls.add(url);
+                    urls.add(url);
                     Log.i("A","indice "+ii);
                     googleMap.moveCamera(CameraUpdateFactory.newLatLng(origine));
-                    googleMap.animateCamera(CameraUpdateFactory.zoomTo(12));
 
                 }
+                googleMap.animateCamera(CameraUpdateFactory.zoomTo(12));
                 FetchUrl fetchUrl = new FetchUrl();
                 fetchUrl.execute(urls);
-               // adapter.notifyDataSetChanged();
-//secondUsersAdapter.notifyDataSetChanged();
-
              }
         }
     }
@@ -439,10 +426,11 @@ public class UsersByLocation extends AppCompatActivity implements OnMapReadyCall
             }
             return data;
         }
+
+
         @Override
         protected void onPostExecute(List<String> s) {
-            ParserTask parserTask = new ParserTask();
-            parserTask.execute(s);
+             new ParserTask().execute(s);
         }
     }
     private List<String> downloadUrl(List<String> lista) throws  IOException{
@@ -477,13 +465,13 @@ public class UsersByLocation extends AppCompatActivity implements OnMapReadyCall
     private class ParserTask extends AsyncTask<List<String>, Integer, HashMap<Integer,List<List<HashMap<String,String>>>>>{
 
 
+
         @Override
         protected HashMap<Integer,List<List<HashMap<String, String>>>> doInBackground(List<String>[] lists) {
             List<String> lista = lists[0];//asta e lista de jsoane de la url
             Log.i("CARrrrjsons", ""+lista.size());
             JSONObject jObject;
             HashMap<Integer,List<List<HashMap<String, String>>>> carnat = new HashMap<>();
-            //strings.length
             JSONArray jsonArray = new JSONArray();
             for(int i=0;i<lista.size();i++) {
                 List<List<HashMap<String, String>>> routes = null;
@@ -498,8 +486,8 @@ public class UsersByLocation extends AppCompatActivity implements OnMapReadyCall
             }
             JSONMaps jsonMaps = new JSONMaps();
             carnat = jsonMaps.parse(jsonArray);
-            Log.i("CARrrrdo", carnat.size()+ " = "+carnat.toString());
-            Log.i("CARrrrdoHash", carnat.get(0).toString());
+         //   Log.i("CARrrrdo", carnat.size()+ " = "+carnat.toString());
+           // Log.i("CARrrrdoHash", carnat.get(0).toString());
             return carnat;
         }
 
@@ -523,13 +511,12 @@ for(int t=0;t< lists.size();t++){
     else
     {
 
-        durate.add("nespecificat");
-        distante.add("nespecificat");
+        durate.add("- mins");
+        distante.add("- km");
 
     }
 }
             Log.i("listautilizator", listaUtilizatoriGasiti.toString());
-            //listaMapare = new ArrayList<>();
 
             for(int r = 0; r < distante.size(); r++){
                 HashMap<String,String> mapare = new HashMap<>();
@@ -541,6 +528,11 @@ for(int t=0;t< lists.size();t++){
                 listaMapare.add(mapare);
             }
             Log.i("CARrrrMAPARE", listaMapare.size()+" - "+listaMapare.toString());
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             secondUsersAdapter.notifyDataSetChanged();
         }
     }

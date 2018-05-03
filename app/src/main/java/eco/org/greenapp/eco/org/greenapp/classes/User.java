@@ -1,6 +1,7 @@
 package eco.org.greenapp.eco.org.greenapp.classes;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by danan on 4/2/2018.
@@ -82,5 +83,6 @@ public class User implements Serializable {
     public void setUrl(String url) {
         this.url = url;
     }
+
 
 }

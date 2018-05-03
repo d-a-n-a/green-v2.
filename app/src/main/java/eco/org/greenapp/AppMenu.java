@@ -43,9 +43,11 @@ import eco.org.greenapp.eco.org.greenapp.activities.AddDemandProduct;
 import eco.org.greenapp.eco.org.greenapp.activities.AddProduct;
 import eco.org.greenapp.eco.org.greenapp.activities.FilterFindUsers;
 import eco.org.greenapp.eco.org.greenapp.activities.MyProfile;
+import eco.org.greenapp.eco.org.greenapp.activities.Notificari;
 import eco.org.greenapp.eco.org.greenapp.activities.ProfileSettings;
 import eco.org.greenapp.eco.org.greenapp.activities.SignIn;
 import eco.org.greenapp.eco.org.greenapp.activities.UsersByLocation;
+import eco.org.greenapp.eco.org.greenapp.classes.Notificare;
 import eco.org.greenapp.eco.org.greenapp.constants.GeneralConstants;
 import eco.org.greenapp.eco.org.greenapp.constants.SharedPreferencesConstants;
 import eco.org.greenapp.eco.org.greenapp.fragments.FragmentOne;
@@ -226,6 +228,7 @@ startActivity(new Intent(getApplicationContext(), AboutApp.class));
                 break;
             }
             case R.id.nav_notifications: {
+                startActivity(new Intent(getApplicationContext(), Notificari.class));
                 break;
             }
             case R.id.nav_settings: {
@@ -241,9 +244,7 @@ startActivity(new Intent(getApplicationContext(), AboutApp.class));
                 //TODO  de pus ce inseamna fiecare categorie si fiecare status la tranzactie, respectiv anunt
                 break;
             }
-            case R.id.nav_message: {
-                break;
-            }
+
 
         }
 

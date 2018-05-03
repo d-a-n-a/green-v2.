@@ -100,9 +100,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="eco.org.greenapp.eco.org.greenapp.activities.ProfileSettings" />
         </activity>
-        <activity android:name=".eco.org.greenapp.profile_activities.ChangePassword" >
-
-        </activity>
+        <activity android:name=".eco.org.greenapp.profile_activities.ChangePassword"></activity>
         <activity android:name=".eco.org.greenapp.profile_activities.ChangeProfilePhoto">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -133,8 +131,8 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="eco.org.greenapp.eco.org.greenapp.activities.ProfileSettings" />
-
         </activity>
+        <activity android:name=".eco.org.greenapp.activities.Notificari"></activity>
     </application>
 
 </manifest>
