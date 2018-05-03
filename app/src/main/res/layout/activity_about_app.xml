@@ -13,7 +13,8 @@
         android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/backgoround_about" />
+        app:srcCompat="@drawable/backgoround_about"
+        android:contentDescription="@string/backgroundAbout" />
 
     <TextView
         android:id="@+id/txtAbout"

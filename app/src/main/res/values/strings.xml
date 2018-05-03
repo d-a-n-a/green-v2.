@@ -66,6 +66,11 @@
     <string name="hintCity">judet</string>
     <string name="street">locatie aproximativa</string>
     <string name="spinnerSelection">Tara</string>
+    <string name="zeroNotificari">Nu există nicio notificare nouă.</string>
+    <string name="backgroundAbout">Fundal cu București.</string>
+    <string name="backgroundProductImage">imaginea produsului selectat</string>
+    <string name="userProfile">imaginea de profil a utilizatorului</string>
+    <string name="demandProductDefaultImage">imaginea produsului dorit</string>
     <string-array name="cityList">
         <item>Bucuresti</item>
         <item>Alba</item>
@@ -189,7 +194,6 @@
         <item>2018</item>
         <item>2019</item>
     </string-array>
-    <string-array name="hours"></string-array>
 
     <string-array name="kmDistance">
         <item>0</item>

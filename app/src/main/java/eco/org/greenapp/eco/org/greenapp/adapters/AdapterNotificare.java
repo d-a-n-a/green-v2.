@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.ParseException;
 import java.util.List;
 
 import eco.org.greenapp.R;
@@ -40,14 +41,14 @@ public class AdapterNotificare extends ArrayAdapter<Notificare> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
         LayoutInflater li = LayoutInflater.from(getContext());
-        View view = li.inflate(this.layout,parent, false);
+        View view = li.inflate(this.layout, parent, false);
 
         TextView data = (TextView)view.findViewById(R.id.txtData);
         TextView continut = (TextView)view.findViewById(R.id.textViewContinut);
 
         Notificare notificare = this.notificari.get(position);
-        data.setText(notificare.getData().toString());
-        continut.setText(notificare.getDescriere().toString());
+        data.setText(GeneralConstants.SDF.format(notificare.getData()));
+        continut.setText("bla " +notificare.getDescriere());
 
         return view;
     }

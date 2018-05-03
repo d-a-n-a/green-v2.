@@ -82,7 +82,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:orientation="horizontal"
-                    android:weightSum="2">
+                    android:weightSum="2"
+                    android:baselineAligned="false">
 
                     <android.support.constraint.ConstraintLayout
                         android:layout_width="0dp"
@@ -216,7 +217,8 @@
         app:layout_constraintBottom_toTopOf="@+id/btnTakeProduct"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/backgroundProductImage">
 
 
     </ImageView>
@@ -234,7 +236,8 @@
         app:layout_constraintEnd_toStartOf="@+id/usernameanunt"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/useravatar" />
+        app:srcCompat="@drawable/useravatar"
+        android:contentDescription="@string/userProfile" />
 
     <TextView
         android:id="@+id/usernameanunt"

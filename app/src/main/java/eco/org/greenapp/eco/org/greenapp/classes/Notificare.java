@@ -3,6 +3,7 @@ package eco.org.greenapp.eco.org.greenapp.classes;
 import java.io.StringBufferInputStream;
 import java.util.Date;
 
+import eco.org.greenapp.eco.org.greenapp.constants.GeneralConstants;
 import eco.org.greenapp.eco.org.greenapp.enumerations.TipNotificare;
 
 /**
@@ -10,17 +11,27 @@ import eco.org.greenapp.eco.org.greenapp.enumerations.TipNotificare;
  */
 
 public class Notificare {
+    private int id;
     private String descriere;
     private Date data;
     private TipNotificare tip;
     private boolean citit;
 
     public Notificare(){}
+
     public Notificare(String descriere, Date data, TipNotificare tip, boolean citit) {
         this.descriere = descriere;
         this.data = data;
         this.tip = tip;
         this.citit = citit;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getDescriere() {

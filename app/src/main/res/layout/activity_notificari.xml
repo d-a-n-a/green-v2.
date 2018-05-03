@@ -1,23 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="eco.org.greenapp.eco.org.greenapp.activities.Notificari">
+    android:orientation="vertical"
+    tools:layout_editor_absoluteY="81dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <ListView
-            android:id="@+id/listViewNotificari"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"></ListView>
-
-    </LinearLayout>
-
+    <ListView
+        android:id="@+id/listViewNotificari"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginStart="14dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
 
-</ScrollView>
+    </ListView>
+
+    <TextView
+        android:id="@+id/zeroNotificari"
+        android:layout_width="334dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="17dp"
+        android:layout_marginTop="240dp"
+        android:fontFamily="@font/lora_regular"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="@string/zeroNotificari"
+        android:textColor="@color/colorPrimaryDark"
+        android:textStyle="bold"
+        android:visibility="invisible"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/imgZeroNotificari"
+        app:layout_constraintEnd_toStartOf="@+id/listViewNotificari"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/listViewNotificari"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imgZeroNotificari"
+        android:layout_width="50dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="277dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/listViewNotificari"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/listViewNotificari"
+        app:layout_constraintTop_toBottomOf="@+id/zeroNotificari"
+        app:srcCompat="@drawable/notify" />
+</android.support.constraint.ConstraintLayout>
+

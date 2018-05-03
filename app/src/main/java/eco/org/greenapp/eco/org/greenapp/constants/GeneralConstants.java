@@ -7,7 +7,7 @@ import java.text.SimpleDateFormat;
  */
 
 public class GeneralConstants {
-    public static final SimpleDateFormat SDF =new SimpleDateFormat("yyyy-MM-dd");//new SimpleDateFormat("dd/MM/yyyy");
+    public static final SimpleDateFormat SDF =new SimpleDateFormat("yyyy-MM-dd");
     public static final String SESSION = "user_session";
     public static final String TOKEN = "token";
     public static final String PASSWORD = "password";
@@ -17,32 +17,27 @@ public class GeneralConstants {
     public static final int LOCATION_RESULT_CODE = 4;
     public static final int PHONE_RESULT_CODE = 5;
     public static final int EMAIL_RESULT_CODE  = 6;
-    public static final int USERNAME_RESULT_CODE = 7;
-    public static final String RESULT_OK = "OK";
     public static final String RESULT_NOT_OK = "fail";
     public static final String INVALID = "Acest email/username nu corespunde niciunui cont.";
     public static final String INSERT_ADD = "insert_add" ;
     public static final String INSERT_DEMAND = "demand" ;
     public static final String SUCCESS = "success";
-
-    public static final String INSERT_TRANSACTION  = "insert_transaction";
+    public static final String FAIL = "fail";
     public static final int PICK_IMAGE = 10;
     public static final String UPLOAD_KEY = "image";
 /*
   public static final String URL = "http://10.38.31.5:8080/greenapp";
     public static final String Url = "http://10.38.31.5:8080";*/
 
- public static final String URL = "http://10.38.31.11:8080/greenapp";
- public static final String Url = "http://10.38.31.11:8080";
+/* public static final String URL = "http://10.38.31.11:8080/greenapp";
+ public static final String Url = "http://10.38.31.11:8080";*/
 
 
-/*
 
 
   public static final String URL = "http://192.168.43.191:8080/greenapp";
     public static final String Url = "http://192.168.43.191:8080";
 
-*/
 
  //sala de lectura
 /* public static final String URL = "http://10.30.21.70:8080/greenapp";
