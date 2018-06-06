@@ -7,11 +7,14 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -39,6 +42,8 @@ public class FragmentUserReviews extends Fragment {
     private View view;
     private ListView lvReviews;
     private List<Review> lista;
+    ImageView imageView;
+    TextView textView;
    // SwipeRefreshLayout swipeContainer;
     String username;
 
@@ -68,6 +73,10 @@ public class FragmentUserReviews extends Fragment {
             ViewGroup parent = (ViewGroup) view.getParent();
             parent.removeView(view);
         }
+        imageView = (ImageView)view.findViewById(R.id.noReview);
+        textView = (TextView)view.findViewById(R.id.noReviewText);
+        imageView.setVisibility(View.INVISIBLE);
+        textView.setVisibility(View.INVISIBLE);
 
 /*
 
@@ -93,6 +102,7 @@ public class FragmentUserReviews extends Fragment {
             }
         });*/
 
+        
         return view;
     }
 
@@ -153,11 +163,17 @@ public class FragmentUserReviews extends Fragment {
                     lista.add(review);
                 }
 
+                if(lista.size() == 0)
+                {
+                    imageView.setVisibility(View.VISIBLE);
+                    textView.setVisibility(View.VISIBLE);
+                }
+                else {
+                    final ReviewAdapter adapter = new ReviewAdapter(getActivity(), R.layout.review_item, lista);
+                    lvReviews = (ListView) view.findViewById(R.id.idLvReview);
 
-                final ReviewAdapter adapter=new ReviewAdapter(getActivity(),R.layout.review_item,lista);
-                lvReviews=(ListView)view.findViewById(R.id.idLvReview);
-
-                lvReviews.setAdapter(adapter);
+                    lvReviews.setAdapter(adapter);
+                }
 
             } catch (JSONException e) {
                 e.printStackTrace();

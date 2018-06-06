@@ -1,11 +1,13 @@
 package eco.org.greenapp.eco.org.greenapp.activities;
 
+import android.app.ActionBar;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -57,9 +59,10 @@ public class AdForProduct extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       /* this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);*/
         setContentView(R.layout.activity_ad_for_product);
+        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        actionBar.setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         denumireProdus = (TextView)findViewById(R.id.productName);
         descriereProdus = (TextView)findViewById(R.id.productDescription);
@@ -162,5 +165,10 @@ Log.i("days", ""+days);
                 .title(ad.getUser().getLocatie().getStrada())
         );
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position,15));
+    }
+    @Override
+    public boolean onSupportNavigateUp(){
+        finish();
+        return true;
     }
 }

@@ -3,6 +3,7 @@ package eco.org.greenapp.eco.org.greenapp.activities;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.Image;
 import android.os.AsyncTask;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
@@ -32,6 +34,8 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 
 
 import eco.org.greenapp.R;
@@ -50,15 +54,20 @@ public class UserInfo extends AppCompatActivity {
     RatingBar rating;
     String imgUrl;
     ImageView imgV;
+    ImageButton imageButton;
+   public  List<Integer> nrReviews;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       /* this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);*/
         setContentView(R.layout.activity_user_info);
-
-
-
+        imageButton = (ImageButton)findViewById(R.id.backImageButton);
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        nrReviews = new ArrayList<Integer>();
         ((FloatingActionButton)findViewById(R.id.floatingMessage)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -219,11 +228,18 @@ public class UserInfo extends AppCompatActivity {
                    try {
                        JSONObject jsonObject = new JSONObject(s);
 
+
+                       nrReviews.add(Integer.parseInt(jsonObject.getString("0")));
+                       nrReviews.add(Integer.parseInt(jsonObject.getString("1")));
+                       nrReviews.add(Integer.parseInt(jsonObject.getString("2")));
+                       nrReviews.add(Integer.parseInt(jsonObject.getString("3")));
+                       nrReviews.add(Integer.parseInt(jsonObject.getString("4")));
+                    //   Toast.makeText(getApplicationContext(), nrReviews.toString(), Toast.LENGTH_LONG).show();
                        if(jsonObject.getString("review").equals("nu are reviews"))
                              nota = ""+0;
                          else
                              nota = jsonObject.getString("review");
-                         rating.setRating(Float.parseFloat(nota)*rating.getNumStars()/10);
+                         rating.setRating(Float.parseFloat(nota));
                          imgUrl = GeneralConstants.Url+jsonObject.getString("foto");
                          if(!jsonObject.getString("foto").isEmpty() && !(jsonObject.getString("foto")==null) )
                        new GetImageTask((ImageView) findViewById(R.id.userProfilePicture), getApplicationContext())

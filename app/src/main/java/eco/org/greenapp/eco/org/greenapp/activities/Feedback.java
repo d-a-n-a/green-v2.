@@ -62,7 +62,7 @@ String currentUsername;
                             json.put("autor", currentUsername);
                             json.put("user", user);
                             json.put("detalii", detalii.getText().toString().trim());
-                            json.put("nota", iNota*2);
+                            json.put("nota", iNota);
                             json.put("tranzactie", tranzactie);
                             AddReviewTask addReviewTask = new AddReviewTask(getApplicationContext());
                             addReviewTask.execute(json);

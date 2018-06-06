@@ -12,6 +12,7 @@ import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.os.Looper;
@@ -319,13 +320,32 @@ public class UsersByLocation extends AppCompatActivity implements OnMapReadyCall
         @Override
         protected void onPostExecute(List<User> s) {
             if(s == null)
-                 Toast.makeText(getApplicationContext(), "Nu s-a primit lista.", Toast.LENGTH_SHORT).show();
+                 //Toast.makeText(getApplicationContext(), "Nu s-a primit lista.", Toast.LENGTH_SHORT).show();
+                Snackbar.make(findViewById(R.id.idScrollUsers), "Nu s-a primit lista.", Snackbar.LENGTH_LONG).show();
 
             if(s.size() == 0)
-                Toast.makeText(getApplicationContext(), "Nu s-a gasit niciun utilizator.", Toast.LENGTH_LONG).show();
+               // Toast.makeText(getApplicationContext(), "Nu s-a gasit niciun utilizator.", Toast.LENGTH_LONG).show();
+                //Snackbar.make(findViewById(R.id.idScrollUsers), "Nu s-a gasit niciun utilizator conform criteriilor.", Snackbar.LENGTH_LONG).show();
+            {
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(UsersByLocation.this);
+                alertDialog.setMessage("Nu s-a gasit niciun utilizator in apropiere.");
 
+                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        try {
+                            finalize();
+                        } catch (Throwable throwable) {
+                            throwable.printStackTrace();
+                        }
+                    } });
+
+                alertDialog.show();
+            }
             if(s.equals(GeneralConstants.RESULT_NOT_OK))
-                Toast.makeText(getApplicationContext(), "Ups.. eroare preluare utilizatori dupa locatie. (UsersByLocation)", Toast.LENGTH_LONG).show();
+                //
+                // Toast.makeText(getApplicationContext(), "Ups.. eroare preluare utilizatori dupa locatie. (UsersByLocation)", Toast.LENGTH_LONG).show();
+                Snackbar.make(findViewById(R.id.idScrollUsers), "Ups.. eroare preluare utilizatori dupa locatie", Snackbar.LENGTH_LONG).show();
+
             else {
                /* for (int i = 0; i<s.size(); i++){
                     googleMap.addMarker(new MarkerOptions()

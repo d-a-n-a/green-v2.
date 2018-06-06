@@ -71,9 +71,6 @@ public class ProfileSettings extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_profile_settings);
         rating  = (TextView) findViewById(R.id.userScore);
 
@@ -265,8 +262,8 @@ public class ProfileSettings extends AppCompatActivity {
                     else
                         nota = jsonObject.getString("review");
 
-                    nota = String.format("%.2f", Float.parseFloat(nota)*5/10);
-                    rating.setText("" + nota + "/10");
+                    nota = String.format("%.2f", Float.parseFloat(nota));//*5/10
+                    rating.setText("" + nota + "/5");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

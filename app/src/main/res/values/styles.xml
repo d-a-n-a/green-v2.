@@ -7,6 +7,10 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorControlActivated">@color/colorPrimaryDark</item>
+
+        <item name="android:actionBarStyle">@style/CustomToolbar</item>
+
+
     </style>
 
     <style name="TextInputLabel" parent="TextAppearance.Design.Hint">
@@ -22,4 +26,18 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="customTextNavItems">
+        <item name="android:textSize">17sp</item>
+        <item name="android:letterSpacing">.07</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+    </style>
+
+
+
+    <style name="CustomToolbar" parent="@android:style/Widget.Holo.Light.ActionBar">
+        <item name="android:fontFamily">@font/lora_regular</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:color">@color/orange</item>
+    </style>
 </resources>

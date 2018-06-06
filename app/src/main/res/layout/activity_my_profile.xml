@@ -7,6 +7,7 @@
     tools:context="eco.org.greenapp.eco.org.greenapp.activities.UserInfo">-->
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -27,6 +28,16 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginTop="12dp"
                 android:background="@drawable/settings" />
+
+            <ImageButton
+                android:id="@+id/imageButton"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignTop="@+id/btnSettings"
+                android:layout_marginStart="12dp"
+                android:background="@drawable/back"
+                app:srcCompat="@drawable/back" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -74,6 +85,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/custom_button_profile_options"
+                    android:letterSpacing=".15"
                     android:onClick="selectionOfFragment"
                     android:selectAllOnFocus="false"
                     android:text="@string/about"
@@ -85,6 +97,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/custom_button_profile_options"
+                    android:letterSpacing=".15"
                     android:onClick="selectionOfFragment"
                     android:text="@string/adds"
                     android:textColor="@color/colorGreenSheen" />
@@ -95,6 +108,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/custom_button_profile_options"
+                    android:letterSpacing=".15"
                     android:onClick="selectionOfFragment"
                     android:text="@string/review"
                     android:textColor="@color/colorGreenSheen" />
@@ -105,6 +119,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/custom_button_profile_options"
+                    android:letterSpacing=".15"
                     android:onClick="selectionOfFragment"
                     android:text="@string/transactionHistory"
                     android:textColor="@color/colorGreenSheen" />

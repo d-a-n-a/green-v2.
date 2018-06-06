@@ -15,6 +15,7 @@
         android:layout_marginRight="20dp"
         android:layout_marginTop="50dp"
         android:ems="10"
+        android:hint="ex: 07123456789"
         android:inputType="textMultiLine|textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

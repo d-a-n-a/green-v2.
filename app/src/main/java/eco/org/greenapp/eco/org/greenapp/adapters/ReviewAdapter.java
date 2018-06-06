@@ -48,7 +48,7 @@ public class ReviewAdapter extends ArrayAdapter<Review> {
         reviewer.setText(review.getUser().getUsername());
         date.setText(review.getData_adaugare());
         continut.setText(review.getContinut());
-        nota.setText(""+review.getNota()+"/10");
+        nota.setText(""+review.getNota()+"/5");
 
         if(!review.getUser().getUrl().isEmpty() && !(review.getUser().getUrl()==null))
         {

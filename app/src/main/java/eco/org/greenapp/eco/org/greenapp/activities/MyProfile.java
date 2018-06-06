@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
@@ -40,13 +41,19 @@ import eco.org.greenapp.eco.org.greenapp.fragments.TransactionHistoryFragment;
  public class MyProfile extends AppCompatActivity {
 RatingBar ratingBar;
 String imgUrl;
+ImageButton imageButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
      //   setContentView(R.layout.activity_profile_settings);
         setContentView(R.layout.activity_my_profile);
+        imageButton = (ImageButton)findViewById(R.id.imageButton);
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         ((Button)findViewById(R.id.button5)).setBackgroundResource(R.drawable.custom_button_profile_options_selected);
         ((Button)findViewById(R.id.button5)).setTextColor(getResources().getColor(R.color.white));
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -169,7 +176,7 @@ String imgUrl;
                          nota = ""+0;
                      else
                          nota = jsonObject.getString("review");
-                     ratingBar.setRating(Float.parseFloat(nota)*ratingBar.getNumStars()/10);
+                     ratingBar.setRating(Float.parseFloat(nota));
                      imgUrl = GeneralConstants.Url+jsonObject.getString("foto");
                      if(!jsonObject.getString("foto").isEmpty() && !(jsonObject.getString("foto")==null) )
                          new GetImageTask((ImageView) findViewById(R.id.userProfilePicture), getApplicationContext())

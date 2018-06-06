@@ -81,7 +81,6 @@ public class TransactionDetails extends AppCompatActivity {
         if(intent != null)
         {
             ad =  intent.getIntExtra("idAd",0);
-            Toast.makeText(getApplicationContext(), ""+ad, Toast.LENGTH_LONG).show();
             intentAd = 1;
          }
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {

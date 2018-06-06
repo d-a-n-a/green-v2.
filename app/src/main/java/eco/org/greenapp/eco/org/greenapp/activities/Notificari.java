@@ -61,6 +61,11 @@ public class Notificari extends AppCompatActivity {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 Notificare notificare = listaNotificari.get(position);
                 listaNotificari.remove(position);
+                if(listaNotificari.size() == 0)
+                {
+                    ((TextView)findViewById(R.id.zeroNotificari)).setVisibility(View.VISIBLE);
+                    ((ImageView)findViewById(R.id.imgZeroNotificari)).setVisibility(View.VISIBLE);
+                }
                 new EditStatusNotificare().execute(""+notificare.getId(), username);
                 adapterNotificare.notifyDataSetChanged();
                 return false;

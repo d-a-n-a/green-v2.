@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="eco.org.greenapp.eco.org.greenapp.activities.AdForProduct"
-    tools:layout_editor_absoluteY="25dp">
+    tools:layout_editor_absoluteY="25dp"
+    >
 
     <LinearLayout
         android:id="@+id/containerLayout"
@@ -249,7 +250,7 @@
         android:paddingBottom="3dp"
         android:paddingLeft="5dp"
         android:paddingRight="15dp"
-        android:paddingTop="3dp"
+        android:paddingTop="5dp"
         android:text="username posesor"
         android:textAllCaps="true"
         android:textColor="#fff"

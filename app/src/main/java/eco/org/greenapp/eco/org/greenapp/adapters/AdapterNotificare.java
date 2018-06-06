@@ -48,7 +48,7 @@ public class AdapterNotificare extends ArrayAdapter<Notificare> {
 
         Notificare notificare = this.notificari.get(position);
         data.setText(GeneralConstants.SDF.format(notificare.getData()));
-        continut.setText("bla " +notificare.getDescriere());
+        continut.setText(notificare.getDescriere());
 
         return view;
     }

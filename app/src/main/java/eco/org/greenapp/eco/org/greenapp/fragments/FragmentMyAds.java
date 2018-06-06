@@ -122,16 +122,6 @@ public class FragmentMyAds extends Fragment {
                     public boolean onMenuItemClick(MenuItem item) {
 
                         switch (item.getItemId()) {
-                          /*  case R.id.idEdit:
-
-                            {
-
-*//*
-                               Intent intent = new Intent(getContext(), AddProduct.class);
-                               intent.putExtra("editAd", lista.get(position));
-                               startActivity(intent);*//*
-                            }
-                                break;*/
                             case R.id.idDelete:
                                 if(lista.get(position).getStatusAnunt().getTip().equals("rezervat"))
                                 {
@@ -171,8 +161,8 @@ public class FragmentMyAds extends Fragment {
                                     public void onClick(View view) {
                                         dialog.dismiss();
                                         String idNewStatus = getResources().getStringArray(R.array.idEditAdStatus)[statusSpinner.getSelectedItemPosition()];
-                                        EditStatusAd editStatusAd  = new EditStatusAd();
-                                        editStatusAd.execute(""+lista.get(position).getId(), idNewStatus);
+                                       /* EditStatusAd editStatusAd  = new EditStatusAd();
+                                        editStatusAd.execute(""+lista.get(position).getId(), idNewStatus);*/
                                         //dar DACA TRECE PE DISPONIBIL?
                                         //todo trebuie sa verific statusul vechi si sa il compar cu cel nou
                                             // indisponibil -> disponibil il las
@@ -180,14 +170,105 @@ public class FragmentMyAds extends Fragment {
                                                 // inregistrez tranzactia ca direct finalizata
                                             //rezervat -> indisponibil nu are sens sa faca, asa ca il las sa selecteze, dar ii dau mesaj eventual
                                         //DAR DACA TRECE PE INDISPONIBIL?
-                                        if(statusSpinner.getSelectedItem().toString().equals("rezervat")){
-                                            Intent intent = new Intent(getContext(), TransactionDetails.class);
-                                            intent.putExtra("idAd", lista.get(position).getId());
-                                            startActivity(intent);
-                                        }
+                                        if(lista.get(position).getStatusAnunt().equals("indisponibil"))
+                                            {
+                                                if(statusSpinner.getSelectedItem().toString().equals("disponibil")
+                                                    || statusSpinner.getSelectedItem().toString().equals("rezervat"))
+                                            {
+                                                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+                                                alertDialog.setMessage("Produsul este deja indisponibil.");
+                                                alertDialog.setTitle("Imposibil");
+
+                                                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                                    public void onClick(DialogInterface dialog, int which) {
+                                                        try {
+                                                            finalize();
+                                                        } catch (Throwable throwable) {
+                                                            throwable.printStackTrace();
+                                                        }
+                                                    } });
+
+                                                alertDialog.show();
+                                            }
+                                            }
+                                        else
+                                           if(lista.get(position).getStatusAnunt().equals("disponibil")) {
+                                               EditStatusAd editStatusAd  = new EditStatusAd();
+                                               editStatusAd.execute(""+lista.get(position).getId(), idNewStatus);
+                                               if (statusSpinner.getSelectedItem().toString().equals("rezervat")) {
+
+
+                                                   Intent intent = new Intent(getContext(), TransactionDetails.class);
+                                                   intent.putExtra("idAd", lista.get(position).getId());
+                                                   startActivity(intent);
+                                               }
+                                               else
+                                               if (statusSpinner.getSelectedItem().toString().equals("indisponibil.")) {
+
+
+                                                   AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+                                                   alertDialog.setMessage("Anunțul a devenit indisponibil.");
+                                                   alertDialog.setTitle("Reușit");
+
+                                                   alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                                       public void onClick(DialogInterface dialog, int which) {
+                                                           try {
+                                                               finalize();
+                                                           } catch (Throwable throwable) {
+                                                               throwable.printStackTrace();
+                                                           }
+                                                       } });
+
+                                                   alertDialog.show();
+                                               }
+                                               }
+                                           else
+                                           if(lista.get(position).getStatusAnunt().equals("rezervat")) {
+                                               EditStatusAd editStatusAd  = new EditStatusAd();
+                                               editStatusAd.execute(""+lista.get(position).getId(), idNewStatus);
+                                               if (statusSpinner.getSelectedItem().toString().equals("disponibil")) {
+                                                   AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+                                                   alertDialog.setMessage("Rezervarea a fost anulată. Produsul e din nou disponibil.");
+                                                   alertDialog.setTitle("Reușit");
+
+                                                   alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                                       public void onClick(DialogInterface dialog, int which) {
+                                                           try {
+                                                               finalize();
+                                                           } catch (Throwable throwable) {
+                                                               throwable.printStackTrace();
+                                                           }
+                                                       }
+                                                   });
+
+                                                   alertDialog.show();
+                                               }
+                                               else
+                                               if (statusSpinner.getSelectedItem().toString().equals("indisponibil"))
+                                                   {
+                                                       AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+                                                       alertDialog.setMessage("Produsul este acum indisponibil.");
+                                                       alertDialog.setTitle("Reușit");
+
+                                                       alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                                           public void onClick(DialogInterface dialog, int which) {
+                                                               try {
+                                                                   finalize();
+                                                               } catch (Throwable throwable) {
+                                                                   throwable.printStackTrace();
+                                                               }
+                                                           }
+                                                       });
+
+                                                       alertDialog.show();
+                                                   }
+                                           }
+
                                     }
                                 });
-
+//TODO trebuie sa mai pun finalizat. pe finalizat trece doar din rezervat
+                                //indisponibil inseamna ca asa l-a facut userul sau s-a declanast triggerul sau ce am facut eu in db
+                              //update: indisponibil e ca atunci cand finalizeaza tranzactia
                                 break;
                             default:
                                 break;

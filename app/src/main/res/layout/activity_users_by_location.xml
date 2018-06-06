@@ -2,6 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/idScrollUsers"
     android:layout_width="match_parent"
     android:layout_height="610dp">
 
@@ -18,9 +19,9 @@
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:layout_marginTop="15dp"
-            android:text="Cautare utilizatori apropiati. Selectati distanta maxima dorita(km)."
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="15sp" />
+            android:text="Căutare utilizatori apropiați. Selectați distanța maximă dorită - în km."
+            android:textColor="@color/darkGrey"
+            android:textSize="16sp" />
 
         <Spinner
             android:id="@+id/spinnerDistanceKm"

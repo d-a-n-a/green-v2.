@@ -38,13 +38,21 @@
             android:label="@string/adding" />
         <activity
             android:name=".eco.org.greenapp.activities.UserInfo"
+            android:label="Profil utilizator"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".eco.org.greenapp.activities.AdForProduct"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".eco.org.greenapp.activities.AddDemandProduct" />
+            android:label="Detalii anunț"  />
+        <activity android:name=".eco.org.greenapp.activities.AddDemandProduct"
+            android:label="Doresc">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="eco.org.greenapp.AppMenu" />
+        </activity>
         <activity android:name=".eco.org.greenapp.activities.Feedback" />
-        <activity android:name=".eco.org.greenapp.activities.MyProfile">
+        <activity android:name=".eco.org.greenapp.activities.MyProfile"
+            android:label="Profilul meu"
+            android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="eco.org.greenapp.eco.org.greenapp.activities.ProfileSettings" />
@@ -58,58 +66,72 @@
         </activity>
         <activity
             android:name=".AppMenu"
-            android:label="Welcome"
+            android:label="Flux de anunțuri"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".eco.org.greenapp.activities.Home">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="eco.org.greenapp.eco.org.greenapp.activities.ProfileSettings" />
         </activity>
-        <activity android:name=".eco.org.greenapp.profile_activities.ChangeAboutMe">
+        <activity android:name=".eco.org.greenapp.profile_activities.ChangeAboutMe"
+            android:label="Actualizare descriere">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="eco.org.greenapp.eco.org.greenapp.activities.ProfileSettings" />
         </activity>
-        <activity android:name=".eco.org.greenapp.profile_activities.ChangeLastName">
+        <activity android:name=".eco.org.greenapp.profile_activities.ChangeLastName"
+            android:label="Actualizare nume">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="eco.org.greenapp.eco.org.greenapp.activities.ProfileSettings" />
         </activity>
-        <activity android:name=".eco.org.greenapp.profile_activities.ChangeFirstName">
+        <activity android:name=".eco.org.greenapp.profile_activities.ChangeFirstName"
+            android:label="Actualizare prenume">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="eco.org.greenapp.eco.org.greenapp.activities.ProfileSettings" />
         </activity>
-        <activity android:name=".eco.org.greenapp.profile_activities.ChangeLocation">
+        <activity android:name=".eco.org.greenapp.profile_activities.ChangeLocation"
+            android:label="Actualizare locație">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="eco.org.greenapp.eco.org.greenapp.activities.ProfileSettings" />
         </activity>
-        <activity android:name=".eco.org.greenapp.profile_activities.ChangePhoneNumber">
+        <activity android:name=".eco.org.greenapp.profile_activities.ChangePhoneNumber"
+            android:label="Actualizare număr telefon">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="eco.org.greenapp.eco.org.greenapp.activities.ProfileSettings" />
         </activity>
-        <activity android:name=".eco.org.greenapp.profile_activities.ChangeEmail">
+        <activity android:name=".eco.org.greenapp.profile_activities.ChangeEmail"
+            android:label="Actualizare e-mail">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="eco.org.greenapp.eco.org.greenapp.activities.ProfileSettings" />
         </activity>
-        <activity android:name=".eco.org.greenapp.profile_activities.ChangeUsername">
+        <activity android:name=".eco.org.greenapp.profile_activities.ChangeUsername"
+            android:label="Actualizare username">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="eco.org.greenapp.eco.org.greenapp.activities.ProfileSettings" />
         </activity>
-        <activity android:name=".eco.org.greenapp.profile_activities.ChangePassword"></activity>
-        <activity android:name=".eco.org.greenapp.profile_activities.ChangeProfilePhoto">
+        <activity android:name=".eco.org.greenapp.profile_activities.ChangePassword"
+            android:label="Actualizare parola">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="eco.org.greenapp.eco.org.greenapp.activities.ProfileSettings" />
         </activity>
-        <activity android:name=".eco.org.greenapp.activities.TransactionDetails" />
+        <activity android:name=".eco.org.greenapp.profile_activities.ChangeProfilePhoto"
+            android:label="Actualizare fotografie">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="eco.org.greenapp.eco.org.greenapp.activities.ProfileSettings" />
+        </activity>
+        <activity android:name=".eco.org.greenapp.activities.TransactionDetails"
+            android:label="Detalii de predare"/>
         <activity
             android:name=".eco.org.greenapp.activities.FilterFindUsers"
-            android:label="Cautare utilizatori">
+            android:label="Cautare anunțuri">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="eco.org.greenapp.AppMenu" />
@@ -121,18 +143,21 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="eco.org.greenapp.AppMenu" />
         </activity>
-        <activity android:name=".AboutApp">
+        <activity android:name=".AboutApp"
+            android:label="Despre aplicație">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="eco.org.greenapp.AppMenu" />
         </activity>
         <activity android:name=".eco.org.greenapp.activities.Help" />
-        <activity android:name=".eco.org.greenapp.activities.UsersByLocation">
+        <activity android:name=".eco.org.greenapp.activities.UsersByLocation"
+            android:label="Utilizatori din apropiere">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="eco.org.greenapp.eco.org.greenapp.activities.ProfileSettings" />
         </activity>
-        <activity android:name=".eco.org.greenapp.activities.Notificari">
+        <activity android:name=".eco.org.greenapp.activities.Notificari"
+            android:label="Notificări" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="eco.org.greenapp.AppMenu" />

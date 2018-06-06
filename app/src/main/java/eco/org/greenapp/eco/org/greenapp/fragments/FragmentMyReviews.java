@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -45,6 +46,8 @@ public class FragmentMyReviews extends Fragment {
     private View view;
     private ListView lvReviews;
     private List<Review> lista;
+    ImageView imageView;
+    TextView textView;
    // SwipeRefreshLayout swipeContainer;
     public FragmentMyReviews() {
         // Required empty public constructor
@@ -65,7 +68,10 @@ public class FragmentMyReviews extends Fragment {
             // parent.removeView(view);
         }
 
-
+         imageView = (ImageView) view.findViewById(R.id.noReview);
+         textView = (TextView) view.findViewById(R.id.noReviewText);
+        imageView.setVisibility(View.INVISIBLE);
+        textView.setVisibility(View.INVISIBLE);
         getData();
 
         //lista = parseJson(getResult);
@@ -152,9 +158,16 @@ public class GetReviews extends AsyncTask<String, Void, String>{
                 review.setUser(user);
                 lista.add(review);
             }
-            final ReviewAdapter adapter=new ReviewAdapter(getActivity(),R.layout.review_item,lista);
-            lvReviews=(ListView)view.findViewById(R.id.idLvReview);
-            lvReviews.setAdapter(adapter);
+            if(lista.size() == 0)
+            {
+                imageView.setVisibility(View.VISIBLE);
+                textView.setVisibility(View.VISIBLE);
+            }
+            else {
+                final ReviewAdapter adapter = new ReviewAdapter(getActivity(), R.layout.review_item, lista);
+                lvReviews = (ListView) view.findViewById(R.id.idLvReview);
+                lvReviews.setAdapter(adapter);
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }

@@ -9,8 +9,6 @@ import java.io.Serializable;
 public class Advertisement implements Serializable{
     private int id;
     private String dataPostarii;
-    //nu am durata in zile, dar oricum in aplicatie nu fac nimic cu ea
-    //sau as putea sa o pun pentru ca oricum calculez cu cate zile in urma s-au postat anunturile
     private String tip;
     private String descriereProdus;//care e de fapt descriere de la anunt
     private Status statusAnunt;
