@@ -52,6 +52,7 @@ import eco.org.greenapp.eco.org.greenapp.classes.Produs;
 import eco.org.greenapp.eco.org.greenapp.classes.Status;
 import eco.org.greenapp.eco.org.greenapp.classes.User;
 import eco.org.greenapp.eco.org.greenapp.constants.GeneralConstants;
+import eco.org.greenapp.eco.org.greenapp.constants.SharedPreferencesConstants;
 
 
 public class FragmentMyAds extends Fragment {
@@ -85,7 +86,7 @@ public class FragmentMyAds extends Fragment {
         else
         {
             ViewGroup parent = (ViewGroup) view.getParent();
-           // parent.removeView(view); //asta e posibil sa faca probleme
+            // parent.removeView(view); //asta e posibil sa faca probleme
         }
 
 
@@ -151,7 +152,6 @@ public class FragmentMyAds extends Fragment {
                                 break;
 
                             case R.id.idEditStaus:
-                                //deschidere popup din care sa aleaga categoria - sa corespunda cu idurile din
                                 dialog = new Dialog(getContext());
                                 dialog.setContentView(R.layout.select_status);
                                 dialog.show();
@@ -161,114 +161,41 @@ public class FragmentMyAds extends Fragment {
                                     public void onClick(View view) {
                                         dialog.dismiss();
                                         String idNewStatus = getResources().getStringArray(R.array.idEditAdStatus)[statusSpinner.getSelectedItemPosition()];
-                                       /* EditStatusAd editStatusAd  = new EditStatusAd();
-                                        editStatusAd.execute(""+lista.get(position).getId(), idNewStatus);*/
-                                        //dar DACA TRECE PE DISPONIBIL?
-                                        //todo trebuie sa verific statusul vechi si sa il compar cu cel nou
-                                            // indisponibil -> disponibil il las
-                                            // il las sa il treaca si pe indisponibil
-                                                // inregistrez tranzactia ca direct finalizata
-                                            //rezervat -> indisponibil nu are sens sa faca, asa ca il las sa selecteze, dar ii dau mesaj eventual
-                                        //DAR DACA TRECE PE INDISPONIBIL?
-                                        if(lista.get(position).getStatusAnunt().equals("indisponibil"))
-                                            {
-                                                if(statusSpinner.getSelectedItem().toString().equals("disponibil")
-                                                    || statusSpinner.getSelectedItem().toString().equals("rezervat"))
-                                            {
-                                                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
-                                                alertDialog.setMessage("Produsul este deja indisponibil.");
-                                                alertDialog.setTitle("Imposibil");
+                                         if( (lista.get(position).getStatusAnunt().getTip().equals("indisponibil") && idNewStatus.equals("3")) ||
+                                                (lista.get(position).getStatusAnunt().getTip().equals("indisponibil") && idNewStatus.equals("8")))
+                                        {
 
-                                                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                                    public void onClick(DialogInterface dialog, int which) {
-                                                        try {
-                                                            finalize();
-                                                        } catch (Throwable throwable) {
-                                                            throwable.printStackTrace();
-                                                        }
-                                                    } });
+                                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+                                            alertDialog.setMessage("Operația nu este permisă");
+                                            alertDialog.setTitle("Imposibil");
 
-                                                alertDialog.show();
-                                            }
-                                            }
+                                            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    try {
+                                                        finalize();
+                                                    } catch (Throwable throwable) {
+                                                        throwable.printStackTrace();
+                                                    }
+                                                } });
+
+                                            alertDialog.show();
+                                        }
+
+
                                         else
-                                           if(lista.get(position).getStatusAnunt().equals("disponibil")) {
-                                               EditStatusAd editStatusAd  = new EditStatusAd();
-                                               editStatusAd.execute(""+lista.get(position).getId(), idNewStatus);
-                                               if (statusSpinner.getSelectedItem().toString().equals("rezervat")) {
+                                        {
 
-
-                                                   Intent intent = new Intent(getContext(), TransactionDetails.class);
-                                                   intent.putExtra("idAd", lista.get(position).getId());
-                                                   startActivity(intent);
-                                               }
-                                               else
-                                               if (statusSpinner.getSelectedItem().toString().equals("indisponibil.")) {
-
-
-                                                   AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
-                                                   alertDialog.setMessage("Anunțul a devenit indisponibil.");
-                                                   alertDialog.setTitle("Reușit");
-
-                                                   alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                                       public void onClick(DialogInterface dialog, int which) {
-                                                           try {
-                                                               finalize();
-                                                           } catch (Throwable throwable) {
-                                                               throwable.printStackTrace();
-                                                           }
-                                                       } });
-
-                                                   alertDialog.show();
-                                               }
-                                               }
-                                           else
-                                           if(lista.get(position).getStatusAnunt().equals("rezervat")) {
-                                               EditStatusAd editStatusAd  = new EditStatusAd();
-                                               editStatusAd.execute(""+lista.get(position).getId(), idNewStatus);
-                                               if (statusSpinner.getSelectedItem().toString().equals("disponibil")) {
-                                                   AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
-                                                   alertDialog.setMessage("Rezervarea a fost anulată. Produsul e din nou disponibil.");
-                                                   alertDialog.setTitle("Reușit");
-
-                                                   alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                                       public void onClick(DialogInterface dialog, int which) {
-                                                           try {
-                                                               finalize();
-                                                           } catch (Throwable throwable) {
-                                                               throwable.printStackTrace();
-                                                           }
-                                                       }
-                                                   });
-
-                                                   alertDialog.show();
-                                               }
-                                               else
-                                               if (statusSpinner.getSelectedItem().toString().equals("indisponibil"))
-                                                   {
-                                                       AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
-                                                       alertDialog.setMessage("Produsul este acum indisponibil.");
-                                                       alertDialog.setTitle("Reușit");
-
-                                                       alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                                           public void onClick(DialogInterface dialog, int which) {
-                                                               try {
-                                                                   finalize();
-                                                               } catch (Throwable throwable) {
-                                                                   throwable.printStackTrace();
-                                                               }
-                                                           }
-                                                       });
-
-                                                       alertDialog.show();
-                                                   }
-                                           }
-
+                                        EditStatusAd editStatusAd  = new EditStatusAd();
+                                        editStatusAd.execute(""+lista.get(position).getId(), idNewStatus);
+                                        if(statusSpinner.getSelectedItem().toString().equals("rezervat")){
+                                            Intent intent = new Intent(getContext(), TransactionDetails.class);
+                                            intent.putExtra("idAd", lista.get(position).getId());
+                                            startActivity(intent);
+                                        }
+                                    }
                                     }
                                 });
-//TODO trebuie sa mai pun finalizat. pe finalizat trece doar din rezervat
-                                //indisponibil inseamna ca asa l-a facut userul sau s-a declanast triggerul sau ce am facut eu in db
-                              //update: indisponibil e ca atunci cand finalizeaza tranzactia
+
                                 break;
                             default:
                                 break;
@@ -299,7 +226,7 @@ public class FragmentMyAds extends Fragment {
                 OutputStream outputStream = con.getOutputStream();
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream,"UTF-8"));
                 String getByEmail = URLEncoder.encode("email", "UTF-8") + "=" + URLEncoder.encode(getActivity().getSharedPreferences(
-                        GeneralConstants.SESSION, Context.MODE_PRIVATE).getString("email",null), "UTF-8");
+                        GeneralConstants.SESSION, Context.MODE_PRIVATE).getString(SharedPreferencesConstants.EMAIL,null), "UTF-8");
                 bufferedWriter.write(getByEmail);
 
                 bufferedWriter.flush();
@@ -323,33 +250,33 @@ public class FragmentMyAds extends Fragment {
 
         @Override
         protected void onPostExecute(String s) {
-if(s!=null) {
+            if(s!=null) {
 
-    try {
-        JSONArray vectorAds = new JSONArray(s);
-        for (int i = 0; i < vectorAds.length(); i++) {
-            eco.org.greenapp.eco.org.greenapp.classes.Status status = new eco.org.greenapp.eco.org.greenapp.classes.Status();
-            Produs produs = new Produs();
-            JSONObject adItem = vectorAds.getJSONObject(i);
-            Advertisement ad = new Advertisement();
-            User user = new User();
-            ad.setId(Integer.parseInt(adItem.getString("id")));
-            user.setUsername(adItem.getString("username"));
-            status.setTip(adItem.getString("tipStatus"));
-            ad.setStatusAnunt(status);
-            produs.setDenumireProdus(adItem.getString("denumire"));
-            produs.setUrl(adItem.getString("imagine"));
-            ad.setTip(adItem.getString("tipAnunt"));
-            ad.setDataPostarii(adItem.getString("dataIntroducerii"));
-            ad.setUser(user);
-            ad.setProdus(produs);
-            lista.add(ad);
-        }
-        adapter.notifyDataSetChanged();
-    } catch (JSONException e) {
-        e.printStackTrace();
-    }
-}
+                try {
+                    JSONArray vectorAds = new JSONArray(s);
+                    for (int i = 0; i < vectorAds.length(); i++) {
+                        eco.org.greenapp.eco.org.greenapp.classes.Status status = new eco.org.greenapp.eco.org.greenapp.classes.Status();
+                        Produs produs = new Produs();
+                        JSONObject adItem = vectorAds.getJSONObject(i);
+                        Advertisement ad = new Advertisement();
+                        User user = new User();
+                        ad.setId(Integer.parseInt(adItem.getString("id")));
+                        user.setUsername(adItem.getString("username"));
+                        status.setTip(adItem.getString("tipStatus"));
+                        ad.setStatusAnunt(status);
+                        produs.setDenumireProdus(adItem.getString("denumire"));
+                        produs.setUrl(adItem.getString("imagine"));
+                        ad.setTip(adItem.getString("tipAnunt"));
+                        ad.setDataPostarii(adItem.getString("dataIntroducerii"));
+                        ad.setUser(user);
+                        ad.setProdus(produs);
+                        lista.add(ad);
+                    }
+                    adapter.notifyDataSetChanged();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 
@@ -389,7 +316,7 @@ if(s!=null) {
 
 
                 con.disconnect();
-return updateResult;
+                return updateResult;
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {
@@ -404,8 +331,8 @@ return updateResult;
         protected void onPostExecute(String aVoid) {
             super.onPostExecute(aVoid);
             if(aVoid!=null)
-               if(aVoid.equals(GeneralConstants.SUCCESS))
-                 adapter.notifyDataSetChanged();
+                if(aVoid.equals(GeneralConstants.SUCCESS))
+                    adapter.notifyDataSetChanged();
         }
     }
 
@@ -414,8 +341,8 @@ return updateResult;
         String idAd;
         @Override
         protected String doInBackground(String... strings) {
-                idAd = strings[0];
-                idNewStatus = strings[1];
+            idAd = strings[0];
+            idNewStatus = strings[1];
             try {
                 URL url = new URL(GeneralConstants.URL+"/update_ad_status.php");
                 HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
@@ -461,14 +388,14 @@ return updateResult;
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             if(s!=null)
-            if(s.equals(GeneralConstants.SUCCESS)) {
+                if(s.equals(GeneralConstants.SUCCESS)) {
 
-                        lista.clear();
-                        adapter.notifyDataSetChanged();
-                        GetUserData gd = new GetUserData();
-                        gd.execute();
+                    lista.clear();
+                    adapter.notifyDataSetChanged();
+                    GetUserData gd = new GetUserData();
+                    gd.execute();
 
-            }
+                }
         }
     }
 

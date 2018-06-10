@@ -182,7 +182,10 @@ public  class GetData extends AsyncTask<Void,Void,String> {
                     produs.setCategorie(categorie);
                     produs.setDetaliiAnunt(adItem.getString("detaliiAnunt"));
                     produs.setUrl(adItem.getString("imagine"));
-                    produs.setValabilitate(adItem.getString("valabilitate"));
+                    if(adItem.getString("valabilitate").equals("0000-00-00"))
+                        produs.setValabilitate("---");
+                    else
+                        produs.setValabilitate(adItem.getString("valabilitate"));
                     ad.setTip(adItem.getString("tipAnunt"));
                     ad.setDataPostarii(adItem.getString("dataIntroducerii"));
 

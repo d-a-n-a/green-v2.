@@ -15,6 +15,7 @@ import eco.org.greenapp.R;
 import eco.org.greenapp.eco.org.greenapp.GetImageTask;
 import eco.org.greenapp.eco.org.greenapp.classes.Advertisement;
 import eco.org.greenapp.eco.org.greenapp.constants.GeneralConstants;
+import eco.org.greenapp.eco.org.greenapp.enumerations.TipAnunt;
 
 /**
  * Created by danan on 4/1/2018.
@@ -47,7 +48,7 @@ public class AdvertisementAdapter extends ArrayAdapter<Advertisement> {
         tip.setText(ad.getTip());
         dataPostare.setText(ad.getDataPostarii());
         status.setText(ad.getStatusAnunt().getTip());
-        if(ad.getTip().equals("doresc"))
+        if(ad.getTip().equals(TipAnunt.cerere))
             photo.setImageDrawable(getContext().getDrawable(R.drawable.wanted));
         if(!ad.getProdus().getUrl().isEmpty()) {
             GetImageTask getImageTask = new GetImageTask(photo, getContext());

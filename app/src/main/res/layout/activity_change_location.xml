@@ -73,8 +73,10 @@
             android:layout_marginBottom="10dp"
             android:layout_marginTop="30dp"
             android:background="@drawable/button_diverse"
+            android:fontFamily="@font/nanum_gothic_regular"
+            android:letterSpacing=".2"
             android:text="salvare"
-            android:textColor="@color/colorGreenSheen"
+            android:textColor="@color/colorPrimaryDark"
             android:textStyle="bold" />
 
         <fragment

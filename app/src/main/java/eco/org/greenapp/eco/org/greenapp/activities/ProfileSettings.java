@@ -47,9 +47,10 @@ import eco.org.greenapp.eco.org.greenapp.profile_activities.ChangeUsername;
 public class ProfileSettings extends AppCompatActivity {
 
     TextView rating;
+    LinearLayout layoutLougout;
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        //todo asta ar parea ca nu prea merge??
+        //todo asta ar parea ca nu prea merge?? update1 - nici nu cred ca am nevoie de ea
         if(resultCode == RESULT_OK && requestCode == GeneralConstants.ABOUT_RESULT_CODE)
         {
              ((TextView)findViewById(R.id.aboutUserDescription))
@@ -73,7 +74,14 @@ public class ProfileSettings extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_settings);
         rating  = (TextView) findViewById(R.id.userScore);
-
+        layoutLougout = (LinearLayout)findViewById(R.id.logOutLayout);
+        layoutLougout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), SignIn.class));
+                finish();
+            }
+        });
         ((LinearLayout)findViewById(R.id.userAvatarLayout)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

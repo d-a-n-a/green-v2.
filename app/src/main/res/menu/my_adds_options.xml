@@ -5,7 +5,7 @@
          android:title="Modificare status" />
     <item
         android:id="@+id/idDelete"
-        android:title="Stergere anunt" />
+        android:title="Ștergere anunț" />
    <!-- <item
         android:id="@+id/idEdit"
         android:title="Modificare detalii anunt" />-->

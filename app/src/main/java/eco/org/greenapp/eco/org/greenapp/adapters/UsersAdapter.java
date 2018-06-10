@@ -136,12 +136,12 @@ public class UsersAdapter extends ArrayAdapter<User> {
 
                     if(jsonObject.getString("review").equals("0")) {
                         nota = "" + 0;
-                        txtView.setText("0/10");
+                        txtView.setText("0/5");
                     }
                     else {
                         nota = jsonObject.getString("review");
                         nota = String.format("%.2f", Float.parseFloat(nota));
-                        txtView.setText(Float.parseFloat(nota) + "/10");
+                        txtView.setText(Float.parseFloat(nota) + "/5");
                     }
                     String imgUrl = GeneralConstants.Url+jsonObject.getString("foto");
                     if(!jsonObject.getString("foto").isEmpty() && !(jsonObject.getString("foto")==null) )

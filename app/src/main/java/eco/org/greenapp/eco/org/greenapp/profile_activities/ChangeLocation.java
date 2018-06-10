@@ -1,9 +1,12 @@
 package eco.org.greenapp.eco.org.greenapp.profile_activities;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.AsyncTask;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -82,7 +85,7 @@ public class ChangeLocation extends AppCompatActivity implements OnMapReadyCallb
                 sharedPreferencesEditor = sharedPreferences.edit();
                 sharedPreferencesEditor.putString(SharedPreferencesConstants.LATITUDINE, ""+latitudine);
                 sharedPreferencesEditor.putString(SharedPreferencesConstants.LONGITUDINE, ""+longitudine);
-                sharedPreferencesEditor.apply();
+                 sharedPreferencesEditor.apply();
                 googleMap.addMarker(new MarkerOptions()
                         .position(place.getLatLng())
                         .title(place.getName().toString()));
@@ -105,8 +108,8 @@ public class ChangeLocation extends AppCompatActivity implements OnMapReadyCallb
             @Override
             public void onClick(View view) {
                 if(!checkLocationUpdate()){
-                    //todo dialog
-                    Toast.makeText(getApplicationContext(), "Trebuie completate toate campurile", Toast.LENGTH_LONG).show();
+                    Snackbar.make(findViewById(R.id.btnUpdateLocation), "Trebuie completate toate câmpurile.", Snackbar.LENGTH_LONG).show();
+                    //  Toast.makeText(getApplicationContext(), "Trebuie completate toate campurile", Toast.LENGTH_LONG).show();
                 }
                 else
                 {

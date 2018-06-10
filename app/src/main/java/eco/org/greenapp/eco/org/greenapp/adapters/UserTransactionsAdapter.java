@@ -32,6 +32,7 @@ import eco.org.greenapp.eco.org.greenapp.activities.Feedback;
 import eco.org.greenapp.eco.org.greenapp.classes.Transaction;
 import eco.org.greenapp.eco.org.greenapp.constants.GeneralConstants;
 import eco.org.greenapp.eco.org.greenapp.constants.SharedPreferencesConstants;
+import eco.org.greenapp.eco.org.greenapp.enumerations.TipAnunt;
 
 /**
  * Created by danan on 4/5/2018.
@@ -70,7 +71,7 @@ public class UserTransactionsAdapter extends ArrayAdapter<Transaction> {
             user.setText(tr.getDestinatar());
 
         if(me.equals(tr.getExpeditor()))
-            co.setText("oferta");
+            co.setText(TipAnunt.oferta.toString());
         else
             co.setText("");//nu are sens sa pun chiar cerere pentru ca nu e pe anuntul meu de cerere, e pe anuntul altcuiva de oferta
         strada.setText(tr.getLocatie());
@@ -197,11 +198,13 @@ public class UserTransactionsAdapter extends ArrayAdapter<Transaction> {
                             public void onClick(View v) {
 
                                 Intent intent = new Intent(getContext(), Feedback.class);
+                                intent.putExtra("idTranzactie", tr.getIdTranzactie());
                                 if (tr.getExpeditor().equals(me))
-                                    intent.putExtra("user", tr.getDestinatar());
+                                 intent.putExtra("user", tr.getDestinatar());
                                 else
                                     intent.putExtra("user", tr.getExpeditor());
                                 context.startActivity(intent);
+                                alertDialog.dismiss();
                             }
                         });
                     }

@@ -38,8 +38,6 @@ public class ExecuteUpdatesTask extends AsyncTask<String, Void, String> {
             String email = strings[1];
             String newValue = strings[2];
 
-//192.168.43.191
-            //URL url = new URL("http://10.38.31.11:8080/greenapp/update_last_name.php");
             URL url = new URL(GeneralConstants.URL+"/update_last_name.php");
 
             HttpURLConnection http = (HttpURLConnection) url.openConnection();

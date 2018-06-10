@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/layout"
+    android:id="@+id/layoutIDEmail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="eco.org.greenapp.eco.org.greenapp.profile_activities.ChangeAboutMe">
@@ -15,7 +15,7 @@
         android:layout_marginRight="20dp"
         android:layout_marginTop="50dp"
         android:ems="10"
-        android:hint="ex: 07123456789"
+        android:hint="ex: popescu@gmail.com"
         android:inputType="textMultiLine|textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -31,8 +31,10 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="40dp"
         android:background="@drawable/button_diverse"
+        android:fontFamily="@font/nanum_gothic_regular"
+        android:letterSpacing=".2"
         android:text="@string/btnUpdateAboutMe"
-        android:textColor="@color/colorGreenSheen"
+        android:textColor="@color/colorPrimaryDark"
         android:textStyle="bold" />
 
     <android.support.design.widget.FloatingActionButton

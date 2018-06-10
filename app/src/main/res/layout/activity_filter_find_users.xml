@@ -154,7 +154,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="300km"
+                android:text="300 km"
                 android:textAlignment="center"
                 android:textColor="@color/colorGreenSheen"
                 android:textStyle="bold" />
@@ -254,6 +254,8 @@
         android:layout_marginRight="20dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/button_diverse"
+        android:fontFamily="@font/nanum_gothic_regular"
+        android:letterSpacing=".2"
         android:text="Filtrare"
         android:textColor="@color/colorPrimaryDark"
         android:textStyle="bold" />

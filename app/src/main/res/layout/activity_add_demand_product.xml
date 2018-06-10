@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -21,14 +20,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/idWanted"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginTop="20dp"
-            app:srcCompat="@drawable/wanted"
-            android:contentDescription="@string/demandProductDefaultImage"/>
-
         <Button
             android:id="@+id/btnAddAd"
             android:layout_width="match_parent"
@@ -48,8 +39,16 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="150dp"
-                android:orientation="vertical">
+                android:layout_marginTop="10dp"
+                android:orientation="vertical"
+                android:paddingBottom="70dp">
+
+                <ImageView
+                    android:id="@+id/idWanted"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:contentDescription="@string/demandProductDefaultImage"
+                    app:srcCompat="@drawable/wanted" />
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/textInputLayout"
@@ -180,7 +179,7 @@
                         android:fontFamily="@font/nanum_gothic_regular"
                         android:paddingBottom="5dp"
                         android:paddingTop="5dp"
-                        android:text="durata anunt"
+                        android:text="durata anunt(zile)"
                         android:textAllCaps="true"
                         android:textColor="@color/colorGreenSheen"
                         android:textColorLink="@color/colorPrimary" />

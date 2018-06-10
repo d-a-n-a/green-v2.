@@ -25,12 +25,7 @@
                 android:checkable="true"
                 android:icon="@drawable/settings"
                 android:title="@string/settings" />
-            <item
-                android:id="@+id/nav_logout"
-                android:checkable="true"
-                android:icon="@drawable/exit"
-                android:title="@string/logout" />
-            <item
+        <item
                 android:id="@+id/nav_about"
                 android:checkable="true"
                 android:icon="@drawable/about"
@@ -40,6 +35,11 @@
             android:icon="@drawable/help"
             android:title="@string/help"
             />
+        <item
+            android:id="@+id/nav_logout"
+            android:checkable="true"
+            android:icon="@drawable/exit"
+            android:title="@string/logout" />
 
     </group>
 

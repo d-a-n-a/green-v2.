@@ -21,11 +21,11 @@
     </string-array>
 
     <string name="productCategory">Categorie</string>
-    <string name="addAd">Adauga Anunt</string>
-    <string name="tranzactionArea">Zona aproximativa de predare</string>
+    <string name="addAd">Adaugă anunț</string>
+    <string name="tranzactionArea">Zona aproximativă de predare</string>
     <string name="productDetails">Detalii</string>
-    <string name="addProductIndication">Descrieti produsul pe care doriti sa il adaugati.</string>
-    <string name="addPhoto">Adauga fotografie</string>
+    <string name="addProductIndication">Descrieți produsul pe care doriți să îl adăugați.</string>
+    <string name="addPhoto">Adaugă fotografie</string>
     <string name="availability">Valabilitate</string>
     <string name="createAccountInfo">Completeaza urmatoarele campuri obligatorii.</string>
     <string name="addReview">inregistrare review</string>
@@ -47,12 +47,12 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
-    <string name="help">Help</string>
+    <string name="help">Ajutor</string>
     <string name="logout">Deconectare</string>
     <string name="settings">Setări</string>
-    <string name="notify">Notificari</string>
+    <string name="notify">Notificări</string>
     <string name="messages">Mesaje</string>
-    <string name="home">Pagina principala</string>
+    <string name="home">Pagina principală</string>
     <string name="title_activity_base">BaseActivity</string>
     <string name="transactionHistory">Istoric</string>
 

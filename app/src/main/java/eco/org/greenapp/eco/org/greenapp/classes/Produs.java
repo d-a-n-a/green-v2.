@@ -12,13 +12,10 @@ public class Produs implements Serializable {
     private String valabilitate;
     private Categorie categorie;
     private String url;
-    private String detaliiAnunt;//asta e descriere din anunturi table; ba nu, asta cred ca e de fapt detalii din produs
-
+    private String detaliiAnunt;
 
     public Produs(){
-
     }
-
     public String getDenumireProdus() {
         return denumireProdus;
     }

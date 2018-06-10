@@ -5,43 +5,104 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="eco.org.greenapp.eco.org.greenapp.activities.AdForProduct"
-    tools:layout_editor_absoluteY="25dp"
-    >
+    tools:layout_editor_absoluteY="81dp">
 
-    <LinearLayout
-        android:id="@+id/containerLayout"
+    <ImageView
+        android:id="@+id/userProfileImage"
+        android:layout_width="86dp"
+        android:layout_height="0dp"
+        android:layout_gravity="top|start"
+        android:layout_marginBottom="515dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:contentDescription="@string/userProfile"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/btnTakeProduct"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/useravatar" />
+
+    <ImageView
+        android:id="@+id/backgroundLayout"
         android:layout_width="0dp"
-        android:layout_height="442dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginStart="15dp"
-        android:background="@drawable/border_edit_text"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="@+id/btnTakeProduct"
+        android:layout_height="383dp"
+        android:layout_marginBottom="24dp"
+        android:contentDescription="@string/backgroundProductImage"
+        android:orientation="horizontal"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@+id/usernameanunt"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.363">
 
-        <ScrollView
+
+    </ImageView>
+
+    <TextView
+        android:id="@+id/usernameanunt"
+        android:layout_width="0dp"
+        android:layout_height="41dp"
+        android:layout_gravity="bottom"
+        android:layout_weight="1"
+        android:background="#000"
+        android:paddingBottom="3dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="15dp"
+        android:paddingTop="5dp"
+        android:text="username posesor"
+        android:textAllCaps="true"
+        android:textColor="#fff"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:translationZ="15dp"
+        app:layout_constraintStart_toStartOf="@+id/backgroundLayout"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:id="@+id/x"
+        android:layout_width="0dp"
+        android:layout_height="400dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.746">
+
+
+        <LinearLayout
+            android:id="@+id/containerLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="40dp">
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:layout_marginStart="15dp"
+            android:background="@drawable/border_edit_text"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="@+id/btnTakeProduct"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="3dp"
-                android:orientation="vertical">
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                tools:layout_editor_absoluteY="3dp">
 
                 <TextView
                     android:id="@+id/productName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="50dp"
+                    android:layout_marginTop="30dp"
                     android:paddingBottom="5dp"
                     android:paddingTop="5dp"
                     android:text="denumire produs"
                     android:textAlignment="center"
                     android:textAllCaps="true"
                     android:textColor="@color/colorPrimaryDark"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <View
@@ -59,7 +120,8 @@
                     android:padding="5dp"
                     android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
                  incididunt ut labore et dolore magna aliqua."
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textColor="@color/darkGrey" />
 
                 <View
                     android:layout_width="200dp"
@@ -73,18 +135,20 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
+                    android:letterSpacing=".2"
                     android:text="status"
                     android:textAlignment="center"
                     android:textAllCaps="true"
-                    android:textColor="@color/accent" />
+                    android:textColor="@color/accent"
+                    android:textSize="15sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:baselineAligned="false"
                     android:orientation="horizontal"
-                    android:weightSum="2"
-                    android:baselineAligned="false">
+                    android:weightSum="2">
 
                     <android.support.constraint.ConstraintLayout
                         android:layout_width="0dp"
@@ -97,22 +161,34 @@
 
                         <TextView
                             android:id="@+id/cateogoryName"
-                            android:layout_width="match_parent"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
                             android:fontFamily="@font/nanum_gothic_regular"
+                            android:padding="2dp"
                             android:text="categorie"
                             android:textAlignment="center"
                             android:textAllCaps="true"
-                            android:textColor="@color/colorGreenSheen" />
+                            android:textColor="@color/colorGreenSheen"
+                            android:textSize="15sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
                             android:id="@+id/category"
-                            android:layout_width="match_parent"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/lora_regular"
                             android:paddingTop="20dp"
                             android:text="alimente"
-                            android:textAlignment="center" />
+                            android:textAlignment="center"
+                            android:textColor="@color/darkGrey"
+                            android:textSize="16sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/cateogoryName"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/cateogoryName" />
                     </android.support.constraint.ConstraintLayout>
 
                     <android.support.constraint.ConstraintLayout
@@ -126,22 +202,34 @@
 
                         <TextView
                             android:id="@+id/expirationDate"
-                            android:layout_width="match_parent"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
                             android:fontFamily="@font/nanum_gothic_regular"
+                            android:padding="2dp"
                             android:text="valabilitate"
                             android:textAlignment="center"
                             android:textAllCaps="true"
-                            android:textColor="@color/colorGreenSheen" />
+                            android:textColor="@color/colorGreenSheen"
+                            android:textSize="15sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
                             android:id="@+id/dataValabilitate"
-                            android:layout_width="match_parent"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/lora_regular"
                             android:paddingTop="20dp"
                             android:text="12.03.2018"
-                            android:textAlignment="center" />
+                            android:textAlignment="center"
+                            android:textColor="@color/darkGrey"
+                            android:textSize="16sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/expirationDate"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/expirationDate" />
                     </android.support.constraint.ConstraintLayout>
 
                 </LinearLayout>
@@ -159,7 +247,9 @@
                     android:paddingBottom="5dp"
                     android:paddingLeft="5dp"
                     android:paddingTop="5dp"
-                    android:text="postat acum x zile" />
+                    android:text="postat acum x zile"
+                    android:textColor="@color/darkGrey"
+                    android:textSize="15sp" />
 
                 <TextView
                     android:id="@+id/productLocation"
@@ -174,7 +264,9 @@
                     android:paddingBottom="5dp"
                     android:paddingLeft="5dp"
                     android:paddingTop="5dp"
-                    android:text="locatie aproximativa" />
+                    android:text="locatie aproximativa"
+                    android:textColor="@color/darkGrey"
+                    android:textSize="15sp" />
 
 
                 <fragment xmlns:android="http://schemas.android.com/apk/res/android"
@@ -189,7 +281,7 @@
                     android:id="@+id/productDetails"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
+                    android:layout_marginBottom="10dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:drawableLeft="@drawable/info"
@@ -199,72 +291,20 @@
                     android:paddingBottom="30dp"
                     android:paddingLeft="5dp"
                     android:paddingTop="5dp"
-                    android:text="detalii" />
+                    android:text="detalii"
+                    android:textColor="@color/darkGrey"
+                    android:textSize="15sp" />
 
             </LinearLayout>
-
-
-        </ScrollView>
-
-    </LinearLayout>
-
-    <ImageView
-        android:id="@+id/backgroundLayout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="390dp"
-        android:orientation="horizontal"
-        android:scaleType="fitCenter"
-        app:layout_constraintBottom_toTopOf="@+id/btnTakeProduct"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/backgroundProductImage">
-
-
-    </ImageView>
-
-    <ImageView
-        android:id="@+id/userProfileImage"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_gravity="top|start"
-        android:layout_marginBottom="515dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/btnTakeProduct"
-        app:layout_constraintEnd_toStartOf="@+id/usernameanunt"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/useravatar"
-        android:contentDescription="@string/userProfile" />
-
-    <TextView
-        android:id="@+id/usernameanunt"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_weight="1"
-        android:background="#000"
-        android:paddingBottom="3dp"
-        android:paddingLeft="5dp"
-        android:paddingRight="15dp"
-        android:paddingTop="5dp"
-        android:text="username posesor"
-        android:textAllCaps="true"
-        android:textColor="#fff"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        tools:layout_editor_absoluteX="102dp"
-        tools:layout_editor_absoluteY="188dp" />
+        </LinearLayout>
+    </ScrollView>
 
     <Button
         android:id="@+id/btnTakeProduct"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="1dp"
-        android:background="@color/colorAccent"
+        android:layout_marginBottom="2dp"
+        android:background="@color/colorGreenSheen"
         android:fontFamily="@font/nanum_gothic_regular"
         android:text="contacteaza"
         android:textColor="@color/grayBackgound"

@@ -66,6 +66,7 @@ String currentUsername;
                             json.put("tranzactie", tranzactie);
                             AddReviewTask addReviewTask = new AddReviewTask(getApplicationContext());
                             addReviewTask.execute(json);
+                            Toast.makeText(getApplicationContext(), currentUsername+"-"+user+"+"+detalii.getText().toString()+"-"+iNota+"-"+tranzactie, Toast.LENGTH_LONG).show();
                             finish();
                         } catch (JSONException e) {
                             e.printStackTrace();

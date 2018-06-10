@@ -46,8 +46,6 @@ public class ExecuteInsertTasks extends AsyncTask<HashMap<String, String>, Void,
         try {
             String queryData = "";
             URL url = new URL(GeneralConstants.URL+"/test.php");
-
-            //URL url = new URL("http://10.38.31.11:8080/greenapp/test.php");
             HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
 
             httpURLConnection.setRequestMethod("POST");
@@ -69,7 +67,7 @@ public class ExecuteInsertTasks extends AsyncTask<HashMap<String, String>, Void,
                             + URLEncoder.encode("email","UTF-8") + "=" + URLEncoder.encode(context.getSharedPreferences(
                             GeneralConstants.SESSION, Context.MODE_PRIVATE
                     ).getString(SharedPreferencesConstants.EMAIL,null),"UTF-8") + "&"
-                            + URLEncoder.encode("data", "UTF-8") + "=" + URLEncoder.encode(values.get("data_introducerii"), "UTF-8") + "&"
+                            + URLEncoder.encode("data_introducerii", "UTF-8") + "=" + URLEncoder.encode(values.get("data_introducerii"), "UTF-8") + "&"
                             + URLEncoder.encode("durata", "UTF-8") + "=" + URLEncoder.encode(values.get("durata"), "UTF-8") + "&"
                             + URLEncoder.encode("tip", "UTF-8") + "=" + URLEncoder.encode(values.get("tip"), "UTF-8") + "&"
                             + URLEncoder.encode("denumire", "UTF-8") + "=" + URLEncoder.encode(values.get("denumire"), "UTF-8") + "&"
@@ -86,7 +84,7 @@ public class ExecuteInsertTasks extends AsyncTask<HashMap<String, String>, Void,
                             + URLEncoder.encode("email","UTF-8") + "=" + URLEncoder.encode(context.getSharedPreferences(
                                     GeneralConstants.SESSION, Context.MODE_PRIVATE
                     ).getString(SharedPreferencesConstants.EMAIL,null),"UTF-8") + "&"
-                            + URLEncoder.encode("data", "UTF-8") + "=" + URLEncoder.encode(values.get("data_introducerii"), "UTF-8") + "&"
+                            + URLEncoder.encode("data_introducerii", "UTF-8") + "=" + URLEncoder.encode(values.get("data_introducerii"), "UTF-8") + "&"
                             + URLEncoder.encode("durata", "UTF-8") + "=" + URLEncoder.encode(values.get("durata"), "UTF-8") + "&"
                             + URLEncoder.encode("tip", "UTF-8") + "=" + URLEncoder.encode(values.get("tip"), "UTF-8") + "&"
                             + URLEncoder.encode("denumire", "UTF-8") + "=" + URLEncoder.encode(values.get("denumire"), "UTF-8") + "&"

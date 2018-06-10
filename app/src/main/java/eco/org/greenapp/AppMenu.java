@@ -13,6 +13,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.design.widget.NavigationView;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -22,6 +23,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -84,6 +87,9 @@ public class AppMenu extends AppCompatActivity
         setSupportActionBar(toolbar);
 
 
+
+
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -141,7 +147,7 @@ public class AppMenu extends AppCompatActivity
                     case R.id.nav_two:
                        // setFragment(frtwo);
                         AlertDialog.Builder builder = new AlertDialog.Builder(AppMenu.this);
-                        builder.setMessage("Ce tip de anunt doriti sa introduceti?")
+                        builder.setMessage("Ce tip de anunț doriți să introduceți?")
                                 .setPositiveButton("Oferta", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
                                         startActivityForResult(new Intent(getApplicationContext(), AddProduct.class), 55);

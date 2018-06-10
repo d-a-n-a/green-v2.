@@ -1,20 +1,12 @@
 package eco.org.greenapp.eco.org.greenapp.activities;
 
-import android.app.ActionBar;
-import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.net.Uri;
-import android.provider.ContactsContract;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -28,14 +20,13 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.text.ParseException;
-import java.util.Calendar;
 import java.util.Date;
 
 import eco.org.greenapp.R;
-import eco.org.greenapp.eco.org.greenapp.GetImageTask;
 import eco.org.greenapp.eco.org.greenapp.ProductImageTask;
 import eco.org.greenapp.eco.org.greenapp.classes.Advertisement;
 import eco.org.greenapp.eco.org.greenapp.constants.GeneralConstants;
+import eco.org.greenapp.eco.org.greenapp.enumerations.TipAnunt;
 
 public class AdForProduct extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -44,8 +35,7 @@ public class AdForProduct extends AppCompatActivity implements OnMapReadyCallbac
     Advertisement ad;
     Intent intent;
 
-
-    TextView denumireProdus;
+     TextView denumireProdus;
     TextView descriereProdus;
     TextView categorie;
     TextView valabilitate;
@@ -85,7 +75,7 @@ public class AdForProduct extends AppCompatActivity implements OnMapReadyCallbac
              ad = (Advertisement)intent.getSerializableExtra("selectedAd");
         produtPhoto = (ImageView)findViewById(R.id.backgroundLayout);
 
-        if(ad.getTip().equals("doresc")){
+        if(ad.getTip().equals(TipAnunt.cerere)){
             produtPhoto.setPadding(30,30,30,30);
             produtPhoto.setBackground(getDrawable(R.drawable.wanted));
          }
@@ -155,6 +145,7 @@ Log.i("days", ""+days);
                     Toast.makeText(getApplicationContext(),"Aplicatia Gmail nu este instalata pe dispozitiv.",Toast.LENGTH_SHORT).show();
             }
         });
+
     }
 
     @Override

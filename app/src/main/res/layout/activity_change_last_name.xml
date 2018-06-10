@@ -30,8 +30,10 @@
         android:layout_marginRight="20dp"
         android:layout_marginTop="48dp"
         android:background="@drawable/button_diverse"
+        android:fontFamily="@font/nanum_gothic_regular"
+        android:letterSpacing=".2"
         android:text="@string/btnUpdateAboutMe"
-        android:textColor="@color/colorGreenSheen"
+        android:textColor="@color/colorPrimaryDark"
         android:textStyle="bold" />
 
     <android.support.design.widget.FloatingActionButton

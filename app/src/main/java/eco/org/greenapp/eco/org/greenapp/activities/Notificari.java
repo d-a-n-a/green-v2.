@@ -73,7 +73,7 @@ public class Notificari extends AppCompatActivity {
         });
 
 
-                //todo citit -> true
+                //todo citit -> true --- update 1 -: cred ca am facut asta deja. sa vad daca am cursor
                 //eliminare din lista
                 //inserare cu cursor in notificari_useri
 
@@ -194,7 +194,8 @@ public class Notificari extends AppCompatActivity {
                 adapterNotificare.notifyDataSetChanged();
             else
                 if(s.equals(GeneralConstants.FAIL))
-                    Toast.makeText(getApplicationContext(), "Ups... something went wrong. [Notificari.java(190)]", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Ups... something went wrong. [Notificari.java(197)]", Toast.LENGTH_LONG).show();
          }
      }
 }
+//TODO CAUTA EMULATO BUN CA SA FIE FINAAAAAAAALL!!!

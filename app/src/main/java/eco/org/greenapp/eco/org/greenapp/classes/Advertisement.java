@@ -10,22 +10,10 @@ public class Advertisement implements Serializable{
     private int id;
     private String dataPostarii;
     private String tip;
-    private String descriereProdus;//care e de fapt descriere de la anunt
+    private String descriereProdus;
     private Status statusAnunt;
     private User user;
-   // private String username;
-   // private String email;
-   // private String locatieUser;
-   // private float latitudine;
-   //  private float longitudine;
-
-    //private String statusAnunt;
     private Produs produs;
-    /*private String denumireProdus;
-    private String valabilitate;
-    private String categorie;//pe asta o gasesc in produs
-    private String url;
-    private String detaliiAnunt;//asta e descriere din anunturi table; ba nu, asta cred ca e de fapt detalii din produs*/
     private float distanta;
 
     public Advertisement(){}

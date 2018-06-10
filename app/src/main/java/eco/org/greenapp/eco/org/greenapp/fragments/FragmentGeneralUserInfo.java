@@ -88,6 +88,7 @@ public class FragmentGeneralUserInfo extends Fragment {
         barChart.setDescriptionPosition(0, 0);//REVERIFICARE
         //TODO ar fi bine sa pun int nu float la valorile luate pe axe
         barChart.animateXY(2000, 2000);
+
         barChart.invalidate();
         return view;
 

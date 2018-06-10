@@ -24,6 +24,7 @@ import java.util.HashMap;
 
 import eco.org.greenapp.R;
 import eco.org.greenapp.eco.org.greenapp.constants.GeneralConstants;
+import eco.org.greenapp.eco.org.greenapp.enumerations.TipAnunt;
 import eco.org.greenapp.eco.org.greenapp.profile_activities.ExecuteInsertTasks;
 
 public class AddDemandProduct extends AppCompatActivity implements OnMapReadyCallback {
@@ -64,22 +65,20 @@ public class AddDemandProduct extends AppCompatActivity implements OnMapReadyCal
 
 
                         Date date = Calendar.getInstance().getTime();
-                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MMMM-yyyy");
-                        String dataIntroducerii = simpleDateFormat.format(date);
+                         String dataIntroducerii = GeneralConstants.SDF.format(date);
 
-                        final String valabilitate = "0";
+                        final String valabilitate = "0000-00-00";
                         valori.put("cod", GeneralConstants.INSERT_DEMAND);
                         valori.put("email", getSharedPreferences(GeneralConstants.SESSION, Context.MODE_PRIVATE).getString("email",null));
                         valori.put("data_introducerii", dataIntroducerii);
                         valori.put("durata", durataAnunt.getText().toString());
-                        valori.put("tip", "doresc");
+                        valori.put("tip", TipAnunt.cerere.toString());
                         valori.put("denumire", denumireProdus.getText().toString().trim());
                         valori.put("valabilitate", valabilitate);
-                        valori.put("categorie", categorie.getSelectedItem().toString());
+                        valori.put("categorie", categorie.getSelectedItem().toString().toLowerCase());
                         valori.put("detalii", detaliiPredare.getText().toString().trim());
                         valori.put("descriere", descriereProdus.getText().toString().trim());
-
-                        ExecuteInsertTasks executeInsertTasks  = new ExecuteInsertTasks(getApplicationContext());
+                         ExecuteInsertTasks executeInsertTasks  = new ExecuteInsertTasks(getApplicationContext());
                         executeInsertTasks.execute(valori);
                         finish();
                     }

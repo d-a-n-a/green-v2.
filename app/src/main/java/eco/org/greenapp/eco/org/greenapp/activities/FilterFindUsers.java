@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -100,14 +101,6 @@ String maxDistanta;
         btnFiltrare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               /* if(selectie == 0)
-                    Toast.makeText(getApplicationContext(), "Alegeti cel putin un criteriu.", Toast.LENGTH_SHORT).show();
-                else
-                    if(!cbOferte.isSelected() && !cbCereri.isSelected())
-                        Toast.makeText(getApplicationContext(), "Selectati Cereri si/sau Oferte", Toast.LENGTH_LONG).show();
-                    else
-                    {*/
-
                         latitudine = getSharedPreferences(GeneralConstants.SESSION, Context.MODE_PRIVATE)
                                     .getString(SharedPreferencesConstants.LATITUDINE, null);
                         longitudine = getSharedPreferences(GeneralConstants.SESSION, Context.MODE_PRIVATE)
@@ -122,15 +115,13 @@ String maxDistanta;
 
 
                         GetUsersByCriteria getUsersByCriteria = new GetUsersByCriteria();
-                       // Toast.makeText(getApplicationContext(), latitudine+"   "+longitudine, Toast.LENGTH_LONG).show();
-                        getUsersByCriteria.execute(latitudine, longitudine,
+                         getUsersByCriteria.execute(""+latitudine, ""+longitudine,
                                 ""+tipCerere, ""+tipOferta,
                                 ""+catHaine, ""+catAlimente, ""+catAltele,
-                                maxDistanta);
+                                ""+maxDistanta);
 
+                     }
 
-                    }
-          //  }
         });
     }
 
@@ -158,7 +149,7 @@ String maxDistanta;
             alimente = strings[5];
             altele = strings[6];
             distanta = strings[7];
-            try {
+           try {
                 URL url = new URL(GeneralConstants.URL+"/find_users.php");
                 HttpURLConnection http = (HttpURLConnection) url.openConnection();
 
@@ -175,7 +166,7 @@ String maxDistanta;
                         +URLEncoder.encode("alimente", "UTF-8") + "=" + URLEncoder.encode(""+alimente, "UTF-8") + "&"
                         +URLEncoder.encode("haine", "UTF-8") + "=" + URLEncoder.encode(""+haine, "UTF-8") +  "&"
                         +URLEncoder.encode("altele", "UTF-8") + "=" + URLEncoder.encode(""+altele, "UTF-8") + "&"
-                        +URLEncoder.encode("distanta", "UTF-8") + "=" + URLEncoder.encode(""+(200+distanta), "UTF-8");
+                        +URLEncoder.encode("distanta", "UTF-8") + "=" + URLEncoder.encode(""+(distanta), "UTF-8");
                 bufferedWriter.write(findUsers);
 
                 bufferedWriter.flush();
@@ -194,7 +185,7 @@ String maxDistanta;
                 http.disconnect();
 
                 return updateResult;
-            } catch (MalformedURLException e) {
+             }catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
@@ -209,51 +200,8 @@ String maxDistanta;
         @Override
             protected void onPostExecute(String s) {
 
-/*if(s!=null){
-    try {
-        JSONArray jsonArray = new JSONArray(s);
-       // Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
-
-        for(int i=0; i<jsonArray.length(); i++){
-            JSONObject jsonObject = jsonArray.getJSONObject(i);
-            UserFiltru user  = new UserFiltru();
-            user.setMedieReviews(Float.parseFloat(jsonObject.getString("review")));
-            user.setUrlProfil(jsonObject.getString("fotografie"));
-            user.setUsername(jsonObject.getString("username"));
-            user.setLocatie(jsonObject.getString("strada"));
-            listaUtilizatori.add(user);
-        }
-        if(listaUtilizatori.size() > 0) {
-            Intent intent = new Intent(getApplicationContext(), UsersFilterList.class);
-            intent.putExtra("listaUtilizatori", (Serializable) listaUtilizatori);
-            startActivity(intent);
-        }
-        else
-        {
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(FilterFindUsers.this);
-            alertDialog.setMessage("Nu s-a gasit niciun utilizator conform criteriilor.");
-
-            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    try {
-                        finalize();
-                    } catch (Throwable throwable) {
-                        throwable.printStackTrace();
-                    }
-                } });
-
-            alertDialog.show();
-        }
-    } catch (JSONException e) {
-        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
-
-        e.printStackTrace();
-    }
-
-}*/
 if (s != null) {
     try {
-
         JSONArray vectorAds = new JSONArray(s);
         for (int i = 0; i < vectorAds.length(); i++) {
             JSONObject adItem = vectorAds.getJSONObject(i);
@@ -292,28 +240,27 @@ if (s != null) {
             listaUtilizatori.add(ad);
         }
        if(listaUtilizatori.size() > 0) {
-//            Toast.makeText(getApplicationContext(), listaUtilizatori.size(), Toast.LENGTH_LONG).show();
-             Intent intent = new Intent(getApplicationContext(), UsersFilterList.class);
+           Intent intent = new Intent(getApplicationContext(), UsersFilterList.class);
             intent.putExtra("listaUtilizatori", (Serializable) listaUtilizatori);
             startActivity(intent);
        }
-        else
-        {
-             AlertDialog.Builder alertDialog = new AlertDialog.Builder(FilterFindUsers.this);
-            alertDialog.setMessage("Nu s-a gasit niciun anunt conform criteriilor.");
+        else {
+           AlertDialog.Builder alertDialog = new AlertDialog.Builder(FilterFindUsers.this);
+           alertDialog.setMessage("Nu s-a găsit niciun anunț conform criteriilor.");
 
-            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    try {
-                        finalize();
-                    } catch (Throwable throwable) {
-                        throwable.printStackTrace();
-                    }
-                } });
+           alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+               public void onClick(DialogInterface dialog, int which) {
+                   try {
+                       finalize();
+                   } catch (Throwable throwable) {
+                       throwable.printStackTrace();
+                   }
+               }
+           });
 
-            alertDialog.show();
-        }
-    } catch (JSONException e) {
+           alertDialog.show();
+       }
+    } catch (Exception e) {
         e.printStackTrace();
     }
 }

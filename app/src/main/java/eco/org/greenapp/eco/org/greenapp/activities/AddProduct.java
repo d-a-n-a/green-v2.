@@ -3,6 +3,7 @@ package eco.org.greenapp.eco.org.greenapp.activities;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.support.design.widget.Snackbar;
 import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -39,6 +40,7 @@ import java.util.HashMap;
 import eco.org.greenapp.R;
 import eco.org.greenapp.eco.org.greenapp.ExecuteRequests;
 import eco.org.greenapp.eco.org.greenapp.constants.GeneralConstants;
+import eco.org.greenapp.eco.org.greenapp.enumerations.TipAnunt;
 import eco.org.greenapp.eco.org.greenapp.profile_activities.ExecuteInsertTasks;
 
 import static eco.org.greenapp.eco.org.greenapp.constants.GeneralConstants.URL;
@@ -128,7 +130,7 @@ public class AddProduct extends AppCompatActivity implements NavigationView.OnNa
 
 
                 if(!checkProductName() || !checkProductDesctiption() || !checkCategory() || !checkDetails())
-                    Toast.makeText(getApplicationContext(), "completati campurile corespunzator!", Toast.LENGTH_LONG).show();
+                    Snackbar.make(findViewById(R.id.btnAddAd), "Trebuie completate toate câmpurile!", Snackbar.LENGTH_LONG).show();
                 else {
 
                     Date date = Calendar.getInstance().getTime();
@@ -138,12 +140,12 @@ public class AddProduct extends AppCompatActivity implements NavigationView.OnNa
                     values.put("email", getSharedPreferences(GeneralConstants.SESSION, Context.MODE_PRIVATE).getString("email",null));
                     values.put("data_introducerii", dataIntroducerii);
                     values.put("durata", etDurata.getText().toString());
-                    values.put("tip", "ofer");
+                    values.put("tip", TipAnunt.oferta.toString());
                     values.put("denumire", txtProductName.getText().toString().trim());
 
                         values.put("valabilitate", valabilitate);
 
-                    values.put("categorie", productCategory.getSelectedItem().toString());
+                    values.put("categorie", productCategory.getSelectedItem().toString().toLowerCase());
                     values.put("detalii", etDetails.getText().toString().trim());
                     values.put("descriere", etProductDescription.getText().toString().trim());
 

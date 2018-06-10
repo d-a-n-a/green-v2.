@@ -2,6 +2,7 @@ package eco.org.greenapp.eco.org.greenapp;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.support.design.widget.Snackbar;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -19,6 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import eco.org.greenapp.R;
 import eco.org.greenapp.eco.org.greenapp.constants.GeneralConstants;
 
 
@@ -92,7 +94,7 @@ public class AddReviewTask  extends AsyncTask<JSONObject, Void, String>{
     protected void onPostExecute(String s) {
         if(s!=null)
         {
-       //     Toast.makeText(context.getApplicationContext(), s, Toast.LENGTH_LONG).show();
+            Toast.makeText(context.getApplicationContext(), s+"Adăugare cu succes!", Toast.LENGTH_LONG).show();
         }
         else
         {

@@ -131,13 +131,14 @@ dd.setText("{"+user.get("distanta")+" - "+user.get("durata"));
 
                     if(jsonObject.getString("review").equals("0")) {
                         nota = "" + 0;
-                        txtView.setText("0/10");
+                        txtView.setText("0/5");
                     }
                     else {
                         nota = jsonObject.getString("review");
                         nota = String.format("%.2f", Float.parseFloat(nota));
-                        txtView.setText(Float.parseFloat(nota) + "/10");
+                        txtView.setText(nota + "/5");
                     }
+                    //todo aici sa pun direct poza default ca la utilizatori oricum raman sigur aceleasi, ma rog aceeasi poza default user
                     String imgUrl = GeneralConstants.Url+jsonObject.getString("foto");
                     if(!jsonObject.getString("foto").isEmpty() && !(jsonObject.getString("foto")==null) )
                         new GetImageTask((ImageView) imageView, context).execute(imgUrl);

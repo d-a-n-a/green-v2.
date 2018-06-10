@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
@@ -73,6 +74,7 @@ import eco.org.greenapp.eco.org.greenapp.adapters.UsersAdapter;
 import eco.org.greenapp.eco.org.greenapp.classes.Locatie;
 import eco.org.greenapp.eco.org.greenapp.classes.User;
 import eco.org.greenapp.eco.org.greenapp.constants.GeneralConstants;
+import eco.org.greenapp.eco.org.greenapp.constants.SharedPreferencesConstants;
 import eco.org.greenapp.eco.org.greenapp.maps.JSONMaps;
 
 public class UsersByLocation extends AppCompatActivity implements OnMapReadyCallback {
@@ -116,11 +118,6 @@ public class UsersByLocation extends AppCompatActivity implements OnMapReadyCall
 
         secondUsersAdapter = new SecondUsersAdapter(getApplication(),R.layout.user_item, listaMapare);
         listViewUsersByLocation.setAdapter(secondUsersAdapter);
-
-
-       // adapter = new UsersAdapter(getApplicationContext(), R.layout.user_item, lista);
-       // listViewUsersByLocation.setAdapter(adapter);
-
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
         if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
@@ -232,7 +229,9 @@ public class UsersByLocation extends AppCompatActivity implements OnMapReadyCall
 
                         distanta = spinnerDistanta.getSelectedItem().toString();
                         GetUsersByLocation getUsersByLocation = new GetUsersByLocation();
-                        getUsersByLocation.execute("" + latitudine, "" + longitudine, distanta, "alina");
+                        getUsersByLocation.execute("" + latitudine, "" + longitudine, distanta,
+                                getSharedPreferences(GeneralConstants.SESSION, Context.MODE_PRIVATE)
+                                .getString(GeneralConstants.TOKEN,null));
                     }
                 });
             }
@@ -328,7 +327,7 @@ public class UsersByLocation extends AppCompatActivity implements OnMapReadyCall
                 //Snackbar.make(findViewById(R.id.idScrollUsers), "Nu s-a gasit niciun utilizator conform criteriilor.", Snackbar.LENGTH_LONG).show();
             {
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(UsersByLocation.this);
-                alertDialog.setMessage("Nu s-a gasit niciun utilizator in apropiere.");
+                alertDialog.setMessage("Nu s-a găsit niciun utilizator în apropiere.");
 
                 alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
@@ -344,7 +343,7 @@ public class UsersByLocation extends AppCompatActivity implements OnMapReadyCall
             if(s.equals(GeneralConstants.RESULT_NOT_OK))
                 //
                 // Toast.makeText(getApplicationContext(), "Ups.. eroare preluare utilizatori dupa locatie. (UsersByLocation)", Toast.LENGTH_LONG).show();
-                Snackbar.make(findViewById(R.id.idScrollUsers), "Ups.. eroare preluare utilizatori dupa locatie", Snackbar.LENGTH_LONG).show();
+                Snackbar.make(findViewById(R.id.idScrollUsers), "Ups.. eroare preluare utilizatori după locație", Snackbar.LENGTH_LONG).show();
 
             else {
                /* for (int i = 0; i<s.size(); i++){
@@ -557,3 +556,6 @@ for(int t=0;t< lists.size();t++){
         }
     }
 }
+
+//todo cred ca asta de fapt a mers asa altfel nu stiu i-am facut alta functionalitate cumva
+//update 9 iunie: cred ca "merge" pentru ca l-am pus sa astepte 2 secunde, ca sa vina toate datele      Thread.sleep(2000);

@@ -26,18 +26,18 @@
         android:layout_height="match_parent"
         android:layout_weight="2.3"
         android:orientation="vertical"
-        android:weightSum="2">
+        android:weightSum="3">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="0.5"
             android:weightSum="2">
 
             <TextView
                 android:id="@+id/reviewerUsername"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="5dp"
                 android:layout_weight="1"
@@ -50,7 +50,7 @@
             <TextView
                 android:id="@+id/dateOfReview"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:layout_weight="1"
                 android:fontFamily="@font/nanum_gothic_regular"
@@ -62,7 +62,7 @@
         <TextView
             android:id="@+id/reviewContent"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:fontFamily="@font/lora_regular"
             android:padding="10dp" />
@@ -70,9 +70,9 @@
         <TextView
             android:id="@+id/reviewScore"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.5"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
+            android:layout_weight="0.5"
             android:elevation="2dp"
             android:textStyle="bold" />
     </LinearLayout>

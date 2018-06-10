@@ -24,12 +24,16 @@
         android:id="@+id/btnUpdatePhone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/etPhoneInput"
         android:layout_below="@+id/etPhoneInput"
-        android:layout_marginTop="41dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="43dp"
         android:background="@drawable/button_diverse"
+        android:fontFamily="@font/nanum_gothic_regular"
+        android:letterSpacing=".2"
         android:text="@string/btnUpdateAboutMe"
-        android:textColor="@color/colorGreenSheen"
+        android:textColor="@color/colorPrimaryDark"
         android:textStyle="bold" />
 
     <android.support.design.widget.FloatingActionButton
