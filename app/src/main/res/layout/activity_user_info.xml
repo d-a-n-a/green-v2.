@@ -25,133 +25,132 @@
                 app:srcCompat="@drawable/back" />
         </RelativeLayout>
 
-        <RelativeLayout
-            android:id="@+id/bottomLayout"
+    <RelativeLayout
+        android:id="@+id/bottomLayout"
+        android:layout_width="match_parent"
+        android:layout_height="600dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/userProfilePicture">
+
+        <TextView
+            android:id="@+id/username"
             android:layout_width="match_parent"
-            android:layout_height="530dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/userProfilePicture">
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="40dp"
+            android:fontFamily="@font/nanum_gothic_regular"
+            android:text="@string/user"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            tools:ignore="HardcodedText" />
 
-            <TextView
-                android:id="@+id/username"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="40dp"
-                android:fontFamily="@font/nanum_gothic_regular"
-                android:text="@string/user"
-                android:textAlignment="center"
-                android:textAllCaps="true"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                tools:ignore="HardcodedText" />
+        <RatingBar
+            android:id="@+id/ratingUser"
+            style="?android:attr/ratingBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/username"
+            android:layout_centerHorizontal="true"
+            android:numStars="5" />
 
-            <RatingBar
-                android:id="@+id/ratingUser"
-                style="?android:attr/ratingBarStyleSmall"
-                android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/buttonsLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="90dp"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <Button
+                android:id="@+id/button3"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/username"
-                android:layout_centerHorizontal="true"
-                android:numStars="5" />
+                android:layout_weight="1"
+                android:background="@drawable/custom_button_profile_options"
+                android:letterSpacing=".2"
+                android:onClick="selectionOfFragment"
+                android:text="@string/adds"
+                android:textColor="@color/colorGreenSheen"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btnTakeProduct"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/custom_button_profile_options"
+                android:letterSpacing=".2"
+                android:onClick="selectionOfFragment"
+                android:text="@string/review"
+                android:textColor="@color/colorGreenSheen"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/button5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/buttonsLayout"
+                android:layout_alignTop="@+id/buttonsLayout"
+                android:layout_weight="1"
+                android:background="@drawable/custom_button_profile_options"
+                android:letterSpacing=".2"
+                android:onClick="selectionOfFragment"
+                android:selectAllOnFocus="false"
+                android:text="@string/about"
+                android:textColor="@color/colorGreenSheen"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/fragmentArea"
+            android:name="eco.org.greenapp.FragmentGeneralUserInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/buttonsLayout"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp">
 
             <LinearLayout
-                android:id="@+id/buttonsLayout"
+                android:id="@+id/hiddenLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="90dp"
-                android:orientation="horizontal"
-                android:weightSum="3">
+                android:layout_height="700dp"
+                android:gravity="center_vertical|center_horizontal"
+                android:orientation="vertical">
 
-                <Button
-                    android:id="@+id/button3"
-                    android:layout_width="0dp"
+                <TextView
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/custom_button_profile_options"
-                    android:letterSpacing=".2"
-                    android:onClick="selectionOfFragment"
-                    android:text="@string/adds"
-                    android:textColor="@color/colorGreenSheen"
-                    android:textStyle="bold" />
-
-                <Button
-                    android:id="@+id/btnTakeProduct"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/custom_button_profile_options"
-                    android:letterSpacing=".2"
-                    android:onClick="selectionOfFragment"
-                    android:text="@string/review"
-                    android:textColor="@color/colorGreenSheen"
-                    android:textStyle="bold" />
-
-                <Button
-                    android:id="@+id/button5"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_alignEnd="@+id/buttonsLayout"
-                    android:layout_alignTop="@+id/buttonsLayout"
-                    android:layout_weight="1"
-                    android:background="@drawable/custom_button_profile_options"
-                    android:letterSpacing=".2"
-                    android:onClick="selectionOfFragment"
-                    android:selectAllOnFocus="false"
-                    android:text="@string/about"
-                    android:textColor="@color/colorGreenSheen"
-                    android:textStyle="bold" />
+                    android:fontFamily="@font/crimson_regular"
+                    android:textAlignment="center"
+                    android:textSize="20sp" />
 
             </LinearLayout>
+        </FrameLayout>
 
-            <FrameLayout
-                android:id="@+id/fragmentArea"
-                android:name="eco.org.greenapp.FragmentGeneralUserInfo"
-                android:layout_width="match_parent"
-                android:layout_height="340dp"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/buttonsLayout"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="10dp">
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/floatingMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/username"
+            android:layout_alignEnd="@+id/buttonsLayout"
+            android:layout_gravity="bottom|right"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:visibility="visible"
+            app:backgroundTint="@color/colorDiverse"
+            app:srcCompat="@drawable/messages" />
 
-                <LinearLayout
-                    android:id="@+id/hiddenLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical|center_horizontal"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/crimson_regular"
-                        android:textAlignment="center"
-                        android:textSize="20sp" />
-
-                </LinearLayout>
-            </FrameLayout>
-
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/floatingMessage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/username"
-                android:layout_alignEnd="@+id/buttonsLayout"
-                android:layout_gravity="bottom|right"
-                android:layout_weight="1"
-                android:clickable="true"
-                android:visibility="visible"
-                app:backgroundTint="@color/colorDiverse"
-                app:srcCompat="@drawable/messages" />
-
-        </RelativeLayout>
+    </RelativeLayout>
 
         <ImageView
             android:id="@+id/userProfilePicture"

@@ -72,8 +72,10 @@ public class UserTransactionsAdapter extends ArrayAdapter<Transaction> {
 
         if(me.equals(tr.getExpeditor()))
             co.setText(TipAnunt.oferta.toString());
-        else
-            co.setText("");//nu are sens sa pun chiar cerere pentru ca nu e pe anuntul meu de cerere, e pe anuntul altcuiva de oferta
+        else {
+            co.setText("");
+            ((Button)view.findViewById(R.id.btnConfirm)).setVisibility(View.INVISIBLE);
+        }//nu are sens sa pun chiar cerere pentru ca nu e pe anuntul meu de cerere, e pe anuntul altcuiva de oferta
         strada.setText(tr.getLocatie());
         dataora.setText(tr.getData().toString()+" - "+tr.getOra());
 

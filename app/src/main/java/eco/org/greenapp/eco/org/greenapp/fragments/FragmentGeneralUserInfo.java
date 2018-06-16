@@ -85,8 +85,7 @@ public class FragmentGeneralUserInfo extends Fragment {
         barChart.setDescription("Număr de evaluări");
         barChart.setDescriptionTextSize(16);
         barChart.setDescriptionColor(Color.GREEN);
-        barChart.setDescriptionPosition(0, 0);//REVERIFICARE
-        //TODO ar fi bine sa pun int nu float la valorile luate pe axe
+        barChart.setDescriptionPosition(0, 0);
         barChart.animateXY(2000, 2000);
 
         barChart.invalidate();

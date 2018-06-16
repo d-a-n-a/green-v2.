@@ -252,7 +252,15 @@ startActivity(new Intent(getApplicationContext(), AboutApp.class));
                 break;
             }
             case R.id.nav_help: {
-                //TODO  de pus ce inseamna fiecare categorie si fiecare status la tranzactie, respectiv anunt
+                Intent intent = new Intent (Intent.ACTION_SEND);
+                intent.setType("message/rfc822");
+                intent.putExtra(Intent.EXTRA_EMAIL,"contact@green.app");
+                intent.putExtra(Intent.EXTRA_SUBJECT, "Contact ajutor ");
+                intent.setPackage("com.google.android.gm");
+                if (intent.resolveActivity(getPackageManager())!=null)
+                    startActivity(intent);
+                else
+                    Toast.makeText(getApplicationContext(),"Aplicatia Gmail nu este instalata pe dispozitiv.",Toast.LENGTH_SHORT).show();
                 break;
             }
 

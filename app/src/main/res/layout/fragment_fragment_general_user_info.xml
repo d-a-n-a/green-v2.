@@ -7,8 +7,7 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
@@ -42,7 +41,7 @@
         <FrameLayout
             android:id="@+id/graphicArea"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="400dp"
             android:layout_alignParentBottom="true"
             android:layout_below="@+id/signUpDateLayout"
             android:layout_centerHorizontal="true"
@@ -55,7 +54,7 @@
         <com.github.mikephil.charting.charts.HorizontalBarChart
             android:id="@+id/barChartH"
             android:layout_width="match_parent"
-            android:layout_height="320dp"
+            android:layout_height="250dp"
             android:layout_below="@+id/signUpDateLayout"
             android:layout_marginTop="30dp" />
 
