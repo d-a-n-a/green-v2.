@@ -7,4 +7,5 @@
  define("USERNAME_INVALID", "Username existent.");
  define("INSERT_ADD", "insert_add");
  define("SUCCESS", "success");
+ define("FAIL", "fail");
 ?>

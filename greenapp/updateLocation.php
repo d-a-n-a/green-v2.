@@ -51,5 +51,6 @@ else{
 	else
 		echo "fail";
 }
-
+ 
+$connect->close(); 
 ?>

@@ -19,11 +19,27 @@
 	$queryF->bind_result($foto);
 	$queryF->fetch();
 
-	if(is_null($avgNota ))
-		 $avgNota = -1;
-	$array = array("review" => $avgNota,"foto" => $foto);
-    echo json_encode($array);
+if(is_null($avgNota ))
+		 $avgNota = 0;
+$array = array("review" => $avgNota,"foto" => $foto);
+	for($ii = 1; $ii <= 5; $ii++){ 
+		 
+		$queryR = $connect->prepare("SELECT count(*) from users u, reviews r where  r.ID_USER = u.ID_USER
+		and r.nota = ? and u.username like ? ;");  
+		$queryR->bind_param('is',$ii, $username);
+		$queryR->execute();
+		$queryR->store_result();
+		$queryR->bind_result($nri);
+		$queryR->fetch();
+
+		array_push($array, $nri);
+}
+
+
 	
+    echo json_encode($array);
+ 
+
 
 
 

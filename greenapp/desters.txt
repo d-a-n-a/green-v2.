@@ -1,0 +1,26 @@
+begin
+
+    declare idtranzactie int(10) default 0; 
+    declare mesaj varchar(500);
+    declare us varchar(255);
+
+    set idtranzactie = old.ID_TRANZACTIE;
+    if(new.ID_STATUS = 6 OR new.ID_STATUS = 7) then
+ 	   insert into istoric(ID_TRANZACTIE, ID_EXPEDITOR, ID_DESTINATAR, ID_ANUNT, ID_STATUS, data_predare)
+       values (old.ID_TRANZACTIE, old.ID_EXPEDITOR, old.ID_DESTINATAR, old.ID_ANUNT, new.ID_STATUS, 		old.data_predare);
+    end if;
+    
+    if(new.ID_STATUS = 7) THEN
+    select username  into us from users WHERE ID_USER = old.ID_EXPEDITOR;
+    
+       
+    
+    insert INTO notificari(tip,citit,data,descriere) VALUES
+    ("USER", FALSE, SYSDATE(), us);
+    INSERT INTO notificari_useri(ID_NOTIFICARE, ID_USER)
+    VALUES (@@IDENTITY,old.ID_DESTINATAR);
+    
+    END IF;
+   
+   
+end

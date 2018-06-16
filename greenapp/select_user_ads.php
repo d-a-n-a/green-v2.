@@ -13,6 +13,5 @@ if ($result = $connect->query("SELECT a.ID_ANUNT as id, a.data_introducerii as d
     echo json_encode($myArray);
 }
 
-$result->close();
-$connect->close(); 
+ $connect->close(); 
 ?>

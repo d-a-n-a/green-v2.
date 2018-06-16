@@ -34,6 +34,8 @@ $iTranzactie = (int)$idTranzactie;
 		 if($insertReview->execute())
 		 	echo SUCCESS;
 		 else
-		 	echo "fail";
+		 	echo "fail ".mysqli_stmt_error($insertReview);
 
 ?>
+
+ 
