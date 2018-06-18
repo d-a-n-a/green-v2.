@@ -25,9 +25,11 @@
             android:value="AIzaSyCEa4xCNXzzumzQI074uiBhIYaq4tsOPjM" /> <!-- aici trebuie sa iau cheie noua, aia de la greenapp nu a mers; asta e de la proiect dam -->
         <activity
             android:name=".eco.org.greenapp.activities.SignIn"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"> <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
 
-        </activity>
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter></activity>
         <activity
             android:name=".eco.org.greenapp.activities.CreateAccount"
             android:label="Înregistrare" />
@@ -71,7 +73,9 @@
         <activity
             android:name=".AppMenu"
             android:label="Flux de anunțuri"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar" >
+
+        </activity>
         <activity android:name=".eco.org.greenapp.activities.Home">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -181,13 +185,16 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="eco.org.greenapp.AppMenu" />
         </activity>
-        <activity android:name=".eco.org.greenapp.activities.RaportCategorii"
+        <activity
+            android:name=".eco.org.greenapp.activities.RaportCategorii"
             android:label="Categorii">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        </activity>
+        <activity android:name=".eco.org.greenapp.activities.TopUtilizatori"
+            android:label="Top utilizatori">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="eco.org.greenapp.AppMenu" />
         </activity>
     </application>
 

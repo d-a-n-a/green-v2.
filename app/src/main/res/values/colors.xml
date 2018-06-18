@@ -29,7 +29,8 @@
     <color name="darkGrey">#484848</color>
  <color name="accent">#fd6aa3</color>
     <color name="orange">#ff780b</color>
-
+    <color name="bluefm">#99e0b4</color>
+    <color name= "redfm">#e1667f</color>
 
 
 </resources>

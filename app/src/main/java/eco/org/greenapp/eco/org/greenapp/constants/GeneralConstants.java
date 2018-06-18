@@ -35,8 +35,8 @@ public class GeneralConstants {
     public static final String URL = "http://192.168.1.174:8080/greenapp";
     public static final String Url = "http://192.168.1.174:8080";
 *///
- public static final String URL = "http://10.38.31.11:8080/greenapp";
- public static final String Url = "http://10.38.31.11:8080";
+/* public static final String URL = "http://10.38.31.11:8080/greenapp";
+ public static final String Url = "http://10.38.31.11:8080";*/
 //
 //
 
@@ -51,6 +51,7 @@ public class GeneralConstants {
    /*public static final String URL = "http://10.38.31.32:8080/greenapp";
     public static final String Url = "http://10.38.31.32:8080";*/
 
-
+    public static final String URL = "http://192.168.0.101:8080/greenapp";
+    public static final String Url = "http://192.168.0.101:8080";
 
 }

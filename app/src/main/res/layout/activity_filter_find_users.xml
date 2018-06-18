@@ -22,7 +22,7 @@
             android:id="@+id/textView4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Cautare utilizatori in functie de urmatoarele criterii."
+            android:text="Căutare anunțuri în funcție de următoarele criterii."
             android:textSize="15sp" />
 
         <TextView

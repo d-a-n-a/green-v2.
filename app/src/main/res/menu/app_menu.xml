@@ -4,8 +4,12 @@
     <item
         android:id="@+id/findUsersByLocation"
         android:orderInCategory="100"
-        android:title="search users by location"
+        android:title="cautare utilizatori dupa locatie"
         app:showAsAction="always"
         android:icon="@drawable/find_location"/>
-
+    <item
+        android:id="@+id/idTopUsers"
+        android:title="top 3 utilizatori"
+        app:showAsAction="always"
+        android:icon="@drawable/top_icon"/>
 </menu>

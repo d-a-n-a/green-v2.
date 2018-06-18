@@ -51,6 +51,7 @@ import eco.org.greenapp.eco.org.greenapp.activities.MyProfile;
 import eco.org.greenapp.eco.org.greenapp.activities.Notificari;
 import eco.org.greenapp.eco.org.greenapp.activities.ProfileSettings;
 import eco.org.greenapp.eco.org.greenapp.activities.SignIn;
+import eco.org.greenapp.eco.org.greenapp.activities.TopUtilizatori;
 import eco.org.greenapp.eco.org.greenapp.activities.UsersByLocation;
 import eco.org.greenapp.eco.org.greenapp.classes.Notificare;
 import eco.org.greenapp.eco.org.greenapp.constants.GeneralConstants;
@@ -213,7 +214,11 @@ public class AppMenu extends AppCompatActivity
             startActivity(new Intent(getApplicationContext(), UsersByLocation.class));
             return true;
         }
-
+else
+        if (id == R.id.idTopUsers) {
+            startActivity(new Intent(getApplicationContext(), TopUtilizatori.class));
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 
