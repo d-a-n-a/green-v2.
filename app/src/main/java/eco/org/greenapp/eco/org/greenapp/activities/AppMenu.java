@@ -1,11 +1,9 @@
-package eco.org.greenapp;
+package eco.org.greenapp.eco.org.greenapp.activities;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,7 +11,6 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.design.widget.NavigationView;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -23,16 +20,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -43,17 +34,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 
+import eco.org.greenapp.R;
 import eco.org.greenapp.eco.org.greenapp.GetImageTask;
-import eco.org.greenapp.eco.org.greenapp.activities.AddDemandProduct;
-import eco.org.greenapp.eco.org.greenapp.activities.AddProduct;
-import eco.org.greenapp.eco.org.greenapp.activities.FilterFindUsers;
-import eco.org.greenapp.eco.org.greenapp.activities.MyProfile;
-import eco.org.greenapp.eco.org.greenapp.activities.Notificari;
-import eco.org.greenapp.eco.org.greenapp.activities.ProfileSettings;
-import eco.org.greenapp.eco.org.greenapp.activities.SignIn;
-import eco.org.greenapp.eco.org.greenapp.activities.TopUtilizatori;
-import eco.org.greenapp.eco.org.greenapp.activities.UsersByLocation;
-import eco.org.greenapp.eco.org.greenapp.classes.Notificare;
 import eco.org.greenapp.eco.org.greenapp.constants.GeneralConstants;
 import eco.org.greenapp.eco.org.greenapp.constants.SharedPreferencesConstants;
 import eco.org.greenapp.eco.org.greenapp.fragments.FragmentOne;
@@ -88,9 +70,6 @@ public class AppMenu extends AppCompatActivity
         setSupportActionBar(toolbar);
 
 
-
-
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -104,9 +83,7 @@ public class AppMenu extends AppCompatActivity
         sharedPreferences = getSharedPreferences(GeneralConstants.SESSION, Context.MODE_PRIVATE);
         if(sharedPreferences.getString(SharedPreferencesConstants.ABOUT,null).isEmpty() && sharedPreferences.getString(SharedPreferencesConstants.STREET,null).equals("null")){
 
-     // if(sharedPreferences.getString("completeSignUp",null).equals("incomplet")){
-       // if(!sharedPreferences.contains(SharedPreferencesConstants.STREET) && ! sharedPreferences.contains(SharedPreferencesConstants.ABOUT)){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+         AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage("Pentru a putea utiliza functionalitatile trebuie sa completati toate datele de la profilul personal.")
                     .setCancelable(false)
                     .setPositiveButton("Du-ma la Setari profil", new DialogInterface.OnClickListener() {
@@ -116,12 +93,9 @@ public class AppMenu extends AppCompatActivity
                     });
             AlertDialog alert = builder.create();
             alert.show();
-            //pun un alert dialog -> buton catre setari
-            //startActivityForResult pentru setari, ca dupa ce ma intorc, sa modific completeSignUp
         }
         else
-       //if(!sharedPreferences.getString(SharedPreferencesConstants.STREET,null).isEmpty() && !sharedPreferences.getString(SharedPreferencesConstants.ABOUT,null).isEmpty()){
-       {
+        {
 
         SharedPreferences sharedPreferences = getSharedPreferences(GeneralConstants.SESSION, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -146,8 +120,7 @@ public class AppMenu extends AppCompatActivity
                         return true;
 
                     case R.id.nav_two:
-                       // setFragment(frtwo);
-                        AlertDialog.Builder builder = new AlertDialog.Builder(AppMenu.this);
+                         AlertDialog.Builder builder = new AlertDialog.Builder(AppMenu.this);
                         builder.setMessage("Ce tip de anunț doriți să introduceți?")
                                 .setPositiveButton("Oferta", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
@@ -165,8 +138,7 @@ public class AppMenu extends AppCompatActivity
                         return true;
 
                     case R.id.nav_three:
-                        //setFragment(frthree);
-                        startActivity(new Intent(getApplicationContext(), FilterFindUsers.class));
+                         startActivity(new Intent(getApplicationContext(), FilterFindAds.class));
                         return true;
 
                     default:
@@ -197,20 +169,15 @@ public class AppMenu extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.app_menu, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.findUsersByLocation) {
+         if (id == R.id.findUsersByLocation) {
             startActivity(new Intent(getApplicationContext(), UsersByLocation.class));
             return true;
         }
@@ -226,7 +193,6 @@ else
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
 
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         switch (id){
@@ -239,8 +205,7 @@ startActivity(new Intent(getApplicationContext(), AboutApp.class));
                 break;
             }
             case R.id.nav_home: {
-                //startActivity(new Intent(getApplicationContext(),Home.class));
-                setFragment(frone);
+                 setFragment(frone);
                 break;
             }
             case R.id.nav_notifications: {
@@ -291,7 +256,7 @@ startActivity(new Intent(getApplicationContext(), AboutApp.class));
                 String username;
                 try {
                     username = strings[0];
-                    URL url = new URL(GeneralConstants.URL+"/select_my_photo_url.php");
+                    URL url = new URL(GeneralConstants.URL+"/selectare_fotografie_profil.php");
                     HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
 

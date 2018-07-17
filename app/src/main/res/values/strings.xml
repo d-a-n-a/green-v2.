@@ -28,8 +28,8 @@
     <string name="addPhoto">Adaugă fotografie</string>
     <string name="availability">Valabilitate</string>
     <string name="createAccountInfo">Completeaza urmatoarele campuri obligatorii.</string>
-    <string name="addReview">inregistrare review</string>
-    <string name="addReviewForUser">Adaugare review pentru utilizatorul</string>
+    <string name="addReview">inregistrare evaluare</string>
+    <string name="addReviewForUser">Adaugare evaluare pentru utilizatorul</string>
     <string name="reviewTitle">subiect</string>
     <string name="photo">Fotografie</string>
     <string name="about">Despre</string>
@@ -37,7 +37,7 @@
     <string name="usernameOrPassword">Username sau e-mail</string>
     <string name="user">user</string>
     <string name="adds">anunturi</string>
-    <string name="review">Review</string>
+    <string name="review">Recenzii</string>
     <string name="signUpDate">Data inregistrarii</string>
     <string name="userDistance">Distanta aproximativa pana la user este de x km sau m.</string>
     <string name="byWho">postat de</string>

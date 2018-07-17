@@ -37,8 +37,7 @@ public class ChangeLastName extends AppCompatActivity {
             if(!checkUpdateLastName())
             {
                 Toast.makeText(getApplicationContext(), "Nume necorespunzator!", Toast.LENGTH_LONG).show();
-                //aici trebuie pus dialog
-            }
+             }
             else
             {
                 sharedPreferencesEditor = sharedPreferences.edit();

@@ -6,8 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -16,7 +14,6 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.TextClock;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -39,9 +36,6 @@ import java.util.Calendar;
 import java.util.List;
 
 import eco.org.greenapp.R;
-import eco.org.greenapp.eco.org.greenapp.classes.Advertisement;
-import eco.org.greenapp.eco.org.greenapp.classes.Review;
-import eco.org.greenapp.eco.org.greenapp.classes.User;
 import eco.org.greenapp.eco.org.greenapp.constants.GeneralConstants;
 
 /**
@@ -119,7 +113,7 @@ public class TransactionDetails extends AppCompatActivity {
                         ora.setText( selectedHour + ":" + selectedMinute);
                     }
                 }, hour, minute, true);//Yes 24 hour time
-                mTimePicker.setTitle("Select Time");
+                mTimePicker.setTitle("Alegeti o ora");
                 mTimePicker.show();
             }
         });
@@ -147,7 +141,7 @@ public class TransactionDetails extends AppCompatActivity {
         @Override
         protected String doInBackground(Void... voids) {
             try {
-                URL url = new URL(GeneralConstants.URL+"/select_users.php");
+                URL url = new URL(GeneralConstants.URL+"/selectare_utilizatori.php");
                 HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
                 httpURLConnection.setDoInput(true);
                 httpURLConnection.setDoOutput(true);
@@ -202,7 +196,7 @@ public class TransactionDetails extends AppCompatActivity {
             String idAnunt = strings[5];
             String queryData;
             try {
-                URL url = new URL(GeneralConstants.URL+"/insert_transaction.php");
+                URL url = new URL(GeneralConstants.URL+"/inserare_tranzactie.php");
                 HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
                 httpURLConnection.setRequestMethod("POST");
                 httpURLConnection.setDoInput(true);

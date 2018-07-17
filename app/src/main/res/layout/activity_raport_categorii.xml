@@ -1,45 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="eco.org.greenapp.eco.org.greenapp.activities.RaportCategorii">
+    android:layout_width="match_parent" android:layout_height="match_parent">
 
-    <com.github.mikephil.charting.charts.PieChart
-        android:id="@+id/pieChart"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginEnd="45dp"
-        android:layout_marginStart="45dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context="eco.org.greenapp.eco.org.greenapp.activities.RaportCategorii"
+        tools:layout_editor_absoluteY="81dp">
 
-    </com.github.mikephil.charting.charts.PieChart>
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/lora_regular"
+            android:text="Procentele corespunzătoare fiecărei categorii din tranzacțiile finalizate."
+            android:textColor="@color/darkGrey"
+            android:textSize="16sp" />
 
-    <Space
-        android:id="@+id/space"
-        android:layout_width="500dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="1dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/pieChart"
+            android:layout_width="370dp"
+            android:layout_height="450dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="512dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="31dp"
-        android:text="Procentele corespunzătoare fiecărei categorii din tranzacțiile finalizate."
-        app:layout_constraintBottom_toTopOf="@+id/space"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        </com.github.mikephil.charting.charts.PieChart>
 
-</android.support.constraint.ConstraintLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/lora_regular"
+            android:text="Distribuția anunțurilor existente pe categorii"
+            android:textColor="@color/darkGrey"
+            android:textSize="16sp" />
+
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/chartAnunturi"
+            android:layout_width="370dp"
+            android:layout_height="300dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="10dp">
+
+        </com.github.mikephil.charting.charts.BarChart>
+    </LinearLayout>
+</ScrollView>

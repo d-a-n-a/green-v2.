@@ -1,6 +1,5 @@
 package eco.org.greenapp.eco.org.greenapp.activities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
@@ -11,7 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
-import android.widget.Toast;
 
 import eco.org.greenapp.R;
 import eco.org.greenapp.eco.org.greenapp.fragments.FragmentOne;
@@ -24,11 +22,6 @@ public class Home extends AppCompatActivity {
     private FragmentOne frone;
     private FragmentTwo frtwo;
     private FragmentThree frthree;
-
-    SharedPreferences sharedPreferences;
-    SharedPreferences.Editor sharedPreferencesEditor;
-    private static final String SESSION = "Sesiune-User";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,8 +48,7 @@ public class Home extends AppCompatActivity {
                         return true;
 
                     case R.id.nav_three:
-                        //setFragment(frthree);
-                        startActivity(new Intent(getApplicationContext(), FilterFindUsers.class));
+                         startActivity(new Intent(getApplicationContext(), FilterFindAds.class));
                         return false;
 
                     default:

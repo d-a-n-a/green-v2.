@@ -61,8 +61,6 @@ public class ChangeUsername extends AppCompatActivity {
         return true;
     }
     public boolean checkUsernameAvailability(String usernameNou){
-        
-        //todo trebuie sa verific in baza de date ca nu mai exista acest username
         return true;
     }
 }

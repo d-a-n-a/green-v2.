@@ -1,13 +1,9 @@
 package eco.org.greenapp.eco.org.greenapp.profile_activities;
 
-import android.content.ContentValues;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.provider.Settings;
 import android.widget.Toast;
 
-import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -31,7 +27,7 @@ import eco.org.greenapp.eco.org.greenapp.constants.SharedPreferencesConstants;
 
 public class ExecuteInsertTasks extends AsyncTask<HashMap<String, String>, Void, String> {
     Context context;
-    HashMap<String,String> values;
+    HashMap<String,String> valori;
 
     public ExecuteInsertTasks(Context context){
         this.context = context;
@@ -39,59 +35,54 @@ public class ExecuteInsertTasks extends AsyncTask<HashMap<String, String>, Void,
     @Override
     protected String doInBackground(HashMap<String,String>... params) {
 
-      values = params[0];
+      valori = params[0];
 
 
         OutputStream outputStream = null;
         try {
             String queryData = "";
-            URL url = new URL(GeneralConstants.URL+"/test.php");
+            URL url = new URL(GeneralConstants.URL+"/operatii.php");
             HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
 
             httpURLConnection.setRequestMethod("POST");
             httpURLConnection.setDoInput(true);
             httpURLConnection.setDoOutput(true);
-
-
-             outputStream = httpURLConnection.getOutputStream();
+            outputStream = httpURLConnection.getOutputStream();
             BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream,"UTF-8"));
-
-
-            String codPost =  values.get("cod");
-
+            String codPost =  valori.get("cod");
 
             switch(codPost){
                 case GeneralConstants.INSERT_ADD:
                 {
-                    queryData = URLEncoder.encode("cod","UTF-8") + "=" + URLEncoder.encode(values.get("cod"),"UTF-8") + "&"
+                    queryData = URLEncoder.encode("cod","UTF-8") + "=" + URLEncoder.encode(valori.get("cod"),"UTF-8") + "&"
                             + URLEncoder.encode("email","UTF-8") + "=" + URLEncoder.encode(context.getSharedPreferences(
                             GeneralConstants.SESSION, Context.MODE_PRIVATE
                     ).getString(SharedPreferencesConstants.EMAIL,null),"UTF-8") + "&"
-                            + URLEncoder.encode("data_introducerii", "UTF-8") + "=" + URLEncoder.encode(values.get("data_introducerii"), "UTF-8") + "&"
-                            + URLEncoder.encode("durata", "UTF-8") + "=" + URLEncoder.encode(values.get("durata"), "UTF-8") + "&"
-                            + URLEncoder.encode("tip", "UTF-8") + "=" + URLEncoder.encode(values.get("tip"), "UTF-8") + "&"
-                            + URLEncoder.encode("denumire", "UTF-8") + "=" + URLEncoder.encode(values.get("denumire"), "UTF-8") + "&"
-                            + URLEncoder.encode("valabilitate", "UTF-8") + "=" +URLEncoder.encode(values.get("valabilitate"), "UTF-8") + "&"
-                            + URLEncoder.encode("categorie", "UTF-8") + "=" + URLEncoder.encode(values.get("categorie"), "UTF-8") +"&"
-                            + URLEncoder.encode("detalii", "UTF-8") + "=" + URLEncoder.encode(values.get("detalii"), "UTF-8") + "&"
-                            + URLEncoder.encode("descriere", "UTF-8") + "=" + URLEncoder.encode(values.get("descriere"), "UTF-8");
+                            + URLEncoder.encode("data_introducerii", "UTF-8") + "=" + URLEncoder.encode(valori.get("data_introducerii"), "UTF-8") + "&"
+                            + URLEncoder.encode("durata", "UTF-8") + "=" + URLEncoder.encode(valori.get("durata"), "UTF-8") + "&"
+                            + URLEncoder.encode("tip", "UTF-8") + "=" + URLEncoder.encode(valori.get("tip"), "UTF-8") + "&"
+                            + URLEncoder.encode("denumire", "UTF-8") + "=" + URLEncoder.encode(valori.get("denumire"), "UTF-8") + "&"
+                            + URLEncoder.encode("valabilitate", "UTF-8") + "=" +URLEncoder.encode(valori.get("valabilitate"), "UTF-8") + "&"
+                            + URLEncoder.encode("categorie", "UTF-8") + "=" + URLEncoder.encode(valori.get("categorie"), "UTF-8") +"&"
+                            + URLEncoder.encode("detalii", "UTF-8") + "=" + URLEncoder.encode(valori.get("detalii"), "UTF-8") + "&"
+                            + URLEncoder.encode("descriere", "UTF-8") + "=" + URLEncoder.encode(valori.get("descriere"), "UTF-8");
 
                     break;
                 }
                 case GeneralConstants.INSERT_DEMAND:
                 {
-                    queryData = URLEncoder.encode("cod","UTF-8") + "=" + URLEncoder.encode(values.get("cod"),"UTF-8") + "&"
+                    queryData = URLEncoder.encode("cod","UTF-8") + "=" + URLEncoder.encode(valori.get("cod"),"UTF-8") + "&"
                             + URLEncoder.encode("email","UTF-8") + "=" + URLEncoder.encode(context.getSharedPreferences(
                                     GeneralConstants.SESSION, Context.MODE_PRIVATE
                     ).getString(SharedPreferencesConstants.EMAIL,null),"UTF-8") + "&"
-                            + URLEncoder.encode("data_introducerii", "UTF-8") + "=" + URLEncoder.encode(values.get("data_introducerii"), "UTF-8") + "&"
-                            + URLEncoder.encode("durata", "UTF-8") + "=" + URLEncoder.encode(values.get("durata"), "UTF-8") + "&"
-                            + URLEncoder.encode("tip", "UTF-8") + "=" + URLEncoder.encode(values.get("tip"), "UTF-8") + "&"
-                            + URLEncoder.encode("denumire", "UTF-8") + "=" + URLEncoder.encode(values.get("denumire"), "UTF-8") + "&"
-                            + URLEncoder.encode("valabilitate", "UTF-8") + "=" +URLEncoder.encode(values.get("valabilitate"), "UTF-8") + "&"
-                            + URLEncoder.encode("categorie", "UTF-8") + "=" + URLEncoder.encode(values.get("categorie"), "UTF-8") +"&"
-                            + URLEncoder.encode("detalii", "UTF-8") + "=" + URLEncoder.encode(values.get("detalii"), "UTF-8") + "&"
-                            + URLEncoder.encode("descriere", "UTF-8") + "=" + URLEncoder.encode(values.get("descriere"), "UTF-8");
+                            + URLEncoder.encode("data_introducerii", "UTF-8") + "=" + URLEncoder.encode(valori.get("data_introducerii"), "UTF-8") + "&"
+                            + URLEncoder.encode("durata", "UTF-8") + "=" + URLEncoder.encode(valori.get("durata"), "UTF-8") + "&"
+                            + URLEncoder.encode("tip", "UTF-8") + "=" + URLEncoder.encode(valori.get("tip"), "UTF-8") + "&"
+                            + URLEncoder.encode("denumire", "UTF-8") + "=" + URLEncoder.encode(valori.get("denumire"), "UTF-8") + "&"
+                            + URLEncoder.encode("valabilitate", "UTF-8") + "=" +URLEncoder.encode(valori.get("valabilitate"), "UTF-8") + "&"
+                            + URLEncoder.encode("categorie", "UTF-8") + "=" + URLEncoder.encode(valori.get("categorie"), "UTF-8") +"&"
+                            + URLEncoder.encode("detalii", "UTF-8") + "=" + URLEncoder.encode(valori.get("detalii"), "UTF-8") + "&"
+                            + URLEncoder.encode("descriere", "UTF-8") + "=" + URLEncoder.encode(valori.get("descriere"), "UTF-8");
 
                     break;
                 }
@@ -129,8 +120,10 @@ public class ExecuteInsertTasks extends AsyncTask<HashMap<String, String>, Void,
 
     @Override
     protected void onPostExecute(String s) {
-     //   Toast.makeText(this.context, contentValues.get("email")+"-"+contentValues.get("valabilitate"), Toast.LENGTH_LONG).show();
-//
-      Toast.makeText(this.context, s, Toast.LENGTH_LONG).show();
+    if(s!=null)
+    {
+
+    }
+         // Toast.makeText(this.context, s, Toast.LENGTH_LONG).show();
      }
 }

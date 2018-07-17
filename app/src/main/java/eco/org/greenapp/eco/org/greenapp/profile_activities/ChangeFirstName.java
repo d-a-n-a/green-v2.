@@ -2,6 +2,8 @@ package eco.org.greenapp.eco.org.greenapp.profile_activities;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.support.design.internal.SnackbarContentLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -35,8 +37,7 @@ public class ChangeFirstName extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(!checkUpdateFirstName()){
-                    //todo - dialog box
-                    Toast.makeText(getApplicationContext(), "not ok", Toast.LENGTH_LONG).show();
+                     Snackbar.make(findViewById(R.id.idLayout),"Imposibil", Snackbar.LENGTH_LONG).show();
                 }
                 else{
                     sharedPreferencesEditor = sharedPreferences.edit();

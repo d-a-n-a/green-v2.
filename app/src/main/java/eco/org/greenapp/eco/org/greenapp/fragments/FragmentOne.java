@@ -2,19 +2,15 @@ package eco.org.greenapp.eco.org.greenapp.fragments;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,14 +29,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import eco.org.greenapp.R;
-import eco.org.greenapp.RequestHttp;
 import eco.org.greenapp.eco.org.greenapp.activities.AdForProduct;
 import eco.org.greenapp.eco.org.greenapp.adapters.AdvertisementAdapter;
 import eco.org.greenapp.eco.org.greenapp.classes.Advertisement;
 import eco.org.greenapp.eco.org.greenapp.classes.Categorie;
 import eco.org.greenapp.eco.org.greenapp.classes.Locatie;
 import eco.org.greenapp.eco.org.greenapp.classes.Produs;
-import eco.org.greenapp.eco.org.greenapp.classes.Status;
 import eco.org.greenapp.eco.org.greenapp.classes.User;
 import eco.org.greenapp.eco.org.greenapp.constants.GeneralConstants;
 
@@ -53,8 +47,7 @@ public class FragmentOne extends Fragment {
      SwipeRefreshLayout swipeContainer;
 
     public FragmentOne() {
-        // Required empty public constructor
-    }
+     }
 
     @Override
     public void onPause() {
@@ -80,10 +73,8 @@ public class FragmentOne extends Fragment {
                    // parent.removeView(view);
                 }
                 getData();
-                //lista = parseJson(getResult);
                 final AdvertisementAdapter adapter=new AdvertisementAdapter(getActivity(),R.layout.product_item,lista);
                 lvAnunturi=(ListView)view.findViewById(R.id.lvAds);
-
                 lvAnunturi.setAdapter(adapter);
 
                 swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipe);
@@ -102,7 +93,6 @@ public class FragmentOne extends Fragment {
                     }
                 });
 
-
                 lvAnunturi.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -118,7 +108,7 @@ public  class GetData extends AsyncTask<Void,Void,String> {
     @Override
     protected String doInBackground(Void... voids) {
         try {
-            URL url = new URL(GeneralConstants.URL+"/select_advertisements.php");
+            URL url = new URL(GeneralConstants.URL+"/selectare_anunturi.php");
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
             con.setRequestMethod("POST");
@@ -205,6 +195,7 @@ public  class GetData extends AsyncTask<Void,Void,String> {
     public void getData(){
         GetData gd = new GetData();
         gd.execute();
+
         }
 
 

@@ -10,8 +10,6 @@ import android.widget.ImageView;
 
 import java.io.InputStream;
 
-import eco.org.greenapp.R;
-
 /**
  * Created by danan on 4/7/2018.
  */
@@ -39,8 +37,6 @@ public class GetImageTask extends AsyncTask<String, Void, Bitmap> {
     }
 
     protected void onPostExecute(Bitmap result) {
-       //bmImage.setImageBitmap(result);
-        //aici ar fi bine sa las ca mai sus si sa modific din xml sa fie circular
         RoundedBitmapDrawable roundedBitmapDrawable = RoundedBitmapDrawableFactory.create(this.context.getResources(),result);
         roundedBitmapDrawable.setCircular(true);
         bmImage.setImageDrawable(roundedBitmapDrawable);

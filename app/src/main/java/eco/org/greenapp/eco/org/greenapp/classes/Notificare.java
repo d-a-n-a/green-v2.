@@ -1,9 +1,7 @@
 package eco.org.greenapp.eco.org.greenapp.classes;
 
-import java.io.StringBufferInputStream;
 import java.util.Date;
 
-import eco.org.greenapp.eco.org.greenapp.constants.GeneralConstants;
 import eco.org.greenapp.eco.org.greenapp.enumerations.TipNotificare;
 
 /**

@@ -26,9 +26,8 @@ public HashMap<Integer,List<List<HashMap<String,String>>>> parse(JSONArray jObje
     JSONArray mapsRoutes = null;
     JSONArray mapsLegs = null;
     JSONArray mapsSteps = null;
-JSONObject obj = null;
-for(int q=0;q<jObject.length();q++){
-Log.i("111", "dimensiune nr urls "+jObject.length());
+    JSONObject obj = null;
+    for(int q=0;q<jObject.length();q++){
     try {
         obj = jObject.getJSONObject(q);
           routes = new ArrayList<List<HashMap<String, String>>>();
@@ -38,61 +37,39 @@ Log.i("111", "dimensiune nr urls "+jObject.length());
 
             List<HashMap<String, String>> path = new ArrayList<HashMap<String, String>>();
 
-            /** Traversing all legs */
             for (int j = 0; j < mapsLegs.length(); j++) {
 
-                /** Getting duration from the json data */
                 mapsDuration = ((JSONObject) mapsLegs.get(j)).getJSONObject("duration");
                 HashMap<String, String> hmDuration = new HashMap<String, String>();
                 hmDuration.put("duration", mapsDuration.getString("text"));
-                /** Adding duration object to the path */
                 path.add(hmDuration);
 
-                /** Getting distance from the json data */
-                mapsDistance = ((JSONObject) mapsLegs.get(j)).getJSONObject("distance");
+                 mapsDistance = ((JSONObject) mapsLegs.get(j)).getJSONObject("distance");
                 Log.i("111", "disss "+mapsDistance);
                 HashMap<String, String> hmDistance = new HashMap<String, String>();
                 hmDistance.put("distance", mapsDistance.getString("text"));
-                /** Adding distance object to the path */
                 path.add(hmDistance);
-
-
                 mapsSteps = ((JSONObject) mapsLegs.get(j)).getJSONArray("steps");
 
-                /** Traversing all steps */
-                for (int k = 0; k < mapsSteps.length(); k++) {
+                 for (int k = 0; k < mapsSteps.length(); k++) {
                     String polyline = "";
                     polyline = (String) ((JSONObject) ((JSONObject) mapsSteps.get(k)).get("polyline")).get("points");
                     List<LatLng> list = decodePoly(polyline);
 
-                    /** Traversing all points */
-                  /* for (int l = 0; l < list.size(); l++) {
-                        HashMap<String, String> hm = new HashMap<String, String>();
-                        hm.put("lat", Double.toString(((LatLng) list.get(l)).latitude));//nu am nevoie de astea -BA DA AM NEVOIE CA SA TRASEZE LINIILE
-                        hm.put("lng", Double.toString(((LatLng) list.get(l)).longitude));
-                        path.add(hm);
-                    }*/ //am nevoie pentru trasarea drumui, dar nu le prinde pe toate probabil entru ca sunt prea multe nu stiu, asa ca momentan fac doar cu distanta si durata
                 }
             }
 
             routes.add(path);
         }
-        Log.i("111", "rute" +routes.toString());
         listaaa.put(q,routes);
     } catch (JSONException e) {
         e.printStackTrace();
     } catch (Exception e) {
     }
 }
-Log.i("111","dimensiune listaaa "+listaaa.size());
-    Log.i("CARrrrlista", listaaa.toString());
     return listaaa;
 }
 
-    /**
-     * Method to decode polyline points
-     * Courtesy : jeffreysambells.com/2010/05/27/decoding-polylines-from-google-maps-direction-api-with-java
-     * */
     private List<LatLng> decodePoly(String encoded) {
 
         List<LatLng> poly = new ArrayList<LatLng>();

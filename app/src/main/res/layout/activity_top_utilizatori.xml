@@ -10,7 +10,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="400dp"
-        android:layout_marginTop="7dp"
+        android:layout_marginTop="10dp"
         android:orientation="vertical"
         tools:context="eco.org.greenapp.eco.org.greenapp.activities.TopUtilizatori">
 
@@ -19,6 +19,7 @@
             android:layout_width="350dp"
             android:layout_height="380dp"
             android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="8dp">
 

@@ -210,8 +210,6 @@
                     android:background="@drawable/border_edit_text"
                     android:text="selectare" />
 
-
-
             </LinearLayout>
 
             <LinearLayout
@@ -231,7 +229,6 @@
                     android:text="@string/productDetails"
                     android:textAllCaps="true"
                     android:textColor="@color/colorGreenSheen" />
-
 
             </LinearLayout>
 

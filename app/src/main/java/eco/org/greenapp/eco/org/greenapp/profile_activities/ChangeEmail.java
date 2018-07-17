@@ -34,30 +34,25 @@ public class ChangeEmail extends AppCompatActivity {
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     EditText etEmail;
-    int ok = 0;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_email);
-        etEmail = (EditText)findViewById(R.id.etPhoneInput);
-        etEmail.setText(getSharedPreferences(GeneralConstants.SESSION, Context.MODE_PRIVATE).getString(SharedPreferencesConstants.EMAIL,null));
+        etEmail = (EditText) findViewById(R.id.etPhoneInput);
+        etEmail.setText(getSharedPreferences(GeneralConstants.SESSION, Context.MODE_PRIVATE).getString(SharedPreferencesConstants.EMAIL, null));
 
-        ((Button)findViewById(R.id.btnUpdatePhone)).setOnClickListener(new View.OnClickListener() {
+        ((Button) findViewById(R.id.btnUpdatePhone)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(etEmail.getText().toString().trim().isEmpty()) {
+                if (etEmail.getText().toString().trim().isEmpty()) {
                     Snackbar.make(findViewById(R.id.layoutIDEmail), "Completați câmpul.", Snackbar.LENGTH_LONG).show();
-                }
-                else
-                {
-
+                } else {
 
                     if (!checkEmailUpdate()) {
                         Snackbar.make(findViewById(R.id.layoutIDEmail), "Emailul introdus nu este valid.", Snackbar.LENGTH_LONG).show();
 
-                    }   else {
+                    } else {
                         sharedPreferences = getSharedPreferences(GeneralConstants.SESSION, Context.MODE_PRIVATE);
                         editor = sharedPreferences.edit();
                         editor.putString(SharedPreferencesConstants.EMAIL, etEmail.getText().toString().trim());
@@ -65,7 +60,7 @@ public class ChangeEmail extends AppCompatActivity {
 
                         UpdateEmail updateEmail = new UpdateEmail();
                         updateEmail.execute(etEmail.getText().toString().trim());
-                      //  finish();
+                        //finish();
                     }
                 }
             }
@@ -73,18 +68,17 @@ public class ChangeEmail extends AppCompatActivity {
 
     }
 
-    public  boolean checkEmailUpdate(){
-        if(etEmail.getText().toString().isEmpty() || !validEmailAddress())
-            return  false;
+    public boolean checkEmailUpdate() {
+        if (etEmail.getText().toString().isEmpty() || !validEmailAddress())
+            return false;
         return true;
     }
-    public boolean validEmailAddress(){
-        if(Patterns.EMAIL_ADDRESS.matcher(etEmail.getText().toString().trim()).matches())
+
+    public boolean validEmailAddress() {
+        if (Patterns.EMAIL_ADDRESS.matcher(etEmail.getText().toString().trim()).matches())
             return true;
         return false;
     }
-
-
 
     public class UpdateEmail extends AsyncTask<String, Void, String> {
 
@@ -93,7 +87,7 @@ public class ChangeEmail extends AppCompatActivity {
             try {
 
                 String email = strings[0];
-                URL url = new URL(GeneralConstants.URL+"/update_email.php");
+                URL url = new URL(GeneralConstants.URL + "/actualizare_email.php");
 
                 HttpURLConnection http = (HttpURLConnection) url.openConnection();
                 http.setRequestMethod("POST");
@@ -104,8 +98,8 @@ public class ChangeEmail extends AppCompatActivity {
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
 
                 String updateValues = URLEncoder.encode("oldEmail", "UTF-8") + "=" + URLEncoder.encode(getSharedPreferences(GeneralConstants.SESSION,
-                                Context.MODE_PRIVATE)
-                                .getString(SharedPreferencesConstants.EMAIL,null), "UTF-8") + "&" +
+                        Context.MODE_PRIVATE)
+                        .getString(SharedPreferencesConstants.EMAIL, null), "UTF-8") + "&" +
                         URLEncoder.encode("newEmail", "UTF-8") + "=" + URLEncoder.encode(email, "UTF-8");
                 bufferedWriter.write(updateValues);
 
@@ -136,12 +130,11 @@ public class ChangeEmail extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(String s)  {
-            Toast.makeText(getApplicationContext(), "+"+s, Toast.LENGTH_LONG).show();
-            if(!s.equals(GeneralConstants.SUCCESS))
-                {
-                    Toast.makeText(getApplicationContext(), "Ups...", Toast.LENGTH_SHORT).show();
-                }
+        protected void onPostExecute(String s) {
+            Toast.makeText(getApplicationContext(), "+" + s, Toast.LENGTH_LONG).show();
+            if (!s.equals(GeneralConstants.SUCCESS)) {
+                Toast.makeText(getApplicationContext(), "Ups...", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 

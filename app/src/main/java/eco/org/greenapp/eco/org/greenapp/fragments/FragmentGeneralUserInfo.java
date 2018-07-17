@@ -12,10 +12,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.HorizontalBarChart;
+import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.github.mikephil.charting.utils.ViewPortHandler;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,6 +31,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,8 +51,7 @@ public class FragmentGeneralUserInfo extends Fragment {
     List<Integer> valori = new ArrayList<>();
     View view;
     String username;
-    String urlImagine;
-    HorizontalBarChart barChart;
+     HorizontalBarChart barChart;
     public FragmentGeneralUserInfo(){
 
     }
@@ -68,8 +72,7 @@ public class FragmentGeneralUserInfo extends Fragment {
         else
         {
             ViewGroup parent = (ViewGroup) view.getParent();
-            // parent.removeView(view);
-        }
+         }
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             username = bundle.getString("username",null);
@@ -78,16 +81,19 @@ public class FragmentGeneralUserInfo extends Fragment {
         selectUserInfo.execute(username);
 
     valori = ((UserInfo)this.getActivity()).nrReviews;
+
         // ----- grafic -----
         barChart = (HorizontalBarChart)view.findViewById(R.id.barChartH);
         BarData data = new BarData(getXAxisValues(), getDataSet());
+        barChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM_INSIDE);
+        barChart.getXAxis().setXOffset(-60);
         barChart.setData(data);
         barChart.setDescription("Număr de evaluări");
         barChart.setDescriptionTextSize(16);
         barChart.setDescriptionColor(Color.GREEN);
         barChart.setDescriptionPosition(0, 0);
         barChart.animateXY(2000, 2000);
-
+        barChart.setDrawValueAboveBar(false);
         barChart.invalidate();
         return view;
 
@@ -98,22 +104,38 @@ public class FragmentGeneralUserInfo extends Fragment {
 
         ArrayList<BarEntry> valoriEvaluari = new ArrayList<>();
         BarEntry valori5Stele = new BarEntry(valori.get(4), 0);
+        if(valori.get(4)>0)
         valoriEvaluari.add(valori5Stele);
         BarEntry valori4Stele = new BarEntry(valori.get(3), 1);
-        valoriEvaluari.add(valori4Stele);
+        if(valori.get(3)>0)
+            valoriEvaluari.add(valori4Stele);
         BarEntry valori3Stele = new BarEntry(valori.get(2), 2);
-        valoriEvaluari.add(valori3Stele);
+        if(valori.get(2)>0)
+            valoriEvaluari.add(valori3Stele);
         BarEntry valori2Stele = new BarEntry(valori.get(1), 3);
-        valoriEvaluari.add(valori2Stele);
+        if(valori.get(1)>0)
+            valoriEvaluari.add(valori2Stele);
         BarEntry valori1Stele = new BarEntry(valori.get(0), 4);
-        valoriEvaluari.add(valori1Stele);
+        if(valori.get(0)>0)
+            valoriEvaluari.add(valori1Stele);
 
 
-        BarDataSet barDataSet2 = new BarDataSet(valoriEvaluari, "Legenda culori");
+        BarDataSet barDataSet2 = new BarDataSet(valoriEvaluari, "5 - 1");
         barDataSet2.setColors(ColorTemplate.JOYFUL_COLORS);
+        barDataSet2.setValueFormatter(new ValueFormatter() {
+            private DecimalFormat mFormat = new DecimalFormat("###,###,##0");
 
-        dataSets = new ArrayList<>();
+            @Override
+            public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
+                return mFormat.format(value);
+            }
+        });
+        barDataSet2.setDrawValues(true);
+        barDataSet2.setColors(ColorTemplate.JOYFUL_COLORS);
+        barDataSet2.setValueTextSize(16f);
+         dataSets = new ArrayList<>();
         dataSets.add(barDataSet2);
+
         return dataSets;
     }
 
@@ -135,7 +157,7 @@ public class FragmentGeneralUserInfo extends Fragment {
         String username;
         try {
             username = strings[0];
-            URL url = new URL(GeneralConstants.URL+"/select_user_general_info.php");
+            URL url = new URL(GeneralConstants.URL+"/selectare_info_utilizator.php");
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
 

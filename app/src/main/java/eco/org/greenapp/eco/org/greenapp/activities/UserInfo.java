@@ -1,9 +1,6 @@
 package eco.org.greenapp.eco.org.greenapp.activities;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.os.AsyncTask;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -28,7 +25,6 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -43,10 +39,7 @@ import eco.org.greenapp.R;
 import eco.org.greenapp.eco.org.greenapp.GetImageTask;
 import eco.org.greenapp.eco.org.greenapp.constants.GeneralConstants;
 import eco.org.greenapp.eco.org.greenapp.fragments.FragmentGeneralUserInfo;
-import eco.org.greenapp.eco.org.greenapp.fragments.FragmentMyGeneralUserInfo;
-import eco.org.greenapp.eco.org.greenapp.fragments.FragmentOne;
 import eco.org.greenapp.eco.org.greenapp.fragments.FragmentUserAds;
-import eco.org.greenapp.eco.org.greenapp.fragments.FragmentMyReviews;
 import eco.org.greenapp.eco.org.greenapp.fragments.FragmentUserReviews;
 
 public class UserInfo extends AppCompatActivity {
@@ -113,17 +106,6 @@ public class UserInfo extends AppCompatActivity {
         ((TextView)findViewById(R.id.username)).setText(username);
         CalculateReview calculateReview = new CalculateReview();
         calculateReview.execute(username);
-/*
-        Fragment fragment;
-        fragment =  new FragmentGeneralUserInfo();
-        if(savedInstanceState == null) {
-            FragmentManager manager = getSupportFragmentManager();
-            FragmentTransaction transaction = manager.beginTransaction();
-            transaction.replace(R.id.fragmentArea, fragment);
-            transaction.detach(fragment).attach(fragment).commit();
-
-          //  transaction.commit();
-        }*/
     }
 
 
@@ -136,8 +118,7 @@ public class UserInfo extends AppCompatActivity {
         ((Button)findViewById(R.id.button3)).setTextColor(getResources().getColor(R.color.white));
 
 
-       // ((FloatingActionButton) findViewById(R.id.floatingMessage)).setVisibility(View.INVISIBLE);
-        Fragment fragment = new Fragment();
+         Fragment fragment = new Fragment();
 
         if (view == findViewById(R.id.button5)) {
             ((Button)findViewById(R.id.button5)).setTextColor(getResources().getColor(R.color.white));
@@ -182,11 +163,7 @@ public class UserInfo extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragmentArea, fragment);
-      //  fragmentTransaction.detach(fragment).attach(fragment).commit();
-
         fragmentTransaction.commit();
-
-
     }
 
 
@@ -196,7 +173,7 @@ public class UserInfo extends AppCompatActivity {
             String username;
             try {
                 username = strings[0];
-                URL url = new URL(GeneralConstants.URL+"/calculate_review.php");
+                URL url = new URL(GeneralConstants.URL+"/calcul_rating.php");
                 HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
 
@@ -242,8 +219,7 @@ public class UserInfo extends AppCompatActivity {
                        nrReviews.add(Integer.parseInt(jsonObject.getString("2")));
                        nrReviews.add(Integer.parseInt(jsonObject.getString("3")));
                        nrReviews.add(Integer.parseInt(jsonObject.getString("4")));
-                    //   Toast.makeText(getApplicationContext(), nrReviews.toString(), Toast.LENGTH_LONG).show();
-                       if(jsonObject.getString("review").equals("nu are reviews"))
+                        if(jsonObject.getString("review").equals("nu are reviews"))
                              nota = ""+0;
                          else
                              nota = jsonObject.getString("review");

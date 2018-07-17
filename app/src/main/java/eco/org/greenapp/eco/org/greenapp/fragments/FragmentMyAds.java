@@ -15,13 +15,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.Spinner;
-import android.widget.Toast;
-
-import com.google.android.gms.location.GeofencingEvent;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,14 +38,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import eco.org.greenapp.R;
-import eco.org.greenapp.eco.org.greenapp.DeleteTask;
-import eco.org.greenapp.eco.org.greenapp.activities.AddProduct;
 import eco.org.greenapp.eco.org.greenapp.activities.TransactionDetails;
-import eco.org.greenapp.eco.org.greenapp.adapters.AdvertisementAdapter;
 import eco.org.greenapp.eco.org.greenapp.adapters.UserAdvertisementAdapter;
 import eco.org.greenapp.eco.org.greenapp.classes.Advertisement;
 import eco.org.greenapp.eco.org.greenapp.classes.Produs;
-import eco.org.greenapp.eco.org.greenapp.classes.Status;
 import eco.org.greenapp.eco.org.greenapp.classes.User;
 import eco.org.greenapp.eco.org.greenapp.constants.GeneralConstants;
 import eco.org.greenapp.eco.org.greenapp.constants.SharedPreferencesConstants;
@@ -86,7 +78,7 @@ public class FragmentMyAds extends Fragment {
         else
         {
             ViewGroup parent = (ViewGroup) view.getParent();
-            // parent.removeView(view); //asta e posibil sa faca probleme
+            // parent.removeView(view);
         }
 
 
@@ -214,7 +206,7 @@ public class FragmentMyAds extends Fragment {
         @Override
         protected String doInBackground(Void... voids) {
             try {
-                URL url = new URL(GeneralConstants.URL+"/select_user_advertisements.php");
+                URL url = new URL(GeneralConstants.URL+"/selectare_anunturi_user.php");
                 HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
 
@@ -288,7 +280,7 @@ public class FragmentMyAds extends Fragment {
             idAnunt = integers[0];
             URL url = null;
             try {
-                url = new URL(GeneralConstants.URL+"/delete_advertisement.php");
+                url = new URL(GeneralConstants.URL+"/stergere_anunt.php");
                 HttpURLConnection con = (HttpURLConnection) url.openConnection();
                 con.setRequestMethod("POST");
                 con.setDoOutput(true);
@@ -344,7 +336,7 @@ public class FragmentMyAds extends Fragment {
             idAd = strings[0];
             idNewStatus = strings[1];
             try {
-                URL url = new URL(GeneralConstants.URL+"/update_ad_status.php");
+                URL url = new URL(GeneralConstants.URL+"/actualizare_status_anunt.php");
                 HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
 
                 httpURLConnection.setRequestMethod("POST");

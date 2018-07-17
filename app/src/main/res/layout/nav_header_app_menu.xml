@@ -36,5 +36,4 @@
         android:textColorLink="@color/colorPrimary"
         android:textSize="16sp"
         android:textStyle="bold" />
-
 </LinearLayout>

@@ -3,7 +3,6 @@ package eco.org.greenapp.eco.org.greenapp.fragments;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,6 @@ import android.widget.TextView;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -44,7 +42,6 @@ public class FragmentUserReviews extends Fragment {
     private List<Review> lista;
     ImageView imageView;
     TextView textView;
-   // SwipeRefreshLayout swipeContainer;
     String username;
 
     public FragmentUserReviews() {
@@ -78,31 +75,6 @@ public class FragmentUserReviews extends Fragment {
         imageView.setVisibility(View.INVISIBLE);
         textView.setVisibility(View.INVISIBLE);
 
-/*
-
-        final ReviewAdapter adapter=new ReviewAdapter(getActivity(),R.layout.review_item,lista);
-        lvReviews=(ListView)view.findViewById(R.id.idLvReview);
-
-        lvReviews.setAdapter(adapter);
-*/
-
-     /*   swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.idSwipeReview);
-        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-
-                lista.clear();
-                adapter.notifyDataSetChanged();
-
-                swipeContainer.setRefreshing(false);
-
-                GetUserReviews gd = new GetUserReviews();
-                gd.execute(username);
-
-            }
-        });*/
-
-        
         return view;
     }
 
@@ -113,8 +85,7 @@ public class FragmentUserReviews extends Fragment {
         protected String doInBackground(String... strings) {
             username = strings[0];
             try {
-                URL url = new URL(GeneralConstants.URL+"/select_user_reviews.php");
-                //URL url = new URL("http://10.38.31.11:8080/greenapp/select_user_reviews.php");
+                URL url = new URL(GeneralConstants.URL+"/selectare_evaluari_utilizator.php");
                 HttpURLConnection con = (HttpURLConnection) url.openConnection();
                 con.setRequestMethod("POST");
                 con.setDoInput(true);

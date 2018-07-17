@@ -29,7 +29,6 @@ import java.util.List;
 import eco.org.greenapp.R;
 import eco.org.greenapp.eco.org.greenapp.GetImageTask;
 import eco.org.greenapp.eco.org.greenapp.activities.UserInfo;
-import eco.org.greenapp.eco.org.greenapp.classes.User;
 import eco.org.greenapp.eco.org.greenapp.constants.GeneralConstants;
 
 /**
@@ -57,18 +56,18 @@ public class SecondUsersAdapter extends ArrayAdapter<HashMap<String, String>> {
         TextView adresa = (TextView)view.findViewById(R.id.userAddress);
         TextView review = (TextView)view.findViewById(R.id.reviewScore);
         ImageView img = (ImageView)view.findViewById(R.id.userAvatar);
-        TextView dd = (TextView)view.findViewById(R.id.distdur);
+         TextView dd = (TextView)view.findViewById(R.id.distdur);
 
         final HashMap<String,String> user = this.listaUsers.get(position);
         username.setText(user.get("username"));
         adresa.setText(user.get("adresa"));
-dd.setText("{"+user.get("distanta")+" - "+user.get("durata"));
+        dd.setText("{"+user.get("distanta")+" - "+user.get("durata"));
 
         new SecondUsersAdapter.CalculateReview(img, review).execute(user.get("username"));
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, UserInfo.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);;
+                Intent intent = new Intent(context, UserInfo.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra("username", user.get("username"));
                 context.startActivity(intent);
             }
@@ -89,10 +88,8 @@ dd.setText("{"+user.get("distanta")+" - "+user.get("durata"));
             String username;
             try {
                 username = strings[0];
-                URL url = new URL(GeneralConstants.URL+"/calculate_review.php");
+                URL url = new URL(GeneralConstants.URL+"/calcul_rating.php");
                 HttpURLConnection con = (HttpURLConnection) url.openConnection();
-
-
                 con.setRequestMethod("POST");
                 con.setDoInput(true);
                 con.setDoOutput(true);
@@ -108,7 +105,6 @@ dd.setText("{"+user.get("distanta")+" - "+user.get("durata"));
 
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream(), "iso-8859-1"));
                 String result;
-
                 StringBuilder sb = new StringBuilder();
 
                 while ((result = bufferedReader.readLine()) != null) {
@@ -138,7 +134,6 @@ dd.setText("{"+user.get("distanta")+" - "+user.get("durata"));
                         nota = String.format("%.2f", Float.parseFloat(nota));
                         txtView.setText(nota + "/5");
                     }
-                    //todo aici sa pun direct poza default ca la utilizatori oricum raman sigur aceleasi, ma rog aceeasi poza default user
                     String imgUrl = GeneralConstants.Url+jsonObject.getString("foto");
                     if(!jsonObject.getString("foto").isEmpty() && !(jsonObject.getString("foto")==null) )
                         new GetImageTask((ImageView) imageView, context).execute(imgUrl);

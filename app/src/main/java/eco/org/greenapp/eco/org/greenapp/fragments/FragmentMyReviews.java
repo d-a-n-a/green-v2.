@@ -1,18 +1,15 @@
 package eco.org.greenapp.eco.org.greenapp.fragments;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,14 +27,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import eco.org.greenapp.R;
-import eco.org.greenapp.eco.org.greenapp.GetImageTask;
-import eco.org.greenapp.eco.org.greenapp.adapters.AdvertisementAdapter;
 import eco.org.greenapp.eco.org.greenapp.adapters.ReviewAdapter;
-import eco.org.greenapp.eco.org.greenapp.classes.Advertisement;
 import eco.org.greenapp.eco.org.greenapp.classes.Review;
 import eco.org.greenapp.eco.org.greenapp.classes.User;
 import eco.org.greenapp.eco.org.greenapp.constants.GeneralConstants;
-import eco.org.greenapp.eco.org.greenapp.constants.SharedPreferencesConstants;
 
 
 public class FragmentMyReviews extends Fragment {
@@ -48,8 +41,7 @@ public class FragmentMyReviews extends Fragment {
     private List<Review> lista;
     ImageView imageView;
     TextView textView;
-   // SwipeRefreshLayout swipeContainer;
-    public FragmentMyReviews() {
+     public FragmentMyReviews() {
         // Required empty public constructor
     }
 
@@ -73,34 +65,12 @@ public class FragmentMyReviews extends Fragment {
         imageView.setVisibility(View.INVISIBLE);
         textView.setVisibility(View.INVISIBLE);
         getData();
-
-        //lista = parseJson(getResult);
-      /*  final ReviewAdapter adapter=new ReviewAdapter(getActivity(),R.layout.review_item,lista);
-        lvReviews=(ListView)view.findViewById(R.id.idLvReview);
-*/
-        /*lvReviews.setAdapter(adapter);*/
-
-      /*  swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.idSwipeReview);
-        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-
-                lista.clear();
-                adapter.notifyDataSetChanged();
-
-                swipeContainer.setRefreshing(false);
-
-               getData();
-            }
-        });
-*/
-
         return view;
     }
-public void getData(){
-    String username = getContext().getSharedPreferences(GeneralConstants.SESSION, Context.MODE_PRIVATE).getString(GeneralConstants.TOKEN,null);
-     GetReviews gd = new GetReviews();
-    gd.execute(username);
+    public void getData(){
+        String username = getContext().getSharedPreferences(GeneralConstants.SESSION, Context.MODE_PRIVATE).getString(GeneralConstants.TOKEN,null);
+        GetReviews gd = new GetReviews();
+        gd.execute(username);
 }
 public class GetReviews extends AsyncTask<String, Void, String>{
 
@@ -109,8 +79,7 @@ public class GetReviews extends AsyncTask<String, Void, String>{
     protected String doInBackground(String... strings) {
         username = strings[0];
         try {
-            URL url = new URL(GeneralConstants.URL+"/select_user_reviews.php");
-            //URL url = new URL("http://10.38.31.11:8080/greenapp/select_user_reviews.php");
+            URL url = new URL(GeneralConstants.URL+"/selectare_evaluari_utilizator.php");
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("POST");
             con.setDoInput(true);

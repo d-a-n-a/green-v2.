@@ -1,23 +1,13 @@
 package eco.org.greenapp.eco.org.greenapp.fragments;
 
-import android.app.Dialog;
-import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.PopupMenu;
-import android.widget.Spinner;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,24 +15,19 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
 import eco.org.greenapp.R;
-import eco.org.greenapp.eco.org.greenapp.activities.TransactionDetails;
 import eco.org.greenapp.eco.org.greenapp.adapters.UserAdvertisementAdapter;
 import eco.org.greenapp.eco.org.greenapp.classes.Advertisement;
 import eco.org.greenapp.eco.org.greenapp.classes.Produs;
-import eco.org.greenapp.eco.org.greenapp.classes.Status;
 import eco.org.greenapp.eco.org.greenapp.classes.User;
 import eco.org.greenapp.eco.org.greenapp.constants.GeneralConstants;
 
@@ -77,7 +62,7 @@ public class FragmentUserAds extends Fragment {
             view = inflater.inflate(R.layout.fragment_fragment_user_ads, container, false);
         } else {
             ViewGroup parent = (ViewGroup) view.getParent();
-            parent.removeView(view); //asta e posibil sa faca probleme
+            parent.removeView(view);
         }
 
 
@@ -114,7 +99,7 @@ public class FragmentUserAds extends Fragment {
             String username;
             try {
                 username = strings[0];
-                URL url = new URL(GeneralConstants.URL+"/select_user_ads.php");
+                URL url = new URL(GeneralConstants.URL+"/selectare_anunturi_utilizator.php");
                 HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
 

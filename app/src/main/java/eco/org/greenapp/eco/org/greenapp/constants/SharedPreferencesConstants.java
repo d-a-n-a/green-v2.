@@ -11,7 +11,7 @@ public class SharedPreferencesConstants {
     public static final String FIRST_NAME = "first_name";
     public static final String  REGISTER_DATE = "register_date";
     public static final String PHONE_NUMBER = "phone_number";
-    public static final String STREET = "street";//asta sa fie de fapt locatia pe care o da gmaps
+    public static final String STREET = "street";
     public static final String COUNTRY   = "country";
     public static final String CITY = "city";
     public static final String ABOUT = "about_me";

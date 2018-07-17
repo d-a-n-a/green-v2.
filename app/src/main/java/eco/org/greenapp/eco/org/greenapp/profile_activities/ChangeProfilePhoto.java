@@ -24,7 +24,7 @@ import eco.org.greenapp.eco.org.greenapp.constants.GeneralConstants;
 
 public class ChangeProfilePhoto extends AppCompatActivity {
 
-     ImageView imgV;
+     ImageView imageView;
      Bitmap bitmap;
      String username;
 
@@ -32,7 +32,7 @@ public class ChangeProfilePhoto extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_profile_photo);
-        imgV = (ImageView)findViewById(R.id.selectedImage);
+        imageView = (ImageView)findViewById(R.id.selectedImage);
         username = getSharedPreferences(GeneralConstants.SESSION, Context.MODE_PRIVATE).getString(GeneralConstants.TOKEN,null);
 
 
@@ -66,8 +66,7 @@ public class ChangeProfilePhoto extends AppCompatActivity {
             try {
 
                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-
-                imgV.setImageBitmap(bitmap);
+                imageView.setImageBitmap(bitmap);
 
             } catch (IOException e) {
 
@@ -103,7 +102,7 @@ public class ChangeProfilePhoto extends AppCompatActivity {
                 data.put("username", getSharedPreferences(GeneralConstants.SESSION, Context.MODE_PRIVATE).getString(
                         GeneralConstants.TOKEN,null
                 ));
-                String rezultat = executeRequests.sendPostRequest(GeneralConstants.URL+"/update_profile_photo.php",data);
+                String rezultat = executeRequests.sendPostRequest(GeneralConstants.URL+"/actualizare_fotografie_profil.php",data);
 
                 return rezultat;
             }

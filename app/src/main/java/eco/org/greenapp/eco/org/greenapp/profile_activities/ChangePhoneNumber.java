@@ -15,16 +15,15 @@ import eco.org.greenapp.eco.org.greenapp.constants.SharedPreferencesConstants;
 
 public class ChangePhoneNumber extends AppCompatActivity {
 
-    EditText etPhoneNumber;
-    String phoneNumber;
-    @Override
+    EditText etNrTelefon;
+     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_phone_number);
 
-        etPhoneNumber = (EditText)findViewById(R.id.etPhoneInput);
+        etNrTelefon = (EditText)findViewById(R.id.etPhoneInput);
+        etNrTelefon.setText(getSharedPreferences(GeneralConstants.SESSION, Context.MODE_PRIVATE).getString(SharedPreferencesConstants.PHONE_NUMBER,null));
 
-etPhoneNumber.setText(getSharedPreferences(GeneralConstants.SESSION, Context.MODE_PRIVATE).getString(SharedPreferencesConstants.PHONE_NUMBER,null));
         ((Button)findViewById(R.id.btnUpdatePhone)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -35,11 +34,11 @@ etPhoneNumber.setText(getSharedPreferences(GeneralConstants.SESSION, Context.MOD
                 {
                     SharedPreferences sharedPreferences = getSharedPreferences(GeneralConstants.SESSION, Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor  = sharedPreferences.edit();
-                    editor.putString(SharedPreferencesConstants.PHONE_NUMBER, etPhoneNumber.getText().toString().trim());
+                    editor.putString(SharedPreferencesConstants.PHONE_NUMBER, etNrTelefon.getText().toString().trim());
                     editor.apply();
 
                     ExecuteUpdatesTask executeUpdatesTask = new ExecuteUpdatesTask(getApplicationContext());
-                    executeUpdatesTask.execute("4", sharedPreferences.getString(SharedPreferencesConstants.EMAIL,null), etPhoneNumber.getText().toString().trim());
+                    executeUpdatesTask.execute("4", sharedPreferences.getString(SharedPreferencesConstants.EMAIL,null), etNrTelefon.getText().toString().trim());
                     finish();
                 }
             }
@@ -49,7 +48,7 @@ etPhoneNumber.setText(getSharedPreferences(GeneralConstants.SESSION, Context.MOD
 
     public boolean checkPhoneUpdate(){
         String regexForm = "^[0-9]{10,14}$";
-        if(etPhoneNumber.getText().toString().isEmpty() || !etPhoneNumber.getText().toString().matches(regexForm))
+        if(etNrTelefon.getText().toString().isEmpty() || !etNrTelefon.getText().toString().matches(regexForm))
             return false;
         return true;
     }

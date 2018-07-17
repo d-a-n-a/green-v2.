@@ -7,7 +7,6 @@
     tools:context="eco.org.greenapp.eco.org.greenapp.activities.SignIn"
     tools:layout_editor_absoluteY="81dp">
 
-
     <android.support.constraint.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="0dp"
@@ -18,7 +17,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
 
         <Button
             android:id="@+id/btnCreateAccount"

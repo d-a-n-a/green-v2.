@@ -10,7 +10,6 @@
         android:layout_height="wrap_content"
         tools:context="eco.org.greenapp.eco.org.greenapp.profile_activities.ChangeLocation">
 
-
         <Spinner
             android:id="@+id/spinnerCountries"
             android:layout_width="360dp"

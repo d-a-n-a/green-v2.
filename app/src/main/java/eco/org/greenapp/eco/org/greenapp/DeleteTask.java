@@ -2,7 +2,6 @@ package eco.org.greenapp.eco.org.greenapp;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -33,7 +32,7 @@ public class DeleteTask extends AsyncTask <Integer, Void, String>{
         URL url = null;
         int id = ints[0];
         try {
-            url = new URL(GeneralConstants.URL+"/delete_transaction.php");
+            url = new URL(GeneralConstants.URL+"/stergere_tranzactie.php");
             HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
             httpURLConnection.setRequestMethod("POST");
             httpURLConnection.setDoInput(true);

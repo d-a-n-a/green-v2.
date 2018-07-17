@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -23,9 +22,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import eco.org.greenapp.R;
 import eco.org.greenapp.eco.org.greenapp.adapters.AdapterNotificare;
@@ -73,9 +70,6 @@ public class Notificari extends AppCompatActivity {
         });
 
 
-                //todo citit -> true --- update 1 -: cred ca am facut asta deja. sa vad daca am cursor
-                //eliminare din lista
-                //inserare cu cursor in notificari_useri
 
      }
 
@@ -119,7 +113,7 @@ public class Notificari extends AppCompatActivity {
          @Override
          protected void onPostExecute(String s) {
              if(s == null )
-                 Toast.makeText(getApplicationContext(),"Ups... something is wrong", Toast.LENGTH_SHORT).show();
+                 Toast.makeText(getApplicationContext(),"Ups... something is wrong. [Notificari 116]", Toast.LENGTH_SHORT).show();
              else
                  if(s.isEmpty())
                      Toast.makeText(getApplicationContext(), "Nu sunt notificari noi.", Toast.LENGTH_SHORT).show();
@@ -176,13 +170,13 @@ public class Notificari extends AppCompatActivity {
                  BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream(), "iso-8859-1"));
                  String result;
 
-                 StringBuilder sb = new StringBuilder();
+                 StringBuilder stringBuilder = new StringBuilder();
 
                  while((result = bufferedReader.readLine())!=null){
-                     sb.append(result);
+                     stringBuilder.append(result);
                  }
                  con.disconnect();
-                 return sb.toString();
+                 return stringBuilder.toString();
              } catch (Exception e) {
                  return null;
              }
@@ -198,4 +192,3 @@ public class Notificari extends AppCompatActivity {
          }
      }
 }
-//TODO CAUTA EMULATO BUN CA SA FIE FINAAAAAAAALL!!!

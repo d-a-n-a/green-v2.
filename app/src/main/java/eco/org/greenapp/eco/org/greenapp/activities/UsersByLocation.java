@@ -1,13 +1,10 @@
 package eco.org.greenapp.eco.org.greenapp.activities;
 
 import android.Manifest;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.AsyncTask;
@@ -45,7 +42,6 @@ import com.google.android.gms.maps.SupportMapFragment;
 
 
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.PolylineOptions;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -74,13 +70,11 @@ import eco.org.greenapp.eco.org.greenapp.adapters.UsersAdapter;
 import eco.org.greenapp.eco.org.greenapp.classes.Locatie;
 import eco.org.greenapp.eco.org.greenapp.classes.User;
 import eco.org.greenapp.eco.org.greenapp.constants.GeneralConstants;
-import eco.org.greenapp.eco.org.greenapp.constants.SharedPreferencesConstants;
 import eco.org.greenapp.eco.org.greenapp.maps.JSONMaps;
 
 public class UsersByLocation extends AppCompatActivity implements OnMapReadyCallback {
     ListView listViewUsersByLocation;
-    UsersAdapter adapter;
-    List<User> lista;
+     List<User> lista;
     String distanta, username;
     Spinner spinnerDistanta;
     SupportMapFragment mapFragment;
@@ -102,10 +96,7 @@ public class UsersByLocation extends AppCompatActivity implements OnMapReadyCall
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_users_by_location);
-
-
         lista = new ArrayList<>();
-
         listaMapare = new ArrayList<>();
         listViewUsersByLocation = (ListView) findViewById(R.id.lvUsersByLocation);
         listViewUsersByLocation.setNestedScrollingEnabled(true);
@@ -124,18 +115,10 @@ public class UsersByLocation extends AppCompatActivity implements OnMapReadyCall
             avertizareNoGps();
 
         }
-     /*   ((Button) findViewById(R.id.btndo)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                distanta = spinnerDistanta.getSelectedItem().toString();
-                GetUsersByLocation getUsersByLocation = new GetUsersByLocation();
-                getUsersByLocation.execute("" + 44.44, "" + 26.08, distanta, "alina");
-                adapter.notifyDataSetChanged();
-            }
-        });*/
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(UsersByLocation.this);
-    }
+        findViewById(R.id.loadingPanel).setVisibility(View.GONE);
 
+    }
     @Override
     public void onMapReady(GoogleMap googleMap) {
         this.googleMap = googleMap;
@@ -215,7 +198,7 @@ public class UsersByLocation extends AppCompatActivity implements OnMapReadyCall
                 }
                 latitudine = location.getLatitude();
                 longitudine = location.getLongitude();
-                latLngME = new LatLng(location.getLatitude(), location.getLongitude());
+                latLngME = new LatLng(location.getLatitude(), location.getLongitude());//new LatLng(44.447360, 26.097130);//
                 MarkerOptions markerOptions = new MarkerOptions();
                 markerOptions.position(latLngME);
                 markerOptions.title("Locatia mea");
@@ -226,12 +209,15 @@ public class UsersByLocation extends AppCompatActivity implements OnMapReadyCall
                 ((Button) findViewById(R.id.btndo)).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        findViewById(R.id.loadingPanel).setVisibility(View.VISIBLE);
+                        listaMapare.clear();
+                        secondUsersAdapter.notifyDataSetChanged();
                         distanta = spinnerDistanta.getSelectedItem().toString();
                         GetUsersByLocation getUsersByLocation = new GetUsersByLocation();
                         getUsersByLocation.execute("" + latitudine, "" + longitudine, distanta,
                                 getSharedPreferences(GeneralConstants.SESSION, Context.MODE_PRIVATE)
                                 .getString(GeneralConstants.TOKEN,null));
+
                     }
                 });
             }
@@ -242,6 +228,7 @@ public class UsersByLocation extends AppCompatActivity implements OnMapReadyCall
         String latitudine, longitudine, distanta, username;
         @Override
         protected List<User> doInBackground(String... strings) {
+
             latitudine = strings[0];
             longitudine = strings[1];
             distanta = strings[2];
@@ -250,7 +237,7 @@ public class UsersByLocation extends AppCompatActivity implements OnMapReadyCall
             URL url = null;
             try {
 
-            url = new URL(GeneralConstants.URL+"/get_users_by_location.php");
+            url = new URL(GeneralConstants.URL+"/utilizatori_apropiati.php");
 
             HttpURLConnection http = (HttpURLConnection) url.openConnection();
             http.setRequestMethod("POST");
@@ -318,14 +305,12 @@ public class UsersByLocation extends AppCompatActivity implements OnMapReadyCall
 
         @Override
         protected void onPostExecute(List<User> s) {
+
             if(s == null)
-                 //Toast.makeText(getApplicationContext(), "Nu s-a primit lista.", Toast.LENGTH_SHORT).show();
-                Snackbar.make(findViewById(R.id.idScrollUsers), "Nu s-a primit lista.", Snackbar.LENGTH_LONG).show();
+                 Snackbar.make(findViewById(R.id.idScrollUsers), "Nu s-a primit lista.", Snackbar.LENGTH_LONG).show();
 
             if(s.size() == 0)
-               // Toast.makeText(getApplicationContext(), "Nu s-a gasit niciun utilizator.", Toast.LENGTH_LONG).show();
-                //Snackbar.make(findViewById(R.id.idScrollUsers), "Nu s-a gasit niciun utilizator conform criteriilor.", Snackbar.LENGTH_LONG).show();
-            {
+             {
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(UsersByLocation.this);
                 alertDialog.setMessage("Nu s-a găsit niciun utilizator în apropiere.");
 
@@ -341,19 +326,11 @@ public class UsersByLocation extends AppCompatActivity implements OnMapReadyCall
                 alertDialog.show();
             }
             if(s.equals(GeneralConstants.RESULT_NOT_OK))
-                //
-                // Toast.makeText(getApplicationContext(), "Ups.. eroare preluare utilizatori dupa locatie. (UsersByLocation)", Toast.LENGTH_LONG).show();
-                Snackbar.make(findViewById(R.id.idScrollUsers), "Ups.. eroare preluare utilizatori după locație", Snackbar.LENGTH_LONG).show();
+                 Snackbar.make(findViewById(R.id.idScrollUsers), "Ups.. eroare preluare utilizatori după locație", Snackbar.LENGTH_LONG).show();
 
             else {
-               /* for (int i = 0; i<s.size(); i++){
-                    googleMap.addMarker(new MarkerOptions()
-                            .position(new LatLng(s.get(i).getLocatie().getLatitudine(), s.get(i).getLocatie().getLongitudine())))
-                            .setTitle(s.get(i).getUsername());//si in lista de jos apar detaliile, inclusiv distanta in timp sau km exacti
-                }*/
                 listaUtilizatoriGasiti = s;
-                //adapter.notifyDataSetChanged();
-                LatLng origine = new LatLng(latLngME.latitude, latLngME.longitude);
+                 LatLng origine =new LatLng(latLngME.latitude, latLngME.longitude);// new LatLng(44.447360, 26.097130);//
 
                 List<String> urls = new ArrayList<>();
                 for(int ii = 0;ii<s.size();ii++) {
@@ -361,14 +338,13 @@ public class UsersByLocation extends AppCompatActivity implements OnMapReadyCall
                     LatLng destinatie = new LatLng(s.get(ii).getLocatie().getLatitudine(), s.get(ii).getLocatie().getLongitudine());
                     googleMap.addMarker(new MarkerOptions().position(destinatie).title(s.get(ii).getUsername()));
                     googleMap.moveCamera(CameraUpdateFactory.newLatLng(destinatie));
-                    String str_origin = "origin=" + latLngME.latitude + "," + latLngME.longitude;
+                    String str_origin = "origin=" + latLngME.latitude + "," + latLngME.longitude;//"44.44736"+",26.097130";//
                     String str_dest = "destination=" + destinatie.latitude + "," + destinatie.longitude;
                     String sensor = "sensor=false";
                     String parameters = str_origin + "&" + str_dest + "&" + sensor;
                     String output = "json";
                     String url = "https://maps.googleapis.com/maps/api/directions/" + output + "?" + parameters;
                     urls.add(url);
-                    Log.i("A","indice "+ii);
                     googleMap.moveCamera(CameraUpdateFactory.newLatLng(origine));
 
                 }
@@ -379,7 +355,6 @@ public class UsersByLocation extends AppCompatActivity implements OnMapReadyCall
         }
     }
 
-
     protected void avertizareNoGps() {
 
         final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
@@ -388,8 +363,7 @@ public class UsersByLocation extends AppCompatActivity implements OnMapReadyCall
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(final DialogInterface dialog, final int id) {
                         startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-                        //cred ca aici ar trebui sa fac cu onactivityresult
-                    }
+                     }
                 })
                 .setNegativeButton("NO", new DialogInterface.OnClickListener() {
                     public void onClick(final DialogInterface dialog, final int id) {
@@ -407,11 +381,11 @@ public class UsersByLocation extends AppCompatActivity implements OnMapReadyCall
         }
     }
 
-
-
     private class FetchUrl extends  AsyncTask<List<String>, Void, List<String>>{
         @Override
         protected List<String> doInBackground(List<String>[] lists) {
+            listaMapare.clear();
+
             List<String> lista = lists[0];
 
             List<String> data = new ArrayList<>();
@@ -445,8 +419,6 @@ public class UsersByLocation extends AppCompatActivity implements OnMapReadyCall
             }
             return data;
         }
-
-
         @Override
         protected void onPostExecute(List<String> s) {
              new ParserTask().execute(s);
@@ -480,63 +452,51 @@ public class UsersByLocation extends AppCompatActivity implements OnMapReadyCall
         }
         return data;
     }
-
     private class ParserTask extends AsyncTask<List<String>, Integer, HashMap<Integer,List<List<HashMap<String,String>>>>>{
-
-
 
         @Override
         protected HashMap<Integer,List<List<HashMap<String, String>>>> doInBackground(List<String>[] lists) {
-            List<String> lista = lists[0];//asta e lista de jsoane de la url
-            Log.i("CARrrrjsons", ""+lista.size());
-            JSONObject jObject;
-            HashMap<Integer,List<List<HashMap<String, String>>>> carnat = new HashMap<>();
+            List<String> lista = lists[0];
+             JSONObject jObject;
+            HashMap<Integer,List<List<HashMap<String, String>>>> parserTaskList = new HashMap<>();
             JSONArray jsonArray = new JSONArray();
             for(int i=0;i<lista.size();i++) {
                 List<List<HashMap<String, String>>> routes = null;
                 try {
-                    jObject = new JSONObject(lista.get(i));//todo fac jsonobject pentru fiecare string din strings
+                    jObject = new JSONObject(lista.get(i));
                     jsonArray.put(jObject);
-                   // JSONMaps jsonMaps = new JSONMaps();//todo fac defapt jsonarray si sa returneze direct de tip carnat
-                    //routes = jsonMaps.parse(jObject);
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
             JSONMaps jsonMaps = new JSONMaps();
-            carnat = jsonMaps.parse(jsonArray);
-         //   Log.i("CARrrrdo", carnat.size()+ " = "+carnat.toString());
-           // Log.i("CARrrrdoHash", carnat.get(0).toString());
-            return carnat;
+            parserTaskList = jsonMaps.parse(jsonArray);
+            return parserTaskList;
         }
 
         @Override
         protected void onPostExecute(HashMap<Integer,List<List<HashMap<String, String>>>> lists) {
             listaMapare.clear();
 
-            Log.i("CARrrr", lists.toString());
             List<String> distante = new ArrayList<>();
             List<String> durate = new ArrayList<>();
-for(int t=0;t< lists.size();t++){
-    List<List<HashMap<String, String>>> tempHash = lists.get(t);
+            for(int t=0;t< lists.size();t++){
+            List<List<HashMap<String, String>>> tempHash = lists.get(t);
 
-    if(!tempHash.isEmpty()) {
-        Log.i("CARrrrhash", t+"-"+tempHash.toString()+" === "+tempHash.get(0).get(0).toString().split("=")[1]);
-        Log.i("CARrrrhash", tempHash.get(0).get(1).toString().split("=")[1].replace("}",""));
+            if(!tempHash.isEmpty()) {
 
-        durate.add(tempHash.get(0).get(0).toString().split("=")[1]);
-        distante.add(tempHash.get(0).get(1).toString().split("=")[1].replace("}", ""));
-    }
-    else
-    {
+                durate.add(tempHash.get(0).get(0).toString().split("=")[1]);
+                distante.add(tempHash.get(0).get(1).toString().split("=")[1].replace("}", ""));
+            }
+            else
+            {
 
-        durate.add("- mins");
-        distante.add("- km");
+                durate.add("- mins");
+                distante.add("- km");
 
-    }
+            }
 }
-            Log.i("listautilizator", listaUtilizatoriGasiti.toString());
-
             for(int r = 0; r < distante.size(); r++){
                 HashMap<String,String> mapare = new HashMap<>();
                 mapare.put("durata", durate.get(r));
@@ -546,16 +506,14 @@ for(int t=0;t< lists.size();t++){
                 mapare.put("imagine", listaUtilizatoriGasiti.get(r).getUrl());
                 listaMapare.add(mapare);
             }
-            Log.i("CARrrrMAPARE", listaMapare.size()+" - "+listaMapare.toString());
-            try {
-                Thread.sleep(2000);
+             try {
+                Thread.sleep(4500);
+
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
             secondUsersAdapter.notifyDataSetChanged();
+            findViewById(R.id.loadingPanel).setVisibility(View.GONE);
         }
     }
 }
-
-//todo cred ca asta de fapt a mers asa altfel nu stiu i-am facut alta functionalitate cumva
-//update 9 iunie: cred ca "merge" pentru ca l-am pus sa astepte 2 secunde, ca sa vina toate datele      Thread.sleep(2000);

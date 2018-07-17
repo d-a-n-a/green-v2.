@@ -17,7 +17,7 @@ import eco.org.greenapp.eco.org.greenapp.constants.SharedPreferencesConstants;
 
 public class ChangePassword extends AppCompatActivity {
 
-    EditText etNewPassword, etConfirmNewPassword;
+    EditText etParolaNoua, etConfirmaParolaNoua;
     Dialog infoDialog;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor sharedPreferencesEditor;
@@ -27,8 +27,8 @@ public class ChangePassword extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_password);
 
-        etNewPassword = (EditText)findViewById(R.id.newPassword);
-        etConfirmNewPassword = (EditText)findViewById(R.id.confirmNewPassword);
+        etParolaNoua = (EditText)findViewById(R.id.newPassword);
+        etConfirmaParolaNoua = (EditText)findViewById(R.id.confirmNewPassword);
         sharedPreferences = getSharedPreferences(GeneralConstants.SESSION, Context.MODE_PRIVATE);
 
         ((Button)findViewById(R.id.btnUpdatePassword)).setOnClickListener(new View.OnClickListener() {
@@ -42,11 +42,11 @@ public class ChangePassword extends AppCompatActivity {
                 else
                     {
                         sharedPreferencesEditor = sharedPreferences.edit();
-                        sharedPreferencesEditor.putString(SharedPreferencesConstants.PASSWORD, etNewPassword.getText().toString().trim());
+                        sharedPreferencesEditor.putString(SharedPreferencesConstants.PASSWORD, etParolaNoua.getText().toString().trim());
                         sharedPreferencesEditor.apply();
 
                         ExecuteUpdatesTask executeUpdatesTask = new ExecuteUpdatesTask(getApplicationContext());
-                        executeUpdatesTask.execute("7", sharedPreferences.getString(SharedPreferencesConstants.EMAIL,null), etNewPassword.getText().toString().trim());
+                        executeUpdatesTask.execute("7", sharedPreferences.getString(SharedPreferencesConstants.EMAIL,null), etParolaNoua.getText().toString().trim());
                         finish();
                     }
             }
@@ -76,17 +76,17 @@ public class ChangePassword extends AppCompatActivity {
 
     }
     public boolean checkEquals() {
-        if(!etConfirmNewPassword.getText().toString().trim().equals(etNewPassword.getText().toString().trim()))
+        if(!etConfirmaParolaNoua.getText().toString().trim().equals(etParolaNoua.getText().toString().trim()))
             return false;
         return true;
     }
     public boolean checkValidity() {
-        if(etConfirmNewPassword.getText().toString().trim().length() < 8)
+        if(etConfirmaParolaNoua.getText().toString().trim().length() < 8)
             return false;
         return true;
     }
     public boolean checkEmpty(){
-         if(etConfirmNewPassword.getText().toString().trim().isEmpty() || etNewPassword.getText().toString().isEmpty())
+         if(etConfirmaParolaNoua.getText().toString().trim().isEmpty() || etParolaNoua.getText().toString().isEmpty())
             return  false;
         return true;
     }

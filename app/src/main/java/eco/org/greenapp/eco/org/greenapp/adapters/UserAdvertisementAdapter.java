@@ -1,28 +1,19 @@
 package eco.org.greenapp.eco.org.greenapp.adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
-import java.lang.reflect.Array;
 import java.util.List;
 
 import eco.org.greenapp.R;
 import eco.org.greenapp.eco.org.greenapp.GetImageTask;
-import eco.org.greenapp.eco.org.greenapp.activities.AdForProduct;
 import eco.org.greenapp.eco.org.greenapp.classes.Advertisement;
-import eco.org.greenapp.eco.org.greenapp.classes.User;
 import eco.org.greenapp.eco.org.greenapp.constants.GeneralConstants;
 
 /**
@@ -63,20 +54,6 @@ public class UserAdvertisementAdapter extends ArrayAdapter<Advertisement> {
             GetImageTask getImageTask = new GetImageTask(imgv, getContext());
             getImageTask.execute(GeneralConstants.Url+ad.getProdus().getUrl());
         }
-        //daca nu e al meu atunci ii dau clickc atre adforproduct
-       /* String me = getContext().getSharedPreferences(GeneralConstants.SESSION, Context.MODE_PRIVATE)
-                .getString(GeneralConstants.TOKEN, null);
-        if(!ad.getUsername().equals(me))
-        {
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getContext(), AdForProduct.class);
-                    intent.putExtra("selectedAd", ad);
-                    getContext().startActivity(intent);
-                }
-            });
-        }*/
         return view;
     }
 }

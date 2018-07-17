@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -31,7 +30,6 @@ import eco.org.greenapp.eco.org.greenapp.DeleteTask;
 import eco.org.greenapp.eco.org.greenapp.activities.Feedback;
 import eco.org.greenapp.eco.org.greenapp.classes.Transaction;
 import eco.org.greenapp.eco.org.greenapp.constants.GeneralConstants;
-import eco.org.greenapp.eco.org.greenapp.constants.SharedPreferencesConstants;
 import eco.org.greenapp.eco.org.greenapp.enumerations.TipAnunt;
 
 /**
@@ -75,7 +73,7 @@ public class UserTransactionsAdapter extends ArrayAdapter<Transaction> {
         else {
             co.setText("");
             ((Button)view.findViewById(R.id.btnConfirm)).setVisibility(View.INVISIBLE);
-        }//nu are sens sa pun chiar cerere pentru ca nu e pe anuntul meu de cerere, e pe anuntul altcuiva de oferta
+        }
         strada.setText(tr.getLocatie());
         dataora.setText(tr.getData().toString()+" - "+tr.getOra());
 
@@ -121,19 +119,15 @@ public class UserTransactionsAdapter extends ArrayAdapter<Transaction> {
                 ((Button)view.findViewById(R.id.btnConfirm)).setVisibility(View.INVISIBLE);
                 ((Button)view.findViewById(R.id.btnCancel)).setVisibility(View.INVISIBLE);
                 ((TextView)view.findViewById(R.id.statusTranz)).setVisibility(View.VISIBLE);
-                //butonul pentru adaugare review este accesibil doar daca nu mai exista
-                //un alt review catre acel user pe baza aceleiasi tranzactii
                 CheckReview checkReview = new CheckReview(view);
                 checkReview.execute( me, tr.getExpeditor(), ""+tr.getIdTranzactie());
-
-               // view.setBackgroundColor(view.getResources().getColor(R.color.colorBackgound));
 
                 ((Button)view.findViewById(R.id.btnReview)).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         AlertDialog.Builder alertDialog = new AlertDialog.Builder(view.getContext());
-                        alertDialog.setMessage("Doriti sa adaugati review pentru acest utilizator?");
-                        alertDialog.setTitle("Review");
+                        alertDialog.setMessage("Doriti sa adaugati o recenzie pentru acest utilizator?");
+                        alertDialog.setTitle("Evaluare");
 
                         alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
@@ -226,7 +220,7 @@ public class UserTransactionsAdapter extends ArrayAdapter<Transaction> {
             idAd = strings[2];
             idNewStatusAd = strings[3];
             try {
-                URL url = new URL(GeneralConstants.URL+"/update_transaction_ad.php");
+                URL url = new URL(GeneralConstants.URL+"/actualizare_anunt_tranzactie.php");
                 HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
 
                 httpURLConnection.setRequestMethod("POST");
@@ -271,18 +265,20 @@ public class UserTransactionsAdapter extends ArrayAdapter<Transaction> {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            if(s!=null)
-                Toast.makeText(getContext(), s, Toast.LENGTH_LONG).show();
+           /* if(s!=null)
+                Toast.makeText(getContext(), s, Toast.LENGTH_LONG).show();*/
         }
     }
     public class CheckReview extends AsyncTask<String, Void, String>{
-View context;
-CheckReview(View context){
-    this.context = context;
+    View context;
 
+    CheckReview(View context){
+        this.context = context;
 }
-String autor, user;
-String idTranzactie;
+
+        String autor, user;
+        String idTranzactie;
+
         @Override
         protected String doInBackground(String... strings) {
             autor = strings[0];
@@ -295,7 +291,6 @@ String idTranzactie;
                 httpURLConnection.setRequestMethod("POST");
                 httpURLConnection.setDoInput(true);
                 httpURLConnection.setDoOutput(true);
-
 
                 OutputStream outputStream = httpURLConnection.getOutputStream();
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream,"UTF-8"));
@@ -337,10 +332,6 @@ String idTranzactie;
            }
            else
                ((Button) context.findViewById(R.id.btnReview)).setVisibility(View.INVISIBLE);
-
-
-
         }
     }
-
 }

@@ -9,7 +9,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -19,7 +18,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,18 +36,16 @@ import java.util.List;
 import eco.org.greenapp.R;
 import eco.org.greenapp.eco.org.greenapp.GetImageTask;
 import eco.org.greenapp.eco.org.greenapp.constants.GeneralConstants;
-import eco.org.greenapp.eco.org.greenapp.fragments.FragmentGeneralUserInfo;
 import eco.org.greenapp.eco.org.greenapp.fragments.FragmentMyGeneralUserInfo;
 import eco.org.greenapp.eco.org.greenapp.fragments.FragmentMyAds;
 import eco.org.greenapp.eco.org.greenapp.fragments.FragmentMyReviews;
-import eco.org.greenapp.eco.org.greenapp.fragments.FragmentUserAds;
 import eco.org.greenapp.eco.org.greenapp.fragments.TransactionHistoryFragment;
 
  public class MyProfile extends AppCompatActivity {
 RatingBar ratingBar;
-String imgUrl;
+String urlImagine;
 ImageButton imageButton;
-     public List<Integer> nrMyReviews;
+public List<Integer> nrEvaluarileMele;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +56,7 @@ ImageButton imageButton;
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.setStatusBarColor(ContextCompat.getColor(this,R.color.colorGreenSheen));
-        nrMyReviews = new ArrayList<Integer>();
+        nrEvaluarileMele = new ArrayList<Integer>();
 
         imageButton = (ImageButton)findViewById(R.id.imageButton);
         imageButton.setOnClickListener(new View.OnClickListener() {
@@ -155,7 +151,7 @@ ImageButton imageButton;
              String username;
              try {
                  username = strings[0];
-                 URL url = new URL(GeneralConstants.URL+"/calculate_review.php");
+                 URL url = new URL(GeneralConstants.URL+"/calcul_rating.php");
                  HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
 
@@ -174,9 +170,7 @@ ImageButton imageButton;
 
                  BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream(), "iso-8859-1"));
                  String result;
-
                  StringBuilder sb = new StringBuilder();
-
                  while ((result = bufferedReader.readLine()) != null) {
                      sb.append(result);
                  }
@@ -194,20 +188,20 @@ ImageButton imageButton;
              {
                  try {
                      JSONObject jsonObject = new JSONObject(s);
-                     nrMyReviews.add(Integer.parseInt(jsonObject.getString("0")));
-                     nrMyReviews.add(Integer.parseInt(jsonObject.getString("1")));
-                     nrMyReviews.add(Integer.parseInt(jsonObject.getString("2")));
-                     nrMyReviews.add(Integer.parseInt(jsonObject.getString("3")));
-                     nrMyReviews.add(Integer.parseInt(jsonObject.getString("4")));
+                     nrEvaluarileMele.add(Integer.parseInt(jsonObject.getString("0")));
+                     nrEvaluarileMele.add(Integer.parseInt(jsonObject.getString("1")));
+                     nrEvaluarileMele.add(Integer.parseInt(jsonObject.getString("2")));
+                     nrEvaluarileMele.add(Integer.parseInt(jsonObject.getString("3")));
+                     nrEvaluarileMele.add(Integer.parseInt(jsonObject.getString("4")));
                      if(jsonObject.getString("review").equals("nu are reviews"))
                          nota = ""+0;
                      else
                          nota = jsonObject.getString("review");
                      ratingBar.setRating(Float.parseFloat(nota));
-                     imgUrl = GeneralConstants.Url+jsonObject.getString("foto");
+                     urlImagine = GeneralConstants.Url+jsonObject.getString("foto");
                      if(!jsonObject.getString("foto").isEmpty() && !(jsonObject.getString("foto")==null) )
                          new GetImageTask((ImageView) findViewById(R.id.userProfilePicture), getApplicationContext())
-                                 .execute(imgUrl);
+                                 .execute(urlImagine);
                   } catch (JSONException e) {
                      e.printStackTrace();
                  }
@@ -216,7 +210,7 @@ ImageButton imageButton;
          }
 
      }
-     public List<Integer> getNrMyReviews(){
-        return nrMyReviews;
+     public List<Integer> getNrEvaluarileMele(){
+        return nrEvaluarileMele;
      }
 }

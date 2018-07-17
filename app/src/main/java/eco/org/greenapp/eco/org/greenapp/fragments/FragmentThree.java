@@ -7,8 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import eco.org.greenapp.R;
-import eco.org.greenapp.eco.org.greenapp.activities.FilterFindUsers;
+import eco.org.greenapp.eco.org.greenapp.activities.FilterFindAds;
 
 
 public class FragmentThree extends Fragment {
@@ -23,7 +22,7 @@ public class FragmentThree extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        startActivity(new Intent(getContext(),FilterFindUsers.class));
+        startActivity(new Intent(getContext(),FilterFindAds.class));
 
          return null;
         //return inflater.inflate(R.layout.fragment_fragment_three, container, false);

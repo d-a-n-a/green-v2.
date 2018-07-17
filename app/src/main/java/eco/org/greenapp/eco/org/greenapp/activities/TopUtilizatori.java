@@ -1,32 +1,29 @@
 package eco.org.greenapp.eco.org.greenapp.activities;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
-
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.github.mikephil.charting.utils.ViewPortHandler;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
-
 import eco.org.greenapp.R;
 import eco.org.greenapp.eco.org.greenapp.adapters.AdapterTopUtilizatori;
 import eco.org.greenapp.eco.org.greenapp.classes.Locatie;
@@ -34,12 +31,14 @@ import eco.org.greenapp.eco.org.greenapp.classes.UserWithReview;
 import eco.org.greenapp.eco.org.greenapp.constants.GeneralConstants;
 
 public class TopUtilizatori extends AppCompatActivity {
-List<UserWithReview> utilizatori;
-AdapterTopUtilizatori adapterTopUtilizatori;
-ListView listView;
-List<Integer> tranzactiiFinalizate;
-List<Integer> tranzactiiAnulate;
+
+    List<UserWithReview> utilizatori;
+    AdapterTopUtilizatori adapterTopUtilizatori;
+    ListView listView;
+    List<Integer> tranzactiiFinalizate;
+    List<Integer> tranzactiiAnulate;
     BarChart chart;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,8 +65,6 @@ List<Integer> tranzactiiAnulate;
     }
 
 
-
-
     public class PreluareTopUtilizatori extends AsyncTask<Void, Void, String> {
 
         @Override
@@ -80,7 +77,6 @@ List<Integer> tranzactiiAnulate;
 
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream(), "iso-8859-1"));
                 String result;
-
                 StringBuilder sb = new StringBuilder();
 
                 while((result = bufferedReader.readLine())!=null){
@@ -111,28 +107,38 @@ List<Integer> tranzactiiAnulate;
                         user.setMedieReviews((float)obiect.getInt("nota"));
                         user.setUsername(obiect.getString("username"));
                         user.setLocatie(locatie);
-                        tranzactiiFinalizate.add(Integer.parseInt(obiect.getString("totalfinalizate")));
+                        tranzactiiFinalizate.add(10*Integer.parseInt(obiect.getString("totalfinalizate")));
                         tranzactiiAnulate.add(obiect.getInt("totalanulate"));
                         utilizatori.add(user);
                         xAxis.add(user.getUsername());
                     }
 
+                tranzactiiAnulate.set(2, 2);
+                    tranzactiiFinalizate.set(0, 19);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
                 adapterTopUtilizatori.notifyDataSetChanged();
 
                 BarData data = new BarData(xAxis, getDataSet());
+                data.setValueFormatter(new ValueFormatter() {
+                    private DecimalFormat mFormat = new DecimalFormat("###,###,##0");
+
+                    @Override
+                    public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
+                        return mFormat.format(value);
+                    }
+                });
                 data.setValueTextSize(14);
-
-
+                chart.getLegend().setTextSize(15);
                 chart.setData(data);
                 chart.setDescription("");
                 chart.animateXY(2000, 2000);
+                chart.getXAxis().setTextSize(16);
                 chart.invalidate();
             }
         }
-        }
+    }
     private ArrayList<BarDataSet> getDataSet() {
         ArrayList<BarDataSet> barDataSet = null;
 
@@ -148,11 +154,11 @@ List<Integer> tranzactiiAnulate;
             valueSetAnulate.add(entry);
         }
 
+
         BarDataSet barDataFinalizate = new BarDataSet(valueSetFinalizate, "finalizate");
         barDataFinalizate.setColor(getResources().getColor(R.color.bluefm));
         BarDataSet barDataAnulate = new BarDataSet(valueSetAnulate, "anulate");
         barDataAnulate.setColor(getResources().getColor(R.color.redfm));
-
         barDataSet = new ArrayList<>();
         barDataSet.add(barDataFinalizate);
         barDataSet.add(barDataAnulate);

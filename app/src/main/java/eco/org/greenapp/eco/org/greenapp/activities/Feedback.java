@@ -17,19 +17,16 @@ import org.json.JSONObject;
 import eco.org.greenapp.R;
 import eco.org.greenapp.eco.org.greenapp.AddReviewTask;
 import eco.org.greenapp.eco.org.greenapp.constants.GeneralConstants;
-import eco.org.greenapp.eco.org.greenapp.constants.SharedPreferencesConstants;
 
 public class Feedback extends AppCompatActivity {
-Intent intent;
-JSONObject json;
-String user;
-TextInputEditText detalii;
-RatingBar nota;
-
-String txtDetalii;
-double iNota;
-int tranzactie;
-String currentUsername;
+    Intent intent;
+    JSONObject json;
+    String user;
+    TextInputEditText detalii;
+    RatingBar nota;
+    double iNota;
+    int tranzactie;
+    String usernameCurent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,14 +35,14 @@ String currentUsername;
         detalii = (TextInputEditText)findViewById(R.id.detailsReviewInput);
         nota = (RatingBar)findViewById(R.id.ratingUser);
 
-        currentUsername = getSharedPreferences(GeneralConstants.SESSION, Context.MODE_PRIVATE).getString(GeneralConstants.TOKEN, null);
+        usernameCurent = getSharedPreferences(GeneralConstants.SESSION, Context.MODE_PRIVATE).getString(GeneralConstants.TOKEN, null);
 
         intent = getIntent();
         if (intent != null) {
             user = intent.getStringExtra("user");
             tranzactie = intent.getIntExtra("idTranzactie",0);
         }
-        ((TextView) findViewById(R.id.textFeedback)).setText("Adaugare review pentru utilizatorul " + user);
+        ((TextView) findViewById(R.id.textFeedback)).setText("Adaugare evaluare pentru utilizatorul " + user);
 
 
 
@@ -59,14 +56,13 @@ String currentUsername;
                         json = new JSONObject();
 
                         try {
-                            json.put("autor", currentUsername);
+                            json.put("autor", usernameCurent);
                             json.put("user", user);
                             json.put("detalii", detalii.getText().toString().trim());
                             json.put("nota", iNota);
                             json.put("tranzactie", tranzactie);
                             AddReviewTask addReviewTask = new AddReviewTask(getApplicationContext());
                             addReviewTask.execute(json);
-                            Toast.makeText(getApplicationContext(), currentUsername+"-"+user+"+"+detalii.getText().toString()+"-"+iNota+"-"+tranzactie, Toast.LENGTH_LONG).show();
                             finish();
                         } catch (JSONException e) {
                             e.printStackTrace();

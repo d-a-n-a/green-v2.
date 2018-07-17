@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="eco.org.greenapp.AppMenu" >
+    tools:context="eco.org.greenapp.eco.org.greenapp.activities.AppMenu" >
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/main_nav"

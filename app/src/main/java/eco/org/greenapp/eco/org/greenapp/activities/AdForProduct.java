@@ -1,14 +1,12 @@
 package eco.org.greenapp.eco.org.greenapp.activities;
 
 import android.content.Intent;
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,12 +28,11 @@ import eco.org.greenapp.eco.org.greenapp.enumerations.TipAnunt;
 
 public class AdForProduct extends AppCompatActivity implements OnMapReadyCallback {
 
-    ImageView produtPhoto;
+    ImageView productPhoto;
     SupportMapFragment mapFragment;
-    Advertisement ad;
+    Advertisement adv;
     Intent intent;
-
-     TextView denumireProdus;
+    TextView denumireProdus;
     TextView descriereProdus;
     TextView categorie;
     TextView valabilitate;
@@ -72,43 +69,43 @@ public class AdForProduct extends AppCompatActivity implements OnMapReadyCallbac
 
         intent = getIntent();
         if(intent != null)
-             ad = (Advertisement)intent.getSerializableExtra("selectedAd");
-        produtPhoto = (ImageView)findViewById(R.id.backgroundLayout);
+             adv = (Advertisement)intent.getSerializableExtra("selectedAd");
+        productPhoto = (ImageView)findViewById(R.id.backgroundLayout);
 
-        if(ad.getTip().equals(TipAnunt.cerere)){
-            produtPhoto.setPadding(30,30,30,30);
-            produtPhoto.setBackground(getDrawable(R.drawable.wanted));
-         }
+        if(adv.getTip().equals(TipAnunt.cerere.toString())){
+            productPhoto.setPadding(30,50,30,30);
+            productPhoto.setScaleType(ImageView.ScaleType.CENTER);
+          }
 
-        ProductImageTask productImageTask = new ProductImageTask(produtPhoto, getApplicationContext());
-        productImageTask.execute(GeneralConstants.Url+ad.getProdus().getUrl());
+        ProductImageTask productImageTask = new ProductImageTask(productPhoto, getApplicationContext());
+        productImageTask.execute(GeneralConstants.Url+ adv.getProdus().getUrl());
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), UserInfo.class);
-                intent.putExtra("username", ad.getUser().getUsername());
+                intent.putExtra("username", adv.getUser().getUsername());
                 startActivity(intent);
             }
         });
 
-        denumireProdus.setText(ad.getProdus().getDenumireProdus());
-        descriereProdus.setText(ad.getProdus().getDetaliiAnunt());
-        categorie.setText(ad.getProdus().getCategorie().getDenumire());
-        valabilitate.setText(ad.getProdus().getValabilitate());
-        locatie.setText(ad.getUser().getLocatie().getStrada());
-        detalii.setText(ad.getDescriereProdus());
-        status.setText(ad.getStatusAnunt().getTip());
-        ((TextView)findViewById(R.id.usernameanunt)).setText(ad.getUser().getUsername());
+        denumireProdus.setText(adv.getProdus().getDenumireProdus());
+        descriereProdus.setText(adv.getProdus().getDetaliiAnunt());
+        categorie.setText(adv.getProdus().getCategorie().getDenumire());
+        valabilitate.setText(adv.getProdus().getValabilitate());
+        locatie.setText(adv.getUser().getLocatie().getStrada());
+        detalii.setText(adv.getDescriereProdus());
+        status.setText(adv.getStatusAnunt().getTip());
+        ((TextView)findViewById(R.id.usernameanunt)).setText(adv.getUser().getUsername());
         ((TextView)findViewById(R.id.usernameanunt)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), UserInfo.class);
-                intent.putExtra("username", ad.getUser().getUsername());
+                intent.putExtra("username", adv.getUser().getUsername());
                 startActivity(intent);
             }
         });
-        String dataIntroducerii = ad.getDataPostarii().trim();
+        String dataIntroducerii = adv.getDataPostarii().trim();
         Log.i("introducere", dataIntroducerii);
         long days=0;
         try {
@@ -124,7 +121,7 @@ public class AdForProduct extends AppCompatActivity implements OnMapReadyCallbac
             long hours = minutes / 60;
             days = hours / 24;
 
-Log.i("days", ""+days);
+            Log.i("days", ""+days);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -136,8 +133,8 @@ Log.i("days", ""+days);
             public void onClick(View v) {
                 Intent intent = new Intent (Intent.ACTION_SEND);
                 intent.setType("message/rfc822");
-                intent.putExtra(Intent.EXTRA_EMAIL, new String[]{ad.getUser().getEmail()});
-                intent.putExtra(Intent.EXTRA_SUBJECT, "Contactare anunt: "+ad.getProdus().getDenumireProdus());
+                intent.putExtra(Intent.EXTRA_EMAIL, new String[]{adv.getUser().getEmail()});
+                intent.putExtra(Intent.EXTRA_SUBJECT, "Contactare anunt: "+ adv.getProdus().getDenumireProdus());
                 intent.setPackage("com.google.android.gm");
                 if (intent.resolveActivity(getPackageManager())!=null)
                     startActivity(intent);
@@ -150,10 +147,10 @@ Log.i("days", ""+days);
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        LatLng position = new LatLng(ad.getUser().getLocatie().getLatitudine(), ad.getUser().getLocatie().getLongitudine());
+        LatLng position = new LatLng(adv.getUser().getLocatie().getLatitudine(), adv.getUser().getLocatie().getLongitudine());
         googleMap.addMarker(new MarkerOptions()
                 .position(position)
-                .title(ad.getUser().getLocatie().getStrada())
+                .title(adv.getUser().getLocatie().getStrada())
         );
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position,15));
     }

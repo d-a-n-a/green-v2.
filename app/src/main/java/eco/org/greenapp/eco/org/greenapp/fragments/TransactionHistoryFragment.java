@@ -1,7 +1,6 @@
 package eco.org.greenapp.eco.org.greenapp.fragments;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -27,11 +26,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import eco.org.greenapp.R;
-import eco.org.greenapp.eco.org.greenapp.adapters.UserAdvertisementAdapter;
 import eco.org.greenapp.eco.org.greenapp.adapters.UserTransactionsAdapter;
 import eco.org.greenapp.eco.org.greenapp.classes.Advertisement;
 import eco.org.greenapp.eco.org.greenapp.classes.Produs;
-import eco.org.greenapp.eco.org.greenapp.classes.Status;
 import eco.org.greenapp.eco.org.greenapp.classes.Transaction;
 import eco.org.greenapp.eco.org.greenapp.constants.GeneralConstants;
 
@@ -52,23 +49,20 @@ public class TransactionHistoryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         transactions = new ArrayList<>();
-        if(view==null)
-        {
-            view=inflater.inflate(R.layout.fragment_transaction_history, container,false);
-        }
-        else
-        {
+        if (view == null) {
+            view = inflater.inflate(R.layout.fragment_transaction_history, container, false);
+        } else {
             ViewGroup parent = (ViewGroup) view.getParent();
-            // parent.removeView(view); //asta e posibil sa faca probleme
+            // parent.removeView(view);
         }
 
         GetUserTransactions getUserTransactions = new GetUserTransactions();
         getUserTransactions.execute();
 
 
-        adapter = new UserTransactionsAdapter(getActivity(),R.layout.transaction_item,transactions);
+        adapter = new UserTransactionsAdapter(getActivity(), R.layout.transaction_item, transactions);
         adapter.notifyDataSetChanged();
-        lvTransactions=(ListView)view.findViewById(R.id.idLvTransactions);
+        lvTransactions = (ListView) view.findViewById(R.id.idLvTransactions);
         lvTransactions.setAdapter(adapter);
 
         swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.idSwipeTransactions);
@@ -88,23 +82,22 @@ public class TransactionHistoryFragment extends Fragment {
         });
         return view;
     }
-    public  class GetUserTransactions extends AsyncTask<Void,Void,String> {
+
+    public class GetUserTransactions extends AsyncTask<Void, Void, String> {
         @Override
         protected String doInBackground(Void... voids) {
             try {
-                URL url = new URL(GeneralConstants.URL+"/select_transactions.php");
+                URL url = new URL(GeneralConstants.URL + "/selectare_tranzactii.php");
                 HttpURLConnection con = (HttpURLConnection) url.openConnection();
-
-
 
                 con.setRequestMethod("POST");
                 con.setDoInput(true);
                 con.setDoOutput(true);
 
                 OutputStream outputStream = con.getOutputStream();
-                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream,"UTF-8"));
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
                 String username = URLEncoder.encode("username", "UTF-8") + "=" + URLEncoder.encode(getActivity().getSharedPreferences(
-                        GeneralConstants.SESSION, Context.MODE_PRIVATE).getString(GeneralConstants.TOKEN,null), "UTF-8");
+                        GeneralConstants.SESSION, Context.MODE_PRIVATE).getString(GeneralConstants.TOKEN, null), "UTF-8");
                 bufferedWriter.write(username);
 
                 bufferedWriter.flush();
@@ -116,7 +109,7 @@ public class TransactionHistoryFragment extends Fragment {
 
                 StringBuilder sb = new StringBuilder();
 
-                while((result = bufferedReader.readLine())!=null){
+                while ((result = bufferedReader.readLine()) != null) {
                     sb.append(result);
                 }
                 con.disconnect();
@@ -129,39 +122,35 @@ public class TransactionHistoryFragment extends Fragment {
         @Override
         protected void onPostExecute(String s) {
 
-if(s!=null) {
+            if (s != null) {
 
-    try {
-        JSONArray vectorTransactions = new JSONArray(s);
-        for (int i = 0; i < vectorTransactions.length(); i++) {
-            eco.org.greenapp.eco.org.greenapp.classes.Status status = new eco.org.greenapp.eco.org.greenapp.classes.Status();
-            Advertisement anunt = new Advertisement();
-            Produs produs = new Produs();
-            JSONObject transaction = vectorTransactions.getJSONObject(i);
-            Transaction ad = new Transaction();
-            ad.setData(transaction.getString("data_predare"));
-            ad.setLocatie(transaction.getString("locatie_predare"));
-            ad.setOra(transaction.getString("ora_predare"));
-            ad.setExpeditor(transaction.getString("username_expeditor"));
-            ad.setDestinatar(transaction.getString("username_destinatar"));
-            produs.setDenumireProdus(transaction.getString("denumire"));
-            anunt.setId(Integer.parseInt(transaction.getString("ID_ANUNT")));
-            ad.setIdTranzactie(Integer.parseInt(transaction.getString("ID_TRANZACTIE")));
-            status.setTip(transaction.getString("status"));
-            ad.setStatus(status);
-
-            anunt.setProdus(produs);
-            ad.setAnunt(anunt);
-            transactions.add(ad);
-
-
-        }
-        adapter.notifyDataSetChanged();
-    } catch (JSONException e) {
-        e.printStackTrace();
-    }
-}
+                try {
+                    JSONArray vectorTransactions = new JSONArray(s);
+                    for (int i = 0; i < vectorTransactions.length(); i++) {
+                        eco.org.greenapp.eco.org.greenapp.classes.Status status = new eco.org.greenapp.eco.org.greenapp.classes.Status();
+                        Advertisement anunt = new Advertisement();
+                        Produs produs = new Produs();
+                        JSONObject transaction = vectorTransactions.getJSONObject(i);
+                        Transaction ad = new Transaction();
+                        ad.setData(transaction.getString("data_predare"));
+                        ad.setLocatie(transaction.getString("locatie_predare"));
+                        ad.setOra(transaction.getString("ora_predare"));
+                        ad.setExpeditor(transaction.getString("username_expeditor"));
+                        ad.setDestinatar(transaction.getString("username_destinatar"));
+                        produs.setDenumireProdus(transaction.getString("denumire"));
+                        anunt.setId(Integer.parseInt(transaction.getString("ID_ANUNT")));
+                        ad.setIdTranzactie(Integer.parseInt(transaction.getString("ID_TRANZACTIE")));
+                        status.setTip(transaction.getString("status"));
+                        ad.setStatus(status);
+                        anunt.setProdus(produs);
+                        ad.setAnunt(anunt);
+                        transactions.add(ad);
+                    }
+                    adapter.notifyDataSetChanged();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
-
 }

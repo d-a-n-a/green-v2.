@@ -2,7 +2,6 @@ package eco.org.greenapp.eco.org.greenapp.profile_activities;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -17,7 +16,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 
-import eco.org.greenapp.R;
 import eco.org.greenapp.eco.org.greenapp.constants.GeneralConstants;
 
 /**
@@ -38,7 +36,7 @@ public class ExecuteUpdatesTask extends AsyncTask<String, Void, String> {
             String email = strings[1];
             String newValue = strings[2];
 
-            URL url = new URL(GeneralConstants.URL+"/update_last_name.php");
+            URL url = new URL(GeneralConstants.URL + "/actualizare_nume.php");
 
             HttpURLConnection http = (HttpURLConnection) url.openConnection();
             http.setRequestMethod("POST");
@@ -79,12 +77,10 @@ public class ExecuteUpdatesTask extends AsyncTask<String, Void, String> {
     }
 
     @Override
-    protected void onPostExecute(String s)  {
-//Toast.makeText(this.context, s, Toast.LENGTH_LONG).show();
-    if(s.equals("fail"))
-    {
+    protected void onPostExecute(String s) {
+        if (s.equals("fail")) {
 
-   }
+        }
     }
 }
 

@@ -8,7 +8,6 @@
     tools:context="eco.org.greenapp.eco.org.greenapp.activities.SignIn"
     tools:layout_editor_absoluteY="81dp">
 
-
     <android.support.constraint.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="0dp"

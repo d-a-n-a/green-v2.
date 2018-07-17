@@ -9,13 +9,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
 
 import eco.org.greenapp.R;
 import eco.org.greenapp.eco.org.greenapp.GetImageTask;
-import eco.org.greenapp.eco.org.greenapp.classes.Advertisement;
 import eco.org.greenapp.eco.org.greenapp.classes.Review;
 import eco.org.greenapp.eco.org.greenapp.constants.GeneralConstants;
 
@@ -24,13 +21,13 @@ import eco.org.greenapp.eco.org.greenapp.constants.GeneralConstants;
  */
 
 public class ReviewAdapter extends ArrayAdapter<Review> {
-    private List<Review> listaReviews;
+    private List<Review> listaEvaluari;
     private int idLayout;
 
     public ReviewAdapter(@NonNull Context context, int resource, List<Review> reviews) {
         super(context, resource, reviews);
         this.idLayout = resource;
-        this.listaReviews = reviews;
+        this.listaEvaluari = reviews;
     }
     public View getView(int position, View convertView, ViewGroup parent)
     {
@@ -41,10 +38,10 @@ public class ReviewAdapter extends ArrayAdapter<Review> {
         TextView date = (TextView)view.findViewById(R.id.dateOfReview);
         TextView continut = (TextView)view.findViewById(R.id.reviewContent);
         TextView nota = (TextView)view.findViewById(R.id.reviewScore);
-        ImageView img = (ImageView)view.findViewById(R.id.reviewerAvatar);
+        ImageView fotografie = (ImageView)view.findViewById(R.id.reviewerAvatar);
 
 
-        Review review = this.listaReviews.get(position);
+        Review review = this.listaEvaluari.get(position);
         reviewer.setText(review.getUser().getUsername());
         date.setText(review.getData_adaugare());
         continut.setText(review.getContinut());
@@ -52,7 +49,7 @@ public class ReviewAdapter extends ArrayAdapter<Review> {
 
         if(!review.getUser().getUrl().isEmpty() && !(review.getUser().getUrl()==null))
         {
-            GetImageTask getImageTask = new GetImageTask(img, getContext());
+            GetImageTask getImageTask = new GetImageTask(fotografie, getContext());
             getImageTask.execute(GeneralConstants.Url+review.getUser().getUrl());
         }
 

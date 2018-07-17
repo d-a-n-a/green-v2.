@@ -9,11 +9,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 import org.json.JSONException;
@@ -29,9 +25,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.text.DecimalFormat;
 
-import eco.org.greenapp.AboutApp;
 import eco.org.greenapp.R;
-import eco.org.greenapp.eco.org.greenapp.GetImageTask;
 import eco.org.greenapp.eco.org.greenapp.constants.GeneralConstants;
 import eco.org.greenapp.eco.org.greenapp.constants.SharedPreferencesConstants;
 import eco.org.greenapp.eco.org.greenapp.profile_activities.ChangeAboutMe;
@@ -50,8 +44,7 @@ public class ProfileSettings extends AppCompatActivity {
     LinearLayout layoutLougout;
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        //todo asta ar parea ca nu prea merge?? update1 - nici nu cred ca am nevoie de ea
-        if(resultCode == RESULT_OK && requestCode == GeneralConstants.ABOUT_RESULT_CODE)
+         if(resultCode == RESULT_OK && requestCode == GeneralConstants.ABOUT_RESULT_CODE)
         {
              ((TextView)findViewById(R.id.aboutUserDescription))
                     .setText(getSharedPreferences(GeneralConstants.SESSION, Context.MODE_PRIVATE)
@@ -165,7 +158,7 @@ public class ProfileSettings extends AppCompatActivity {
                 .getString(GeneralConstants.TOKEN, null));
 
 
-        ((TextView)findViewById(R.id.userScore)).setText("/10");// asta in onpostexecute pentru ca trebuie sa fac si aici async
+        ((TextView)findViewById(R.id.userScore)).setText("/5");
         ((LinearLayout)findViewById(R.id.aboutAppLayout)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -207,7 +200,6 @@ public class ProfileSettings extends AppCompatActivity {
         }
         else
         {
-
             SharedPreferences.Editor editor =  getSharedPreferences(GeneralConstants.SESSION, Context.MODE_PRIVATE).edit();
             editor.putString(SharedPreferencesConstants.COMPLETE_REGISTER, "complet");
             editor.putString(SharedPreferencesConstants.STREET,((TextView)findViewById(R.id.userLocation)).getText().toString());
@@ -222,7 +214,7 @@ public class ProfileSettings extends AppCompatActivity {
             String username;
             try {
                 username = strings[0];
-                URL url = new URL(GeneralConstants.URL+"/calculate_review.php");
+                URL url = new URL(GeneralConstants.URL+"/calcul_rating.php");
                 HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
 
@@ -270,7 +262,7 @@ public class ProfileSettings extends AppCompatActivity {
                     else
                         nota = jsonObject.getString("review");
 
-                    nota = String.format("%.2f", Float.parseFloat(nota));//*5/10
+                    nota = String.format("%.2f", Float.parseFloat(nota));
                     rating.setText("" + nota + "/5");
                 } catch (JSONException e) {
                     e.printStackTrace();

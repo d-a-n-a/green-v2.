@@ -710,13 +710,8 @@
                         android:text="Logout"
                         android:textColor="@color/accent"
                         android:textStyle="bold" />
-
                 </LinearLayout>
-
             </LinearLayout>
-
         </android.support.constraint.ConstraintLayout>
-
     </RelativeLayout>
-
 </ScrollView>

@@ -1,12 +1,9 @@
 package eco.org.greenapp.eco.org.greenapp.profile_activities;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
-import android.location.Location;
 import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,9 +15,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.Status;
-import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
@@ -28,8 +23,6 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.BufferedReader;
@@ -109,8 +102,7 @@ public class ChangeLocation extends AppCompatActivity implements OnMapReadyCallb
             public void onClick(View view) {
                 if(!checkLocationUpdate()){
                     Snackbar.make(findViewById(R.id.btnUpdateLocation), "Trebuie completate toate câmpurile.", Snackbar.LENGTH_LONG).show();
-                    //  Toast.makeText(getApplicationContext(), "Trebuie completate toate campurile", Toast.LENGTH_LONG).show();
-                }
+                 }
                 else
                 {
                     sharedPreferencesEditor = sharedPreferences.edit();
@@ -184,7 +176,7 @@ public class ChangeLocation extends AppCompatActivity implements OnMapReadyCallb
                 String latitudine = strings[3];
                 String longitudine = strings[4];
 
-                URL url = new URL(GeneralConstants.URL+"/updateLocation.php");
+                URL url = new URL(GeneralConstants.URL+"/actualizare_locatie.php");
                 HttpURLConnection http = (HttpURLConnection) url.openConnection();
                 http.setRequestMethod("POST");
                 http.setDoInput(true);

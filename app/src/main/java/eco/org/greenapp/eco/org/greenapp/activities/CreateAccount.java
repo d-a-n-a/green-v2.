@@ -95,7 +95,7 @@ public class CreateAccount extends AppCompatActivity {
                     username = etUsername.getText().toString();
                     phone = etPhone.getText().toString();
 
-                    //inregistrarea
+                    //inregistrare - creare cont
                     if(!isPhoneValid())
                         etPhone.setError("Numarul de telefon trebuie sa fie valid.");
                     if(!validFirstLastName())
@@ -107,7 +107,7 @@ public class CreateAccount extends AppCompatActivity {
 
                     }
                     if(!isPhoneValid() || !validFirstLastName() || !validEmailAddress()){
-                        Snackbar.make(findViewById(R.id.btnAuthenticate), "inputuri invalide", Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(findViewById(R.id.btnAuthenticate), "Campuri invalide!", Snackbar.LENGTH_SHORT).show();
 
                     }
                     else {
@@ -192,10 +192,7 @@ public class CreateAccountTask extends AsyncTask<String, Void, String> {
                 String pass = strings[3];
                 String phone = strings[5];
 
-                //192.168.43.191
-
-              //  URL url = new URL("http://10.38.31.11:8080/greenapp/create_account.php");
-                URL url = new URL(GeneralConstants.URL+"/create_account.php");
+                 URL url = new URL(GeneralConstants.URL+"/creare_cont.php");
 
                 HttpURLConnection http = (HttpURLConnection)url.openConnection();
                 http.setRequestMethod("POST");
@@ -224,7 +221,7 @@ public class CreateAccountTask extends AsyncTask<String, Void, String> {
                 while((dataLine = bufferedReader.readLine())!=null){
                     jsonResult += dataLine;
                 }
-                bufferedReader.close();;
+                bufferedReader.close();
                 inputStream.close();
                 http.disconnect();
 
@@ -240,7 +237,6 @@ public class CreateAccountTask extends AsyncTask<String, Void, String> {
 
     @Override
     protected void onPostExecute(String s) {
-
 
         Date date = Calendar.getInstance().getTime();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MMMM-yyyy");

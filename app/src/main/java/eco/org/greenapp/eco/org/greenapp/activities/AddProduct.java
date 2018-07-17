@@ -7,7 +7,6 @@ import android.support.design.widget.Snackbar;
 import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.os.Bundle;
 import android.util.Base64;
 import android.view.Menu;
@@ -23,7 +22,6 @@ import android.content.Context;
 import android.content.Intent;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -31,8 +29,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -97,37 +93,11 @@ public class AddProduct extends AppCompatActivity implements NavigationView.OnNa
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
-/*
-        intent = getIntent();
-        if(intent != null){
-            edit = 1;
-            Advertisement ad = (Advertisement) intent.getSerializableExtra("editAd");
-            txtProductName.setText(ad.getDenumireProdus());
-        etProductDescription.setText(ad.getDescriereProdus());
-        // productCategory.setSe;
-        // etDay.setText(ad.getda);
-        etDetails.setText(ad.getDetaliiAnunt());
-        etDurata.setText(ad.);
-    }*/
-       /* contentValues = new ContentValues();
-        contentValues.put("cod", GeneralConstants.INSERT_ADD);
-        contentValues.put("email", getSharedPreferences(GeneralConstants.SESSION, Context.MODE_PRIVATE).getString("email",null));
-        contentValues.put("data_introducerii", "xx.xx.xxxx");
-        contentValues.put("durata", etDurata.getText().toString());
-        contentValues.put("tip", "cerere");
-        contentValues.put("denumire", txtProductName.getText().toString().trim());
-        contentValues.put("valabilitate", valabilitate);
-        contentValues.put("categorie", productCategory.getSelectedItem().toString());
-        contentValues.put("detalii", etDetails.getText().toString().trim());
-        contentValues.put("descriere", etProductDescription.getText().toString().trim());
-        contentValues.put("titlu", "trebuie adaugat input pentru titlu");*/
 
 
         ((Button)findViewById(R.id.btnAddAd)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
 
                 if(!checkProductName() || !checkProductDesctiption() || !checkCategory() || !checkDetails())
                     Snackbar.make(findViewById(R.id.btnAddAd), "Trebuie completate toate câmpurile!", Snackbar.LENGTH_LONG).show();
@@ -142,9 +112,7 @@ public class AddProduct extends AppCompatActivity implements NavigationView.OnNa
                     values.put("durata", etDurata.getText().toString());
                     values.put("tip", TipAnunt.oferta.toString());
                     values.put("denumire", txtProductName.getText().toString().trim());
-
-                        values.put("valabilitate", valabilitate);
-
+                    values.put("valabilitate", valabilitate);
                     values.put("categorie", productCategory.getSelectedItem().toString().toLowerCase());
                     values.put("detalii", etDetails.getText().toString().trim());
                     values.put("descriere", etProductDescription.getText().toString().trim());
@@ -211,12 +179,7 @@ public class AddProduct extends AppCompatActivity implements NavigationView.OnNa
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-       /* DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }*/
+
         Intent returnIntent = getIntent();
         setResult(Activity.RESULT_OK,returnIntent);
         finish();
@@ -224,20 +187,15 @@ public class AddProduct extends AppCompatActivity implements NavigationView.OnNa
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.app_menu, menu);
+         getMenuInflater().inflate(R.menu.app_menu, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.findUsersByLocation) {
+         if (id == R.id.findUsersByLocation) {
             return true;
         }
 
@@ -246,12 +204,10 @@ public class AddProduct extends AppCompatActivity implements NavigationView.OnNa
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
+         int id = item.getItemId();
 
         if (id == R.id.nav_about) {
-            // Handle the camera action
-        } else if (id == R.id.nav_help) {
+         } else if (id == R.id.nav_help) {
 
         }
 
@@ -271,33 +227,20 @@ public class AddProduct extends AppCompatActivity implements NavigationView.OnNa
     private void uploadImage(){
         class UploadImage extends AsyncTask<Bitmap,Void,String> {
 
-            ProgressDialog progressDialog;
-            ExecuteRequests executeRequests = new ExecuteRequests();
-/*
-
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-                progressDialog = ProgressDialog.show(AddProduct.this, "Uploading...", null,true,true);
-            }
-*/
+             ExecuteRequests executeRequests = new ExecuteRequests();
 
             @Override
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
-//                progressDialog.dismiss();
-             }
+              }
 
             @Override
             protected String doInBackground(Bitmap... parametri) {
                 Bitmap bitmap = parametri[0];
                 String uploadImage = getStringImage(bitmap);
-
                 HashMap<String,String> data = new HashMap<>();
-
                 data.put(GeneralConstants.UPLOAD_KEY, uploadImage);
-                String httpRezultat = executeRequests.sendPostRequest(URL+"/upload_image_test.php",data);
-
+                String httpRezultat = executeRequests.sendPostRequest(URL+"/inserare_fotografie.php",data);
                 return httpRezultat;
             }
         }

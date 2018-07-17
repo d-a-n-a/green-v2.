@@ -4,7 +4,6 @@
     android:layout_height="match_parent"
     tools:context="eco.org.greenapp.eco.org.greenapp.fragments.TransactionHistoryFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/idSwipeTransactions"
         android:layout_width="match_parent"

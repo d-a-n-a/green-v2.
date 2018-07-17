@@ -17,7 +17,6 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -36,17 +35,10 @@ public class AddDemandProduct extends AppCompatActivity implements OnMapReadyCal
    EditText durataAnunt;
    HashMap<String,String> valori;
 
-//momentan ignor zona aproximativa de predare. daca e, fac sa generez anunturile de la utilizatorii din apropiere si gata. ca oricum pentru
-    //fiecare utilizator exista o singura adresa, dar mai multe produse pe care le ofera/cere
-        @Override
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_demand_product);
-
-           /* mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.productMapView);
-            mapFragment.getMapAsync(this);*/
-
-
 
        denumireProdus = (TextInputEditText)findViewById(R.id.productNameInput);
        descriereProdus = (TextInputEditText)findViewById(R.id.productDescriptionInput);
@@ -54,18 +46,17 @@ public class AddDemandProduct extends AppCompatActivity implements OnMapReadyCal
        categorie = (Spinner)findViewById(R.id.spinnerProductCategory);
        durataAnunt = (EditText)findViewById(R.id.durataAnunt);
 
-       valori = new HashMap<String, String>();
+       valori = new HashMap<>();
 
             ((Button)findViewById(R.id.btnAddAd)).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if(denumireProdus.getText().toString().trim().isEmpty() || descriereProdus.getText().toString().isEmpty() || detaliiPredare.getText().toString().isEmpty())
                         Toast.makeText(getApplicationContext(), "Trebuie completate toate campurile!", Toast.LENGTH_LONG).show();
-                    else{
-
-
+                    else
+                        {
                         Date date = Calendar.getInstance().getTime();
-                         String dataIntroducerii = GeneralConstants.SDF.format(date);
+                        String dataIntroducerii = GeneralConstants.SDF.format(date);
 
                         final String valabilitate = "0000-00-00";
                         valori.put("cod", GeneralConstants.INSERT_DEMAND);

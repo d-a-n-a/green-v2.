@@ -22,7 +22,7 @@
         android:theme="@style/AppTheme">
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCEa4xCNXzzumzQI074uiBhIYaq4tsOPjM" /> <!-- aici trebuie sa iau cheie noua, aia de la greenapp nu a mers; asta e de la proiect dam -->
+            android:value="AIzaSyBp2qXxcpZChW9fy2bA5geQGKjgJ4TcoeU" />
         <activity
             android:name=".eco.org.greenapp.activities.SignIn"
             android:theme="@style/AppTheme.NoActionBar"> <intent-filter>
@@ -38,7 +38,7 @@
             android:label="@string/adding">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="eco.org.greenapp.AppMenu" />
+                android:value="eco.org.greenapp.eco.org.greenapp.activities.AppMenu" />
         </activity>
         <activity
             android:name=".eco.org.greenapp.activities.UserInfo"
@@ -52,9 +52,10 @@
             android:label="Doresc">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="eco.org.greenapp.AppMenu" />
+                android:value="eco.org.greenapp.eco.org.greenapp.activities.AppMenu" />
         </activity>
-        <activity android:name=".eco.org.greenapp.activities.Feedback" />
+        <activity android:name=".eco.org.greenapp.activities.Feedback"
+            android:label="Evaluare tranzacție"/>
         <activity
             android:name=".eco.org.greenapp.activities.MyProfile"
             android:label="Profilul meu"
@@ -68,10 +69,10 @@
             android:label="@string/settings">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="eco.org.greenapp.AppMenu" />
+                android:value="eco.org.greenapp.eco.org.greenapp.activities.AppMenu" />
         </activity>
         <activity
-            android:name=".AppMenu"
+            android:name=".eco.org.greenapp.activities.AppMenu"
             android:label="Flux de anunțuri"
             android:theme="@style/AppTheme.NoActionBar" >
 
@@ -97,6 +98,7 @@
         </activity>
         <activity
             android:name=".eco.org.greenapp.profile_activities.ChangeFirstName"
+            android:windowSoftInputMode="adjustResize"
             android:label="Actualizare prenume">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -150,25 +152,25 @@
             android:name=".eco.org.greenapp.activities.TransactionDetails"
             android:label="Detalii de predare" />
         <activity
-            android:name=".eco.org.greenapp.activities.FilterFindUsers"
+            android:name=".eco.org.greenapp.activities.FilterFindAds"
             android:label="Căutare anunțuri">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="eco.org.greenapp.AppMenu" />
+                android:value="eco.org.greenapp.eco.org.greenapp.activities.AppMenu" />
         </activity>
         <activity
             android:name=".eco.org.greenapp.activities.UsersFilterList"
-            android:label="Utilizatori găsiți">
+            android:label="Anunțuri găsite">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="eco.org.greenapp.AppMenu" />
+                android:value="eco.org.greenapp.eco.org.greenapp.activities.AppMenu" />
         </activity>
         <activity
-            android:name=".AboutApp"
+            android:name=".eco.org.greenapp.activities.AboutApp"
             android:label="Despre aplicație">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="eco.org.greenapp.AppMenu" />
+                android:value="eco.org.greenapp.eco.org.greenapp.activities.AppMenu" />
         </activity>
         <activity android:name=".eco.org.greenapp.activities.Help" />
         <activity
@@ -183,18 +185,20 @@
             android:label="Notificări">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="eco.org.greenapp.AppMenu" />
+                android:value="eco.org.greenapp.eco.org.greenapp.activities.AppMenu" />
         </activity>
         <activity
             android:name=".eco.org.greenapp.activities.RaportCategorii"
             android:label="Categorii">
-
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="eco.org.greenapp.eco.org.greenapp.activities.AboutApp" />
         </activity>
         <activity android:name=".eco.org.greenapp.activities.TopUtilizatori"
             android:label="Top utilizatori">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="eco.org.greenapp.AppMenu" />
+                android:value="eco.org.greenapp.eco.org.greenapp.activities.AppMenu" />
         </activity>
     </application>
 

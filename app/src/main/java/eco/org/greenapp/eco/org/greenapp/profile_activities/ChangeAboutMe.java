@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import eco.org.greenapp.R;
 import eco.org.greenapp.eco.org.greenapp.constants.GeneralConstants;
@@ -19,9 +18,8 @@ public class ChangeAboutMe extends AppCompatActivity {
 
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor sharedPreferencesEditor;
-    String about;
-    EditText etAbout;
-
+    String despre;
+    EditText etDespre;
     Dialog  infoDialog;
 
     @Override
@@ -30,35 +28,28 @@ public class ChangeAboutMe extends AppCompatActivity {
         setContentView(R.layout.activity_change_about_me);
 
         sharedPreferences = getSharedPreferences(GeneralConstants.SESSION, Context.MODE_PRIVATE);
-        about = sharedPreferences.getString(SharedPreferencesConstants.ABOUT, null);
+        despre = sharedPreferences.getString(SharedPreferencesConstants.ABOUT, null);
 
-        etAbout = ((EditText)findViewById(R.id.etAboutMeInput));
-        etAbout.setText(about);
+        etDespre = ((EditText)findViewById(R.id.etAboutMeInput));
+        etDespre.setText(despre);
         ((Button)findViewById(R.id.btnUpdateAboutMe)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(!checkUpdate()){
-                    //aici fac not clickable buttoul
                     ((Button)findViewById(R.id.btnUpdateAboutMe)).setClickable(false);
-                    //eventual il fac faded
-                   // Toast.makeText(getApplicationContext(), "Descrierea trebuie sa aiba peste 20 caractere si trebuie sa fie diferita de cea anterioara", Toast.LENGTH_LONG).show();
                     showInfoDialog(getWindow().getDecorView().findViewById(android.R.id.content));
                 }
                 else{
                     sharedPreferencesEditor = sharedPreferences.edit();
-                    sharedPreferencesEditor.putString(SharedPreferencesConstants.ABOUT, etAbout.getText().toString());
-                    //Toast.makeText(getApplicationContext(), etAbout.getText().toString(), Toast.LENGTH_LONG).show();
-                    sharedPreferencesEditor.apply();
-                   // finishActivity(GeneralConstants.ABOUT_RESULT_CODE);
-                    //finishActivity(RESULT_OK);
-                 //   onBackPressed();
+                    sharedPreferencesEditor.putString(SharedPreferencesConstants.ABOUT, etDespre.getText().toString());
+                     sharedPreferencesEditor.apply();
+
                     ExecuteUpdatesTask executeUpdatesTask = new ExecuteUpdatesTask(getApplicationContext());
-                    executeUpdatesTask.execute("5", sharedPreferences.getString(SharedPreferencesConstants.EMAIL,null), etAbout.getText().toString().trim());
-finish();
+                    executeUpdatesTask.execute("5", sharedPreferences.getString(SharedPreferencesConstants.EMAIL,null), etDespre.getText().toString().trim());
+                    finish();
                  }
             }
         });
-
 
         ((FloatingActionButton)findViewById(R.id.floatingActionButton)).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,8 +75,8 @@ finish();
 
     }
     public boolean checkUpdate(){
-        String update = etAbout.getText().toString().trim();
-        if(update.length() < 20 || update.equals(about))
+        String update = etDespre.getText().toString().trim();
+        if(update.length() < 20 || update.equals(despre))
             return  false;
         return true;
         }

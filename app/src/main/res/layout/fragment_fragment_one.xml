@@ -13,12 +13,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         </ListView>
-
-        <!--<TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="fragment one"/>-->
     </android.support.v4.widget.SwipeRefreshLayout>
-    
 
 </FrameLayout>

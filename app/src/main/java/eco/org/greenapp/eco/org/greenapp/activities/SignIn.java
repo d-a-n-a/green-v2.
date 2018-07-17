@@ -4,12 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.renderscript.ScriptGroup;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
-import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -21,7 +19,6 @@ import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -36,7 +33,6 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
-import eco.org.greenapp.AppMenu;
 import eco.org.greenapp.R;
 import eco.org.greenapp.eco.org.greenapp.constants.GeneralConstants;
 import eco.org.greenapp.eco.org.greenapp.constants.SharedPreferencesConstants;
@@ -61,6 +57,7 @@ public class SignIn extends AppCompatActivity {
 
         etPassword = (EditText)findViewById(R.id.userPassword);
         etUsername = (EditText)findViewById(R.id.username);
+        etUsername.requestFocus();
         switchPass = (Switch)findViewById(R.id.showPassword);
 
         switchPass.setChecked(true);
@@ -79,9 +76,6 @@ public class SignIn extends AppCompatActivity {
             }
         });
 
-        /*etUsername.setText(sharedPreferences.getString(SharedPreferencesConstants.EMAIL, ""));
-        etPassword.setText(sharedPreferences.getString(SharedPreferencesConstants.PASSWORD, ""));*/
-
 
         Intent intent = getIntent();
         if(intent.hasExtra("token") && intent.hasExtra("password")) {
@@ -96,8 +90,7 @@ public class SignIn extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             if(!checkIsNullInputs()) {
-                //Toast.makeText(getApplicationContext(),R.string.nullInputs,Toast.LENGTH_LONG).show();
-                Snackbar.make(findViewById(R.id.signInConstraint), R.string.nullInputs, Snackbar.LENGTH_SHORT).show();
+                 Snackbar.make(findViewById(R.id.signInConstraint), R.string.nullInputs, Snackbar.LENGTH_SHORT).show();
             }
             else
             {
@@ -137,7 +130,7 @@ public class SignIn extends AppCompatActivity {
             try {
                 String token = parameters[0];
                 String password = parameters[1];
-                URL url = new URL(GeneralConstants.URL+"/login.php");
+                URL url = new URL(GeneralConstants.URL+"/autentificare.php");
 
                 HttpURLConnection http = (HttpURLConnection)url.openConnection();
                 http.setRequestMethod("POST");
@@ -201,7 +194,7 @@ public class SignIn extends AppCompatActivity {
                         sharedPreferencesEditor.putString(SharedPreferencesConstants.FIRST_NAME, objects.get(1));
                         sharedPreferencesEditor.putString(SharedPreferencesConstants.EMAIL, objects.get(2));
                         sharedPreferencesEditor.putString(GeneralConstants.TOKEN, objects.get(3));
-                        //chestia e ca daca imi creez cont si intru de pe alt telefon - o sa crape pentru ca nu o sa am parola salvata pe undeva... sau nu.. nu stiu... emailul e important oricum
+                        //chestia e ca daca imi creez cont si intru de pe alt telefon - o sa crape pentru ca nu o sa am parola salvata pe undeva... sau nu.. nu stiu exact
                         //sharedPreferencesEditor.putString(GeneralConstants.PASSWORD, objects.get(4));
                         sharedPreferencesEditor.putString(SharedPreferencesConstants.ABOUT, objects.get(6));
                         sharedPreferencesEditor.putString(SharedPreferencesConstants.PHONE_NUMBER, objects.get(7));
